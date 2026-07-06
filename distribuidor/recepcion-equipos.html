@@ -1,0 +1,866 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recepción de Equipos — Plataforma Isstec</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="../css/styles.css" rel="stylesheet">
+    <!-- RN-16: Savory como Mandante siempre adjunta el PDF manualmente en este flujo.
+         La generación automática de Guía de Despacho solo aplica a distribuidores con sistema Isstec al recibir el equipo. -->
+</head>
+<body>
+    <div class="app-layout">
+        <!-- ===== Sidebar ===== -->
+        <nav class="sidebar">
+            <div class="sidebar-logo">
+                <img src="../assets/img/logo.png" alt="Isstec">
+            </div>
+            <div class="sidebar-nav">
+                <div class="nav-section">Principal</div>
+                <a href="dashboard.html" class="nav-link">
+                    <i class="bi bi-speedometer2"></i> Dashboard
+                </a>
+                <a href="recepciones.html" class="nav-link active">
+                    <i class="bi bi-box-seam"></i> Recepción de Equipos
+                </a>
+                <a href="asignaciones-realizadas.html" class="nav-link">
+                    <i class="bi bi-diagram-3"></i> Asignación a Clientes
+                </a>
+                <div class="nav-section">Operación</div>
+                <a href="solicitudes-movimiento.html" class="nav-link">
+                    <i class="bi bi-arrow-left-right"></i> Solicitudes de Movimiento
+                </a>
+                <a href="inventario.html" class="nav-link">
+                    <i class="bi bi-clipboard-check"></i> Inventario
+                </a>
+                <a href="guias-despacho.html" class="nav-link">
+                    <i class="bi bi-file-earmark-text"></i> Guías de Despacho
+                </a>
+                <div class="nav-section">Análisis</div>
+                <a href="reportes.html" class="nav-link">
+                    <i class="bi bi-bar-chart"></i> Reportes
+                </a>
+                <div class="nav-section">Maestros</div>
+                <a href="clientes.html" class="nav-link">
+                    <i class="bi bi-shop"></i> Clientes
+                </a>
+                <a href="#" class="nav-link">
+                    <i class="bi bi-geo"></i> Ubicaciones / Bodegas
+                </a>
+                <div class="nav-section">Configuración</div>
+                <a href="usuarios.html" class="nav-link">
+                    <i class="bi bi-people-fill"></i> Usuarios
+                </a>
+                <a href="roles.html" class="nav-link">
+                    <i class="bi bi-shield-lock"></i> Roles
+                </a>
+            </div>
+            <div class="sidebar-footer">
+                <a href="../index.html" class="nav-link">
+                    <i class="bi bi-box-arrow-right"></i> Cerrar sesión
+                </a>
+            </div>
+        </nav>
+
+        <!-- ===== Contenido principal ===== -->
+        <div class="app-content">
+            <!-- Navbar superior -->
+            <nav class="navbar-top">
+                <div class="navbar-left">
+                    <a href="recepciones.html" class="btn-back" style="color: var(--gris-medio); font-size: 14px; font-weight: 500; text-decoration: none; display: inline-flex; align-items: center; gap: 6px; transition: color 0.15s;">
+                        <i class="bi bi-arrow-left"></i> Volver a Recepciones
+                    </a>
+                    <h2 class="page-title">Inspección de Lote — Savory</h2>
+                </div>
+                <div class="navbar-right">
+                    <a href="asignacion-clientes.html" class="btn btn-primary btn-sm me-3">
+                        <i class="bi bi-plus-circle me-1"></i>Nueva asignación
+                    </a>
+                    <div class="notification-icon">
+                        <i class="bi bi-bell"></i>
+                        <span class="notification-badge">5</span>
+                    </div>
+                    <div class="user-info">
+                        <div class="user-avatar">ICL</div>
+                        <div>
+                            <div class="user-name">ISSTEC Chile</div>
+                            <div class="user-role">Distribuidor</div>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+
+            <!-- Main -->
+            <main class="app-main">
+                <!-- ===== Encabezado del lote ===== -->
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-center flex-wrap gap-3">
+                            <div>
+                                <h4 class="mb-1" style="color: var(--azul-marino); font-weight: 700;">Recepción de Lote — Savory</h4>
+                                <p class="text-muted mb-0" style="font-size: 13px;">Inspeccione cada equipo individualmente antes de confirmar la recepción.</p>
+                            </div>
+                            <a href="recepciones.html" class="btn btn-outline-secondary btn-sm">
+                                <i class="bi bi-arrow-left"></i> Volver a Recepciones
+                            </a>
+                        </div>
+                        <hr class="my-3">
+                        <div class="reception-meta">
+                            <div class="meta-item">
+                                <span class="meta-label">Guía de Despacho</span>
+                                <span class="meta-value">
+                                    <a href="#"><i class="bi bi-file-earmark-pdf"></i> Ver PDF adjunto</a>
+                                </span>
+                            </div>
+                            <div class="meta-item">
+                                <span class="meta-label">Equipos</span>
+                                <span class="meta-value">50</span>
+                            </div>
+                            <div class="meta-item">
+                                <span class="meta-label">Llegada</span>
+                                <span class="meta-value">Hoy 10:00 AM</span>
+                            </div>
+                            <div class="meta-item">
+                                <span class="meta-label">Origen</span>
+                                <span class="meta-value">Savory (Mandante)</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ===== Tabla de inspección ===== -->
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <h5 class="card-title mb-0">Inspección de Equipos</h5>
+                            <div class="d-flex gap-2">
+                                <button class="btn btn-outline-success btn-sm" id="acceptAllBtn" onclick="showBatchConfirm('accept')">
+                                    <i class="bi bi-check2-all"></i> Aceptar Todo
+                                </button>
+                                <button class="btn btn-outline-warning btn-sm" id="reportAllBtn" onclick="showBatchConfirm('problem')">
+                                    <i class="bi bi-exclamation-triangle-fill"></i> Reportar Todo
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Filtro rápido -->
+                        <div class="d-flex gap-2 mb-3">
+                            <div class="input-group" style="max-width: 280px;">
+                                <span class="input-group-text"><i class="bi bi-search"></i></span>
+                                <input type="text" class="form-control" id="searchInput" placeholder="Buscar N° serie...">
+                            </div>
+                            <select class="form-select" id="filterStatus" style="max-width: 200px;">
+                                <option value="all">Todos los estados</option>
+                                <option value="pending">Pendientes</option>
+                                <option value="accepted">Aceptados</option>
+                                <option value="problem">Con problema</option>
+                                <option value="rejected">Rechazados</option>
+                            </select>
+                        </div>
+
+                        <div class="table-responsive">
+                            <table class="table table-hover" id="equipmentTable">
+                                <thead>
+                                    <tr>
+                                        <th style="width: 5%;">#</th>
+                                        <th style="width: 15%;">N° Serie</th>
+                                        <th style="width: 15%;">Marca</th>
+                                        <th style="width: 15%;">Modelo</th>
+                                        <th style="width: 15%;">Estado</th>
+                                        <th style="width: 35%;">Acciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="equipmentBody">
+                                    <!-- Filas generadas por JS -->
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <!-- Paginación -->
+                        <nav class="d-flex justify-content-between align-items-center mt-3">
+                            <span class="text-muted" style="font-size: 13px;" id="paginationInfo">Mostrando 1–10 de 50 equipos</span>
+                            <ul class="pagination pagination-sm mb-0" id="pagination">
+                                <!-- Generada por JS -->
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+
+                <!-- ===== Resumen + Confirmación ===== -->
+                <div class="card mb-4" style="background: var(--gris-claro);">
+                    <div class="card-body">
+                        <div class="row align-items-center g-3">
+                            <!-- Chips de resumen -->
+                            <div class="col-lg-7">
+                                <div class="d-flex gap-3 flex-wrap">
+                                    <div class="summary-chip">
+                                        <div class="chip-icon bg-success-light">
+                                            <i class="bi bi-check-lg" style="color: var(--verde-exito);"></i>
+                                        </div>
+                                        <div>
+                                            <div class="chip-value" id="acceptedCount" style="color: var(--verde-exito);">0</div>
+                                            <div class="chip-label">Aceptados</div>
+                                        </div>
+                                    </div>
+                                    <div class="summary-chip">
+                                        <div class="chip-icon bg-warning-light">
+                                            <i class="bi bi-exclamation-triangle" style="color: var(--naranja-coral);"></i>
+                                        </div>
+                                        <div>
+                                            <div class="chip-value" id="problemCount" style="color: var(--naranja-coral);">0</div>
+                                            <div class="chip-label">Con Problema</div>
+                                        </div>
+                                    </div>
+                                    <div class="summary-chip">
+                                        <div class="chip-icon" style="background: rgba(220,53,69,0.1);">
+                                            <i class="bi bi-x-octagon" style="color: var(--rojo-error);"></i>
+                                        </div>
+                                        <div>
+                                            <div class="chip-value" id="rejectedCount" style="color: var(--rojo-error);">0</div>
+                                            <div class="chip-label">Rechazados</div>
+                                        </div>
+                                    </div>
+                                    <div class="summary-chip">
+                                        <div class="chip-icon" style="background: rgba(108,117,125,0.1); color: var(--gris-medio);">
+                                            <i class="bi bi-clock"></i>
+                                        </div>
+                                        <div>
+                                            <div class="chip-value" id="pendingCount" style="color: var(--gris-medio);">50</div>
+                                            <div class="chip-label">Pendientes</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Barra de progreso -->
+                            <div class="col-lg-5">
+                                <div class="d-flex justify-content-between align-items-center mb-1">
+                                    <span class="fw-semibold" style="font-size: 13px; color: var(--gris-oscuro);">Progreso de inspección</span>
+                                    <span class="fw-bold" id="progressText" style="font-size: 13px; color: var(--azul-primario);">0%</span>
+                                </div>
+                                <div class="progress-reception mb-3">
+                                    <div class="progress-bar" id="progressBar" style="width: 0%;"></div>
+                                </div>
+
+                                <!-- Botones de acción -->
+                                <div class="d-flex justify-content-end gap-2">
+                                    <a href="recepciones.html" class="btn btn-outline-secondary">
+                                        Cancelar
+                                    </a>
+                                    <button class="btn btn-primary btn-lg" id="confirmBtn" disabled>
+                                        <i class="bi bi-check2-circle"></i> Confirmar Recepción
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ===== Alerta RN-9: lote completo rechazado ===== -->
+                <div class="alert alert-info d-flex align-items-center gap-2" id="allRejectedAlert" style="display: none !important;">
+                    <i class="bi bi-info-circle"></i>
+                    <div>
+                        <strong>Atención:</strong> Si no hay equipos aceptados (todos con problema o rechazados), el lote completo quedará en estado <span class="badge-status badge-rechazada">Rechazado</span>, a la espera de que el Mandante lo retire — mismo mecanismo que un equipo individual rechazado (RN-9).
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- ===== Modal de confirmación ===== -->
+    <div class="modal fade" id="confirmModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" style="color: var(--azul-marino); font-weight: 600;">Confirmar Recepción</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div id="confirmModalContent">
+                        <!-- Generado por JS -->
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary" id="confirmSubmitBtn">
+                        <i class="bi bi-check2-circle"></i> Confirmar
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== Modal de confirmación de acción en lote ===== -->
+    <div class="modal fade" id="batchModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="batchModalTitle" style="color: var(--azul-marino); font-weight: 600;"></h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body" id="batchModalBody">
+                    <!-- Generado por JS -->
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn" id="batchConfirmBtn"></button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // ===== Datos de ejemplo: 50 equipos =====
+        const brands = ['Savory', 'Tecfrigo', 'Foster', 'Indel B', 'Vitrifrigo'];
+        const models = ['VRX-200', 'Chest 400L', 'Countertop 150', 'Upright 700', 'Island 1200'];
+
+        // Catálogo maestro de Tipos de Incidencias (Mandante) — usado en reporte de problemas de recepción
+        const tiposIncidencias = [
+            { codigo: 'NO_ENCIENDE', nombre: 'No enciende', categoria: 'Eléctrica', severidad: 'Crítica', requiereSstt: true },
+            { codigo: 'NO_ENFRIA', nombre: 'No enfría', categoria: 'Refrigeración', severidad: 'Crítica', requiereSstt: true },
+            { codigo: 'FUGA_GAS', nombre: 'Fuga de gas refrigerante', categoria: 'Refrigeración', severidad: 'Alta', requiereSstt: true },
+            { codigo: 'PUERTA_NO_CIERRA', nombre: 'Puerta no cierra herméticamente', categoria: 'Mecánica', severidad: 'Alta', requiereSstt: true },
+            { codigo: 'COMPRESOR_RUIDO', nombre: 'Compresor con ruido anormal', categoria: 'Mecánica', severidad: 'Media', requiereSstt: true },
+            { codigo: 'LUCES_FALLAN', nombre: 'Luces interiores no funcionan', categoria: 'Eléctrica', severidad: 'Baja', requiereSstt: false },
+            { codigo: 'GASCA_HUMEDAD', nombre: 'Goteo / Humedad excesiva', categoria: 'Refrigeración', severidad: 'Media', requiereSstt: false },
+            { codigo: 'ABOLLADURA', nombre: 'Abolladura / Daño estético', categoria: 'Estructura', severidad: 'Baja', requiereSstt: false },
+            { codigo: 'ROBO', nombre: 'Robo de equipo', categoria: 'Robo / Pérdida', severidad: 'Crítica', requiereSstt: false },
+            { codigo: 'FALTA_PARTE', nombre: 'Falta de parte / accesorio', categoria: 'Estructura', severidad: 'Media', requiereSstt: false },
+            { codigo: 'TERMOSTATO_FALLA', nombre: 'Falla de termostato', categoria: 'Eléctrica', severidad: 'Alta', requiereSstt: true }
+        ];
+
+        function renderMotivoOptions(selectedValue) {
+            return [
+                '<option value="">Seleccionar...</option>',
+                ...tiposIncidencias.map(t => `<option value="${t.nombre}" ${selectedValue === t.nombre ? 'selected' : ''}>${t.nombre}</option>`)
+            ].join('');
+        }
+
+        const equipments = [];
+        for (let i = 1; i <= 50; i++) {
+            equipments.push({
+                id: i,
+                serial: 'SVY-' + String(i).padStart(4, '0'),
+                brand: brands[i % brands.length],
+                model: models[i % models.length],
+                status: 'pending',        // pending | accepted | problem | rejected
+                motivo: null,
+                descripcion: null
+            });
+        }
+
+        // ===== Estado de la app =====
+        let currentPage = 1;
+        const pageSize = 10;
+        let filterStatus = 'all';
+        let searchTerm = '';
+
+        // ===== Renderizar tabla =====
+        function getFilteredEquipments() {
+            return equipments.filter(eq => {
+                if (filterStatus !== 'all' && eq.status !== filterStatus) return false;
+                if (searchTerm && !eq.serial.toLowerCase().includes(searchTerm.toLowerCase())) return false;
+                return true;
+            });
+        }
+
+        function renderTable() {
+            const filtered = getFilteredEquipments();
+            const totalPages = Math.max(1, Math.ceil(filtered.length / pageSize));
+            if (currentPage > totalPages) currentPage = totalPages;
+
+            const start = (currentPage - 1) * pageSize;
+            const pageItems = filtered.slice(start, start + pageSize);
+            const tbody = document.getElementById('equipmentBody');
+
+            if (pageItems.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="6" class="text-center text-muted py-4">No hay equipos que coincidan con el filtro</td></tr>';
+            } else {
+                tbody.innerHTML = pageItems.map(eq => {
+                    const rowClass = eq.status === 'accepted' ? 'row-accepted' : eq.status === 'problem' ? 'row-problem' : '';
+                    return `
+                        <tr class="${rowClass}" data-id="${eq.id}">
+                            <td>${eq.id}</td>
+                            <td class="fw-semibold">${eq.serial}</td>
+                            <td>${eq.brand}</td>
+                            <td>${eq.model}</td>
+                            <td>${getStatusBadge(eq.status)}</td>
+                            <td>${getActions(eq)}</td>
+                        </tr>
+                    `;
+                }).join('');
+            }
+
+            // Paginación info
+            const end = Math.min(start + pageSize, filtered.length);
+            document.getElementById('paginationInfo').textContent =
+                filtered.length === 0 ? 'Sin resultados' : `Mostrando ${start + 1}–${end} de ${filtered.length} equipos`;
+
+            renderPagination(totalPages);
+        }
+
+        function getStatusBadge(status) {
+            switch (status) {
+                case 'accepted':
+                    return '<span class="badge-status badge-activo">Aceptado</span>';
+                case 'problem':
+                    return '<span class="badge-status badge-sstt">Con Problema</span>';
+                case 'rejected':
+                    return '<span class="badge-status badge-rechazada">Rechazado</span>';
+                default:
+                    return '<span class="badge-status badge-pendiente">Pendiente</span>';
+            }
+        }
+
+        function getActions(eq) {
+            if (eq.status === 'accepted') {
+                return `
+                    <span class="text-success fw-semibold" style="font-size: 13px;"><i class="bi bi-check-circle-fill"></i> Aceptado</span>
+                    <button class="btn btn-outline-secondary btn-sm ms-2" onclick="revertEquipment(${eq.id})">
+                        <i class="bi bi-arrow-counterclockwise"></i> Revertir
+                    </button>
+                `;
+            }
+
+            if (eq.status === 'problem') {
+                let detail = '';
+                if (eq.motivo) detail = ` — ${eq.motivo}`;
+                return `
+                    <span class="text-warning fw-semibold" style="font-size: 13px;"><i class="bi bi-exclamation-triangle-fill"></i> Reportado${detail}</span>
+                    <button class="btn btn-outline-secondary btn-sm ms-2" onclick="revertEquipment(${eq.id})">
+                        <i class="bi bi-arrow-counterclockwise"></i> Revertir
+                    </button>
+                    <button class="btn btn-outline-secondary btn-sm" onclick="toggleReportForm(${eq.id})">
+                        <i class="bi bi-pencil"></i> Editar
+                    </button>
+                `;
+            }
+
+            if (eq.status === 'rejected') {
+                let detail = '';
+                if (eq.motivo) detail = ` — ${eq.motivo}`;
+                return `
+                    <span class="text-danger fw-semibold" style="font-size: 13px;"><i class="bi bi-x-octagon-fill"></i> Rechazado${detail}</span>
+                    <button class="btn btn-outline-secondary btn-sm ms-2" onclick="revertEquipment(${eq.id})">
+                        <i class="bi bi-arrow-counterclockwise"></i> Revertir
+                    </button>
+                    <button class="btn btn-outline-secondary btn-sm" onclick="toggleRejectForm(${eq.id})">
+                        <i class="bi bi-pencil"></i> Editar
+                    </button>
+                `;
+            }
+
+            return `
+                <button class="btn btn-success btn-sm" onclick="acceptEquipment(${eq.id})">
+                    <i class="bi bi-check-lg"></i> Aceptar
+                </button>
+                <button class="btn btn-warning btn-sm" onclick="toggleReportForm(${eq.id})">
+                    <i class="bi bi-exclamation-triangle"></i> Problema
+                </button>
+                <button class="btn btn-danger btn-sm" onclick="toggleRejectForm(${eq.id})">
+                    <i class="bi bi-x-octagon"></i> Rechazar
+                </button>
+            `;
+        }
+
+        // ===== Formulario inline de reporte =====
+        function toggleReportForm(id) {
+            const existing = document.querySelector(`tr[data-form-id="${id}"]`);
+            if (existing) {
+                existing.remove();
+                return;
+            }
+
+            const eq = equipments.find(e => e.id === id);
+            const row = document.createElement('tr');
+            row.setAttribute('data-form-id', id);
+            row.innerHTML = `
+                <td colspan="6">
+                    <div class="report-form-inline">
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <strong style="color: var(--azul-marino); font-size: 14px;">
+                                <i class="bi bi-exclamation-triangle"></i> Reportar problema — ${eq.serial} (${eq.brand} ${eq.model})
+                            </strong>
+                            <button class="btn-close btn-sm" onclick="toggleReportForm(${id})"></button>
+                        </div>
+                        <div class="row g-3">
+                            <div class="col-md-4">
+                                <label class="form-label">Motivo</label>
+                                <select class="form-select" id="motivo-${id}">
+                                    ${renderMotivoOptions(eq.motivo)}
+                                </select>
+                                <div class="form-text" style="font-size: 12px;">Catálogo: Tipos de Incidencias del Mandante</div>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Descripción</label>
+                                <textarea class="form-control" id="desc-${id}" rows="2" placeholder="Describa el problema detectado...">${eq.descripcion || ''}</textarea>
+                            </div>
+                            <div class="col-md-2 d-flex align-items-end">
+                                <button class="btn btn-warning w-100" onclick="submitProblem(${id})">
+                                    <i class="bi bi-save"></i> Guardar
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+            `;
+
+            const mainRow = document.querySelector(`tr[data-id="${id}"]`);
+            if (mainRow) {
+                mainRow.after(row);
+            }
+        }
+
+        function acceptEquipment(id) {
+            const eq = equipments.find(e => e.id === id);
+            eq.status = 'accepted';
+            eq.motivo = null;
+            eq.descripcion = null;
+            renderTable();
+            updateSummary();
+        }
+
+        function submitProblem(id) {
+            const motivo = document.getElementById(`motivo-${id}`).value;
+            const descripcion = document.getElementById(`desc-${id}`).value;
+
+            if (!motivo) {
+                alert('Debe seleccionar un motivo para reportar el problema.');
+                return;
+            }
+
+            const eq = equipments.find(e => e.id === id);
+            eq.status = 'problem';
+            eq.motivo = motivo;
+            eq.descripcion = descripcion;
+
+            // Cerrar formulario
+            const formRow = document.querySelector(`tr[data-form-id="${id}"]`);
+            if (formRow) formRow.remove();
+
+            renderTable();
+            updateSummary();
+        }
+
+        function revertEquipment(id) {
+            const eq = equipments.find(e => e.id === id);
+            eq.status = 'pending';
+            eq.motivo = null;
+            eq.descripcion = null;
+
+            // Cerrar formularios si están abiertos
+            const formRow = document.querySelector(`tr[data-form-id="${id}"]`);
+            if (formRow) formRow.remove();
+            const rejectFormRow = document.querySelector(`tr[data-reject-form-id="${id}"]`);
+            if (rejectFormRow) rejectFormRow.remove();
+
+            renderTable();
+            updateSummary();
+        }
+
+        // ===== Formulario inline de rechazo =====
+        function toggleRejectForm(id) {
+            const existing = document.querySelector(`tr[data-reject-form-id="${id}"]`);
+            if (existing) {
+                existing.remove();
+                return;
+            }
+
+            const eq = equipments.find(e => e.id === id);
+            const row = document.createElement('tr');
+            row.setAttribute('data-reject-form-id', id);
+            row.innerHTML = `
+                <td colspan="6">
+                    <div class="report-form-inline" style="border-left-color: var(--rojo-error);">
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <strong style="color: var(--rojo-error); font-size: 14px;">
+                                <i class="bi bi-x-octagon"></i> Rechazar equipo — ${eq.serial} (${eq.brand} ${eq.model})
+                            </strong>
+                            <button class="btn-close btn-sm" onclick="toggleRejectForm(${id})"></button>
+                        </div>
+                        <div class="alert alert-danger py-2 mb-2" style="font-size: 12px;">
+                            <i class="bi bi-info-circle"></i> El equipo rechazado queda en estado <strong>Rechazado</strong> y debe ser retirado por el Mandante. No se queda con el distribuidor.
+                        </div>
+                        <div class="row g-3">
+                            <div class="col-md-4">
+                                <label class="form-label">Motivo de rechazo</label>
+                                <select class="form-select" id="reject-motivo-${id}">
+                                    ${renderMotivoOptions(eq.motivo)}
+                                </select>
+                                <div class="form-text" style="font-size: 12px;">Catálogo: Tipos de Incidencias del Mandante</div>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Descripción</label>
+                                <textarea class="form-control" id="reject-desc-${id}" rows="2" placeholder="Describa el motivo del rechazo...">${eq.descripcion || ''}</textarea>
+                            </div>
+                            <div class="col-md-2 d-flex align-items-end">
+                                <button class="btn btn-danger w-100" onclick="submitRejection(${id})">
+                                    <i class="bi bi-x-octagon"></i> Rechazar
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+            `;
+
+            const mainRow = document.querySelector(`tr[data-id="${id}"]`);
+            if (mainRow) {
+                mainRow.after(row);
+            }
+        }
+
+        function submitRejection(id) {
+            const motivo = document.getElementById(`reject-motivo-${id}`).value;
+            const descripcion = document.getElementById(`reject-desc-${id}`).value;
+
+            if (!motivo) {
+                alert('Debe seleccionar un motivo para rechazar el equipo.');
+                return;
+            }
+
+            const eq = equipments.find(e => e.id === id);
+            eq.status = 'rejected';
+            eq.motivo = motivo;
+            eq.descripcion = descripcion;
+
+            // Cerrar formulario
+            const formRow = document.querySelector(`tr[data-reject-form-id="${id}"]`);
+            if (formRow) formRow.remove();
+
+            renderTable();
+            updateSummary();
+        }
+
+        // ===== Acciones en lote (con confirmación) =====
+        function showBatchConfirm(action) {
+            const pending = equipments.filter(e => e.status === 'pending').length;
+            const total = equipments.length;
+            const modal = new bootstrap.Modal(document.getElementById('batchModal'));
+            const titleEl = document.getElementById('batchModalTitle');
+            const bodyEl = document.getElementById('batchModalBody');
+            const btnEl = document.getElementById('batchConfirmBtn');
+
+            if (action === 'accept') {
+                titleEl.textContent = 'Aceptar todos los equipos';
+                bodyEl.innerHTML = `
+                    <div class="alert alert-warning" style="font-size: 13px;">
+                        <i class="bi bi-exclamation-triangle"></i> Está por marcar <strong>${pending} equipo(s) pendiente(s)</strong> como aceptados sin inspección individual.
+                    </div>
+                    <p style="font-size: 14px; color: #333;">¿Confirma que desea aceptar todos los equipos del lote?</p>
+                    <p class="text-muted" style="font-size: 12px;">Podrá revertir equipos individualmente después.</p>
+                `;
+                btnEl.className = 'btn btn-success';
+                btnEl.innerHTML = '<i class="bi bi-check2-all"></i> Sí, aceptar todo';
+                btnEl.onclick = function() {
+                    executeBatch('accepted');
+                    modal.hide();
+                };
+            } else {
+                titleEl.textContent = 'Reportar problema en todos los equipos';
+                bodyEl.innerHTML = `
+                    <div class="alert alert-danger" style="font-size: 13px;">
+                        <i class="bi bi-exclamation-octagon"></i> Está por reportar <strong>${pending} equipo(s) pendiente(s)</strong> con problema sin inspección individual.
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Motivo general (aplica a todos)</label>
+                        <select class="form-select" id="batchMotivo">
+                            ${renderMotivoOptions('')}
+                        </select>
+                        <div class="form-text" style="font-size: 12px;">Catálogo: Tipos de Incidencias del Mandante</div>
+                    </div>
+                    <div class="mb-2">
+                        <label class="form-label">Descripción general</label>
+                        <textarea class="form-control" id="batchDesc" rows="2" placeholder="Describa el problema general del lote..."></textarea>
+                    </div>
+                    <p class="text-muted mt-2" style="font-size: 12px;">Si todos los equipos quedan con problema, el lote completo quedará en estado <span class="badge-status badge-rechazada">Rechazado</span>.</p>
+                `;
+                btnEl.className = 'btn btn-warning';
+                btnEl.innerHTML = '<i class="bi bi-exclamation-triangle-fill"></i> Sí, reportar todo';
+                btnEl.onclick = function() {
+                    const motivo = document.getElementById('batchMotivo').value;
+                    const desc = document.getElementById('batchDesc').value;
+                    if (!motivo) {
+                        alert('Debe seleccionar un motivo general.');
+                        return;
+                    }
+                    executeBatch('problem', motivo, desc);
+                    modal.hide();
+                };
+            }
+            modal.show();
+        }
+
+        function executeBatch(status, motivo, desc) {
+            equipments.forEach(eq => {
+                if (eq.status === 'pending') {
+                    eq.status = status;
+                    if (status === 'accepted') {
+                        eq.motivo = null;
+                        eq.descripcion = null;
+                    } else {
+                        eq.motivo = motivo;
+                        eq.descripcion = desc;
+                    }
+                }
+            });
+            // Cerrar formularios inline abiertos
+            document.querySelectorAll('tr[data-form-id]').forEach(r => r.remove());
+            document.querySelectorAll('tr[data-reject-form-id]').forEach(r => r.remove());
+            renderTable();
+            updateSummary();
+        }
+
+        // ===== Resumen y progreso =====
+        function updateSummary() {
+            const accepted = equipments.filter(e => e.status === 'accepted').length;
+            const problem = equipments.filter(e => e.status === 'problem').length;
+            const rejected = equipments.filter(e => e.status === 'rejected').length;
+            const pending = equipments.filter(e => e.status === 'pending').length;
+            const total = equipments.length;
+            const reviewed = accepted + problem + rejected;
+            const pct = Math.round((reviewed / total) * 100);
+
+            document.getElementById('acceptedCount').textContent = accepted;
+            document.getElementById('problemCount').textContent = problem;
+            document.getElementById('rejectedCount').textContent = rejected;
+            document.getElementById('pendingCount').textContent = pending;
+            document.getElementById('progressBar').style.width = pct + '%';
+            document.getElementById('progressText').textContent = pct + '%';
+
+            // Habilitar botón solo cuando todos están revisados
+            const confirmBtn = document.getElementById('confirmBtn');
+            confirmBtn.disabled = pending > 0;
+
+            // Alerta RN-9: si todos tienen problema o están rechazados
+            const allRejectedAlert = document.getElementById('allRejectedAlert');
+            if (reviewed === total && accepted === 0 && (problem > 0 || rejected > 0)) {
+                allRejectedAlert.style.display = 'flex';
+            } else {
+                allRejectedAlert.style.display = 'none';
+            }
+        }
+
+        // ===== Paginación =====
+        function renderPagination(totalPages) {
+            const pag = document.getElementById('pagination');
+            if (totalPages <= 1) {
+                pag.innerHTML = '';
+                return;
+            }
+
+            let html = '';
+            html += `<li class="page-item ${currentPage === 1 ? 'disabled' : ''}">
+                        <a class="page-link" href="#" onclick="goToPage(${currentPage - 1}); return false;">&laquo;</a>
+                     </li>`;
+
+            for (let i = 1; i <= totalPages; i++) {
+                html += `<li class="page-item ${i === currentPage ? 'active' : ''}">
+                            <a class="page-link" href="#" onclick="goToPage(${i}); return false;">${i}</a>
+                         </li>`;
+            }
+
+            html += `<li class="page-item ${currentPage === totalPages ? 'disabled' : ''}">
+                        <a class="page-link" href="#" onclick="goToPage(${currentPage + 1}); return false;">&raquo;</a>
+                     </li>`;
+
+            pag.innerHTML = html;
+        }
+
+        function goToPage(page) {
+            currentPage = page;
+            renderTable();
+        }
+
+        // ===== Filtros =====
+        document.getElementById('searchInput').addEventListener('input', function() {
+            searchTerm = this.value;
+            currentPage = 1;
+            renderTable();
+        });
+
+        document.getElementById('filterStatus').addEventListener('change', function() {
+            filterStatus = this.value;
+            currentPage = 1;
+            renderTable();
+        });
+
+        // ===== Modal de confirmación =====
+        document.getElementById('confirmBtn').addEventListener('click', function() {
+            const accepted = equipments.filter(e => e.status === 'accepted').length;
+            const problem = equipments.filter(e => e.status === 'problem').length;
+            const rejected = equipments.filter(e => e.status === 'rejected').length;
+            const total = equipments.length;
+            const allRejected = accepted === 0 && (problem + rejected) === total;
+
+            let content = `
+                <p style="font-size: 14px; color: #333;">¿Confirma la recepción del lote con los siguientes resultados?</p>
+                <div class="d-flex gap-3 flex-wrap mt-3">
+                    <div class="summary-chip">
+                        <div class="chip-icon bg-success-light">
+                            <i class="bi bi-check-lg" style="color: var(--verde-exito);"></i>
+                        </div>
+                        <div>
+                            <div class="chip-value" style="color: var(--verde-exito);">${accepted}</div>
+                            <div class="chip-label">Aceptados</div>
+                        </div>
+                    </div>
+                    <div class="summary-chip">
+                        <div class="chip-icon bg-warning-light">
+                            <i class="bi bi-exclamation-triangle" style="color: var(--naranja-coral);"></i>
+                        </div>
+                        <div>
+                            <div class="chip-value" style="color: var(--naranja-coral);">${problem}</div>
+                            <div class="chip-label">Con Problema</div>
+                        </div>
+                    </div>
+                    <div class="summary-chip">
+                        <div class="chip-icon" style="background: rgba(220,53,69,0.1);">
+                            <i class="bi bi-x-octagon" style="color: var(--rojo-error);"></i>
+                        </div>
+                        <div>
+                            <div class="chip-value" style="color: var(--rojo-error);">${rejected}</div>
+                            <div class="chip-label">Rechazados</div>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            if (allRejected) {
+                content += `
+                    <div class="alert mt-3" style="background: rgba(220,53,69,0.08); border: 1px solid rgba(220,53,69,0.2); border-radius: 8px; color: var(--rojo-error); font-size: 13px;">
+                        <i class="bi bi-exclamation-octagon"></i> <strong>Lote completo rechazado:</strong> Si no hay equipos aceptados, el lote quedará en estado <span class="badge-status badge-rechazada">Rechazado</span>, a la espera de que el Mandante lo retire — mismo mecanismo que un equipo individual rechazado (RN-9).
+                    </div>
+                `;
+            } else if (problem > 0 || rejected > 0) {
+                content += `
+                    <div class="alert alert-info mt-3" style="font-size: 13px;">
+                        <i class="bi bi-info-circle"></i> Los ${problem} equipo(s) con problema pasarán a <span class="badge-status badge-pendiente">Pendiente de Revisión</span> y los ${rejected} rechazado(s) quedarán en <span class="badge-status badge-rechazada">Rechazado</span> a la espera de retiro del Mandante; ambos quedan excluidos de la asignación a clientes. Los ${accepted} equipo(s) aceptados pasarán a <span class="badge-status badge-distribuidor">Asignado al Distribuidor</span>.
+                    </div>
+                `;
+            } else {
+                content += `
+                    <div class="alert alert-info mt-3" style="font-size: 13px;">
+                        <i class="bi bi-info-circle"></i> Los ${accepted} equipos pasarán a estado <span class="badge-status badge-distribuidor">Asignado al Distribuidor</span> y quedarán disponibles para asignación a clientes.
+                    </div>
+                `;
+            }
+
+            document.getElementById('confirmModalContent').innerHTML = content;
+            new bootstrap.Modal(document.getElementById('confirmModal')).show();
+        });
+
+        document.getElementById('confirmSubmitBtn').addEventListener('click', function() {
+            // En prototipo: redirigir a la lista de recepciones
+            window.location.href = 'recepciones.html';
+        });
+
+        // ===== Init =====
+        renderTable();
+        updateSummary();
+    </script>
+</body>
+</html>

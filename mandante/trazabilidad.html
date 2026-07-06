@@ -398,6 +398,9 @@
                     <h2 class="page-title">Trazabilidad de Equipo</h2>
                 </div>
                 <div class="navbar-right">
+                    <a href="asignacion-equipos.html?mode=new" class="btn btn-primary btn-sm me-3">
+                        <i class="bi bi-plus-circle me-1"></i>Nueva asignación
+                    </a>
                     <div class="notification-icon">
                         <i class="bi bi-bell"></i>
                         <span class="notification-badge">3</span>
@@ -532,7 +535,7 @@
                                             <div class="timeline-transition">
                                                 <span class="badge-status badge-activo">Activo</span>
                                                 <span class="arrow"><i class="bi bi-arrow-right"></i></span>
-                                                <span class="badge-status badge-transito">En Tránsito</span>
+                                                <span class="badge-status badge-distribuidor">Asignado al Distribuidor</span>
                                             </div>
                                             <div class="timeline-meta">
                                                 <div class="timeline-meta-item">
@@ -556,9 +559,7 @@
                                             </div>
                                             <div class="timeline-event">Recibido y aceptado</div>
                                             <div class="timeline-transition">
-                                                <span class="badge-status badge-transito">En Tránsito</span>
-                                                <span class="arrow"><i class="bi bi-arrow-right"></i></span>
-                                                <span class="badge-status badge-distribuidor">En Distribuidor</span>
+                                                <span class="badge-status badge-distribuidor">Asignado al Distribuidor</span>
                                             </div>
                                             <div class="timeline-meta">
                                                 <div class="timeline-meta-item">
@@ -568,7 +569,7 @@
                                                 </div>
                                             </div>
                                             <div class="timeline-comment">
-                                                <i class="bi bi-chat-dots"></i>Equipo inspeccionado en bodega. Sin daños visibles. Recepción confirmada.
+                                                <i class="bi bi-chat-dots"></i>Equipo inspeccionado en bodega. Sin daños visibles. Recepción del lote confirmada (el estado del equipo no cambia; ya estaba “Asignado al Distribuidor” desde el despacho).
                                             </div>
                                         </div>
                                     </li>
@@ -582,9 +583,9 @@
                                             </div>
                                             <div class="timeline-event">Asignado a Cliente Final (Guía N° GD-982401)</div>
                                             <div class="timeline-transition">
-                                                <span class="badge-status badge-distribuidor">En Distribuidor</span>
+                                                <span class="badge-status badge-distribuidor">Asignado al Distribuidor</span>
                                                 <span class="arrow"><i class="bi bi-arrow-right"></i></span>
-                                                <span class="badge-status badge-activo">Activo</span>
+                                                <span class="badge-status badge-activo">Asignado a Cliente</span>
                                             </div>
                                             <div class="timeline-meta">
                                                 <div class="timeline-meta-item">
@@ -703,8 +704,8 @@
                 serie: 'CZ-0845',
                 marca: 'Polar',
                 modelo: 'Conservadora 300L',
-                estado: 'En Tránsito',
-                estadoClass: 'badge-transito',
+                estado: 'Asignado al Distribuidor',
+                estadoClass: 'badge-distribuidor',
                 distribuidor: 'Distribuidora Norte',
                 cliente: '—'
             },
@@ -721,7 +722,7 @@
                 serie: 'VT-4501',
                 marca: 'Savory',
                 modelo: 'Vitrina 250L',
-                estado: 'Pendiente',
+                estado: 'Pendiente de Revisión',
                 estadoClass: 'badge-pendiente',
                 distribuidor: 'Sur Distribución',
                 cliente: 'Bodega central Sur Distribución'
@@ -739,7 +740,7 @@
                 serie: 'BQ-7712',
                 marca: 'Savory',
                 modelo: 'Barquillera 150L',
-                estado: 'En Distribuidor',
+                estado: 'Asignado al Distribuidor',
                 estadoClass: 'badge-distribuidor',
                 distribuidor: 'IceFree Chile',
                 cliente: 'Bodega IceFree Santiago'

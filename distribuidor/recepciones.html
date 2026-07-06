@@ -1,0 +1,1068 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recepción de Equipos — Plataforma Isstec</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="../css/styles.css" rel="stylesheet">
+    <style>
+        .filter-bar {
+            display: flex;
+            gap: 12px;
+            align-items: flex-end;
+            flex-wrap: wrap;
+        }
+        .filter-bar .form-control,
+        .filter-bar .form-select {
+            max-width: 220px;
+        }
+        .btn-back {
+            color: var(--gris-medio);
+            font-size: 14px;
+            font-weight: 500;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: color 0.15s;
+        }
+        .btn-back:hover { color: var(--azul-primario); }
+        .pagination .page-link {
+            color: var(--azul-primario);
+            border: 1px solid #DEE2E6;
+            font-weight: 500;
+            padding: 8px 14px;
+        }
+        .pagination .page-item.active .page-link {
+            background-color: var(--azul-primario);
+            border-color: var(--azul-primario);
+            color: #FFFFFF;
+        }
+        .pagination .page-item.disabled .page-link {
+            color: var(--gris-medio);
+        }
+        .table-recepciones tbody tr {
+            cursor: pointer;
+            transition: background 0.15s;
+        }
+        .table-recepciones tbody tr:hover { background: #F0F6FF; }
+        .action-btn {
+            font-size: 13px;
+            padding: 5px 12px;
+            border-radius: 6px;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            text-decoration: none;
+            transition: all 0.15s;
+        }
+        .action-btn-view {
+            background: var(--gris-claro);
+            color: var(--gris-oscuro);
+        }
+        .action-btn-view:hover {
+            background: var(--gris-oscuro);
+            color: #FFFFFF;
+        }
+        .action-btn-inspect {
+            background: rgba(0, 102, 204, 0.1);
+            color: var(--azul-primario);
+        }
+        .action-btn-inspect:hover {
+            background: var(--azul-primario);
+            color: #FFFFFF;
+        }
+        .action-btn-arrive {
+            background: rgba(25, 135, 84, 0.12);
+            color: var(--verde-exito);
+        }
+        .action-btn-arrive:hover {
+            background: var(--verde-exito);
+            color: #FFFFFF;
+        }
+        .action-btns-group {
+            display: flex;
+            gap: 4px;
+            flex-wrap: wrap;
+        }
+        .empty-state {
+            text-align: center;
+            padding: 48px 20px;
+            color: var(--gris-medio);
+        }
+        .empty-state i {
+            font-size: 48px;
+            margin-bottom: 12px;
+            color: #DEE2E6;
+        }
+        .gd-link {
+            font-size: 13px;
+            color: var(--azul-primario);
+            text-decoration: none;
+            font-weight: 600;
+        }
+        .gd-link:hover { text-decoration: underline; }
+        .gd-badge-manual {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            font-size: 11px;
+            color: var(--naranja-coral);
+            font-weight: 600;
+        }
+        .gd-badge-pending {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            font-size: 11px;
+            color: var(--gris-medio);
+            font-weight: 600;
+        }
+        .inspection-progress {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 12px;
+            color: var(--gris-medio);
+        }
+        .inspection-progress .mini-bar {
+            width: 60px;
+            height: 6px;
+            background: #E9ECEF;
+            border-radius: 3px;
+            overflow: hidden;
+        }
+        .inspection-progress .mini-bar-fill {
+            height: 100%;
+            background: var(--azul-primario);
+            border-radius: 3px;
+            transition: width 0.3s;
+        }
+        .summary-row {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        .summary-row .summary-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            padding: 10px 0;
+            border-bottom: 1px solid #EEF0F2;
+        }
+        .summary-row .summary-item:last-child {
+            border-bottom: none;
+        }
+        .summary-row .summary-label {
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--gris-medio);
+            font-weight: 600;
+        }
+        .summary-row .summary-value {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--azul-marino);
+            text-align: right;
+        }
+        .rn-note {
+            background: rgba(0, 102, 204, 0.06);
+            border-left: 3px solid var(--azul-primario);
+            border-radius: 0 6px 6px 0;
+            padding: 12px 16px;
+            font-size: 13px;
+            color: var(--gris-oscuro);
+            line-height: 1.5;
+        }
+        .rn-note strong {
+            color: var(--azul-marino);
+        }
+    </style>
+</head>
+<body>
+    <div class="app-layout">
+        <!-- ===== Sidebar ===== -->
+        <nav class="sidebar">
+            <div class="sidebar-logo">
+                <img src="../assets/img/logo.png" alt="Isstec">
+            </div>
+            <div class="sidebar-nav">
+                <div class="nav-section">Principal</div>
+                <a href="dashboard.html" class="nav-link">
+                    <i class="bi bi-speedometer2"></i> Dashboard
+                </a>
+                <a href="recepciones.html" class="nav-link active">
+                    <i class="bi bi-box-seam"></i> Recepción de Equipos
+                </a>
+                <a href="asignaciones-realizadas.html" class="nav-link">
+                    <i class="bi bi-diagram-3"></i> Asignación a Clientes
+                </a>
+                <div class="nav-section">Operación</div>
+                <a href="solicitudes-movimiento.html" class="nav-link">
+                    <i class="bi bi-arrow-left-right"></i> Solicitudes de Movimiento
+                </a>
+                <a href="inventario.html" class="nav-link">
+                    <i class="bi bi-clipboard-check"></i> Inventario
+                </a>
+                <a href="guias-despacho.html" class="nav-link">
+                    <i class="bi bi-file-earmark-text"></i> Guías de Despacho
+                </a>
+                <div class="nav-section">Análisis</div>
+                <a href="reportes.html" class="nav-link">
+                    <i class="bi bi-bar-chart"></i> Reportes
+                </a>
+                <div class="nav-section">Maestros</div>
+                <a href="clientes.html" class="nav-link">
+                    <i class="bi bi-shop"></i> Clientes
+                </a>
+                <a href="#" class="nav-link">
+                    <i class="bi bi-geo"></i> Ubicaciones / Bodegas
+                </a>
+                <div class="nav-section">Configuración</div>
+                <a href="usuarios.html" class="nav-link">
+                    <i class="bi bi-people-fill"></i> Usuarios
+                </a>
+                <a href="roles.html" class="nav-link">
+                    <i class="bi bi-shield-lock"></i> Roles
+                </a>
+            </div>
+            <div class="sidebar-footer">
+                <a href="../index.html" class="nav-link">
+                    <i class="bi bi-box-arrow-right"></i> Cerrar sesión
+                </a>
+            </div>
+        </nav>
+
+        <!-- ===== Contenido principal ===== -->
+        <div class="app-content">
+            <!-- Navbar superior -->
+            <nav class="navbar-top">
+                <div class="navbar-left">
+                    <a href="dashboard.html" class="btn-back">
+                        <i class="bi bi-arrow-left"></i> Volver al dashboard
+                    </a>
+                    <h2 class="page-title">Recepción de Equipos</h2>
+                </div>
+                <div class="navbar-right">
+                    <a href="asignacion-clientes.html" class="btn btn-primary btn-sm me-3">
+                        <i class="bi bi-plus-circle me-1"></i>Nueva asignación
+                    </a>
+                    <div class="notification-icon">
+                        <i class="bi bi-bell"></i>
+                        <span class="notification-badge">5</span>
+                    </div>
+                    <div class="user-info">
+                        <div class="user-avatar">ICL</div>
+                        <div>
+                            <div class="user-name">IceFree Chile</div>
+                            <div class="user-role">Distribuidor</div>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+
+            <!-- Main -->
+            <main class="app-main">
+                <!-- ===== KPIs ===== -->
+                <div class="row g-3 mb-4">
+                    <div class="col-6 col-lg-3">
+                        <div class="kpi-card">
+                            <div class="kpi-icon bg-primary-light">
+                                <i class="bi bi-truck"></i>
+                            </div>
+                            <div>
+                                <div class="kpi-label">En Tránsito</div>
+                                <div class="kpi-value">2</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6 col-lg-3">
+                        <div class="kpi-card">
+                            <div class="kpi-icon bg-warning-light">
+                                <i class="bi bi-exclamation-triangle"></i>
+                            </div>
+                            <div>
+                                <div class="kpi-label">Pendientes de Inspección</div>
+                                <div class="kpi-value">1</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6 col-lg-3">
+                        <div class="kpi-card">
+                            <div class="kpi-icon bg-success-light">
+                                <i class="bi bi-check-circle"></i>
+                            </div>
+                            <div>
+                                <div class="kpi-label">Recibidos</div>
+                                <div class="kpi-value">8</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6 col-lg-3">
+                        <div class="kpi-card">
+                            <div class="kpi-icon" style="background: rgba(255, 153, 0, 0.1); color: var(--naranja-coral);">
+                                <i class="bi bi-exclamation-triangle-fill"></i>
+                            </div>
+                            <div>
+                                <div class="kpi-label">Con Problema</div>
+                                <div class="kpi-value" style="color: var(--naranja-coral);">1</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6 col-lg-3">
+                        <div class="kpi-card">
+                            <div class="kpi-icon" style="background: rgba(220, 53, 69, 0.1); color: var(--rojo-error);">
+                                <i class="bi bi-x-octagon"></i>
+                            </div>
+                            <div>
+                                <div class="kpi-label">Rechazados</div>
+                                <div class="kpi-value" style="color: var(--rojo-error);">1</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ===== Filtros ===== -->
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <div class="filter-bar">
+                            <div class="flex-grow-1" style="min-width: 200px;">
+                                <label class="form-label">Buscar</label>
+                                <input type="text" class="form-control" id="buscarRecepcion" placeholder="N° recepción, N° asignación o guía…">
+                            </div>
+                            <div>
+                                <label class="form-label">Estado</label>
+                                <select class="form-select" id="filtroEstado">
+                                    <option value="">Todos</option>
+                                    <option value="transito">En Tránsito</option>
+                                    <option value="pendiente">Pendiente de Inspección</option>
+                                    <option value="inspeccion">En Inspección</option>
+                                    <option value="recibido">Recibido</option>
+                                    <option value="rechazado">Rechazado</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="form-label">Origen (Mandante)</label>
+                                <select class="form-select" id="filtroOrigen">
+                                    <option value="">Todos</option>
+                                    <option value="savory">Savory</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="form-label">Desde</label>
+                                <input type="date" class="form-control" id="filtroFechaDesde">
+                            </div>
+                            <div>
+                                <label class="form-label">Hasta</label>
+                                <input type="date" class="form-control" id="filtroFechaHasta">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ===== Tabla de recepciones ===== -->
+                <div class="card">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <h5 class="card-title mb-0">
+                                <i class="bi bi-list-ul me-2"></i>Lotes de Recepción
+                            </h5>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table table-hover align-middle table-recepciones" id="tablaRecepciones">
+                                <thead>
+                                    <tr>
+                                        <th style="width: 110px;">N° Recepción</th>
+                                        <th style="width: 110px;">N° Asignación</th>
+                                        <th>Origen (Mandante)</th>
+                                        <th class="text-center" style="width: 80px;">Equipos</th>
+                                        <th style="width: 130px;">Fecha Llegada</th>
+                                        <th style="width: 120px;">Estado</th>
+                                        <th style="width: 130px;">Guía de Despacho</th>
+                                        <th style="width: 200px;">Acciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tbodyRecepciones">
+                                    <!-- En Tránsito 1 -->
+                                    <tr data-estado="transito" data-origen="savory" data-fecha="2026-07-08">
+                                        <td class="fw-semibold">REC-0013</td>
+                                        <td>ASG-0042</td>
+                                        <td>Savory</td>
+                                        <td class="text-center">50</td>
+                                        <td>08/07/2026</td>
+                                        <td><span class="badge-status badge-transito">En Tránsito</span></td>
+                                        <td>
+                                            <span class="gd-badge-pending"><i class="bi bi-clock"></i> Pendiente</span>
+                                        </td>
+                                        <td>
+                                            <div class="action-btns-group">
+                                                <a href="#" class="action-btn action-btn-arrive" data-bs-toggle="modal" data-bs-target="#modalRegistrarLlegada" data-id="REC-0013">
+                                                    <i class="bi bi-truck"></i> Registrar llegada
+                                                </a>
+                                                <a href="#" class="action-btn action-btn-view" data-bs-toggle="modal" data-bs-target="#modalDetalle" data-id="REC-0013">
+                                                    <i class="bi bi-eye"></i> Ver
+                                                </a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <!-- En Tránsito 2 -->
+                                    <tr data-estado="transito" data-origen="savory" data-fecha="2026-07-06">
+                                        <td class="fw-semibold">REC-0012</td>
+                                        <td>ASG-0039</td>
+                                        <td>Savory</td>
+                                        <td class="text-center">8</td>
+                                        <td>06/07/2026</td>
+                                        <td><span class="badge-status badge-transito">En Tránsito</span></td>
+                                        <td>
+                                            <span class="gd-badge-manual"><i class="bi bi-file-earmark-pdf"></i> PDF adjunto</span><br>
+                                            <a href="#" class="gd-link">Ver PDF</a>
+                                        </td>
+                                        <td>
+                                            <div class="action-btns-group">
+                                                <a href="#" class="action-btn action-btn-arrive" data-bs-toggle="modal" data-bs-target="#modalRegistrarLlegada" data-id="REC-0012">
+                                                    <i class="bi bi-truck"></i> Registrar llegada
+                                                </a>
+                                                <a href="#" class="action-btn action-btn-view" data-bs-toggle="modal" data-bs-target="#modalDetalle" data-id="REC-0012">
+                                                    <i class="bi bi-eye"></i> Ver
+                                                </a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <!-- Pendiente de Inspección -->
+                                    <tr data-estado="pendiente" data-origen="savory" data-fecha="2026-07-04">
+                                        <td class="fw-semibold">REC-0011</td>
+                                        <td>ASG-0038</td>
+                                        <td>Savory</td>
+                                        <td class="text-center">15</td>
+                                        <td>04/07/2026</td>
+                                        <td><span class="badge-status badge-pendiente">Pendiente de Inspección</span></td>
+                                        <td>
+                                            <span class="gd-badge-manual"><i class="bi bi-file-earmark-pdf"></i> PDF adjunto</span><br>
+                                            <a href="#" class="gd-link">Ver PDF</a>
+                                        </td>
+                                        <td>
+                                            <div class="action-btns-group">
+                                                <a href="recepcion-equipos.html" class="action-btn action-btn-inspect">
+                                                    <i class="bi bi-clipboard2-check"></i> Inspeccionar
+                                                </a>
+                                                <a href="#" class="action-btn action-btn-view" data-bs-toggle="modal" data-bs-target="#modalDetalle" data-id="REC-0011">
+                                                    <i class="bi bi-eye"></i> Ver
+                                                </a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <!-- En Inspección -->
+                                    <tr data-estado="inspeccion" data-origen="savory" data-fecha="2026-07-03">
+                                        <td class="fw-semibold">REC-0010</td>
+                                        <td>ASG-0037</td>
+                                        <td>Savory</td>
+                                        <td class="text-center">6</td>
+                                        <td>03/07/2026</td>
+                                        <td>
+                                            <span class="badge-status badge-sstt">En Inspección</span>
+                                            <div class="inspection-progress mt-1">
+                                                <div class="mini-bar"><div class="mini-bar-fill" style="width: 67%;"></div></div>
+                                                <span>4/6</span>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <span class="gd-badge-manual"><i class="bi bi-file-earmark-pdf"></i> PDF adjunto</span><br>
+                                            <a href="#" class="gd-link">Ver PDF</a>
+                                        </td>
+                                        <td>
+                                            <div class="action-btns-group">
+                                                <a href="recepcion-equipos.html" class="action-btn action-btn-inspect">
+                                                    <i class="bi bi-clipboard2-check"></i> Continuar
+                                                </a>
+                                                <a href="#" class="action-btn action-btn-view" data-bs-toggle="modal" data-bs-target="#modalDetalle" data-id="REC-0010">
+                                                    <i class="bi bi-eye"></i> Ver
+                                                </a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <!-- Recibido 1 -->
+                                    <tr data-estado="recibido" data-origen="savory" data-fecha="2026-06-20">
+                                        <td class="fw-semibold">REC-0009</td>
+                                        <td>ASG-0036</td>
+                                        <td>Savory</td>
+                                        <td class="text-center">20</td>
+                                        <td>20/06/2026</td>
+                                        <td><span class="badge-status badge-activo">Recibido</span></td>
+                                        <td>
+                                            <span class="gd-badge-manual"><i class="bi bi-file-earmark-pdf"></i> PDF adjunto</span><br>
+                                            <a href="#" class="gd-link">Ver PDF</a>
+                                        </td>
+                                        <td>
+                                            <div class="action-btns-group">
+                                                <a href="#" class="action-btn action-btn-view" data-bs-toggle="modal" data-bs-target="#modalDetalle" data-id="REC-0009">
+                                                    <i class="bi bi-eye"></i> Ver
+                                                </a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <!-- Recibido 2 -->
+                                    <tr data-estado="recibido" data-origen="savory" data-fecha="2026-06-05">
+                                        <td class="fw-semibold">REC-0008</td>
+                                        <td>ASG-0032</td>
+                                        <td>Savory</td>
+                                        <td class="text-center">18</td>
+                                        <td>05/06/2026</td>
+                                        <td><span class="badge-status badge-activo">Recibido</span></td>
+                                        <td>
+                                            <span class="gd-badge-manual"><i class="bi bi-file-earmark-pdf"></i> PDF adjunto</span><br>
+                                            <a href="#" class="gd-link">Ver PDF</a>
+                                        </td>
+                                        <td>
+                                            <div class="action-btns-group">
+                                                <a href="#" class="action-btn action-btn-view" data-bs-toggle="modal" data-bs-target="#modalDetalle" data-id="REC-0008">
+                                                    <i class="bi bi-eye"></i> Ver
+                                                </a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <!-- Recibido con problemas (parcial) -->
+                                    <tr data-estado="recibido" data-origen="savory" data-fecha="2026-05-25">
+                                        <td class="fw-semibold">REC-0007</td>
+                                        <td>ASG-0031</td>
+                                        <td>Savory</td>
+                                        <td class="text-center">7</td>
+                                        <td>25/05/2026</td>
+                                        <td>
+                                            <span class="badge-status badge-activo">Recibido</span>
+                                            <div style="margin-top: 4px; font-size: 12px; color: var(--naranja-coral);">
+                                                1 con problema
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <span class="gd-badge-manual"><i class="bi bi-file-earmark-pdf"></i> PDF adjunto</span><br>
+                                            <a href="#" class="gd-link">Ver PDF</a>
+                                        </td>
+                                        <td>
+                                            <div class="action-btns-group">
+                                                <a href="#" class="action-btn action-btn-view" data-bs-toggle="modal" data-bs-target="#modalDetalle" data-id="REC-0007">
+                                                    <i class="bi bi-eye"></i> Ver
+                                                </a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <!-- Recibido 3 -->
+                                    <tr data-estado="recibido" data-origen="savory" data-fecha="2026-05-10">
+                                        <td class="fw-semibold">REC-0006</td>
+                                        <td>ASG-0028</td>
+                                        <td>Savory</td>
+                                        <td class="text-center">12</td>
+                                        <td>10/05/2026</td>
+                                        <td><span class="badge-status badge-activo">Recibido</span></td>
+                                        <td>
+                                            <span class="gd-badge-manual"><i class="bi bi-file-earmark-pdf"></i> PDF adjunto</span><br>
+                                            <a href="#" class="gd-link">Ver PDF</a>
+                                        </td>
+                                        <td>
+                                            <div class="action-btns-group">
+                                                <a href="#" class="action-btn action-btn-view" data-bs-toggle="modal" data-bs-target="#modalDetalle" data-id="REC-0006">
+                                                    <i class="bi bi-eye"></i> Ver
+                                                </a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <!-- Rechazado (lote completo — RN-9) -->
+                                    <tr data-estado="rechazado" data-origen="savory" data-fecha="2026-04-28">
+                                        <td class="fw-semibold">REC-0005</td>
+                                        <td>ASG-0025</td>
+                                        <td>Savory</td>
+                                        <td class="text-center">5</td>
+                                        <td>28/04/2026</td>
+                                        <td><span class="badge-status badge-rechazada">Rechazado</span></td>
+                                        <td>
+                                            <span class="gd-badge-manual"><i class="bi bi-file-earmark-pdf"></i> PDF adjunto</span><br>
+                                            <a href="#" class="gd-link">Ver PDF</a>
+                                        </td>
+                                        <td>
+                                            <div class="action-btns-group">
+                                                <a href="#" class="action-btn action-btn-view" data-bs-toggle="modal" data-bs-target="#modalDetalle" data-id="REC-0005">
+                                                    <i class="bi bi-eye"></i> Ver
+                                                </a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <!-- Recibido 4 -->
+                                    <tr data-estado="recibido" data-origen="savory" data-fecha="2026-04-15">
+                                        <td class="fw-semibold">REC-0004</td>
+                                        <td>ASG-0022</td>
+                                        <td>Savory</td>
+                                        <td class="text-center">10</td>
+                                        <td>15/04/2026</td>
+                                        <td><span class="badge-status badge-activo">Recibido</span></td>
+                                        <td>
+                                            <span class="gd-badge-manual"><i class="bi bi-file-earmark-pdf"></i> PDF adjunto</span><br>
+                                            <a href="#" class="gd-link">Ver PDF</a>
+                                        </td>
+                                        <td>
+                                            <div class="action-btns-group">
+                                                <a href="#" class="action-btn action-btn-view" data-bs-toggle="modal" data-bs-target="#modalDetalle" data-id="REC-0004">
+                                                    <i class="bi bi-eye"></i> Ver
+                                                </a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <!-- Recibido 5 -->
+                                    <tr data-estado="recibido" data-origen="savory" data-fecha="2026-03-28">
+                                        <td class="fw-semibold">REC-0003</td>
+                                        <td>ASG-0019</td>
+                                        <td>Savory</td>
+                                        <td class="text-center">25</td>
+                                        <td>28/03/2026</td>
+                                        <td><span class="badge-status badge-activo">Recibido</span></td>
+                                        <td>
+                                            <span class="gd-badge-manual"><i class="bi bi-file-earmark-pdf"></i> PDF adjunto</span><br>
+                                            <a href="#" class="gd-link">Ver PDF</a>
+                                        </td>
+                                        <td>
+                                            <div class="action-btns-group">
+                                                <a href="#" class="action-btn action-btn-view" data-bs-toggle="modal" data-bs-target="#modalDetalle" data-id="REC-0003">
+                                                    <i class="bi bi-eye"></i> Ver
+                                                </a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <!-- Recibido 6 -->
+                                    <tr data-estado="recibido" data-origen="savory" data-fecha="2026-03-10">
+                                        <td class="fw-semibold">REC-0002</td>
+                                        <td>ASG-0015</td>
+                                        <td>Savory</td>
+                                        <td class="text-center">30</td>
+                                        <td>10/03/2026</td>
+                                        <td><span class="badge-status badge-activo">Recibido</span></td>
+                                        <td>
+                                            <span class="gd-badge-manual"><i class="bi bi-file-earmark-pdf"></i> PDF adjunto</span><br>
+                                            <a href="#" class="gd-link">Ver PDF</a>
+                                        </td>
+                                        <td>
+                                            <div class="action-btns-group">
+                                                <a href="#" class="action-btn action-btn-view" data-bs-toggle="modal" data-bs-target="#modalDetalle" data-id="REC-0002">
+                                                    <i class="bi bi-eye"></i> Ver
+                                                </a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <!-- Empty state -->
+                        <div class="empty-state" id="emptyState" style="display: none;">
+                            <i class="bi bi-inbox"></i>
+                            <p class="mb-0">No se encontraron recepciones con los filtros seleccionados.</p>
+                        </div>
+
+                        <!-- Paginación -->
+                        <div class="d-flex justify-content-between align-items-center mt-3">
+                            <div class="text-muted" style="font-size: 13px;" id="contadorRegistros">
+                                Mostrando 12 recepciones
+                            </div>
+                            <nav aria-label="Paginación de recepciones">
+                                <ul class="pagination mb-0">
+                                    <li class="page-item disabled">
+                                        <a class="page-link" href="#" tabindex="-1" aria-disabled="true">
+                                            <i class="bi bi-chevron-left"></i>
+                                        </a>
+                                    </li>
+                                    <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                                    <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                    <li class="page-item">
+                                        <a class="page-link" href="#">
+                                            <i class="bi bi-chevron-right"></i>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- ===== Modal: Detalle de recepción ===== -->
+    <div class="modal fade" id="modalDetalle" tabindex="-1" aria-labelledby="modalDetalleLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalDetalleLabel">
+                        <i class="bi bi-info-circle me-2"></i>Detalle de Recepción
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row g-3 mb-3">
+                        <div class="col-md-6">
+                            <label class="form-label">N° Recepción</label>
+                            <p class="fw-semibold mb-0" id="detalleId">—</p>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">N° Asignación (Mandante)</label>
+                            <p class="fw-semibold mb-0" id="detalleAsignacion">—</p>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Origen (Mandante)</label>
+                            <p class="mb-0" id="detalleOrigen">—</p>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Fecha de llegada</label>
+                            <p class="mb-0" id="detalleFecha">—</p>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Estado</label>
+                            <p class="mb-0" id="detalleEstado">—</p>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Guía de Despacho</label>
+                            <p class="mb-0" id="detalleGD">—</p>
+                        </div>
+                    </div>
+
+                    <!-- Resumen de inspección (solo si tiene datos) -->
+                    <div id="detalleInspeccionSection" style="display: none;">
+                        <hr>
+                        <label class="form-label">Resumen de Inspección</label>
+                        <div class="row g-3">
+                            <div class="col-md-3">
+                                <div class="summary-row">
+                                    <div class="summary-item">
+                                        <span class="summary-label">Aceptados</span>
+                                        <span class="summary-value" id="detalleAceptados" style="color: var(--verde-exito);">—</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="summary-row">
+                                    <div class="summary-item">
+                                        <span class="summary-label">Con Problema</span>
+                                        <span class="summary-value" id="detalleProblema" style="color: var(--naranja-coral);">—</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="summary-row">
+                                    <div class="summary-item">
+                                        <span class="summary-label">Rechazados</span>
+                                        <span class="summary-value" id="detalleRechazados" style="color: var(--rojo-error);">—</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="summary-row">
+                                    <div class="summary-item">
+                                        <span class="summary-label">Pendientes</span>
+                                        <span class="summary-value" id="detallePendientes" style="color: var(--gris-medio);">—</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Motivo de rechazo (solo para recepciones rechazadas) -->
+                    <div id="detalleMotivoRechazoSection" style="display: none;">
+                        <hr>
+                        <div class="rn-note" style="border-left-color: var(--rojo-error); background: rgba(220, 53, 69, 0.06);">
+                            <strong style="color: var(--rojo-error);"><i class="bi bi-x-octagon me-1"></i>Motivo de rechazo del lote</strong><br>
+                            <span id="detalleMotivoRechazo">—</span>
+                        </div>
+                    </div>
+
+                    <hr>
+                    <label class="form-label">Equipos del lote</label>
+                    <div class="table-responsive">
+                        <table class="table table-sm table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>N° Serie</th>
+                                    <th>Marca</th>
+                                    <th>Modelo</th>
+                                    <th>Estado</th>
+                                    <th>Motivo</th>
+                                </tr>
+                            </thead>
+                            <tbody id="detalleEquipos">
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    <a href="#" id="btnIrInspeccion" class="btn btn-primary" style="display: none;">
+                        <i class="bi bi-clipboard2-check me-2"></i>Ir a Inspección
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== Modal: Registrar llegada ===== -->
+    <div class="modal fade" id="modalRegistrarLlegada" tabindex="-1" aria-labelledby="modalRegistrarLlegadaLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalRegistrarLlegadaLabel">
+                        <i class="bi bi-truck me-2"></i>Registrar llegada de lote
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                </div>
+                <div class="modal-body">
+                    <p>¿Confirmas que el lote <strong id="llegadaId">—</strong> ha llegado a tu bodega?</p>
+                    <p class="text-muted mb-0" style="font-size: 13px;">El estado del lote cambiará a <span class="badge-status badge-pendiente">Pendiente de Inspección</span> y podrás comenzar a inspeccionar los equipos.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-success" id="btnConfirmarLlegada">
+                        <i class="bi bi-check-circle me-2"></i>Confirmar llegada
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        const buscarRecepcion = document.getElementById('buscarRecepcion');
+        const filtroEstado = document.getElementById('filtroEstado');
+        const filtroOrigen = document.getElementById('filtroOrigen');
+        const filtroFechaDesde = document.getElementById('filtroFechaDesde');
+        const filtroFechaHasta = document.getElementById('filtroFechaHasta');
+        const tbody = document.getElementById('tbodyRecepciones');
+        const emptyState = document.getElementById('emptyState');
+        const contadorRegistros = document.getElementById('contadorRegistros');
+        const tablaRecepciones = document.getElementById('tablaRecepciones');
+
+        function filtrar() {
+            const texto = buscarRecepcion.value.toLowerCase().trim();
+            const estado = filtroEstado.value;
+            const origen = filtroOrigen.value;
+            const fechaDesde = filtroFechaDesde.value;
+            const fechaHasta = filtroFechaHasta.value;
+
+            let visibles = 0;
+            const filas = tbody.querySelectorAll('tr');
+
+            filas.forEach(fila => {
+                const numRec = fila.querySelector('td:nth-child(1)').textContent.toLowerCase();
+                const numAsig = fila.querySelector('td:nth-child(2)').textContent.toLowerCase();
+                const filaEstado = fila.dataset.estado;
+                const filaOrigen = fila.dataset.origen;
+                const filaFecha = fila.dataset.fecha;
+
+                let mostrar = true;
+
+                if (texto && !numRec.includes(texto) && !numAsig.includes(texto)) {
+                    mostrar = false;
+                }
+                if (estado && filaEstado !== estado) {
+                    mostrar = false;
+                }
+                if (origen && filaOrigen !== origen) {
+                    mostrar = false;
+                }
+                if (fechaDesde && filaFecha < fechaDesde) {
+                    mostrar = false;
+                }
+                if (fechaHasta && filaFecha > fechaHasta) {
+                    mostrar = false;
+                }
+
+                fila.style.display = mostrar ? '' : 'none';
+                if (mostrar) visibles++;
+            });
+
+            if (visibles === 0) {
+                tablaRecepciones.style.display = 'none';
+                emptyState.style.display = 'block';
+            } else {
+                tablaRecepciones.style.display = '';
+                emptyState.style.display = 'none';
+            }
+
+            contadorRegistros.textContent = `Mostrando ${visibles} recepción${visibles !== 1 ? 'es' : ''}`;
+        }
+
+        buscarRecepcion.addEventListener('input', filtrar);
+        filtroEstado.addEventListener('change', filtrar);
+        filtroOrigen.addEventListener('change', filtrar);
+        filtroFechaDesde.addEventListener('change', filtrar);
+        filtroFechaHasta.addEventListener('change', filtrar);
+
+        // ===== Registrar llegada: transición En Tránsito → Pendiente de Inspección =====
+        const modalRegistrarLlegada = document.getElementById('modalRegistrarLlegada');
+        let llegadaTargetId = null;
+
+        modalRegistrarLlegada.addEventListener('show.bs.modal', function(event) {
+            const trigger = event.relatedTarget;
+            llegadaTargetId = trigger.dataset.id;
+            document.getElementById('llegadaId').textContent = llegadaTargetId;
+        });
+
+        document.getElementById('btnConfirmarLlegada').addEventListener('click', function() {
+            if (!llegadaTargetId) return;
+            const fila = Array.from(tbody.querySelectorAll('tr')).find(tr =>
+                tr.querySelector('.fw-semibold')?.textContent === llegadaTargetId
+            );
+            if (!fila) return;
+
+            // Actualizar data-estado
+            fila.dataset.estado = 'pendiente';
+
+            // Actualizar badge de estado
+            const estadoCell = fila.querySelector('td:nth-child(6)');
+            estadoCell.innerHTML = '<span class="badge-status badge-pendiente">Pendiente de Inspección</span>';
+
+            // Actualizar botones de acción: reemplazar "Registrar llegada" por "Inspeccionar"
+            const accionesCell = fila.querySelector('td:nth-child(8) .action-btns-group');
+            accionesCell.innerHTML =
+                '<a href="recepcion-equipos.html" class="action-btn action-btn-inspect">' +
+                '<i class="bi bi-clipboard2-check"></i> Inspeccionar</a>' +
+                '<a href="#" class="action-btn action-btn-view" data-bs-toggle="modal" data-bs-target="#modalDetalle" data-id="' + llegadaTargetId + '">' +
+                '<i class="bi bi-eye"></i> Ver</a>';
+
+            // Actualizar KPIs
+            const kpiTransito = document.querySelector('.kpi-card .kpi-label');
+            const kpiCards = document.querySelectorAll('.kpi-card');
+            kpiCards.forEach(card => {
+                const label = card.querySelector('.kpi-label');
+                const value = card.querySelector('.kpi-value');
+                if (label && label.textContent === 'En Tránsito') {
+                    value.textContent = parseInt(value.textContent) - 1;
+                }
+                if (label && label.textContent === 'Pendientes de Inspección') {
+                    value.textContent = parseInt(value.textContent) + 1;
+                }
+            });
+
+            // Cerrar modal y refiltrar
+            const bsModal = bootstrap.Modal.getInstance(modalRegistrarLlegada);
+            bsModal.hide();
+            filtrar();
+        });
+
+        // ===== Modal detalle: cargar datos de la fila =====
+        const modalDetalle = document.getElementById('modalDetalle');
+        modalDetalle.addEventListener('show.bs.modal', function(event) {
+            const trigger = event.relatedTarget;
+            const id = trigger.dataset.id;
+            const fila = Array.from(tbody.querySelectorAll('tr')).find(tr =>
+                tr.querySelector('.fw-semibold')?.textContent === id
+            );
+            if (!fila) return;
+
+            const tds = fila.querySelectorAll('td');
+            document.getElementById('detalleId').textContent = id;
+            document.getElementById('detalleAsignacion').textContent = tds[1].textContent.trim();
+            document.getElementById('detalleOrigen').textContent = tds[2].textContent.trim();
+            document.getElementById('detalleFecha').textContent = tds[4].textContent.trim();
+            document.getElementById('detalleEstado').innerHTML = tds[5].querySelector('.badge-status')?.outerHTML || '—';
+
+            // Guía de despacho
+            const gdCell = tds[6];
+            const gdLink = gdCell.querySelector('.gd-link');
+            const isManual = gdCell.querySelector('.gd-badge-manual') !== null;
+            const isPending = gdCell.querySelector('.gd-badge-pending') !== null;
+            document.getElementById('detalleGD').innerHTML = gdLink ? gdLink.outerHTML : (isPending ? '<span class="gd-badge-pending"><i class="bi bi-clock"></i> Pendiente</span>' : '—');
+
+            // Resumen de inspección
+            const estado = fila.dataset.estado;
+            const inspeccionSection = document.getElementById('detalleInspeccionSection');
+            const btnIrInspeccion = document.getElementById('btnIrInspeccion');
+            const count = parseInt(tds[3].textContent) || 0;
+
+            const motivoRechazoSection = document.getElementById('detalleMotivoRechazoSection');
+            motivoRechazoSection.style.display = 'none';
+
+            if (estado === 'transito') {
+                inspeccionSection.style.display = 'none';
+                btnIrInspeccion.style.display = 'none';
+            } else if (estado === 'pendiente') {
+                inspeccionSection.style.display = 'block';
+                document.getElementById('detalleAceptados').textContent = '0';
+                document.getElementById('detalleProblema').textContent = '0';
+                document.getElementById('detalleRechazados').textContent = '0';
+                document.getElementById('detallePendientes').textContent = count;
+                btnIrInspeccion.style.display = 'inline-flex';
+                btnIrInspeccion.href = 'recepcion-equipos.html';
+                btnIrInspeccion.innerHTML = '<i class="bi bi-clipboard2-check me-2"></i>Ir a Inspección';
+            } else if (estado === 'inspeccion') {
+                inspeccionSection.style.display = 'block';
+                const progreso = tds[5].querySelector('.inspection-progress');
+                const progressText = progreso ? progreso.textContent.trim() : '';
+                const inspected = parseInt(progressText.split('/')[0]) || 0;
+                document.getElementById('detalleAceptados').textContent = inspected - 0;
+                document.getElementById('detalleProblema').textContent = '0';
+                document.getElementById('detalleRechazados').textContent = '0';
+                document.getElementById('detallePendientes').textContent = count - inspected;
+                btnIrInspeccion.style.display = 'inline-flex';
+                btnIrInspeccion.href = 'recepcion-equipos.html';
+                btnIrInspeccion.innerHTML = '<i class="bi bi-clipboard2-check me-2"></i>Continuar Inspección';
+            } else if (estado === 'recibido') {
+                inspeccionSection.style.display = 'block';
+                const problemaNote = tds[5].querySelector('div[style*="naranja"]');
+                const conProblema = problemaNote ? 1 : 0;
+                document.getElementById('detalleAceptados').textContent = count - conProblema;
+                document.getElementById('detalleProblema').textContent = conProblema;
+                document.getElementById('detalleRechazados').textContent = '0';
+                document.getElementById('detallePendientes').textContent = '0';
+                btnIrInspeccion.style.display = 'none';
+            } else if (estado === 'rechazado') {
+                inspeccionSection.style.display = 'block';
+                document.getElementById('detalleAceptados').textContent = '0';
+                document.getElementById('detalleProblema').textContent = '0';
+                document.getElementById('detalleRechazados').textContent = count;
+                document.getElementById('detallePendientes').textContent = '0';
+                btnIrInspeccion.style.display = 'none';
+                // Mostrar motivo de rechazo
+                motivoRechazoSection.style.display = 'block';
+                document.getElementById('detalleMotivoRechazo').textContent = 'Lote completo rechazado — Todos los equipos presentaban fallas críticas (no encienden / no enfrían) detectadas durante inspección. El Mandante debe coordinar retiro del lote completo (RN-9).';
+            }
+
+            // Equipos simulados del lote
+            const brands = ['Savory', 'Tecfrigo', 'Foster', 'Indel B', 'Vitrifrigo'];
+            const models = ['VRX-200', 'Chest 400L', 'Countertop 150', 'Upright 700', 'Island 1200'];
+            const motivosProblema = ['No enfría', 'Falla de termostato', 'Goteo / Humedad excesiva', 'Abolladura / Daño estético'];
+            const motivosRechazo = ['No enciende', 'No enfría', 'Fuga de gas refrigerante'];
+            let equiposHTML = '';
+            for (let i = 0; i < Math.min(count, 8); i++) {
+                const serie = 'SVY-' + String(Math.floor(Math.random() * 9000) + 1000);
+                const marca = brands[i % brands.length];
+                const modelo = models[i % models.length];
+                let estadoBadge = '<span class="badge-status badge-pendiente">Pendiente</span>';
+                let motivoText = '—';
+                if (estado === 'recibido') {
+                    const conProblema = tds[5].querySelector('div[style*="naranja"]');
+                    if (i === 0 && conProblema) {
+                        estadoBadge = '<span class="badge-status badge-sstt">Con Problema</span>';
+                        motivoText = motivosProblema[0];
+                    } else {
+                        estadoBadge = '<span class="badge-status badge-activo">Aceptado</span>';
+                    }
+                } else if (estado === 'rechazado') {
+                    estadoBadge = '<span class="badge-status badge-rechazada">Rechazado</span>';
+                    motivoText = motivosRechazo[i % motivosRechazo.length];
+                } else if (estado === 'inspeccion') {
+                    const progreso = tds[5].querySelector('.inspection-progress');
+                    const inspected = progreso ? parseInt(progreso.textContent.trim().split('/')[0]) || 0 : 0;
+                    estadoBadge = i < inspected
+                        ? '<span class="badge-status badge-activo">Aceptado</span>'
+                        : '<span class="badge-status badge-pendiente">Pendiente</span>';
+                }
+                equiposHTML += `<tr><td class="fw-semibold">${serie}</td><td>${marca}</td><td>${modelo}</td><td>${estadoBadge}</td><td style="font-size: 12px;">${motivoText}</td></tr>`;
+            }
+            if (count > 8) {
+                equiposHTML += `<tr><td colspan="5" class="text-center text-muted" style="font-size: 13px;">… y ${count - 8} equipo(s) más</td></tr>`;
+            }
+            document.getElementById('detalleEquipos').innerHTML = equiposHTML;
+        });
+    </script>
+</body>
+</html>

@@ -679,6 +679,118 @@ body {
     color: var(--azul-primario);
 }
 
+/* ===== Progress Bar ===== */
+.progress-reception {
+    height: 8px;
+    border-radius: 4px;
+    background: var(--gris-claro);
+    overflow: hidden;
+}
+
+.progress-reception .progress-bar {
+    height: 100%;
+    background: var(--azul-primario);
+    border-radius: 4px;
+    transition: width 0.3s ease;
+}
+
+/* ===== Summary chips (Recepción) ===== */
+.summary-chip {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 18px;
+    border-radius: 8px;
+    background: #FFFFFF;
+    border: 1px solid #E0E0E0;
+}
+
+.summary-chip .chip-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    flex-shrink: 0;
+}
+
+.summary-chip .chip-value {
+    font-size: 22px;
+    font-weight: 700;
+    line-height: 1;
+}
+
+.summary-chip .chip-label {
+    font-size: 12px;
+    color: var(--gris-medio);
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+}
+
+/* ===== Inline report form (Recepción) ===== */
+.report-form-inline {
+    background: #FFF8F0;
+    border: 1px solid #FFE0C2;
+    border-radius: 8px;
+    padding: 16px 20px;
+    margin-top: 8px;
+}
+
+.report-form-inline .form-label {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--gris-oscuro);
+}
+
+/* ===== Row state highlights ===== */
+.row-accepted {
+    background: rgba(40, 167, 69, 0.04) !important;
+}
+
+.row-problem {
+    background: rgba(255, 107, 53, 0.04) !important;
+}
+
+/* ===== Metadata header (Recepción) ===== */
+.reception-meta {
+    display: flex;
+    align-items: center;
+    gap: 32px;
+    flex-wrap: wrap;
+}
+
+.reception-meta .meta-item {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.reception-meta .meta-label {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--gris-medio);
+    font-weight: 600;
+}
+
+.reception-meta .meta-value {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--azul-marino);
+}
+
+.reception-meta .meta-value a {
+    color: var(--azul-primario);
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.reception-meta .meta-value a:hover {
+    text-decoration: underline;
+}
+
 /* ===== Responsive ===== */
 @media (max-width: 992px) {
     .sidebar {

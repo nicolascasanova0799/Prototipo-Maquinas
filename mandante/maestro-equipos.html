@@ -144,6 +144,9 @@
                     <h2 class="page-title">Maestro de Equipos</h2>
                 </div>
                 <div class="navbar-right">
+                    <a href="asignacion-equipos.html?mode=new" class="btn btn-primary btn-sm me-3">
+                        <i class="bi bi-plus-circle me-1"></i>Nueva asignación
+                    </a>
                     <div class="notification-icon">
                         <i class="bi bi-bell"></i>
                         <span class="notification-badge">3</span>
@@ -177,10 +180,11 @@
                                     <select class="form-select" id="filtroEstado">
                                         <option selected>Todos</option>
                                         <option>Activo</option>
-                                        <option>En Tránsito</option>
-                                        <option>En Distribuidor</option>
+                                        <option>Asignado al Distribuidor</option>
+                                        <option>Asignado a Cliente</option>
                                         <option>En SSTT</option>
-                                        <option>Pendiente</option>
+                                        <option>Pendiente de Revisión</option>
+                                        <option>Rechazado</option>
                                         <option>Baja</option>
                                     </select>
                                 </div>
@@ -223,13 +227,12 @@
                                                 <th>Estado</th>
                                                 <th>Distribuidor</th>
                                                 <th>Cliente / Ubicación</th>
-                                                <th>Condición</th>
                                                 <th>Última actualización</th>
                                                 <th></th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr data-serie="FR-1023" data-marca-modelo="Savory Freezer 500L" data-tipo-tamano="Vertical / Mediana" data-estado="Activo" data-estado-class="badge-activo" data-distribuidor="IceFree Chile" data-cliente="Supermercado Plaza Norte" data-condicion="Buena" data-fecha-compra="15/03/2022" data-contrato="CC-2024-0042" data-guia="GD-982345" data-ultima-actualizacion="03/07/2025 14:32">
+                                            <tr data-serie="FR-1023" data-marca-modelo="Savory Freezer 500L" data-tipo-tamano="Vertical / Mediana" data-estado="Activo" data-estado-class="badge-activo" data-distribuidor="IceFree Chile" data-cliente="Supermercado Plaza Norte" data-fecha-compra="15/03/2022" data-contrato="CC-2024-0042" data-guia="GD-982345" data-ultima-actualizacion="03/07/2025 14:32">
                                                 <td><span class="fw-semibold">FR-1023</span></td>
                                                 <td>Savory</td>
                                                 <td>Freezer 500L</td>
@@ -237,7 +240,6 @@
                                                 <td><span class="badge-status badge-activo">Activo</span></td>
                                                 <td>IceFree Chile</td>
                                                 <td>Supermercado Plaza Norte</td>
-                                                <td>Buena</td>
                                                 <td>03/07/2025</td>
                                                 <td class="text-end">
                                                     <button class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#modalDetalleEquipo">
@@ -248,15 +250,14 @@
                                                     </button>
                                                 </td>
                                             </tr>
-                                            <tr data-serie="CZ-0845" data-marca-modelo="Polar Conservadora 300L" data-tipo-tamano="Exhibidor / Pequeña" data-estado="En Tránsito" data-estado-class="badge-transito" data-distribuidor="Distribuidora Norte" data-cliente="—" data-condicion="Buena" data-fecha-compra="22/06/2023" data-contrato="—" data-guia="GD-982401" data-ultima-actualizacion="02/07/2025 09:15">
+                                            <tr data-serie="CZ-0845" data-marca-modelo="Polar Conservadora 300L" data-tipo-tamano="Exhibidor / Pequeña" data-estado="Asignado al Distribuidor" data-estado-class="badge-distribuidor" data-distribuidor="Distribuidora Norte" data-cliente="—" data-fecha-compra="22/06/2023" data-contrato="—" data-guia="GD-982401" data-ultima-actualizacion="02/07/2025 09:15">
                                                 <td><span class="fw-semibold">CZ-0845</span></td>
                                                 <td>Polar</td>
                                                 <td>Conservadora 300L</td>
                                                 <td>Exhibidor</td>
-                                                <td><span class="badge-status badge-transito">En Tránsito</span></td>
+                                                <td><span class="badge-status badge-distribuidor">Asignado al Distribuidor</span></td>
                                                 <td>Distribuidora Norte</td>
-                                                <td>En tránsito a bodega</td>
-                                                <td>Buena</td>
+                                                <td>Bodega Distribuidora Norte</td>
                                                 <td>02/07/2025</td>
                                                 <td class="text-end">
                                                     <button class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#modalDetalleEquipo">
@@ -267,7 +268,7 @@
                                                     </button>
                                                 </td>
                                             </tr>
-                                            <tr data-serie="FR-2210" data-marca-modelo="Savory Freezer 700L" data-tipo-tamano="Vertical / Grande" data-estado="En SSTT" data-estado-class="badge-sstt" data-distribuidor="IceFree Chile" data-cliente="—" data-condicion="Con falla" data-fecha-compra="10/01/2021" data-contrato="CC-2023-0118" data-guia="GD-982356" data-ultima-actualizacion="02/07/2025 16:45">
+                                            <tr data-serie="FR-2210" data-marca-modelo="Savory Freezer 700L" data-tipo-tamano="Vertical / Grande" data-estado="En SSTT" data-estado-class="badge-sstt" data-distribuidor="IceFree Chile" data-cliente="—" data-fecha-compra="10/01/2021" data-contrato="CC-2023-0118" data-guia="GD-982356" data-ultima-actualizacion="02/07/2025 16:45">
                                                 <td><span class="fw-semibold">FR-2210</span></td>
                                                 <td>Savory</td>
                                                 <td>Freezer 700L</td>
@@ -275,7 +276,6 @@
                                                 <td><span class="badge-status badge-sstt">En SSTT</span></td>
                                                 <td>IceFree Chile</td>
                                                 <td>Servicio Técnico CoolFix</td>
-                                                <td>Con falla</td>
                                                 <td>02/07/2025</td>
                                                 <td class="text-end">
                                                     <button class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#modalDetalleEquipo">
@@ -286,15 +286,14 @@
                                                     </button>
                                                 </td>
                                             </tr>
-                                            <tr data-serie="VT-4501" data-marca-modelo="Savory Vitrina 250L" data-tipo-tamano="Vitrina / Pequeña" data-estado="Pendiente" data-estado-class="badge-pendiente" data-distribuidor="Sur Distribución" data-cliente="—" data-condicion="Buena" data-fecha-compra="05/04/2024" data-contrato="—" data-guia="GD-982378" data-ultima-actualizacion="01/07/2025 11:20">
+                                            <tr data-serie="VT-4501" data-marca-modelo="Savory Vitrina 250L" data-tipo-tamano="Vitrina / Pequeña" data-estado="Pendiente de Revisión" data-estado-class="badge-pendiente" data-distribuidor="Sur Distribución" data-cliente="—" data-fecha-compra="05/04/2024" data-contrato="—" data-guia="GD-982378" data-ultima-actualizacion="01/07/2025 11:20">
                                                 <td><span class="fw-semibold">VT-4501</span></td>
                                                 <td>Savory</td>
                                                 <td>Vitrina 250L</td>
                                                 <td>Vitrina</td>
-                                                <td><span class="badge-status badge-pendiente">Pendiente</span></td>
+                                                <td><span class="badge-status badge-pendiente">Pendiente de Revisión</span></td>
                                                 <td>Sur Distribución</td>
                                                 <td>Bodega central Sur Distribución</td>
-                                                <td>Buena</td>
                                                 <td>01/07/2025</td>
                                                 <td class="text-end">
                                                     <button class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#modalDetalleEquipo">
@@ -305,7 +304,7 @@
                                                     </button>
                                                 </td>
                                             </tr>
-                                            <tr data-serie="FR-3056" data-marca-modelo="Savory Freezer 500L" data-tipo-tamano="Vertical / Mediana" data-estado="Baja" data-estado-class="badge-baja" data-distribuidor="Distribuidora Norte" data-cliente="—" data-condicion="Mala" data-fecha-compra="18/08/2020" data-contrato="CC-2021-0099" data-guia="GD-982312" data-ultima-actualizacion="30/06/2025 13:50">
+                                            <tr data-serie="FR-3056" data-marca-modelo="Savory Freezer 500L" data-tipo-tamano="Vertical / Mediana" data-estado="Baja" data-estado-class="badge-baja" data-distribuidor="Distribuidora Norte" data-cliente="—" data-fecha-compra="18/08/2020" data-contrato="CC-2021-0099" data-guia="GD-982312" data-ultima-actualizacion="30/06/2025 13:50">
                                                 <td><span class="fw-semibold">FR-3056</span></td>
                                                 <td>Savory</td>
                                                 <td>Freezer 500L</td>
@@ -313,7 +312,6 @@
                                                 <td><span class="badge-status badge-baja">Baja</span></td>
                                                 <td>Distribuidora Norte</td>
                                                 <td>—</td>
-                                                <td>Mala</td>
                                                 <td>30/06/2025</td>
                                                 <td class="text-end">
                                                     <button class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#modalDetalleEquipo">
@@ -324,15 +322,14 @@
                                                     </button>
                                                 </td>
                                             </tr>
-                                            <tr data-serie="BQ-7712" data-marca-modelo="Savory Barquillera 150L" data-tipo-tamano="Barquillera / Pequeña" data-estado="En Distribuidor" data-estado-class="badge-distribuidor" data-distribuidor="IceFree Chile" data-cliente="—" data-condicion="Buena" data-fecha-compra="12/02/2024" data-contrato="CC-2024-0038" data-guia="GD-982299" data-ultima-actualizacion="29/06/2025 10:05">
+                                            <tr data-serie="BQ-7712" data-marca-modelo="Savory Barquillera 150L" data-tipo-tamano="Barquillera / Pequeña" data-estado="Asignado al Distribuidor" data-estado-class="badge-distribuidor" data-distribuidor="IceFree Chile" data-cliente="—" data-fecha-compra="12/02/2024" data-contrato="CC-2024-0038" data-guia="GD-982299" data-ultima-actualizacion="29/06/2025 10:05">
                                                 <td><span class="fw-semibold">BQ-7712</span></td>
                                                 <td>Savory</td>
                                                 <td>Barquillera 150L</td>
                                                 <td>Barquillera</td>
-                                                <td><span class="badge-status badge-distribuidor">En Distribuidor</span></td>
+                                                <td><span class="badge-status badge-distribuidor">Asignado al Distribuidor</span></td>
                                                 <td>IceFree Chile</td>
                                                 <td>Bodega IceFree Santiago</td>
-                                                <td>Buena</td>
                                                 <td>29/06/2025</td>
                                                 <td class="text-end">
                                                     <button class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#modalDetalleEquipo">
@@ -444,10 +441,6 @@
                             <dd id="detalleCliente"></dd>
                         </div>
                         <div class="detail-item">
-                            <dt>Condición física</dt>
-                            <dd id="detalleCondicion"></dd>
-                        </div>
-                        <div class="detail-item">
                             <dt>Fecha de compra</dt>
                             <dd id="detalleFechaCompra"></dd>
                         </div>
@@ -521,11 +514,11 @@
                                 <label for="neEstado" class="form-label">Estado <span class="text-danger">*</span></label>
                                 <select class="form-select" id="neEstado" required>
                                     <option value="" selected disabled>Seleccionar...</option>
-                                    <option>Pendiente de Asignar</option>
                                     <option>Activo</option>
-                                    <option>En Tránsito</option>
-                                    <option>En Distribuidor</option>
+                                    <option>Asignado al Distribuidor</option>
+                                    <option>Asignado a Cliente</option>
                                     <option>En SSTT</option>
+                                    <option>Pendiente de Revisión</option>
                                     <option>Rechazado</option>
                                     <option>Baja</option>
                                 </select>
@@ -542,10 +535,6 @@
                             <div class="col-md-6">
                                 <label for="neFechaCompra" class="form-label">Fecha de compra</label>
                                 <input type="date" class="form-control" id="neFechaCompra">
-                            </div>
-                            <div class="col-md-6">
-                                <label for="neCoordenadasGps" class="form-label">Coordenadas GPS</label>
-                                <input type="text" class="form-control" id="neCoordenadasGps" placeholder="Ej: -33.4489, -70.6693">
                             </div>
                             <div class="col-12">
                                 <label for="neObservacion" class="form-label">Observación</label>
@@ -615,10 +604,10 @@
                                 <select class="form-select" id="eeEstado" required>
                                     <option value="" disabled>Seleccionar...</option>
                                     <option>Activo</option>
-                                    <option>En Tránsito</option>
-                                    <option>En Distribuidor</option>
+                                    <option>Asignado al Distribuidor</option>
+                                    <option>Asignado a Cliente</option>
                                     <option>En SSTT</option>
-                                    <option>Pendiente de Asignar</option>
+                                    <option>Pendiente de Revisión</option>
                                     <option>Rechazado</option>
                                     <option>Baja</option>
                                 </select>
@@ -635,10 +624,6 @@
                             <div class="col-md-6">
                                 <label for="eeFechaCompra" class="form-label">Fecha de compra</label>
                                 <input type="date" class="form-control" id="eeFechaCompra">
-                            </div>
-                            <div class="col-md-6">
-                                <label for="eeCoordenadasGps" class="form-label">Coordenadas GPS</label>
-                                <input type="text" class="form-control" id="eeCoordenadasGps" placeholder="Ej: -33.4489, -70.6693">
                             </div>
                             <div class="col-12">
                                 <label for="eeObservacion" class="form-label">Observación</label>
@@ -672,7 +657,6 @@
                     document.getElementById('detalleTipoTamano').textContent = data.tipoTamano;
                     document.getElementById('detalleDistribuidor').textContent = data.distribuidor;
                     document.getElementById('detalleCliente').textContent = data.cliente;
-                    document.getElementById('detalleCondicion').textContent = data.condicion;
                     document.getElementById('detalleFechaCompra').textContent = data.fechaCompra;
                     document.getElementById('detalleContrato').textContent = data.contrato;
                     document.getElementById('detalleGuia').textContent = data.guia;
@@ -717,16 +701,8 @@
                         }
                     }
 
-                    const estadoMap = {
-                        'Activo': 'Activo',
-                        'En Tránsito': 'En Tránsito',
-                        'En Distribuidor': 'En Distribuidor',
-                        'En SSTT': 'En SSTT',
-                        'Pendiente': 'Pendiente de Asignar',
-                        'Baja': 'Baja'
-                    };
                     const eeEstado = document.getElementById('eeEstado');
-                    const estadoValue = estadoMap[data.estado] || data.estado;
+                    const estadoValue = data.estado;
                     for (let i = 0; i < eeEstado.options.length; i++) {
                         if (eeEstado.options[i].value === estadoValue) {
                             eeEstado.selectedIndex = i;

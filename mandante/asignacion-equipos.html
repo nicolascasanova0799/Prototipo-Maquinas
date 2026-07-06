@@ -331,7 +331,7 @@
                 <!-- ===== Alerta de éxito (oculta por defecto) ===== -->
                 <div id="alertaExito" class="alert-success-custom mb-4" style="display: none;">
                     <i class="bi bi-check-circle-fill text-success"></i>
-                    <span id="alertaExitoTexto">Asignación confirmada. Los equipos han pasado a estado "En Tránsito".</span>
+                    <span id="alertaExitoTexto">Asignación confirmada. Los equipos han pasado a estado "Asignado al Distribuidor".</span>
                 </div>
 
                 <!-- ===== Alerta de borrador guardado (oculta por defecto) ===== -->
@@ -411,56 +411,56 @@
                                                 <td class="fw-semibold">FR-1023</td>
                                                 <td>Savory</td>
                                                 <td>SF-200</td>
-                                                <td><span class="badge-status badge-pendiente">Pendiente de Asignar</span></td>
+                                                <td><span class="badge-status badge-activo">Activo</span></td>
                                             </tr>
                                             <tr data-serie="FR-1024" data-marca="Savory" data-modelo="SF-200">
                                                 <td><input type="checkbox" class="check-equipo" aria-label="Seleccionar FR-1024"></td>
                                                 <td class="fw-semibold">FR-1024</td>
                                                 <td>Savory</td>
                                                 <td>SF-200</td>
-                                                <td><span class="badge-status badge-pendiente">Pendiente de Asignar</span></td>
+                                                <td><span class="badge-status badge-activo">Activo</span></td>
                                             </tr>
                                             <tr data-serie="FR-1025" data-marca="Savory" data-modelo="SF-450">
                                                 <td><input type="checkbox" class="check-equipo" aria-label="Seleccionar FR-1025"></td>
                                                 <td class="fw-semibold">FR-1025</td>
                                                 <td>Savory</td>
                                                 <td>SF-450</td>
-                                                <td><span class="badge-status badge-pendiente">Pendiente de Asignar</span></td>
+                                                <td><span class="badge-status badge-activo">Activo</span></td>
                                             </tr>
                                             <tr data-serie="FS-2201" data-marca="Foster" data-modelo="F-350">
                                                 <td><input type="checkbox" class="check-equipo" aria-label="Seleccionar FS-2201"></td>
                                                 <td class="fw-semibold">FS-2201</td>
                                                 <td>Foster</td>
                                                 <td>F-350</td>
-                                                <td><span class="badge-status badge-pendiente">Pendiente de Asignar</span></td>
+                                                <td><span class="badge-status badge-activo">Activo</span></td>
                                             </tr>
                                             <tr data-serie="FS-2202" data-marca="Foster" data-modelo="F-350">
                                                 <td><input type="checkbox" class="check-equipo" aria-label="Seleccionar FS-2202"></td>
                                                 <td class="fw-semibold">FS-2202</td>
                                                 <td>Foster</td>
                                                 <td>F-350</td>
-                                                <td><span class="badge-status badge-pendiente">Pendiente de Asignar</span></td>
+                                                <td><span class="badge-status badge-activo">Activo</span></td>
                                             </tr>
                                             <tr data-serie="TR-3301" data-marca="True" data-modelo="T-500">
                                                 <td><input type="checkbox" class="check-equipo" aria-label="Seleccionar TR-3301"></td>
                                                 <td class="fw-semibold">TR-3301</td>
                                                 <td>True</td>
                                                 <td>T-500</td>
-                                                <td><span class="badge-status badge-pendiente">Pendiente de Asignar</span></td>
+                                                <td><span class="badge-status badge-activo">Activo</span></td>
                                             </tr>
                                             <tr data-serie="TR-3302" data-marca="True" data-modelo="T-500">
                                                 <td><input type="checkbox" class="check-equipo" aria-label="Seleccionar TR-3302"></td>
                                                 <td class="fw-semibold">TR-3302</td>
                                                 <td>True</td>
                                                 <td>T-500</td>
-                                                <td><span class="badge-status badge-pendiente">Pendiente de Asignar</span></td>
+                                                <td><span class="badge-status badge-activo">Activo</span></td>
                                             </tr>
                                             <tr data-serie="BN-4401" data-marca="Bonnet" data-modelo="B-700">
                                                 <td><input type="checkbox" class="check-equipo" aria-label="Seleccionar BN-4401"></td>
                                                 <td class="fw-semibold">BN-4401</td>
                                                 <td>Bonnet</td>
                                                 <td>B-700</td>
-                                                <td><span class="badge-status badge-pendiente">Pendiente de Asignar</span></td>
+                                                <td><span class="badge-status badge-activo">Activo</span></td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -641,20 +641,20 @@
             isReadOnly = true;
             pageTitle.textContent = `Detalle Asignación ${assignId}`;
 
-            // Determinar estado según datos simulados
+            // Determinar estado del registro (Eje 3) según datos simulados
             const estadosMap = {
-                'ASG-0040': { clase: 'badge-transito', texto: 'En Tránsito' },
-                'ASG-0039': { clase: 'badge-transito', texto: 'En Tránsito' },
-                'ASG-0038': { clase: 'badge-transito', texto: 'En Tránsito' },
-                'ASG-0037': { clase: 'badge-transito', texto: 'En Tránsito' },
-                'ASG-0036': { clase: 'badge-distribuidor', texto: 'En Distribuidor' },
-                'ASG-0035': { clase: 'badge-distribuidor', texto: 'En Distribuidor' },
-                'ASG-0034': { clase: 'badge-distribuidor', texto: 'En Distribuidor' },
-                'ASG-0033': { clase: 'badge-pendiente', texto: 'Pendiente de Asignar' },
-                'ASG-0032': { clase: 'badge-distribuidor', texto: 'En Distribuidor' },
-                'ASG-0031': { clase: 'badge-distribuidor', texto: 'En Distribuidor' }
+                'ASG-0040': { clase: 'badge-transito', texto: 'Enviada' },
+                'ASG-0039': { clase: 'badge-transito', texto: 'Enviada' },
+                'ASG-0038': { clase: 'badge-transito', texto: 'Enviada' },
+                'ASG-0037': { clase: 'badge-transito', texto: 'Enviada' },
+                'ASG-0036': { clase: 'badge-aprobada', texto: 'Completada' },
+                'ASG-0035': { clase: 'badge-aprobada', texto: 'Completada' },
+                'ASG-0034': { clase: 'badge-aprobada', texto: 'Completada' },
+                'ASG-0033': { clase: 'badge-aprobada', texto: 'Completada', tienePendientes: true },
+                'ASG-0032': { clase: 'badge-aprobada', texto: 'Completada' },
+                'ASG-0031': { clase: 'badge-aprobada', texto: 'Completada' }
             };
-            const info = estadosMap[assignId] || { clase: 'badge-transito', texto: 'En Tránsito' };
+            const info = estadosMap[assignId] || { clase: 'badge-transito', texto: 'Enviada' };
             headerEstado.style.display = 'inline-flex';
             headerEstado.className = `badge-status ${info.clase} ms-2`;
             headerEstado.textContent = info.texto;
@@ -669,22 +669,17 @@
             btnGuardarBorrador.style.display = 'none';
             btnLimpiar.style.display = 'none';
 
-            // Simular equipos ya asignados (marcar todos como en tránsito/recibido)
-            checkboxes.forEach(cb => {
+            // Simular estado de cada equipo dentro de la asignación (Eje 1)
+            // Enviada o Completada -> equipos quedan "Asignado al Distribuidor"; ASG-0033 deja el último equipo "Pendiente de Revisión" (RN-5)
+            checkboxes.forEach((cb, i) => {
                 const row = cb.closest('tr');
                 const badge = row.querySelector('.badge-status');
-                if (info.texto === 'En Distribuidor') {
-                    badge.className = 'badge-status badge-distribuidor';
-                    badge.textContent = 'En Distribuidor';
-                } else if (info.texto === 'En Tránsito') {
-                    badge.className = 'badge-status badge-transito';
-                    badge.textContent = 'En Tránsito';
-                } else if (info.texto === 'Pendiente de Asignar') {
+                if (info.tienePendientes && i === checkboxes.length - 1) {
                     badge.className = 'badge-status badge-pendiente';
-                    badge.textContent = 'Pendiente de Asignar';
+                    badge.textContent = 'Pendiente de Revisión';
                 } else {
-                    badge.className = 'badge-status badge-transito';
-                    badge.textContent = 'En Tránsito';
+                    badge.className = 'badge-status badge-distribuidor';
+                    badge.textContent = 'Asignado al Distribuidor';
                 }
             });
         }
@@ -762,7 +757,7 @@
         btnConfirmar.addEventListener('click', function() {
             const count = document.querySelectorAll('.check-equipo:checked').length;
             const distName = selectDistribuidor.options[selectDistribuidor.selectedIndex].text;
-            resumenAsignacion.textContent = `Se asignarán ${count} equipo${count !== 1 ? 's' : ''} al distribuidor "${distName}". Los equipos pasarán a estado "En Tránsito".`;
+            resumenAsignacion.textContent = `Se asignarán ${count} equipo${count !== 1 ? 's' : ''} al distribuidor "${distName}". Los equipos pasarán a estado "Asignado al Distribuidor".`;
 
             // Reset form
             formGuiaDespacho.classList.remove('was-validated');
@@ -843,13 +838,13 @@
                 return;
             }
 
-            // Simular confirmación: equipos pasan a "En Tránsito"
+            // Simular confirmación: equipos pasan a "Asignado al Distribuidor"
             const seleccionados = document.querySelectorAll('.check-equipo:checked');
             seleccionados.forEach(cb => {
                 const row = cb.closest('tr');
                 const badge = row.querySelector('.badge-status');
-                badge.className = 'badge-status badge-transito';
-                badge.textContent = 'En Tránsito';
+                badge.className = 'badge-status badge-distribuidor';
+                badge.textContent = 'Asignado al Distribuidor';
                 cb.checked = false;
                 row.classList.remove('row-selected');
                 // Deshabilitar checkbox para equipos ya asignados
@@ -863,7 +858,7 @@
             // Mostrar alerta de éxito
             const count = seleccionados.length;
             alertaExito.querySelector('#alertaExitoTexto').textContent =
-                `Asignación enviada. ${count} equipo${count !== 1 ? 's' : ''} ha${count !== 1 ? 'n' : ''} pasado a estado "En Tránsito".`;
+                `Asignación enviada. ${count} equipo${count !== 1 ? 's' : ''} ha${count !== 1 ? 'n' : ''} pasado a estado "Asignado al Distribuidor".`;
             alertaExito.style.display = 'flex';
 
             // Cerrar modal

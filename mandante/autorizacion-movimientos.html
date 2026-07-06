@@ -334,6 +334,9 @@
                     <h2 class="page-title">Autorización de Movimientos</h2>
                 </div>
                 <div class="navbar-right">
+                    <a href="asignacion-equipos.html?mode=new" class="btn btn-primary btn-sm me-3">
+                        <i class="bi bi-plus-circle me-1"></i>Nueva asignación
+                    </a>
                     <div class="notification-icon">
                         <i class="bi bi-bell"></i>
                         <span class="notification-badge">12</span>
@@ -358,7 +361,7 @@
                         </label>
                         <select class="form-select" id="filtroEstado" onchange="filtrarPorEstado()">
                             <option value="todos">Todos</option>
-                            <option value="pendiente">Pendiente</option>
+                            <option value="pendiente">Pendiente de Aprobación</option>
                             <option value="aprobada">Aprobada</option>
                             <option value="rechazada">Rechazada</option>
                         </select>
@@ -407,7 +410,7 @@
                                                 <td><span class="badge-tipo">Baja definitiva</span></td>
                                                 <td class="text-truncate" style="max-width: 200px;" title="Equipo con falla estructural irreparable. Motor quemado tras 3 reparaciones.">Equipo con falla estructural irreparable. Motor quemado tras 3 reparaciones.</td>
                                                 <td>04/07/2026</td>
-                                                <td><span class="badge-status badge-pendiente">Pendiente</span></td>
+                                                <td><span class="badge-status badge-pendiente">Pendiente de Aprobación</span></td>
                                                 <td class="text-end">
                                                     <div class="btn-action-group justify-content-end">
                                                         <button class="btn btn-success btn-sm" onclick="aprobarSolicitud(this)" title="Aprobar solicitud">
@@ -442,7 +445,7 @@
                                                 <td><span class="badge-tipo">Envío a SSTT</span></td>
                                                 <td class="text-truncate" style="max-width: 200px;" title="No enfría correctamente. Temperatura interna sobre 10°C. Requiere revisión técnica urgente.">No enfría correctamente. Temperatura interna sobre 10°C. Requiere revisión técnica urgente.</td>
                                                 <td>03/07/2026</td>
-                                                <td><span class="badge-status badge-pendiente">Pendiente</span></td>
+                                                <td><span class="badge-status badge-pendiente">Pendiente de Aprobación</span></td>
                                                 <td class="text-end">
                                                     <div class="btn-action-group justify-content-end">
                                                         <button class="btn btn-success btn-sm" onclick="aprobarSolicitud(this)" title="Aprobar solicitud">
@@ -477,7 +480,7 @@
                                                 <td><span class="badge-tipo">Cambio de equipo</span></td>
                                                 <td class="text-truncate" style="max-width: 200px;" title="Cliente solicita equipo de mayor capacidad por incremento de ventas estacionales.">Cliente solicita equipo de mayor capacidad por incremento de ventas estacionales.</td>
                                                 <td>02/07/2026</td>
-                                                <td><span class="badge-status badge-pendiente">Pendiente</span></td>
+                                                <td><span class="badge-status badge-pendiente">Pendiente de Aprobación</span></td>
                                                 <td class="text-end">
                                                     <div class="btn-action-group justify-content-end">
                                                         <button class="btn btn-success btn-sm" onclick="aprobarSolicitud(this)" title="Aprobar solicitud">
@@ -582,7 +585,7 @@
                                                 <td><span class="badge-tipo">Envío a SSTT</span></td>
                                                 <td class="text-truncate" style="max-width: 200px;" title="Puerta de vidrio quebrada por accidente. Requiere reemplazo de vidrio templado.">Puerta de vidrio quebrada por accidente. Requiere reemplazo de vidrio templado.</td>
                                                 <td>01/07/2026</td>
-                                                <td><span class="badge-status badge-pendiente">Pendiente</span></td>
+                                                <td><span class="badge-status badge-pendiente">Pendiente de Aprobación</span></td>
                                                 <td class="text-end">
                                                     <div class="btn-action-group justify-content-end">
                                                         <button class="btn btn-success btn-sm" onclick="aprobarSolicitud(this)" title="Aprobar solicitud">
@@ -687,7 +690,7 @@
                                                 <td><span class="badge-tipo">Cambio de equipo</span></td>
                                                 <td class="text-truncate" style="max-width: 200px;" title="Equipo con condensador dañado por mal uso del cliente. Se solicita cambio y envío del actual a SSTT.">Equipo con condensador dañado por mal uso del cliente. Se solicita cambio y envío del actual a SSTT.</td>
                                                 <td>04/07/2026</td>
-                                                <td><span class="badge-status badge-pendiente">Pendiente</span></td>
+                                                <td><span class="badge-status badge-pendiente">Pendiente de Aprobación</span></td>
                                                 <td class="text-end">
                                                     <div class="btn-action-group justify-content-end">
                                                         <button class="btn btn-success btn-sm" onclick="aprobarSolicitud(this)" title="Aprobar solicitud">
@@ -722,7 +725,7 @@
                                                 <td><span class="badge-tipo">Baja definitiva</span></td>
                                                 <td class="text-truncate" style="max-width: 200px;" title="Equipo destruido por incendio en punto de venta. Acta de bomberos adjunta.">Equipo destruido por incendio en punto de venta. Acta de bomberos adjunta.</td>
                                                 <td>30/06/2026</td>
-                                                <td><span class="badge-status badge-pendiente">Pendiente</span></td>
+                                                <td><span class="badge-status badge-pendiente">Pendiente de Aprobación</span></td>
                                                 <td class="text-end">
                                                     <div class="btn-action-group justify-content-end">
                                                         <button class="btn btn-success btn-sm" onclick="aprobarSolicitud(this)" title="Aprobar solicitud">
@@ -853,7 +856,7 @@
                             <div class="timeline-dot dot-green"></div>
                             <div class="timeline-date">25/01/2025</div>
                             <div class="timeline-title">Recibido y Aceptado</div>
-                            <div class="timeline-desc">Distribuidor confirma recepción e inspección visual. Equipo en estado "En Distribuidor".</div>
+                            <div class="timeline-desc">Distribuidor confirma recepción e inspección visual. Equipo en estado "Asignado al Distribuidor".</div>
                             <div class="timeline-actor">Actor: Distribuidor</div>
                         </li>
                         <li class="timeline-item">
