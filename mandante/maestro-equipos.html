@@ -1,0 +1,757 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maestro de Equipos — Plataforma Isstec</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="../css/styles.css" rel="stylesheet">
+    <style>
+        .filter-bar {
+            background: #FFFFFF;
+            border-radius: 8px;
+            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+            padding: 20px 24px;
+        }
+
+        .detail-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+        }
+
+        .detail-item dt {
+            font-size: 12px;
+            color: var(--gris-medio);
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+            margin-bottom: 4px;
+        }
+
+        .detail-item dd {
+            font-size: 14px;
+            color: var(--gris-oscuro);
+            margin-bottom: 0;
+            font-weight: 600;
+        }
+
+        .pagination .page-link {
+            color: var(--azul-primario);
+            border: 1px solid #DEE2E6;
+            font-weight: 500;
+            padding: 8px 14px;
+        }
+
+        .pagination .page-item.active .page-link {
+            background-color: var(--azul-primario);
+            border-color: var(--azul-primario);
+            color: #FFFFFF;
+        }
+
+        .pagination .page-item.disabled .page-link {
+            color: var(--gris-medio);
+        }
+    </style>
+</head>
+<body>
+    <div class="app-layout">
+        <!-- ===== Sidebar ===== -->
+        <nav class="sidebar">
+            <div class="sidebar-logo">
+                <img src="../assets/img/logo.png" alt="Isstec">
+            </div>
+            <div class="sidebar-nav">
+                <div class="nav-section">Principal</div>
+                <a href="dashboard.html" class="nav-link">
+                    <i class="bi bi-speedometer2"></i> Dashboard
+                </a>
+                <a href="asignaciones.html" class="nav-link">
+                    <i class="bi bi-diagram-3"></i> Asignación de Equipos
+                </a>
+                <div class="nav-section">Operación</div>
+                <a href="autorizacion-movimientos.html" class="nav-link">
+                    <i class="bi bi-shield-check"></i> Autorización de Movimientos
+                </a>
+                <a href="consulta-inventario.html" class="nav-link">
+                    <i class="bi bi-clipboard2-data"></i> Consulta de Inventario
+                </a>
+                <a href="trazabilidad.html" class="nav-link">
+                    <i class="bi bi-geo-alt"></i> Trazabilidad
+                </a>
+                <div class="nav-section">Análisis</div>
+                <a href="informes.html" class="nav-link">
+                    <i class="bi bi-bar-chart"></i> Informes
+                </a>
+                <div class="nav-section">Maestros</div>
+                <a href="maestro-equipos.html" class="nav-link active">
+                    <i class="bi bi-hdd-stack"></i> Equipos
+                </a>
+                <a href="gestores.html" class="nav-link">
+                    <i class="bi bi-people"></i> Gestores
+                </a>
+                <a href="servicio-tecnico.html" class="nav-link">
+                    <i class="bi bi-tools"></i> Servicio Técnico
+                </a>
+                <a href="grupo-maquinas.html" class="nav-link">
+                    <i class="bi bi-layers"></i> Grupo de Máquinas
+                </a>
+                <a href="familia-maquinas.html" class="nav-link">
+                    <i class="bi bi-grid"></i> Familia de Máquinas
+                </a>
+                <a href="ubicaciones-bodegas.html" class="nav-link">
+                    <i class="bi bi-geo"></i> Ubicaciones / Bodegas
+                </a>
+                <a href="motivos-movimiento.html" class="nav-link">
+                    <i class="bi bi-list-ul"></i> Motivos de Movimiento
+                </a>
+                <a href="tipos-solicitud.html" class="nav-link">
+                    <i class="bi bi-file-earmark-text"></i> Tipos de Solicitud
+                </a>
+                <a href="plantillas-inspeccion.html" class="nav-link">
+                    <i class="bi bi-clipboard2-check"></i> Plantillas de Inspección
+                </a>
+                <a href="marcas.html" class="nav-link">
+                    <i class="bi bi-tag"></i> Marcas
+                </a>
+                <a href="modelos.html" class="nav-link">
+                    <i class="bi bi-box"></i> Modelos
+                </a>
+                <a href="tipos-incidencias.html" class="nav-link">
+                    <i class="bi bi-exclamation-octagon"></i> Tipos de Incidencias / Catálogo de Fallas
+                </a>
+                <div class="nav-section">Configuración</div>
+                <a href="usuarios.html" class="nav-link">
+                    <i class="bi bi-people-fill"></i> Usuarios
+                </a>
+                <a href="roles.html" class="nav-link">
+                    <i class="bi bi-shield-lock"></i> Roles
+                </a>
+            </div>
+            <div class="sidebar-footer">
+                <a href="../index.html" class="nav-link">
+                    <i class="bi bi-box-arrow-right"></i> Cerrar sesión
+                </a>
+            </div>
+        </nav>
+
+        <!-- ===== Contenido principal ===== -->
+        <div class="app-content">
+            <!-- Navbar superior -->
+            <nav class="navbar-top">
+                <div class="navbar-left">
+                    <h2 class="page-title">Maestro de Equipos</h2>
+                </div>
+                <div class="navbar-right">
+                    <div class="notification-icon">
+                        <i class="bi bi-bell"></i>
+                        <span class="notification-badge">3</span>
+                    </div>
+                    <div class="user-info">
+                        <div class="user-avatar">SV</div>
+                        <div>
+                            <div class="user-name">Savory Chile</div>
+                            <div class="user-role">Mandante</div>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+
+            <!-- Main -->
+            <main class="app-main">
+                <!-- ===== Filtros y acciones ===== -->
+                <div class="row mb-4">
+                    <div class="col-lg-12">
+                        <div class="filter-bar">
+                            <div class="row g-3 align-items-end">
+                                <div class="col-lg-4 col-md-6">
+                                    <label for="busqueda" class="form-label">Buscar equipo</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text"><i class="bi bi-search"></i></span>
+                                        <input type="text" class="form-control" id="busqueda" placeholder="N° de serie, marca, modelo...">
+                                    </div>
+                                </div>
+                                <div class="col-lg-2 col-md-3">
+                                    <label for="filtroEstado" class="form-label">Estado</label>
+                                    <select class="form-select" id="filtroEstado">
+                                        <option selected>Todos</option>
+                                        <option>Activo</option>
+                                        <option>En Tránsito</option>
+                                        <option>En Distribuidor</option>
+                                        <option>En SSTT</option>
+                                        <option>Pendiente</option>
+                                        <option>Baja</option>
+                                    </select>
+                                </div>
+                                <div class="col-lg-2 col-md-3">
+                                    <label for="filtroDistribuidor" class="form-label">Distribuidor</label>
+                                    <select class="form-select" id="filtroDistribuidor">
+                                        <option selected>Todos</option>
+                                        <option>IceFree Chile</option>
+                                        <option>Distribuidora Norte</option>
+                                        <option>Sur Distribución</option>
+                                        <option>Sin asignar</option>
+                                    </select>
+                                </div>
+                                <div class="col-lg-4 col-md-12 d-flex justify-content-lg-end gap-2">
+                                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalCargaManual">
+                                        <i class="bi bi-upload me-2"></i>Cargar equipos manualmente
+                                    </button>
+                                    <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modalNuevoEquipo">
+                                        <i class="bi bi-plus-lg me-2"></i>Nuevo equipo
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ===== Tabla de equipos ===== -->
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table table-hover align-middle">
+                                        <thead>
+                                            <tr>
+                                                <th>N° de Serie</th>
+                                                <th>Marca</th>
+                                                <th>Modelo</th>
+                                                <th>Tipo</th>
+                                                <th>Estado</th>
+                                                <th>Distribuidor</th>
+                                                <th>Cliente / Ubicación</th>
+                                                <th>Condición</th>
+                                                <th>Última actualización</th>
+                                                <th></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr data-serie="FR-1023" data-marca-modelo="Savory Freezer 500L" data-tipo-tamano="Vertical / Mediana" data-estado="Activo" data-estado-class="badge-activo" data-distribuidor="IceFree Chile" data-cliente="Supermercado Plaza Norte" data-condicion="Buena" data-fecha-compra="15/03/2022" data-contrato="CC-2024-0042" data-guia="GD-982345" data-ultima-actualizacion="03/07/2025 14:32">
+                                                <td><span class="fw-semibold">FR-1023</span></td>
+                                                <td>Savory</td>
+                                                <td>Freezer 500L</td>
+                                                <td>Vertical</td>
+                                                <td><span class="badge-status badge-activo">Activo</span></td>
+                                                <td>IceFree Chile</td>
+                                                <td>Supermercado Plaza Norte</td>
+                                                <td>Buena</td>
+                                                <td>03/07/2025</td>
+                                                <td class="text-end">
+                                                    <button class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#modalDetalleEquipo">
+                                                        <i class="bi bi-eye"></i>
+                                                    </button>
+                                                    <button class="btn btn-sm btn-outline-primary" data-bs-toggle="modal" data-bs-target="#modalEditarEquipo">
+                                                        <i class="bi bi-pencil"></i>
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                            <tr data-serie="CZ-0845" data-marca-modelo="Polar Conservadora 300L" data-tipo-tamano="Exhibidor / Pequeña" data-estado="En Tránsito" data-estado-class="badge-transito" data-distribuidor="Distribuidora Norte" data-cliente="—" data-condicion="Buena" data-fecha-compra="22/06/2023" data-contrato="—" data-guia="GD-982401" data-ultima-actualizacion="02/07/2025 09:15">
+                                                <td><span class="fw-semibold">CZ-0845</span></td>
+                                                <td>Polar</td>
+                                                <td>Conservadora 300L</td>
+                                                <td>Exhibidor</td>
+                                                <td><span class="badge-status badge-transito">En Tránsito</span></td>
+                                                <td>Distribuidora Norte</td>
+                                                <td>En tránsito a bodega</td>
+                                                <td>Buena</td>
+                                                <td>02/07/2025</td>
+                                                <td class="text-end">
+                                                    <button class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#modalDetalleEquipo">
+                                                        <i class="bi bi-eye"></i>
+                                                    </button>
+                                                    <button class="btn btn-sm btn-outline-primary" data-bs-toggle="modal" data-bs-target="#modalEditarEquipo">
+                                                        <i class="bi bi-pencil"></i>
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                            <tr data-serie="FR-2210" data-marca-modelo="Savory Freezer 700L" data-tipo-tamano="Vertical / Grande" data-estado="En SSTT" data-estado-class="badge-sstt" data-distribuidor="IceFree Chile" data-cliente="—" data-condicion="Con falla" data-fecha-compra="10/01/2021" data-contrato="CC-2023-0118" data-guia="GD-982356" data-ultima-actualizacion="02/07/2025 16:45">
+                                                <td><span class="fw-semibold">FR-2210</span></td>
+                                                <td>Savory</td>
+                                                <td>Freezer 700L</td>
+                                                <td>Vertical</td>
+                                                <td><span class="badge-status badge-sstt">En SSTT</span></td>
+                                                <td>IceFree Chile</td>
+                                                <td>Servicio Técnico CoolFix</td>
+                                                <td>Con falla</td>
+                                                <td>02/07/2025</td>
+                                                <td class="text-end">
+                                                    <button class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#modalDetalleEquipo">
+                                                        <i class="bi bi-eye"></i>
+                                                    </button>
+                                                    <button class="btn btn-sm btn-outline-primary" data-bs-toggle="modal" data-bs-target="#modalEditarEquipo">
+                                                        <i class="bi bi-pencil"></i>
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                            <tr data-serie="VT-4501" data-marca-modelo="Savory Vitrina 250L" data-tipo-tamano="Vitrina / Pequeña" data-estado="Pendiente" data-estado-class="badge-pendiente" data-distribuidor="Sur Distribución" data-cliente="—" data-condicion="Buena" data-fecha-compra="05/04/2024" data-contrato="—" data-guia="GD-982378" data-ultima-actualizacion="01/07/2025 11:20">
+                                                <td><span class="fw-semibold">VT-4501</span></td>
+                                                <td>Savory</td>
+                                                <td>Vitrina 250L</td>
+                                                <td>Vitrina</td>
+                                                <td><span class="badge-status badge-pendiente">Pendiente</span></td>
+                                                <td>Sur Distribución</td>
+                                                <td>Bodega central Sur Distribución</td>
+                                                <td>Buena</td>
+                                                <td>01/07/2025</td>
+                                                <td class="text-end">
+                                                    <button class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#modalDetalleEquipo">
+                                                        <i class="bi bi-eye"></i>
+                                                    </button>
+                                                    <button class="btn btn-sm btn-outline-primary" data-bs-toggle="modal" data-bs-target="#modalEditarEquipo">
+                                                        <i class="bi bi-pencil"></i>
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                            <tr data-serie="FR-3056" data-marca-modelo="Savory Freezer 500L" data-tipo-tamano="Vertical / Mediana" data-estado="Baja" data-estado-class="badge-baja" data-distribuidor="Distribuidora Norte" data-cliente="—" data-condicion="Mala" data-fecha-compra="18/08/2020" data-contrato="CC-2021-0099" data-guia="GD-982312" data-ultima-actualizacion="30/06/2025 13:50">
+                                                <td><span class="fw-semibold">FR-3056</span></td>
+                                                <td>Savory</td>
+                                                <td>Freezer 500L</td>
+                                                <td>Vertical</td>
+                                                <td><span class="badge-status badge-baja">Baja</span></td>
+                                                <td>Distribuidora Norte</td>
+                                                <td>—</td>
+                                                <td>Mala</td>
+                                                <td>30/06/2025</td>
+                                                <td class="text-end">
+                                                    <button class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#modalDetalleEquipo">
+                                                        <i class="bi bi-eye"></i>
+                                                    </button>
+                                                    <button class="btn btn-sm btn-outline-primary" data-bs-toggle="modal" data-bs-target="#modalEditarEquipo">
+                                                        <i class="bi bi-pencil"></i>
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                            <tr data-serie="BQ-7712" data-marca-modelo="Savory Barquillera 150L" data-tipo-tamano="Barquillera / Pequeña" data-estado="En Distribuidor" data-estado-class="badge-distribuidor" data-distribuidor="IceFree Chile" data-cliente="—" data-condicion="Buena" data-fecha-compra="12/02/2024" data-contrato="CC-2024-0038" data-guia="GD-982299" data-ultima-actualizacion="29/06/2025 10:05">
+                                                <td><span class="fw-semibold">BQ-7712</span></td>
+                                                <td>Savory</td>
+                                                <td>Barquillera 150L</td>
+                                                <td>Barquillera</td>
+                                                <td><span class="badge-status badge-distribuidor">En Distribuidor</span></td>
+                                                <td>IceFree Chile</td>
+                                                <td>Bodega IceFree Santiago</td>
+                                                <td>Buena</td>
+                                                <td>29/06/2025</td>
+                                                <td class="text-end">
+                                                    <button class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#modalDetalleEquipo">
+                                                        <i class="bi bi-eye"></i>
+                                                    </button>
+                                                    <button class="btn btn-sm btn-outline-primary" data-bs-toggle="modal" data-bs-target="#modalEditarEquipo">
+                                                        <i class="bi bi-pencil"></i>
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                                <!-- Paginación -->
+                                <div class="d-flex justify-content-between align-items-center mt-3">
+                                    <div class="text-muted" style="font-size: 13px;">
+                                        Mostrando 1–6 de 1.248 equipos
+                                    </div>
+                                    <nav aria-label="Paginación de equipos">
+                                        <ul class="pagination mb-0">
+                                            <li class="page-item disabled">
+                                                <a class="page-link" href="#" tabindex="-1" aria-disabled="true">
+                                                    <i class="bi bi-chevron-left"></i>
+                                                </a>
+                                            </li>
+                                            <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                                            <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                            <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                            <li class="page-item"><a class="page-link" href="#">4</a></li>
+                                            <li class="page-item"><a class="page-link" href="#">5</a></li>
+                                            <li class="page-item">
+                                                <a class="page-link" href="#">
+                                                    <i class="bi bi-chevron-right"></i>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </nav>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- Modal: Cargar equipos manualmente -->
+    <div class="modal fade" id="modalCargaManual" tabindex="-1" aria-labelledby="modalCargaManualLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalCargaManualLabel">Cargar equipos manualmente</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                </div>
+                <div class="modal-body">
+                    <p class="text-muted mb-3">Sube un archivo Excel o CSV con el listado de equipos. <a href="#">Descargar plantilla</a></p>
+                    <div class="mb-3">
+                        <label for="archivoEquipos" class="form-label">Archivo</label>
+                        <input class="form-control" type="file" id="archivoEquipos" accept=".xlsx,.xls,.csv">
+                    </div>
+                    <div class="alert alert-info d-flex align-items-start" role="alert">
+                        <i class="bi bi-info-circle me-2 mt-1"></i>
+                        <div style="font-size: 13px;">
+                            El archivo debe incluir las columnas: N° de serie, Marca, Modelo, Tipo, Tamaño y Estado. Los equipos duplicados se omitirán automáticamente.
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary">Cargar equipos</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal: Detalle de equipo -->
+    <div class="modal fade" id="modalDetalleEquipo" tabindex="-1" aria-labelledby="modalDetalleEquipoLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalDetalleEquipoLabel">Detalle del equipo</h5>
+                    <button type="button" class="btn-close ms-2" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                </div>
+                <div class="modal-body">
+                    <dl class="detail-grid">
+                        <div class="detail-item">
+                            <dt>N° de serie</dt>
+                            <dd id="detalleSerie"></dd>
+                        </div>
+                        <div class="detail-item">
+                            <dt>Marca / Modelo</dt>
+                            <dd id="detalleMarcaModelo"></dd>
+                        </div>
+                        <div class="detail-item">
+                            <dt>Tipo / Tamaño</dt>
+                            <dd id="detalleTipoTamano"></dd>
+                        </div>
+                        <div class="detail-item">
+                            <dt>Estado operativo</dt>
+                            <dd><span id="detalleEstado" class="badge-status"></span></dd>
+                        </div>
+                        <div class="detail-item">
+                            <dt>Distribuidor</dt>
+                            <dd id="detalleDistribuidor"></dd>
+                        </div>
+                        <div class="detail-item">
+                            <dt>Cliente actual</dt>
+                            <dd id="detalleCliente"></dd>
+                        </div>
+                        <div class="detail-item">
+                            <dt>Condición física</dt>
+                            <dd id="detalleCondicion"></dd>
+                        </div>
+                        <div class="detail-item">
+                            <dt>Fecha de compra</dt>
+                            <dd id="detalleFechaCompra"></dd>
+                        </div>
+                        <div class="detail-item">
+                            <dt>Contrato de comodato</dt>
+                            <dd id="detalleContrato"></dd>
+                        </div>
+                        <div class="detail-item">
+                            <dt>Guía de despacho</dt>
+                            <dd id="detalleGuia"></dd>
+                        </div>
+                        <div class="detail-item">
+                            <dt>Última actualización</dt>
+                            <dd id="detalleUltimaActualizacion"></dd>
+                        </div>
+                    </dl>
+                </div>
+                <div class="modal-footer">
+                    <a href="#" id="detalleTrazabilidadLink" class="btn btn-outline-secondary">
+                        <i class="bi bi-clock-history me-1"></i>Ver trazabilidad
+                    </a>
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal: Nuevo equipo -->
+    <div class="modal fade" id="modalNuevoEquipo" tabindex="-1" aria-labelledby="modalNuevoEquipoLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalNuevoEquipoLabel">Nuevo equipo</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="formNuevoEquipo">
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label for="neNumeroSerie" class="form-label">N° de serie <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" id="neNumeroSerie" placeholder="Ej: FR-1024" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="neMarca" class="form-label">Marca <span class="text-danger">*</span></label>
+                                <select class="form-select" id="neMarca" required>
+                                    <option value="" selected disabled>Seleccionar...</option>
+                                    <option>Savory</option>
+                                    <option>Polar</option>
+                                    <option>Coldex</option>
+                                    <option>Indura</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="neModelo" class="form-label">Modelo <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" id="neModelo" placeholder="Ej: Freezer 500L" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="neTipoMaquina" class="form-label">Tipo de máquina <span class="text-danger">*</span></label>
+                                <select class="form-select" id="neTipoMaquina" required>
+                                    <option value="" selected disabled>Seleccionar...</option>
+                                    <option>Vitrina</option>
+                                    <option>Vertical</option>
+                                    <option>Barquillera</option>
+                                    <option>Congelados</option>
+                                    <option>Batidora</option>
+                                    <option>Exhibidor</option>
+                                    <option>Impulsivo</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="neEstado" class="form-label">Estado <span class="text-danger">*</span></label>
+                                <select class="form-select" id="neEstado" required>
+                                    <option value="" selected disabled>Seleccionar...</option>
+                                    <option>Pendiente de Asignar</option>
+                                    <option>Activo</option>
+                                    <option>En Tránsito</option>
+                                    <option>En Distribuidor</option>
+                                    <option>En SSTT</option>
+                                    <option>Rechazado</option>
+                                    <option>Baja</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="neDistribuidor" class="form-label">Distribuidor</label>
+                                <select class="form-select" id="neDistribuidor">
+                                    <option value="" selected>Sin asignar</option>
+                                    <option>IceFree Chile</option>
+                                    <option>Distribuidora Norte</option>
+                                    <option>Sur Distribución</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="neFechaCompra" class="form-label">Fecha de compra</label>
+                                <input type="date" class="form-control" id="neFechaCompra">
+                            </div>
+                            <div class="col-md-6">
+                                <label for="neCoordenadasGps" class="form-label">Coordenadas GPS</label>
+                                <input type="text" class="form-control" id="neCoordenadasGps" placeholder="Ej: -33.4489, -70.6693">
+                            </div>
+                            <div class="col-12">
+                                <label for="neObservacion" class="form-label">Observación</label>
+                                <textarea class="form-control" id="neObservacion" rows="2" placeholder="Notas internas sobre el equipo..."></textarea>
+                            </div>
+                        </div>
+                        <div class="alert alert-info mt-3 d-flex align-items-start" role="alert">
+                            <i class="bi bi-info-circle me-2 mt-1"></i>
+                            <div style="font-size: 13px;">
+                                El equipo se registrará como propiedad del Mandante. El N° de serie debe ser único — si ya existe, se rechazará el ingreso.
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-success" form="formNuevoEquipo"><i class="bi bi-check-lg me-1"></i>Registrar equipo</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal: Editar equipo -->
+    <div class="modal fade" id="modalEditarEquipo" tabindex="-1" aria-labelledby="modalEditarEquipoLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalEditarEquipoLabel">Editar equipo</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="formEditarEquipo">
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label for="eeNumeroSerie" class="form-label">N° de serie <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" id="eeNumeroSerie" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="eeMarca" class="form-label">Marca <span class="text-danger">*</span></label>
+                                <select class="form-select" id="eeMarca" required>
+                                    <option value="" disabled>Seleccionar...</option>
+                                    <option>Savory</option>
+                                    <option>Polar</option>
+                                    <option>Coldex</option>
+                                    <option>Indura</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="eeModelo" class="form-label">Modelo <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" id="eeModelo" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="eeTipoMaquina" class="form-label">Tipo de máquina <span class="text-danger">*</span></label>
+                                <select class="form-select" id="eeTipoMaquina" required>
+                                    <option value="" disabled>Seleccionar...</option>
+                                    <option>Vitrina</option>
+                                    <option>Vertical</option>
+                                    <option>Barquillera</option>
+                                    <option>Congelados</option>
+                                    <option>Batidora</option>
+                                    <option>Exhibidor</option>
+                                    <option>Impulsivo</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="eeEstado" class="form-label">Estado <span class="text-danger">*</span></label>
+                                <select class="form-select" id="eeEstado" required>
+                                    <option value="" disabled>Seleccionar...</option>
+                                    <option>Activo</option>
+                                    <option>En Tránsito</option>
+                                    <option>En Distribuidor</option>
+                                    <option>En SSTT</option>
+                                    <option>Pendiente de Asignar</option>
+                                    <option>Rechazado</option>
+                                    <option>Baja</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="eeDistribuidor" class="form-label">Distribuidor</label>
+                                <select class="form-select" id="eeDistribuidor">
+                                    <option value="">Sin asignar</option>
+                                    <option>IceFree Chile</option>
+                                    <option>Distribuidora Norte</option>
+                                    <option>Sur Distribución</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="eeFechaCompra" class="form-label">Fecha de compra</label>
+                                <input type="date" class="form-control" id="eeFechaCompra">
+                            </div>
+                            <div class="col-md-6">
+                                <label for="eeCoordenadasGps" class="form-label">Coordenadas GPS</label>
+                                <input type="text" class="form-control" id="eeCoordenadasGps" placeholder="Ej: -33.4489, -70.6693">
+                            </div>
+                            <div class="col-12">
+                                <label for="eeObservacion" class="form-label">Observación</label>
+                                <textarea class="form-control" id="eeObservacion" rows="2"></textarea>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary" form="formEditarEquipo"><i class="bi bi-save me-1"></i>Guardar cambios</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const modalDetalle = document.getElementById('modalDetalleEquipo');
+            if (modalDetalle) {
+                modalDetalle.addEventListener('show.bs.modal', function(event) {
+                    const button = event.relatedTarget;
+                    const row = button.closest('tr');
+                    const data = row.dataset;
+
+                    document.getElementById('modalDetalleEquipoLabel').textContent = 'Detalle del equipo ' + data.serie;
+                    document.getElementById('detalleSerie').textContent = data.serie;
+                    document.getElementById('detalleMarcaModelo').textContent = data.marcaModelo;
+                    document.getElementById('detalleTipoTamano').textContent = data.tipoTamano;
+                    document.getElementById('detalleDistribuidor').textContent = data.distribuidor;
+                    document.getElementById('detalleCliente').textContent = data.cliente;
+                    document.getElementById('detalleCondicion').textContent = data.condicion;
+                    document.getElementById('detalleFechaCompra').textContent = data.fechaCompra;
+                    document.getElementById('detalleContrato').textContent = data.contrato;
+                    document.getElementById('detalleGuia').textContent = data.guia;
+                    document.getElementById('detalleUltimaActualizacion').textContent = data.ultimaActualizacion;
+                    document.getElementById('detalleTrazabilidadLink').href = 'trazabilidad.html?serie=' + encodeURIComponent(data.serie);
+
+                    const estadoBadge = document.getElementById('detalleEstado');
+                    estadoBadge.textContent = data.estado;
+                    estadoBadge.className = 'badge-status ' + data.estadoClass;
+                });
+            }
+
+            const modalEditar = document.getElementById('modalEditarEquipo');
+            if (modalEditar) {
+                modalEditar.addEventListener('show.bs.modal', function(event) {
+                    const button = event.relatedTarget;
+                    const row = button.closest('tr');
+                    const data = row.dataset;
+
+                    document.getElementById('modalEditarEquipoLabel').textContent = 'Editar equipo ' + data.serie;
+                    document.getElementById('eeNumeroSerie').value = data.serie || '';
+
+                    const marcaModelo = (data.marcaModelo || '').split(' ');
+                    const marca = marcaModelo[0] || '';
+                    const modelo = marcaModelo.slice(1).join(' ') || '';
+                    const eeMarca = document.getElementById('eeMarca');
+                    for (let i = 0; i < eeMarca.options.length; i++) {
+                        if (eeMarca.options[i].value === marca) {
+                            eeMarca.selectedIndex = i;
+                            break;
+                        }
+                    }
+                    document.getElementById('eeModelo').value = modelo;
+
+                    const tipoTamano = (data.tipoTamano || '').split(' / ');
+                    const tipo = tipoTamano[0] || '';
+                    const eeTipo = document.getElementById('eeTipoMaquina');
+                    for (let i = 0; i < eeTipo.options.length; i++) {
+                        if (eeTipo.options[i].value === tipo) {
+                            eeTipo.selectedIndex = i;
+                            break;
+                        }
+                    }
+
+                    const estadoMap = {
+                        'Activo': 'Activo',
+                        'En Tránsito': 'En Tránsito',
+                        'En Distribuidor': 'En Distribuidor',
+                        'En SSTT': 'En SSTT',
+                        'Pendiente': 'Pendiente de Asignar',
+                        'Baja': 'Baja'
+                    };
+                    const eeEstado = document.getElementById('eeEstado');
+                    const estadoValue = estadoMap[data.estado] || data.estado;
+                    for (let i = 0; i < eeEstado.options.length; i++) {
+                        if (eeEstado.options[i].value === estadoValue) {
+                            eeEstado.selectedIndex = i;
+                            break;
+                        }
+                    }
+
+                    const eeDistribuidor = document.getElementById('eeDistribuidor');
+                    for (let i = 0; i < eeDistribuidor.options.length; i++) {
+                        if (eeDistribuidor.options[i].value === data.distribuidor) {
+                            eeDistribuidor.selectedIndex = i;
+                            break;
+                        }
+                    }
+
+                    const fechaCompraStr = data.fechaCompra || '';
+                    if (fechaCompraStr && fechaCompraStr !== '—') {
+                        const parts = fechaCompraStr.split('/');
+                        if (parts.length === 3) {
+                            document.getElementById('eeFechaCompra').value = parts[2] + '-' + parts[1].padStart(2, '0') + '-' + parts[0].padStart(2, '0');
+                        }
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>

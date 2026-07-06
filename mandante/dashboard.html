@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Mandante — Plataforma Isstec</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="../css/styles.css" rel="stylesheet">
+</head>
+<body>
+    <div class="app-layout">
+        <!-- ===== Sidebar ===== -->
+        <nav class="sidebar">
+            <div class="sidebar-logo">
+                <img src="../assets/img/logo.png" alt="Isstec">
+            </div>
+            <div class="sidebar-nav">
+                <div class="nav-section">Principal</div>
+                <a href="dashboard.html" class="nav-link active">
+                    <i class="bi bi-speedometer2"></i> Dashboard
+                </a>
+                <a href="asignaciones.html" class="nav-link">
+                    <i class="bi bi-diagram-3"></i> Asignación de Equipos
+                </a>
+                <div class="nav-section">Operación</div>
+                <a href="autorizacion-movimientos.html" class="nav-link">
+                    <i class="bi bi-shield-check"></i> Autorización de Movimientos
+                </a>
+                <a href="consulta-inventario.html" class="nav-link">
+                    <i class="bi bi-clipboard2-data"></i> Consulta de Inventario
+                </a>
+                <a href="trazabilidad.html" class="nav-link">
+                    <i class="bi bi-geo-alt"></i> Trazabilidad
+                </a>
+                <div class="nav-section">Análisis</div>
+                <a href="informes.html" class="nav-link">
+                    <i class="bi bi-bar-chart"></i> Informes
+                </a>
+                <div class="nav-section">Maestros</div>
+                <a href="maestro-equipos.html" class="nav-link">
+                    <i class="bi bi-hdd-stack"></i> Equipos
+                </a>
+                <a href="gestores.html" class="nav-link">
+                    <i class="bi bi-people"></i> Gestores
+                </a>
+                <a href="servicio-tecnico.html" class="nav-link">
+                    <i class="bi bi-tools"></i> Servicio Técnico
+                </a>
+                <a href="grupo-maquinas.html" class="nav-link">
+                    <i class="bi bi-layers"></i> Grupo de Máquinas
+                </a>
+                <a href="familia-maquinas.html" class="nav-link">
+                    <i class="bi bi-grid"></i> Familia de Máquinas
+                </a>
+                <a href="ubicaciones-bodegas.html" class="nav-link">
+                    <i class="bi bi-geo"></i> Ubicaciones / Bodegas
+                </a>
+                <a href="motivos-movimiento.html" class="nav-link">
+                    <i class="bi bi-list-ul"></i> Motivos de Movimiento
+                </a>
+                <a href="tipos-solicitud.html" class="nav-link">
+                    <i class="bi bi-file-earmark-text"></i> Tipos de Solicitud
+                </a>
+                <a href="plantillas-inspeccion.html" class="nav-link">
+                    <i class="bi bi-clipboard2-check"></i> Plantillas de Inspección
+                </a>
+                <a href="marcas.html" class="nav-link">
+                    <i class="bi bi-tag"></i> Marcas
+                </a>
+                <a href="modelos.html" class="nav-link">
+                    <i class="bi bi-box"></i> Modelos
+                </a>
+                <a href="tipos-incidencias.html" class="nav-link">
+                    <i class="bi bi-exclamation-octagon"></i> Tipos de Incidencias / Catálogo de Fallas
+                </a>
+                <div class="nav-section">Configuración</div>
+                <a href="usuarios.html" class="nav-link">
+                    <i class="bi bi-people-fill"></i> Usuarios
+                </a>
+                <a href="roles.html" class="nav-link">
+                    <i class="bi bi-shield-lock"></i> Roles
+                </a>
+            </div>
+            <div class="sidebar-footer">
+                <a href="../index.html" class="nav-link">
+                    <i class="bi bi-box-arrow-right"></i> Cerrar sesión
+                </a>
+            </div>
+        </nav>
+
+        <!-- ===== Contenido principal ===== -->
+        <div class="app-content">
+            <!-- Navbar superior -->
+            <nav class="navbar-top">
+                <div class="navbar-left">
+                    <h2 class="page-title">Dashboard</h2>
+                </div>
+                <div class="navbar-right">
+                    <div class="notification-icon">
+                        <i class="bi bi-bell"></i>
+                        <span class="notification-badge">3</span>
+                    </div>
+                    <div class="user-info">
+                        <div class="user-avatar">SV</div>
+                        <div>
+                            <div class="user-name">Savory Chile</div>
+                            <div class="user-role">Mandante</div>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+
+            <!-- Main -->
+            <main class="app-main">
+                <!-- Page header -->
+                <div class="page-header">
+                    <h1>Panel de Control</h1>
+                    <p class="subtitle">Resumen general del estado de equipos y operaciones</p>
+                </div>
+
+                <!-- ===== KPI Cards ===== -->
+                <div class="row g-3 mb-4">
+                    <div class="col-lg-3 col-md-6">
+                        <div class="kpi-card">
+                            <div class="kpi-icon bg-primary-light">
+                                <i class="bi bi-hdd-stack"></i>
+                            </div>
+                            <div>
+                                <div class="kpi-label">Total de equipos</div>
+                                <div class="kpi-value">1.248</div>
+                                <div class="kpi-sub">Inventario completo</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6">
+                        <div class="kpi-card">
+                            <div class="kpi-icon bg-success-light">
+                                <i class="bi bi-check-circle"></i>
+                            </div>
+                            <div>
+                                <div class="kpi-label">Equipos activos</div>
+                                <div class="kpi-value">1.032</div>
+                                <div class="kpi-sub">82.9% del total</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6">
+                        <div class="kpi-card">
+                            <div class="kpi-icon bg-warning-light">
+                                <i class="bi bi-exclamation-triangle"></i>
+                            </div>
+                            <div>
+                                <div class="kpi-label">Equipos en SSTT</div>
+                                <div class="kpi-value" style="color: var(--naranja-coral);">118</div>
+                                <div class="kpi-sub"><span class="text-warning">9.5% del total</span></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6">
+                        <div class="kpi-card">
+                            <div class="kpi-icon bg-warning-light">
+                                <i class="bi bi-clock-history"></i>
+                            </div>
+                            <div>
+                                <div class="kpi-label">Solicitudes pendientes</div>
+                                <div class="kpi-value" style="color: var(--naranja-coral);">12</div>
+                                <div class="kpi-sub"><span class="text-warning">Requieren atención</span></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ===== Centro: Mapa + Donut ===== -->
+                <div class="row g-3 mb-4">
+                    <!-- Mapa -->
+                    <div class="col-lg-8">
+                        <div class="card h-100">
+                            <div class="card-body">
+                                <h5 class="card-title">Distribución geográfica</h5>
+                                <div class="map-container">
+                                    <img src="../assets/img/map.png" alt="Mapa de distribución">
+                                    <div class="map-filters">
+                                        <select class="form-select form-select-sm">
+                                            <option selected>Región</option>
+                                            <option>Metropolitana</option>
+                                            <option>Valparaíso</option>
+                                            <option>Biobío</option>
+                                            <option>Araucanía</option>
+                                        </select>
+                                        <select class="form-select form-select-sm">
+                                            <option selected>Comuna</option>
+                                            <option>Santiago</option>
+                                            <option>Valparaíso</option>
+                                            <option>Concepción</option>
+                                            <option>Temuco</option>
+                                        </select>
+                                    </div>
+                                    <div class="map-controls">
+                                        <button title="Acercar"><i class="bi bi-plus"></i></button>
+                                        <button title="Alejar"><i class="bi bi-dash"></i></button>
+                                    </div>
+                                    <div class="map-legend">
+                                        <div class="legend-item">
+                                            <span class="legend-dot" style="background: var(--azul-primario);"></span>
+                                            Equipos operativos
+                                        </div>
+                                        <div class="legend-item">
+                                            <span class="legend-dot" style="background: var(--naranja-coral);"></span>
+                                            Equipos en SSTT
+                                        </div>
+                                        <div class="legend-item">
+                                            <span class="legend-dot" style="background: var(--gris-medio);"></span>
+                                            Equipos inactivos
+                                        </div>
+                                    </div>
+                                    <div class="map-point" style="top: 22%; left: 28%;" data-status="operativo"></div>
+                                    <div class="map-point" style="top: 35%; left: 45%;" data-status="sstt"></div>
+                                    <div class="map-point" style="top: 18%; left: 62%;" data-status="inactivo"></div>
+                                    <div class="map-point" style="top: 48%; left: 33%;" data-status="operativo"></div>
+                                    <div class="map-point" style="top: 55%; left: 58%;" data-status="operativo"></div>
+                                    <div class="map-point" style="top: 30%; left: 75%;" data-status="sstt"></div>
+                                    <div class="map-point" style="top: 68%; left: 42%;" data-status="inactivo"></div>
+                                    <div class="map-point" style="top: 42%; left: 20%;" data-status="operativo"></div>
+                                    <div class="map-point" style="top: 60%; left: 68%;" data-status="operativo"></div>
+                                    <div class="map-point" style="top: 25%; left: 52%;" data-status="inactivo"></div>
+                                    <div class="map-point" style="top: 52%; left: 25%;" data-status="sstt"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Donut chart -->
+                    <div class="col-lg-4">
+                        <div class="card h-100">
+                            <div class="card-body">
+                                <h5 class="card-title">Estado de equipos</h5>
+                                <div style="position: relative; height: 280px;">
+                                    <canvas id="donutChart"></canvas>
+                                </div>
+                                <div class="mt-3">
+                                    <div class="d-flex justify-content-between align-items-center mb-2">
+                                        <span class="badge-status badge-activo">Operativos</span>
+                                        <span class="fw-semibold">1.032 (82.9%)</span>
+                                    </div>
+                                    <div class="d-flex justify-content-between align-items-center mb-2">
+                                        <span class="badge-status badge-sstt">En SSTT</span>
+                                        <span class="fw-semibold">118 (9.5%)</span>
+                                    </div>
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <span class="badge-status badge-pendiente">Inactivos</span>
+                                        <span class="fw-semibold">98 (7.6%)</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ===== Tabla de Solicitudes Pendientes ===== -->
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between align-items-center mb-3">
+                                    <h5 class="card-title mb-0">Solicitudes Pendientes</h5>
+                                    <a href="autorizacion-movimientos.html" class="btn btn-outline-secondary btn-sm">
+                                        Ver todas <i class="bi bi-arrow-right ms-1"></i>
+                                    </a>
+                                </div>
+                                <div class="table-responsive">
+                                    <table class="table table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th>Equipo</th>
+                                                <th>Distribuidor</th>
+                                                <th>Tipo de solicitud</th>
+                                                <th>Motivo</th>
+                                                <th>Fecha</th>
+                                                <th class="text-end">Acciones</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td><span class="fw-semibold">FR-1023</span><br><small class="text-muted">Freezer Savory 500L</small></td>
+                                                <td>IceFree Chile</td>
+                                                <td>Envío a SSTT</td>
+                                                <td>No enfría correctamente</td>
+                                                <td>03/07/2025</td>
+                                                <td class="text-end">
+                                                    <button class="btn btn-primary btn-sm me-1">Aprobar</button>
+                                                    <button class="btn btn-warning btn-sm">Rechazar</button>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td><span class="fw-semibold">CZ-0845</span><br><small class="text-muted">Conservadora Polar 300L</small></td>
+                                                <td>Distribuidora Norte</td>
+                                                <td>Cambio de equipo</td>
+                                                <td>Equipo antiguo, requiere reemplazo</td>
+                                                <td>02/07/2025</td>
+                                                <td class="text-end">
+                                                    <button class="btn btn-primary btn-sm me-1">Aprobar</button>
+                                                    <button class="btn btn-warning btn-sm">Rechazar</button>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td><span class="fw-semibold">FR-2210</span><br><small class="text-muted">Freezer Savory 700L</small></td>
+                                                <td>IceFree Chile</td>
+                                                <td>Baja definitiva</td>
+                                                <td>Daño irreparable, fuera de garantía</td>
+                                                <td>02/07/2025</td>
+                                                <td class="text-end">
+                                                    <button class="btn btn-primary btn-sm me-1">Aprobar</button>
+                                                    <button class="btn btn-warning btn-sm">Rechazar</button>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td><span class="fw-semibold">CZ-1198</span><br><small class="text-muted">Conservadora Arctic 200L</small></td>
+                                                <td>Sur Distribución</td>
+                                                <td>Envío a SSTT</td>
+                                                <td>Puerta no sella correctamente</td>
+                                                <td>01/07/2025</td>
+                                                <td class="text-end">
+                                                    <button class="btn btn-primary btn-sm me-1">Aprobar</button>
+                                                    <button class="btn btn-warning btn-sm">Rechazar</button>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td><span class="fw-semibold">FR-3056</span><br><small class="text-muted">Freezer Savory 500L</small></td>
+                                                <td>Distribuidora Norte</td>
+                                                <td>Cambio de equipo</td>
+                                                <td>Cliente solicita mayor capacidad</td>
+                                                <td>30/06/2025</td>
+                                                <td class="text-end">
+                                                    <button class="btn btn-primary btn-sm me-1">Aprobar</button>
+                                                    <button class="btn btn-warning btn-sm">Rechazar</button>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <script>
+        const ctx = document.getElementById('donutChart').getContext('2d');
+        new Chart(ctx, {
+            type: 'doughnut',
+            data: {
+                labels: ['Operativos', 'En SSTT', 'Inactivos'],
+                datasets: [{
+                    data: [1032, 118, 98],
+                    backgroundColor: ['#0066CC', '#FF6B35', '#6C757D'],
+                    borderWidth: 0,
+                    hoverOffset: 4
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                cutout: '65%',
+                plugins: {
+                    legend: { display: false },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                const total = context.dataset.data.reduce((a, b) => a + b, 0);
+                                const pct = ((context.raw / total) * 100).toFixed(1);
+                                return context.label + ': ' + context.raw + ' (' + pct + '%)';
+                            }
+                        }
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>

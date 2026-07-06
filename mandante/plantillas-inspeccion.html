@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plantillas de Inspección — Plataforma Isstec</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="../css/styles.css" rel="stylesheet">
+    <style>
+        .pagination .page-link { color: var(--azul-primario); border: 1px solid #DEE2E6; font-weight: 500; padding: 8px 14px; }
+        .pagination .page-item.active .page-link { background-color: var(--azul-primario); border-color: var(--azul-primario); color: #FFFFFF; }
+        .pagination .page-item.disabled .page-link { color: var(--gris-medio); }
+    </style>
+</head>
+<body>
+    <div class="app-layout">
+        <nav class="sidebar">
+            <div class="sidebar-logo"><img src="../assets/img/logo.png" alt="Isstec"></div>
+            <div class="sidebar-nav">
+                <div class="nav-section">Principal</div>
+                <a href="dashboard.html" class="nav-link"><i class="bi bi-speedometer2"></i> Dashboard</a>
+                <a href="asignaciones.html" class="nav-link"><i class="bi bi-diagram-3"></i> Asignación de Equipos</a>
+                <div class="nav-section">Operación</div>
+                <a href="autorizacion-movimientos.html" class="nav-link"><i class="bi bi-shield-check"></i> Autorización de Movimientos</a>
+                <a href="consulta-inventario.html" class="nav-link"><i class="bi bi-clipboard2-data"></i> Consulta de Inventario</a>
+                <a href="trazabilidad.html" class="nav-link"><i class="bi bi-geo-alt"></i> Trazabilidad</a>
+                <div class="nav-section">Análisis</div>
+                <a href="informes.html" class="nav-link"><i class="bi bi-bar-chart"></i> Informes</a>
+                <div class="nav-section">Maestros</div>
+                <a href="maestro-equipos.html" class="nav-link"><i class="bi bi-hdd-stack"></i> Equipos</a>
+                <a href="gestores.html" class="nav-link"><i class="bi bi-people"></i> Gestores</a>
+                <a href="servicio-tecnico.html" class="nav-link"><i class="bi bi-tools"></i> Servicio Técnico</a>
+                <a href="grupo-maquinas.html" class="nav-link"><i class="bi bi-layers"></i> Grupo de Máquinas</a>
+                <a href="familia-maquinas.html" class="nav-link"><i class="bi bi-grid"></i> Familia de Máquinas</a>
+                <a href="ubicaciones-bodegas.html" class="nav-link"><i class="bi bi-geo"></i> Ubicaciones / Bodegas</a>
+                <a href="motivos-movimiento.html" class="nav-link"><i class="bi bi-list-ul"></i> Motivos de Movimiento</a>
+                <a href="tipos-solicitud.html" class="nav-link"><i class="bi bi-file-earmark-text"></i> Tipos de Solicitud</a>
+                <a href="plantillas-inspeccion.html" class="nav-link active"><i class="bi bi-clipboard2-check"></i> Plantillas de Inspección</a>
+                <a href="marcas.html" class="nav-link"><i class="bi bi-tag"></i> Marcas</a>
+                <a href="modelos.html" class="nav-link"><i class="bi bi-box"></i> Modelos</a>
+                <a href="tipos-incidencias.html" class="nav-link"><i class="bi bi-exclamation-octagon"></i> Tipos de Incidencias / Catálogo de Fallas</a>
+                <div class="nav-section">Configuración</div>
+                <a href="usuarios.html" class="nav-link"><i class="bi bi-people-fill"></i> Usuarios</a>
+                <a href="roles.html" class="nav-link"><i class="bi bi-shield-lock"></i> Roles</a>
+            </div>
+            <div class="sidebar-footer"><a href="../index.html" class="nav-link"><i class="bi bi-box-arrow-right"></i> Cerrar sesión</a></div>
+        </nav>
+
+        <div class="app-content">
+            <nav class="navbar-top">
+                <div class="navbar-left"><h2 class="page-title">Plantillas de Inspección</h2></div>
+                <div class="navbar-right">
+                    <div class="notification-icon"><i class="bi bi-bell"></i><span class="notification-badge">3</span></div>
+                    <div class="user-info">
+                        <div class="user-avatar">SV</div>
+                        <div><div class="user-name">Savory Chile</div><div class="user-role">Mandante</div></div>
+                    </div>
+                </div>
+            </nav>
+
+            <main class="app-main">
+                <div class="row mb-4">
+                    <div class="col-lg-12">
+                        <div class="d-flex justify-content-end">
+                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalAgregarPlantilla">
+                                <i class="bi bi-plus-lg me-2"></i>Agregar plantilla
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table table-hover align-middle">
+                                        <thead>
+                                            <tr>
+                                                <th>Nombre</th><th>Descripción</th><th>N° ítems</th><th>Aplica a</th><th>Estado</th><th class="text-end">Acciones</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr data-nombre="Inspección de Recepción Estándar" data-descripcion="Checklist base para recepción de equipos desde el mandante" data-items="8" data-aplica="Recepción de equipos" data-estado="Activo" data-estado-value="activo">
+                                                <td><div class="d-flex align-items-center gap-3"><div class="bg-primary-light rounded-circle d-flex align-items-center justify-content-center" style="width:40px;height:40px;"><i class="bi bi-clipboard2-check text-primary"></i></div><div><div class="fw-semibold">Inspección de Recepción Estándar</div><div class="text-muted" style="font-size:12px;">8 ítems de verificación</div></div></div></td>
+                                                <td class="text-muted">Checklist base para recepción de equipos desde el mandante</td>
+                                                <td><span class="badge bg-primary">8 ítems</span></td>
+                                                <td>Recepción de equipos</td>
+                                                <td><span class="badge-status badge-activo">Activo</span></td>
+                                                <td class="text-end text-nowrap">
+                                                    <button class="btn btn-outline-primary btn-sm me-1" data-bs-toggle="modal" data-bs-target="#modalItemsPlantilla" data-plantilla="Inspección de Recepción Estándar"><i class="bi bi-list-check me-1"></i>Ítems</button>
+                                                    <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modalEditarPlantilla"><i class="bi bi-pencil me-1"></i>Editar</button>
+                                                </td>
+                                            </tr>
+                                            <tr data-nombre="Inspección Vitrinas Refrigeradas" data-descripcion="Checklist específico para vitrinas y exhibidores refrigerados" data-items="12" data-aplica="Vitrina, Exhibidor" data-estado="Activo" data-estado-value="activo">
+                                                <td><div class="d-flex align-items-center gap-3"><div class="bg-primary-light rounded-circle d-flex align-items-center justify-content-center" style="width:40px;height:40px;"><i class="bi bi-clipboard2-check text-primary"></i></div><div><div class="fw-semibold">Inspección Vitrinas Refrigeradas</div><div class="text-muted" style="font-size:12px;">12 ítems de verificación</div></div></div></td>
+                                                <td class="text-muted">Checklist específico para vitrinas y exhibidores refrigerados</td>
+                                                <td><span class="badge bg-primary">12 ítems</span></td>
+                                                <td>Vitrina, Exhibidor</td>
+                                                <td><span class="badge-status badge-activo">Activo</span></td>
+                                                <td class="text-end text-nowrap">
+                                                    <button class="btn btn-outline-primary btn-sm me-1" data-bs-toggle="modal" data-bs-target="#modalItemsPlantilla" data-plantilla="Inspección Vitrinas Refrigeradas"><i class="bi bi-list-check me-1"></i>Ítems</button>
+                                                    <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modalEditarPlantilla"><i class="bi bi-pencil me-1"></i>Editar</button>
+                                                </td>
+                                            </tr>
+                                            <tr data-nombre="Inspección Congeladores" data-descripcion="Checklist para congeladores horizontales y verticales" data-items="10" data-aplica="Congelados, Vertical" data-estado="Activo" data-estado-value="activo">
+                                                <td><div class="d-flex align-items-center gap-3"><div class="bg-primary-light rounded-circle d-flex align-items-center justify-content-center" style="width:40px;height:40px;"><i class="bi bi-clipboard2-check text-primary"></i></div><div><div class="fw-semibold">Inspección Congeladores</div><div class="text-muted" style="font-size:12px;">10 ítems de verificación</div></div></div></td>
+                                                <td class="text-muted">Checklist para congeladores horizontales y verticales</td>
+                                                <td><span class="badge bg-primary">10 ítems</span></td>
+                                                <td>Congelados, Vertical</td>
+                                                <td><span class="badge-status badge-activo">Activo</span></td>
+                                                <td class="text-end text-nowrap">
+                                                    <button class="btn btn-outline-primary btn-sm me-1" data-bs-toggle="modal" data-bs-target="#modalItemsPlantilla" data-plantilla="Inspección Congeladores"><i class="bi bi-list-check me-1"></i>Ítems</button>
+                                                    <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modalEditarPlantilla"><i class="bi bi-pencil me-1"></i>Editar</button>
+                                                </td>
+                                            </tr>
+                                            <tr data-nombre="Inspección Barquilleras" data-descripcion="Checklist específico para máquinas expendedoras de barquillos" data-items="6" data-aplica="Barquillera" data-estado="Activo" data-estado-value="activo">
+                                                <td><div class="d-flex align-items-center gap-3"><div class="bg-primary-light rounded-circle d-flex align-items-center justify-content-center" style="width:40px;height:40px;"><i class="bi bi-clipboard2-check text-primary"></i></div><div><div class="fw-semibold">Inspección Barquilleras</div><div class="text-muted" style="font-size:12px;">6 ítems de verificación</div></div></div></td>
+                                                <td class="text-muted">Checklist específico para máquinas expendedoras de barquillos</td>
+                                                <td><span class="badge bg-primary">6 ítems</span></td>
+                                                <td>Barquillera</td>
+                                                <td><span class="badge-status badge-activo">Activo</span></td>
+                                                <td class="text-end text-nowrap">
+                                                    <button class="btn btn-outline-primary btn-sm me-1" data-bs-toggle="modal" data-bs-target="#modalItemsPlantilla" data-plantilla="Inspección Barquilleras"><i class="bi bi-list-check me-1"></i>Ítems</button>
+                                                    <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modalEditarPlantilla"><i class="bi bi-pencil me-1"></i>Editar</button>
+                                                </td>
+                                            </tr>
+                                            <tr data-nombre="Inspección Inventario Físico" data-descripcion="Checklist para toma de inventario físico en terreno" data-items="5" data-aplica="Inventario" data-estado="Activo" data-estado-value="activo">
+                                                <td><div class="d-flex align-items-center gap-3"><div class="bg-primary-light rounded-circle d-flex align-items-center justify-content-center" style="width:40px;height:40px;"><i class="bi bi-clipboard2-check text-primary"></i></div><div><div class="fw-semibold">Inspección Inventario Físico</div><div class="text-muted" style="font-size:12px;">5 ítems de verificación</div></div></div></td>
+                                                <td class="text-muted">Checklist para toma de inventario físico en terreno</td>
+                                                <td><span class="badge bg-primary">5 ítems</span></td>
+                                                <td>Inventario</td>
+                                                <td><span class="badge-status badge-activo">Activo</span></td>
+                                                <td class="text-end text-nowrap">
+                                                    <button class="btn btn-outline-primary btn-sm me-1" data-bs-toggle="modal" data-bs-target="#modalItemsPlantilla" data-plantilla="Inspección Inventario Físico"><i class="bi bi-list-check me-1"></i>Ítems</button>
+                                                    <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modalEditarPlantilla"><i class="bi bi-pencil me-1"></i>Editar</button>
+                                                </td>
+                                            </tr>
+                                            <tr data-nombre="Inspección Post-SSTT" data-descripcion="Verificación de equipo tras reparación en servicio técnico" data-items="9" data-aplica="Post servicio técnico" data-estado="Inactivo" data-estado-value="inactivo">
+                                                <td><div class="d-flex align-items-center gap-3"><div class="bg-primary-light rounded-circle d-flex align-items-center justify-content-center" style="width:40px;height:40px;"><i class="bi bi-clipboard2-check text-primary"></i></div><div><div class="fw-semibold">Inspección Post-SSTT</div><div class="text-muted" style="font-size:12px;">9 ítems de verificación</div></div></div></td>
+                                                <td class="text-muted">Verificación de equipo tras reparación en servicio técnico</td>
+                                                <td><span class="badge bg-primary">9 ítems</span></td>
+                                                <td>Post servicio técnico</td>
+                                                <td><span class="badge-status badge-pendiente">Inactivo</span></td>
+                                                <td class="text-end text-nowrap">
+                                                    <button class="btn btn-outline-primary btn-sm me-1" data-bs-toggle="modal" data-bs-target="#modalItemsPlantilla" data-plantilla="Inspección Post-SSTT"><i class="bi bi-list-check me-1"></i>Ítems</button>
+                                                    <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modalEditarPlantilla"><i class="bi bi-pencil me-1"></i>Editar</button>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="d-flex justify-content-between align-items-center mt-3">
+                                    <div class="text-muted" style="font-size:13px;">Mostrando 1–6 de 6 plantillas</div>
+                                    <nav aria-label="Paginación"><ul class="pagination mb-0">
+                                        <li class="page-item disabled"><a class="page-link" href="#" tabindex="-1" aria-disabled="true"><i class="bi bi-chevron-left"></i></a></li>
+                                        <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                                        <li class="page-item"><a class="page-link" href="#"><i class="bi bi-chevron-right"></i></a></li>
+                                    </ul></nav>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <div class="modal fade" id="modalAgregarPlantilla" tabindex="-1" aria-labelledby="modalAgregarPlantillaLabel" aria-hidden="true">
+        <div class="modal-dialog"><div class="modal-content">
+            <div class="modal-header"><h5 class="modal-title" id="modalAgregarPlantillaLabel">Agregar plantilla de inspección</h5><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button></div>
+            <div class="modal-body"><form id="formAgregarPlantilla" novalidate>
+                <div class="mb-3"><label for="nombrePlantilla" class="form-label">Nombre</label><input type="text" class="form-control" id="nombrePlantilla" placeholder="Ej: Inspección de Recepción Estándar" required><div class="invalid-feedback">Ingresa el nombre de la plantilla.</div></div>
+                <div class="mb-3"><label for="descripcionPlantilla" class="form-label">Descripción</label><textarea class="form-control" id="descripcionPlantilla" rows="3" placeholder="Descripción de la plantilla de inspección"></textarea></div>
+                <div class="mb-3"><label for="aplicaPlantilla" class="form-label">Aplica a</label><input type="text" class="form-control" id="aplicaPlantilla" placeholder="Ej: Recepción de equipos, Vitrina, Inventario"></div>
+                <div class="mb-3 form-check form-switch"><input class="form-check-input" type="checkbox" id="estadoPlantilla" checked><label class="form-check-label" for="estadoPlantilla">Activo</label></div>
+                <hr class="my-3">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <span class="fw-semibold"><i class="bi bi-list-check me-1"></i>Ítems de inspección</span>
+                        <div class="text-muted" style="font-size:12px;">Define los puntos de verificación que componen esta plantilla</div>
+                    </div>
+                    <button type="button" class="btn btn-outline-primary btn-sm" id="btnItemsDesdeAgregar">
+                        <i class="bi bi-gear me-1"></i>Configurar ítems
+                    </button>
+                </div>
+                <div id="resumenItemsAgregar" class="mt-2" style="font-size:13px;"></div>
+            </form></div>
+            <div class="modal-footer"><button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancelar</button><button type="button" class="btn btn-primary" id="btnGuardarPlantilla">Guardar</button></div>
+        </div></div>
+    </div>
+
+    <div class="modal fade" id="modalEditarPlantilla" tabindex="-1" aria-labelledby="modalEditarPlantillaLabel" aria-hidden="true">
+        <div class="modal-dialog"><div class="modal-content">
+            <div class="modal-header"><h5 class="modal-title" id="modalEditarPlantillaLabel">Editar plantilla de inspección</h5><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button></div>
+            <div class="modal-body"><form id="formEditarPlantilla" novalidate>
+                <div class="mb-3"><label for="editarNombrePlantilla" class="form-label">Nombre</label><input type="text" class="form-control" id="editarNombrePlantilla" required><div class="invalid-feedback">Ingresa el nombre de la plantilla.</div></div>
+                <div class="mb-3"><label for="editarDescripcionPlantilla" class="form-label">Descripción</label><textarea class="form-control" id="editarDescripcionPlantilla" rows="3"></textarea></div>
+                <div class="mb-3"><label for="editarAplicaPlantilla" class="form-label">Aplica a</label><input type="text" class="form-control" id="editarAplicaPlantilla"></div>
+                <div class="mb-3 form-check form-switch"><input class="form-check-input" type="checkbox" id="editarEstadoPlantilla"><label class="form-check-label" for="editarEstadoPlantilla">Activo</label></div>
+                <hr class="my-3">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <span class="fw-semibold"><i class="bi bi-list-check me-1"></i>Ítems de inspección</span>
+                        <div class="text-muted" style="font-size:12px;">Define los puntos de verificación que componen esta plantilla</div>
+                    </div>
+                    <button type="button" class="btn btn-outline-primary btn-sm" id="btnItemsDesdeEditar">
+                        <i class="bi bi-gear me-1"></i>Configurar ítems
+                    </button>
+                </div>
+                <div id="resumenItemsEditar" class="mt-2" style="font-size:13px;"></div>
+            </form></div>
+            <div class="modal-footer"><button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancelar</button><button type="button" class="btn btn-primary" id="btnActualizarPlantilla">Guardar cambios</button></div>
+        </div></div>
+    </div>
+
+    <!-- Modal: Gestionar ítems de plantilla -->
+    <div class="modal fade" id="modalItemsPlantilla" tabindex="-1" aria-labelledby="modalItemsPlantillaLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg"><div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalItemsPlantillaLabel">Ítems de inspección</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+            </div>
+            <div class="modal-body">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <div>
+                        <span class="text-muted" style="font-size:13px;">Plantilla:</span>
+                        <span class="fw-semibold" id="itemsPlantillaNombre">—</span>
+                    </div>
+                    <button type="button" class="btn btn-primary btn-sm" id="btnAgregarItem">
+                        <i class="bi bi-plus-lg me-1"></i>Agregar ítem
+                    </button>
+                </div>
+                <div class="table-responsive">
+                    <table class="table table-hover align-middle" id="tablaItems">
+                        <thead>
+                            <tr>
+                                <th style="width:50px;">#</th>
+                                <th>Descripción</th>
+                                <th style="width:120px;">Tipo de verificación</th>
+                                <th style="width:100px;">Obligatorio</th>
+                                <th style="width:80px;" class="text-end">Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody id="bodyItems">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cerrar</button>
+            </div>
+        </div></div>
+    </div>
+
+    <!-- Modal: Agregar ítem -->
+    <div class="modal fade" id="modalAgregarItem" tabindex="-1" aria-labelledby="modalAgregarItemLabel" aria-hidden="true">
+        <div class="modal-dialog"><div class="modal-content">
+            <div class="modal-header"><h5 class="modal-title" id="modalAgregarItemLabel">Agregar ítem de inspección</h5><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button></div>
+            <div class="modal-body"><form id="formAgregarItem" novalidate>
+                <div class="mb-3"><label for="descripcionItem" class="form-label">Descripción</label><textarea class="form-control" id="descripcionItem" rows="2" placeholder="Ej: Verificar que el equipo encienda correctamente" required></textarea><div class="invalid-feedback">Ingresa la descripción del ítem.</div></div>
+                <div class="mb-3"><label for="tipoVerificacion" class="form-label">Tipo de verificación</label><select class="form-select" id="tipoVerificacion"><option value="checkbox" selected>Checkbox (Sí/No)</option><option value="texto">Texto libre</option><option value="numero">Valor numérico</option><option value="foto">Evidencia fotográfica</option></select></div>
+                <div class="mb-3 form-check form-switch"><input class="form-check-input" type="checkbox" id="obligatorioItem" checked><label class="form-check-label" for="obligatorioItem">Obligatorio</label></div>
+            </form></div>
+            <div class="modal-footer"><button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancelar</button><button type="button" class="btn btn-primary" id="btnGuardarItem">Agregar</button></div>
+        </div></div>
+    </div>
+
+    <!-- Modal: Editar ítem -->
+    <div class="modal fade" id="modalEditarItem" tabindex="-1" aria-labelledby="modalEditarItemLabel" aria-hidden="true">
+        <div class="modal-dialog"><div class="modal-content">
+            <div class="modal-header"><h5 class="modal-title" id="modalEditarItemLabel">Editar ítem de inspección</h5><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button></div>
+            <div class="modal-body"><form id="formEditarItem" novalidate>
+                <div class="mb-3"><label for="editarDescripcionItem" class="form-label">Descripción</label><textarea class="form-control" id="editarDescripcionItem" rows="2" required></textarea><div class="invalid-feedback">Ingresa la descripción del ítem.</div></div>
+                <div class="mb-3"><label for="editarTipoVerificacion" class="form-label">Tipo de verificación</label><select class="form-select" id="editarTipoVerificacion"><option value="checkbox">Checkbox (Sí/No)</option><option value="texto">Texto libre</option><option value="numero">Valor numérico</option><option value="foto">Evidencia fotográfica</option></select></div>
+                <div class="mb-3 form-check form-switch"><input class="form-check-input" type="checkbox" id="editarObligatorioItem"><label class="form-check-label" for="editarObligatorioItem">Obligatorio</label></div>
+            </form></div>
+            <div class="modal-footer"><button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancelar</button><button type="button" class="btn btn-primary" id="btnActualizarItem">Guardar cambios</button></div>
+        </div></div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        let filaEditando = null;
+        document.getElementById('btnGuardarPlantilla').addEventListener('click', function() {
+            const form = document.getElementById('formAgregarPlantilla');
+            if (form.checkValidity()) {
+                bootstrap.Modal.getInstance(document.getElementById('modalAgregarPlantilla')).hide();
+                form.reset(); form.classList.remove('was-validated');
+                alert('Plantilla agregada correctamente (simulación).');
+            } else { form.classList.add('was-validated'); }
+        });
+        document.getElementById('modalAgregarPlantilla').addEventListener('hidden.bs.modal', function() {
+            const form = document.getElementById('formAgregarPlantilla');
+            form.reset(); form.classList.remove('was-validated');
+        });
+        document.getElementById('modalEditarPlantilla').addEventListener('show.bs.modal', function(event) {
+            filaEditando = event.relatedTarget.closest('tr');
+            const d = filaEditando.dataset;
+            document.getElementById('editarNombrePlantilla').value = d.nombre;
+            document.getElementById('editarDescripcionPlantilla').value = d.descripcion;
+            document.getElementById('editarAplicaPlantilla').value = d.aplica;
+            document.getElementById('editarEstadoPlantilla').checked = d.estadoValue === 'activo';
+            actualizarResumenItems('resumenItemsEditar', d.nombre);
+        });
+        document.getElementById('modalEditarPlantilla').addEventListener('hidden.bs.modal', function() {
+            const form = document.getElementById('formEditarPlantilla');
+            form.reset(); form.classList.remove('was-validated'); filaEditando = null;
+        });
+        document.getElementById('btnActualizarPlantilla').addEventListener('click', function() {
+            const form = document.getElementById('formEditarPlantilla');
+            if (form.checkValidity()) {
+                if (filaEditando) {
+                    filaEditando.dataset.nombre = document.getElementById('editarNombrePlantilla').value;
+                    filaEditando.dataset.descripcion = document.getElementById('editarDescripcionPlantilla').value;
+                    filaEditando.dataset.aplica = document.getElementById('editarAplicaPlantilla').value;
+                    const activo = document.getElementById('editarEstadoPlantilla').checked;
+                    filaEditando.dataset.estado = activo ? 'Activo' : 'Inactivo';
+                    filaEditando.dataset.estadoValue = activo ? 'activo' : 'inactivo';
+                    filaEditando.cells[1].textContent = filaEditando.dataset.descripcion;
+                    filaEditando.cells[3].textContent = filaEditando.dataset.aplica;
+                    const badge = filaEditando.querySelector('.badge-status');
+                    badge.textContent = filaEditando.dataset.estado;
+                    badge.className = 'badge-status ' + (activo ? 'badge-activo' : 'badge-pendiente');
+                    filaEditando.querySelector('.fw-semibold').textContent = filaEditando.dataset.nombre;
+                }
+                bootstrap.Modal.getInstance(document.getElementById('modalEditarPlantilla')).hide();
+                alert('Plantilla actualizada correctamente (simulación).');
+            } else { form.classList.add('was-validated'); }
+        });
+
+        // ===== Gestión de ítems de plantillas =====
+        const itemsPorPlantilla = {
+            'Inspección de Recepción Estándar': [
+                { desc: 'Verificar que el equipo encienda correctamente', tipo: 'checkbox', obligatorio: true },
+                { desc: 'Comprobar estado de la pintura y estructura exterior', tipo: 'checkbox', obligatorio: true },
+                { desc: 'Verificar temperatura interna de operación', tipo: 'numero', obligatorio: true },
+                { desc: 'Revisar estado de las ruedas y patines', tipo: 'checkbox', obligatorio: false },
+                { desc: 'Comprobar cierre hermético de puerta/tapa', tipo: 'checkbox', obligatorio: true },
+                { desc: 'Verificar iluminación interior', tipo: 'checkbox', obligatorio: false },
+                { desc: 'Revisar estado de bandejas y estantes', tipo: 'checkbox', obligatorio: false },
+                { desc: 'Fotografía del equipo recibido', tipo: 'foto', obligatorio: true }
+            ],
+            'Inspección Vitrinas Refrigeradas': [
+                { desc: 'Verificar encendido y display de control', tipo: 'checkbox', obligatorio: true },
+                { desc: 'Temperatura interna (°C)', tipo: 'numero', obligatorio: true },
+                { desc: 'Estado de empaques de puerta', tipo: 'checkbox', obligatorio: true },
+                { desc: 'Cierre automático de puerta', tipo: 'checkbox', obligatorio: true },
+                { desc: 'Iluminación interior LED', tipo: 'checkbox', obligatorio: false },
+                { desc: 'Estado de estantes y bandejas', tipo: 'checkbox', obligatorio: false },
+                { desc: 'Ruidos anormales del compresor', tipo: 'checkbox', obligatorio: true },
+                { desc: 'Sello de goma en buen estado', tipo: 'checkbox', obligatorio: true },
+                { desc: 'Nivel de frío en zona superior', tipo: 'numero', obligatorio: false },
+                { desc: 'Nivel de frío en zona inferior', tipo: 'numero', obligatorio: false },
+                { desc: 'Limpieza interior', tipo: 'checkbox', obligatorio: false },
+                { desc: 'Fotografía de la vitrina', tipo: 'foto', obligatorio: true }
+            ],
+            'Inspección Congeladores': [
+                { desc: 'Verificar encendido', tipo: 'checkbox', obligatorio: true },
+                { desc: 'Temperatura de congelación (°C)', tipo: 'numero', obligatorio: true },
+                { desc: 'Estado de la tapa/visor', tipo: 'checkbox', obligatorio: true },
+                { desc: 'Cierre hermético', tipo: 'checkbox', obligatorio: true },
+                { desc: 'Formación de escarcha excesiva', tipo: 'checkbox', obligatorio: true },
+                { desc: 'Ruidos del motor', tipo: 'checkbox', obligatorio: false },
+                { desc: 'Estado de ruedas', tipo: 'checkbox', obligatorio: false },
+                { desc: 'Drenaje despejado', tipo: 'checkbox', obligatorio: false },
+                { desc: 'Limpieza interior', tipo: 'checkbox', obligatorio: false },
+                { desc: 'Fotografía del congelador', tipo: 'foto', obligatorio: true }
+            ],
+            'Inspección Barquilleras': [
+                { desc: 'Verificar encendido', tipo: 'checkbox', obligatorio: true },
+                { desc: 'Temperatura de conservación (°C)', tipo: 'numero', obligatorio: true },
+                { desc: 'Estado del mecanismo expendedor', tipo: 'checkbox', obligatorio: true },
+                { desc: 'Limpieza del área de contacto con alimentos', tipo: 'checkbox', obligatorio: true },
+                { desc: 'Estado de la estructura exterior', tipo: 'checkbox', obligatorio: false },
+                { desc: 'Fotografía de la barquillera', tipo: 'foto', obligatorio: true }
+            ],
+            'Inspección Inventario Físico': [
+                { desc: 'Confirmar N° de serie visible', tipo: 'checkbox', obligatorio: true },
+                { desc: 'Estado operativo del equipo', tipo: 'checkbox', obligatorio: true },
+                { desc: 'Ubicación actual del equipo', tipo: 'texto', obligatorio: true },
+                { desc: 'Cliente final asignado', tipo: 'texto', obligatorio: false },
+                { desc: 'Fotografía del equipo en sitio', tipo: 'foto', obligatorio: true }
+            ],
+            'Inspección Post-SSTT': [
+                { desc: 'Verificar encendido post-reparación', tipo: 'checkbox', obligatorio: true },
+                { desc: 'Temperatura de operación (°C)', tipo: 'numero', obligatorio: true },
+                { desc: 'Registro de reparación realizado', tipo: 'checkbox', obligatorio: true },
+                { desc: 'Repuestos reemplazados documentados', tipo: 'texto', obligatorio: true },
+                { desc: 'Estado de pintura y estructura', tipo: 'checkbox', obligatorio: false },
+                { desc: 'Cierre hermético verificado', tipo: 'checkbox', obligatorio: true },
+                { desc: 'Ruidos anormales', tipo: 'checkbox', obligatorio: true },
+                { desc: 'Limpieza general post-reparación', tipo: 'checkbox', obligatorio: false },
+                { desc: 'Fotografía post-reparación', tipo: 'foto', obligatorio: true }
+            ]
+        };
+        let plantillaActual = null;
+        let itemEditando = null;
+        let modalOrigenItems = null;
+        const tipoLabels = { checkbox: 'Checkbox', texto: 'Texto', numero: 'Numérico', foto: 'Foto' };
+        const tipoBadges = { checkbox: 'bg-secondary', texto: 'bg-info text-dark', numero: 'bg-primary', foto: 'bg-warning text-dark' };
+
+        function renderItems() {
+            const tbody = document.getElementById('bodyItems');
+            tbody.innerHTML = '';
+            const items = itemsPorPlantilla[plantillaActual] || [];
+            items.forEach(function(item, idx) {
+                const tr = document.createElement('tr');
+                tr.dataset.idx = idx;
+                tr.innerHTML = '<td class="text-muted fw-semibold">' + (idx + 1) + '</td>' +
+                    '<td>' + item.desc + '</td>' +
+                    '<td><span class="badge ' + tipoBadges[item.tipo] + '">' + tipoLabels[item.tipo] + '</span></td>' +
+                    '<td>' + (item.obligatorio ? '<span class="badge bg-danger">Sí</span>' : '<span class="badge bg-light text-dark">No</span>') + '</td>' +
+                    '<td class="text-end text-nowrap">' +
+                        '<button class="btn btn-outline-primary btn-sm me-1" onclick="editarItem(' + idx + ')"><i class="bi bi-pencil"></i></button>' +
+                        '<button class="btn btn-outline-danger btn-sm" onclick="eliminarItem(' + idx + ')"><i class="bi bi-trash"></i></button>' +
+                    '</td>';
+                tbody.appendChild(tr);
+            });
+        }
+
+        document.getElementById('modalItemsPlantilla').addEventListener('show.bs.modal', function(event) {
+            const trigger = event.relatedTarget;
+            if (trigger && trigger.dataset.plantilla) {
+                plantillaActual = trigger.dataset.plantilla;
+            }
+            document.getElementById('itemsPlantillaNombre').textContent = plantillaActual;
+            renderItems();
+        });
+
+        document.getElementById('modalItemsPlantilla').addEventListener('hidden.bs.modal', function() {
+            if (modalOrigenItems === 'agregar') {
+                actualizarResumenItems('resumenItemsAgregar', plantillaActual);
+                new bootstrap.Modal(document.getElementById('modalAgregarPlantilla')).show();
+            } else if (modalOrigenItems === 'editar') {
+                actualizarResumenItems('resumenItemsEditar', plantillaActual);
+                new bootstrap.Modal(document.getElementById('modalEditarPlantilla')).show();
+            }
+            modalOrigenItems = null;
+        });
+
+        function actualizarResumenItems(elementId, nombre) {
+            const el = document.getElementById(elementId);
+            const count = (itemsPorPlantilla[nombre] || []).length;
+            if (count > 0) {
+                el.innerHTML = '<span class="badge bg-primary">' + count + ' ítem' + (count !== 1 ? 's' : '') + '</span> configurado' + (count !== 1 ? 's' : '');
+            } else {
+                el.innerHTML = '<span class="text-warning"><i class="bi bi-exclamation-triangle me-1"></i>Sin ítems configurados</span>';
+            }
+        }
+
+        document.getElementById('btnItemsDesdeAgregar').addEventListener('click', function() {
+            const nombre = document.getElementById('nombrePlantilla').value.trim();
+            if (!nombre) {
+                document.getElementById('formAgregarPlantilla').classList.add('was-validated');
+                return;
+            }
+            plantillaActual = nombre;
+            if (!itemsPorPlantilla[nombre]) itemsPorPlantilla[nombre] = [];
+            modalOrigenItems = 'agregar';
+            const parentModal = document.getElementById('modalAgregarPlantilla');
+            parentModal.addEventListener('hidden.bs.modal', function() {
+                new bootstrap.Modal(document.getElementById('modalItemsPlantilla')).show();
+            }, { once: true });
+            bootstrap.Modal.getInstance(parentModal).hide();
+        });
+
+        document.getElementById('btnItemsDesdeEditar').addEventListener('click', function() {
+            const nombre = document.getElementById('editarNombrePlantilla').value.trim();
+            if (!nombre) {
+                document.getElementById('formEditarPlantilla').classList.add('was-validated');
+                return;
+            }
+            const nombreOriginal = filaEditando ? filaEditando.dataset.nombre : nombre;
+            plantillaActual = nombre;
+            if (!itemsPorPlantilla[nombre]) {
+                itemsPorPlantilla[nombre] = itemsPorPlantilla[nombreOriginal] ? itemsPorPlantilla[nombreOriginal].slice() : [];
+            }
+            modalOrigenItems = 'editar';
+            const parentModal = document.getElementById('modalEditarPlantilla');
+            parentModal.addEventListener('hidden.bs.modal', function() {
+                new bootstrap.Modal(document.getElementById('modalItemsPlantilla')).show();
+            }, { once: true });
+            bootstrap.Modal.getInstance(parentModal).hide();
+        });
+
+        document.getElementById('btnAgregarItem').addEventListener('click', function() {
+            document.getElementById('formAgregarItem').reset();
+            document.getElementById('formAgregarItem').classList.remove('was-validated');
+            const itemsModal = document.getElementById('modalItemsPlantilla');
+            itemsModal.addEventListener('hidden.bs.modal', function() {
+                new bootstrap.Modal(document.getElementById('modalAgregarItem')).show();
+            }, { once: true });
+            bootstrap.Modal.getInstance(itemsModal).hide();
+        });
+
+        document.getElementById('btnGuardarItem').addEventListener('click', function() {
+            const form = document.getElementById('formAgregarItem');
+            if (form.checkValidity()) {
+                if (!itemsPorPlantilla[plantillaActual]) itemsPorPlantilla[plantillaActual] = [];
+                itemsPorPlantilla[plantillaActual].push({
+                    desc: document.getElementById('descripcionItem').value,
+                    tipo: document.getElementById('tipoVerificacion').value,
+                    obligatorio: document.getElementById('obligatorioItem').checked
+                });
+                bootstrap.Modal.getInstance(document.getElementById('modalAgregarItem')).hide();
+                form.reset(); form.classList.remove('was-validated');
+            } else { form.classList.add('was-validated'); }
+        });
+
+        window.editarItem = function(idx) {
+            const item = itemsPorPlantilla[plantillaActual][idx];
+            itemEditando = idx;
+            document.getElementById('editarDescripcionItem').value = item.desc;
+            document.getElementById('editarTipoVerificacion').value = item.tipo;
+            document.getElementById('editarObligatorioItem').checked = item.obligatorio;
+            const itemsModal = document.getElementById('modalItemsPlantilla');
+            itemsModal.addEventListener('hidden.bs.modal', function() {
+                new bootstrap.Modal(document.getElementById('modalEditarItem')).show();
+            }, { once: true });
+            bootstrap.Modal.getInstance(itemsModal).hide();
+        };
+
+        document.getElementById('btnActualizarItem').addEventListener('click', function() {
+            const form = document.getElementById('formEditarItem');
+            if (form.checkValidity()) {
+                if (itemEditando !== null && itemsPorPlantilla[plantillaActual]) {
+                    itemsPorPlantilla[plantillaActual][itemEditando] = {
+                        desc: document.getElementById('editarDescripcionItem').value,
+                        tipo: document.getElementById('editarTipoVerificacion').value,
+                        obligatorio: document.getElementById('editarObligatorioItem').checked
+                    };
+                }
+                bootstrap.Modal.getInstance(document.getElementById('modalEditarItem')).hide();
+                itemEditando = null;
+            } else { form.classList.add('was-validated'); }
+        });
+
+        window.eliminarItem = function(idx) {
+            if (confirm('¿Eliminar este ítem de la plantilla?')) {
+                itemsPorPlantilla[plantillaActual].splice(idx, 1);
+                renderItems();
+            }
+        };
+
+        // Volver al modal de ítems cuando se cierra agregar/editar ítem
+        document.getElementById('modalAgregarItem').addEventListener('hidden.bs.modal', function() {
+            renderItems();
+            new bootstrap.Modal(document.getElementById('modalItemsPlantilla')).show();
+        });
+        document.getElementById('modalEditarItem').addEventListener('hidden.bs.modal', function() {
+            renderItems();
+            new bootstrap.Modal(document.getElementById('modalItemsPlantilla')).show();
+        });
+    </script>
+</body>
+</html>

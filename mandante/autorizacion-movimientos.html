@@ -1,0 +1,1137 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Autorización de Movimientos — Plataforma Isstec</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="../css/styles.css" rel="stylesheet">
+    <style>
+        .pagination .page-link {
+            color: var(--azul-primario);
+            border: 1px solid #DEE2E6;
+            font-weight: 500;
+            padding: 8px 14px;
+        }
+
+        .pagination .page-item.active .page-link {
+            background-color: var(--azul-primario);
+            border-color: var(--azul-primario);
+            color: #FFFFFF;
+        }
+
+        .pagination .page-item.disabled .page-link {
+            color: var(--gris-medio);
+        }
+
+        .filter-bar {
+            background: #FFFFFF;
+            border-radius: 8px;
+            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+            padding: 16px 20px;
+            margin-bottom: 24px;
+        }
+
+        .filter-bar .form-select {
+            max-width: 220px;
+        }
+
+        .btn-action-group {
+            display: flex;
+            gap: 6px;
+            flex-wrap: nowrap;
+        }
+
+        .btn-action-group .btn {
+            white-space: nowrap;
+        }
+
+        /* ===== Timeline ===== */
+        .timeline {
+            position: relative;
+            padding-left: 32px;
+            margin: 0;
+            list-style: none;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 11px;
+            top: 4px;
+            bottom: 4px;
+            width: 2px;
+            background: #E0E0E0;
+        }
+
+        .timeline-item {
+            position: relative;
+            padding-bottom: 24px;
+        }
+
+        .timeline-item:last-child {
+            padding-bottom: 0;
+        }
+
+        .timeline-dot {
+            position: absolute;
+            left: -27px;
+            top: 2px;
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            border: 3px solid #FFFFFF;
+            box-shadow: 0 0 0 1px #E0E0E0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+            color: #FFFFFF;
+        }
+
+        .timeline-dot.dot-blue {
+            background: var(--azul-primario);
+        }
+
+        .timeline-dot.dot-green {
+            background: var(--verde-exito);
+        }
+
+        .timeline-dot.dot-orange {
+            background: var(--naranja-coral);
+        }
+
+        .timeline-dot.dot-gray {
+            background: var(--gris-medio);
+        }
+
+        .timeline-dot.dot-red {
+            background: var(--rojo-error);
+        }
+
+        .timeline-dot.dot-navy {
+            background: var(--azul-marino);
+        }
+
+        .timeline-date {
+            font-size: 12px;
+            color: var(--gris-medio);
+            font-weight: 600;
+            margin-bottom: 2px;
+        }
+
+        .timeline-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--azul-marino);
+            margin-bottom: 2px;
+        }
+
+        .timeline-desc {
+            font-size: 13px;
+            color: #555;
+            line-height: 1.5;
+        }
+
+        .timeline-actor {
+            font-size: 12px;
+            color: var(--gris-medio);
+            font-weight: 500;
+        }
+
+        /* ===== Evidence grid ===== */
+        .evidence-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+            gap: 12px;
+        }
+
+        .evidence-item {
+            border: 1px solid #E0E0E0;
+            border-radius: 8px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: box-shadow 0.15s;
+            background: #FAFBFC;
+        }
+
+        .evidence-item:hover {
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+        }
+
+        .evidence-thumb {
+            height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--gris-claro);
+            font-size: 32px;
+            color: var(--gris-medio);
+        }
+
+        .evidence-thumb img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .evidence-meta {
+            padding: 8px 10px;
+            font-size: 12px;
+        }
+
+        .evidence-name {
+            font-weight: 600;
+            color: var(--gris-oscuro);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .evidence-type {
+            color: var(--gris-medio);
+            font-size: 11px;
+        }
+
+        /* ===== Detail modal sections ===== */
+        .detail-section-title {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--azul-marino);
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .detail-info-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px 24px;
+            margin-bottom: 20px;
+        }
+
+        .detail-info-item .label {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+            color: var(--gris-medio);
+            font-weight: 600;
+            margin-bottom: 2px;
+        }
+
+        .detail-info-item .value {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--gris-oscuro);
+        }
+
+        .modal-lg-custom {
+            max-width: 720px;
+        }
+
+        .badge-tipo {
+            background: #E3F2FD;
+            color: var(--azul-marino);
+            font-size: 11px;
+            font-weight: 600;
+            padding: 3px 10px;
+            border-radius: 12px;
+            white-space: nowrap;
+        }
+    </style>
+</head>
+<body>
+    <div class="app-layout">
+        <!-- ===== Sidebar ===== -->
+        <nav class="sidebar">
+            <div class="sidebar-logo">
+                <img src="../assets/img/logo.png" alt="Isstec">
+            </div>
+            <div class="sidebar-nav">
+                <div class="nav-section">Principal</div>
+                <a href="dashboard.html" class="nav-link">
+                    <i class="bi bi-speedometer2"></i> Dashboard
+                </a>
+                <a href="asignaciones.html" class="nav-link">
+                    <i class="bi bi-diagram-3"></i> Asignación de Equipos
+                </a>
+                <div class="nav-section">Operación</div>
+                <a href="autorizacion-movimientos.html" class="nav-link active">
+                    <i class="bi bi-shield-check"></i> Autorización de Movimientos
+                </a>
+                <a href="consulta-inventario.html" class="nav-link">
+                    <i class="bi bi-clipboard2-data"></i> Consulta de Inventario
+                </a>
+                <a href="trazabilidad.html" class="nav-link">
+                    <i class="bi bi-geo-alt"></i> Trazabilidad
+                </a>
+                <div class="nav-section">Análisis</div>
+                <a href="informes.html" class="nav-link">
+                    <i class="bi bi-bar-chart"></i> Informes
+                </a>
+                <div class="nav-section">Maestros</div>
+                <a href="maestro-equipos.html" class="nav-link">
+                    <i class="bi bi-hdd-stack"></i> Equipos
+                </a>
+                <a href="gestores.html" class="nav-link">
+                    <i class="bi bi-people"></i> Gestores
+                </a>
+                <a href="servicio-tecnico.html" class="nav-link">
+                    <i class="bi bi-tools"></i> Servicio Técnico
+                </a>
+                <a href="grupo-maquinas.html" class="nav-link">
+                    <i class="bi bi-layers"></i> Grupo de Máquinas
+                </a>
+                <a href="familia-maquinas.html" class="nav-link">
+                    <i class="bi bi-grid"></i> Familia de Máquinas
+                </a>
+                <a href="ubicaciones-bodegas.html" class="nav-link">
+                    <i class="bi bi-geo"></i> Ubicaciones / Bodegas
+                </a>
+                <a href="motivos-movimiento.html" class="nav-link">
+                    <i class="bi bi-list-ul"></i> Motivos de Movimiento
+                </a>
+                <a href="tipos-solicitud.html" class="nav-link">
+                    <i class="bi bi-file-earmark-text"></i> Tipos de Solicitud
+                </a>
+                <a href="plantillas-inspeccion.html" class="nav-link">
+                    <i class="bi bi-clipboard2-check"></i> Plantillas de Inspección
+                </a>
+                <a href="marcas.html" class="nav-link">
+                    <i class="bi bi-tag"></i> Marcas
+                </a>
+                <a href="modelos.html" class="nav-link">
+                    <i class="bi bi-box"></i> Modelos
+                </a>
+                <a href="tipos-incidencias.html" class="nav-link">
+                    <i class="bi bi-exclamation-octagon"></i> Tipos de Incidencias / Catálogo de Fallas
+                </a>
+                <div class="nav-section">Configuración</div>
+                <a href="usuarios.html" class="nav-link">
+                    <i class="bi bi-people-fill"></i> Usuarios
+                </a>
+                <a href="roles.html" class="nav-link">
+                    <i class="bi bi-shield-lock"></i> Roles
+                </a>
+            </div>
+            <div class="sidebar-footer">
+                <a href="../index.html" class="nav-link">
+                    <i class="bi bi-box-arrow-right"></i> Cerrar sesión
+                </a>
+            </div>
+        </nav>
+
+        <!-- ===== Contenido principal ===== -->
+        <div class="app-content">
+            <!-- Navbar superior -->
+            <nav class="navbar-top">
+                <div class="navbar-left">
+                    <h2 class="page-title">Autorización de Movimientos</h2>
+                </div>
+                <div class="navbar-right">
+                    <div class="notification-icon">
+                        <i class="bi bi-bell"></i>
+                        <span class="notification-badge">12</span>
+                    </div>
+                    <div class="user-info">
+                        <div class="user-avatar">SV</div>
+                        <div>
+                            <div class="user-name">Savory Chile</div>
+                            <div class="user-role">Mandante</div>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+
+            <!-- Main -->
+            <main class="app-main">
+                <!-- ===== Filtros ===== -->
+                <div class="filter-bar">
+                    <div class="d-flex align-items-center gap-3 flex-wrap">
+                        <label class="form-label mb-0" for="filtroEstado">
+                            <i class="bi bi-funnel me-1"></i>Estado
+                        </label>
+                        <select class="form-select" id="filtroEstado" onchange="filtrarPorEstado()">
+                            <option value="todos">Todos</option>
+                            <option value="pendiente">Pendiente</option>
+                            <option value="aprobada">Aprobada</option>
+                            <option value="rechazada">Rechazada</option>
+                        </select>
+                        <div class="text-muted ms-auto" style="font-size: 13px;">
+                            <i class="bi bi-info-circle me-1"></i>
+                            El distribuidor no puede aprobar sus propias solicitudes; toda aprobación/rechazo la realiza el Mandante.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ===== Tabla de solicitudes ===== -->
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table table-hover align-middle" id="tablaSolicitudes">
+                                        <thead>
+                                            <tr>
+                                                <th style="width: 12%;">Equipo</th>
+                                                <th style="width: 18%;">Distribuidor</th>
+                                                <th style="width: 12%;">Tipo solicitud</th>
+                                                <th style="width: 20%;">Motivo</th>
+                                                <th style="width: 10%;">Fecha</th>
+                                                <th style="width: 10%;">Estado</th>
+                                                <th class="text-end" style="width: 18%;">Acciones</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <!-- Fila 1 -->
+                                            <tr data-estado="pendiente"
+                                                data-equipo="FR-1023"
+                                                data-marca="Foster" data-modelo="FVR-300"
+                                                data-distribuidor="IceFree Chile"
+                                                data-tipo="Baja definitiva"
+                                                data-motivo="Equipo con falla estructural irreparable. Motor quemado tras 3 reparaciones."
+                                                data-fecha="04/07/2026"
+                                                data-solicitante="Carlos Muñoz"
+                                                data-cliente="Supermercado El Sol"
+                                                data-ubicacion="Av. Vicuña Mackenna 1200, Santiago">
+                                                <td>
+                                                    <div class="fw-semibold">FR-1023</div>
+                                                    <div class="text-muted" style="font-size: 12px;">Foster FVR-300</div>
+                                                </td>
+                                                <td>IceFree Chile</td>
+                                                <td><span class="badge-tipo">Baja definitiva</span></td>
+                                                <td class="text-truncate" style="max-width: 200px;" title="Equipo con falla estructural irreparable. Motor quemado tras 3 reparaciones.">Equipo con falla estructural irreparable. Motor quemado tras 3 reparaciones.</td>
+                                                <td>04/07/2026</td>
+                                                <td><span class="badge-status badge-pendiente">Pendiente</span></td>
+                                                <td class="text-end">
+                                                    <div class="btn-action-group justify-content-end">
+                                                        <button class="btn btn-success btn-sm" onclick="aprobarSolicitud(this)" title="Aprobar solicitud">
+                                                            <i class="bi bi-check-lg me-1"></i>Aprobar
+                                                        </button>
+                                                        <button class="btn btn-warning btn-sm" onclick="rechazarSolicitud(this)" title="Rechazar solicitud">
+                                                            <i class="bi bi-x-lg me-1"></i>Rechazar
+                                                        </button>
+                                                        <button class="btn btn-outline-secondary btn-sm" onclick="abrirDetalles(this)" title="Ver detalles del equipo y evidencia">
+                                                            <i class="bi bi-eye me-1"></i>Detalles
+                                                        </button>
+                                                    </div>
+                                                </td>
+                                            </tr>
+
+                                            <!-- Fila 2 -->
+                                            <tr data-estado="pendiente"
+                                                data-equipo="BV-2051"
+                                                data-marca="Bosch" data-modelo="KSV-36V"
+                                                data-distribuidor="Distribuidora Norte"
+                                                data-tipo="Envío a SSTT"
+                                                data-motivo="No enfría correctamente. Temperatura interna sobre 10°C. Requiere revisión técnica urgente."
+                                                data-fecha="03/07/2026"
+                                                data-solicitante="María Soto"
+                                                data-cliente="Minimarket Don Jorge"
+                                                data-ubicacion="Los Dominicos 450, Las Condes">
+                                                <td>
+                                                    <div class="fw-semibold">BV-2051</div>
+                                                    <div class="text-muted" style="font-size: 12px;">Bosch KSV-36V</div>
+                                                </td>
+                                                <td>Distribuidora Norte</td>
+                                                <td><span class="badge-tipo">Envío a SSTT</span></td>
+                                                <td class="text-truncate" style="max-width: 200px;" title="No enfría correctamente. Temperatura interna sobre 10°C. Requiere revisión técnica urgente.">No enfría correctamente. Temperatura interna sobre 10°C. Requiere revisión técnica urgente.</td>
+                                                <td>03/07/2026</td>
+                                                <td><span class="badge-status badge-pendiente">Pendiente</span></td>
+                                                <td class="text-end">
+                                                    <div class="btn-action-group justify-content-end">
+                                                        <button class="btn btn-success btn-sm" onclick="aprobarSolicitud(this)" title="Aprobar solicitud">
+                                                            <i class="bi bi-check-lg me-1"></i>Aprobar
+                                                        </button>
+                                                        <button class="btn btn-warning btn-sm" onclick="rechazarSolicitud(this)" title="Rechazar solicitud">
+                                                            <i class="bi bi-x-lg me-1"></i>Rechazar
+                                                        </button>
+                                                        <button class="btn btn-outline-secondary btn-sm" onclick="abrirDetalles(this)" title="Ver detalles del equipo y evidencia">
+                                                            <i class="bi bi-eye me-1"></i>Detalles
+                                                        </button>
+                                                    </div>
+                                                </td>
+                                            </tr>
+
+                                            <!-- Fila 3 -->
+                                            <tr data-estado="pendiente"
+                                                data-equipo="HL-3340"
+                                                data-marca="Hussmann" data-modelo="ELC-2D"
+                                                data-distribuidor="IceFree Chile"
+                                                data-tipo="Cambio de equipo"
+                                                data-motivo="Cliente solicita equipo de mayor capacidad por incremento de ventas estacionales."
+                                                data-fecha="02/07/2026"
+                                                data-solicitante="Carlos Muñoz"
+                                                data-cliente="Supermercado El Sol"
+                                                data-ubicacion="Av. Vicuña Mackenna 1200, Santiago">
+                                                <td>
+                                                    <div class="fw-semibold">HL-3340</div>
+                                                    <div class="text-muted" style="font-size: 12px;">Hussmann ELC-2D</div>
+                                                </td>
+                                                <td>IceFree Chile</td>
+                                                <td><span class="badge-tipo">Cambio de equipo</span></td>
+                                                <td class="text-truncate" style="max-width: 200px;" title="Cliente solicita equipo de mayor capacidad por incremento de ventas estacionales.">Cliente solicita equipo de mayor capacidad por incremento de ventas estacionales.</td>
+                                                <td>02/07/2026</td>
+                                                <td><span class="badge-status badge-pendiente">Pendiente</span></td>
+                                                <td class="text-end">
+                                                    <div class="btn-action-group justify-content-end">
+                                                        <button class="btn btn-success btn-sm" onclick="aprobarSolicitud(this)" title="Aprobar solicitud">
+                                                            <i class="bi bi-check-lg me-1"></i>Aprobar
+                                                        </button>
+                                                        <button class="btn btn-warning btn-sm" onclick="rechazarSolicitud(this)" title="Rechazar solicitud">
+                                                            <i class="bi bi-x-lg me-1"></i>Rechazar
+                                                        </button>
+                                                        <button class="btn btn-outline-secondary btn-sm" onclick="abrirDetalles(this)" title="Ver detalles del equipo y evidencia">
+                                                            <i class="bi bi-eye me-1"></i>Detalles
+                                                        </button>
+                                                    </div>
+                                                </td>
+                                            </tr>
+
+                                            <!-- Fila 4 -->
+                                            <tr data-estado="aprobada"
+                                                data-equipo="FR-0987"
+                                                data-marca="Foster" data-modelo="FVR-200"
+                                                data-distribuidor="SurFrio Ltda."
+                                                data-tipo="Baja definitiva"
+                                                data-motivo="Equipo robado en punto de venta. Acta de carabinera adjunta."
+                                                data-fecha="28/06/2026"
+                                                data-solicitante="Pedro Fuentes"
+                                                data-cliente="Almacén La Esquina"
+                                                data-ubicacion="San Ramón 080, San Ramón">
+                                                <td>
+                                                    <div class="fw-semibold">FR-0987</div>
+                                                    <div class="text-muted" style="font-size: 12px;">Foster FVR-200</div>
+                                                </td>
+                                                <td>SurFrio Ltda.</td>
+                                                <td><span class="badge-tipo">Baja definitiva</span></td>
+                                                <td class="text-truncate" style="max-width: 200px;" title="Equipo robado en punto de venta. Acta de carabinera adjunta.">Equipo robado en punto de venta. Acta de carabinera adjunta.</td>
+                                                <td>28/06/2026</td>
+                                                <td><span class="badge-status badge-aprobada">Aprobada</span></td>
+                                                <td class="text-end">
+                                                    <div class="btn-action-group justify-content-end">
+                                                        <button class="btn btn-outline-secondary btn-sm" disabled title="Solicitud ya resuelta">
+                                                            <i class="bi bi-check-lg"></i>
+                                                        </button>
+                                                        <button class="btn btn-outline-secondary btn-sm" disabled title="Solicitud ya resuelta">
+                                                            <i class="bi bi-x-lg"></i>
+                                                        </button>
+                                                        <button class="btn btn-outline-secondary btn-sm" onclick="abrirDetalles(this)" title="Ver detalles del equipo y evidencia">
+                                                            <i class="bi bi-eye me-1"></i>Detalles
+                                                        </button>
+                                                    </div>
+                                                </td>
+                                            </tr>
+
+                                            <!-- Fila 5 -->
+                                            <tr data-estado="rechazada"
+                                                data-equipo="BV-1188"
+                                                data-marca="Bosch" data-modelo="KSV-24V"
+                                                data-distribuidor="Distribuidora Norte"
+                                                data-tipo="Cambio de equipo"
+                                                data-motivo="Cliente quiere equipo nuevo por estética. Sin falla técnica reportada."
+                                                data-fecha="26/06/2026"
+                                                data-solicitante="María Soto"
+                                                data-cliente="Farmacia San Isidro"
+                                                data-ubicacion="Providencia 1234, Providencia">
+                                                <td>
+                                                    <div class="fw-semibold">BV-1188</div>
+                                                    <div class="text-muted" style="font-size: 12px;">Bosch KSV-24V</div>
+                                                </td>
+                                                <td>Distribuidora Norte</td>
+                                                <td><span class="badge-tipo">Cambio de equipo</span></td>
+                                                <td class="text-truncate" style="max-width: 200px;" title="Cliente quiere equipo nuevo por estética. Sin falla técnica reportada.">Cliente quiere equipo nuevo por estética. Sin falla técnica reportada.</td>
+                                                <td>26/06/2026</td>
+                                                <td><span class="badge-status badge-rechazada">Rechazada</span></td>
+                                                <td class="text-end">
+                                                    <div class="btn-action-group justify-content-end">
+                                                        <button class="btn btn-outline-secondary btn-sm" disabled title="Solicitud ya resuelta">
+                                                            <i class="bi bi-check-lg"></i>
+                                                        </button>
+                                                        <button class="btn btn-outline-secondary btn-sm" disabled title="Solicitud ya resuelta">
+                                                            <i class="bi bi-x-lg"></i>
+                                                        </button>
+                                                        <button class="btn btn-outline-secondary btn-sm" onclick="abrirDetalles(this)" title="Ver detalles del equipo y evidencia">
+                                                            <i class="bi bi-eye me-1"></i>Detalles
+                                                        </button>
+                                                    </div>
+                                                </td>
+                                            </tr>
+
+                                            <!-- Fila 6 -->
+                                            <tr data-estado="pendiente"
+                                                data-equipo="HL-2200"
+                                                data-marca="Hussmann" data-modelo="ELC-1D"
+                                                data-distribuidor="SurFrio Ltda."
+                                                data-tipo="Envío a SSTT"
+                                                data-motivo="Puerta de vidrio quebrada por accidente. Requiere reemplazo de vidrio templado."
+                                                data-fecha="01/07/2026"
+                                                data-solicitante="Pedro Fuentes"
+                                                data-cliente="Botillería 24h"
+                                                data-ubicacion="Plaza Italia 100, Santiago">
+                                                <td>
+                                                    <div class="fw-semibold">HL-2200</div>
+                                                    <div class="text-muted" style="font-size: 12px;">Hussmann ELC-1D</div>
+                                                </td>
+                                                <td>SurFrio Ltda.</td>
+                                                <td><span class="badge-tipo">Envío a SSTT</span></td>
+                                                <td class="text-truncate" style="max-width: 200px;" title="Puerta de vidrio quebrada por accidente. Requiere reemplazo de vidrio templado.">Puerta de vidrio quebrada por accidente. Requiere reemplazo de vidrio templado.</td>
+                                                <td>01/07/2026</td>
+                                                <td><span class="badge-status badge-pendiente">Pendiente</span></td>
+                                                <td class="text-end">
+                                                    <div class="btn-action-group justify-content-end">
+                                                        <button class="btn btn-success btn-sm" onclick="aprobarSolicitud(this)" title="Aprobar solicitud">
+                                                            <i class="bi bi-check-lg me-1"></i>Aprobar
+                                                        </button>
+                                                        <button class="btn btn-warning btn-sm" onclick="rechazarSolicitud(this)" title="Rechazar solicitud">
+                                                            <i class="bi bi-x-lg me-1"></i>Rechazar
+                                                        </button>
+                                                        <button class="btn btn-outline-secondary btn-sm" onclick="abrirDetalles(this)" title="Ver detalles del equipo y evidencia">
+                                                            <i class="bi bi-eye me-1"></i>Detalles
+                                                        </button>
+                                                    </div>
+                                                </td>
+                                            </tr>
+
+                                            <!-- Fila 7 -->
+                                            <tr data-estado="aprobada"
+                                                data-equipo="FR-3456"
+                                                data-marca="Foster" data-modelo="FVR-450"
+                                                data-distribuidor="IceFree Chile"
+                                                data-tipo="Envío a SSTT"
+                                                data-motivo="Compresor con ruido anormal y pérdida de refrigerante. Diagnosticado por técnico autorizado."
+                                                data-fecha="20/06/2026"
+                                                data-solicitante="Carlos Muñoz"
+                                                data-cliente="Supermercado Mayorista 10"
+                                                data-ubicacion="Av. Américo Vespucio 1500, Huechuraba">
+                                                <td>
+                                                    <div class="fw-semibold">FR-3456</div>
+                                                    <div class="text-muted" style="font-size: 12px;">Foster FVR-450</div>
+                                                </td>
+                                                <td>IceFree Chile</td>
+                                                <td><span class="badge-tipo">Envío a SSTT</span></td>
+                                                <td class="text-truncate" style="max-width: 200px;" title="Compresor con ruido anormal y pérdida de refrigerante. Diagnosticado por técnico autorizado.">Compresor con ruido anormal y pérdida de refrigerante. Diagnosticado por técnico autorizado.</td>
+                                                <td>20/06/2026</td>
+                                                <td><span class="badge-status badge-aprobada">Aprobada</span></td>
+                                                <td class="text-end">
+                                                    <div class="btn-action-group justify-content-end">
+                                                        <button class="btn btn-outline-secondary btn-sm" disabled title="Solicitud ya resuelta">
+                                                            <i class="bi bi-check-lg"></i>
+                                                        </button>
+                                                        <button class="btn btn-outline-secondary btn-sm" disabled title="Solicitud ya resuelta">
+                                                            <i class="bi bi-x-lg"></i>
+                                                        </button>
+                                                        <button class="btn btn-outline-secondary btn-sm" onclick="abrirDetalles(this)" title="Ver detalles del equipo y evidencia">
+                                                            <i class="bi bi-eye me-1"></i>Detalles
+                                                        </button>
+                                                    </div>
+                                                </td>
+                                            </tr>
+
+                                            <!-- Fila 8 -->
+                                            <tr data-estado="rechazada"
+                                                data-equipo="BV-7700"
+                                                data-marca="Bosch" data-modelo="KSV-48V"
+                                                data-distribuidor="SurFrio Ltda."
+                                                data-tipo="Baja definitiva"
+                                                data-motivo="Equipo antiguo. Distribuidor solicita baja para reemplazo por modelo nuevo."
+                                                data-fecha="15/06/2026"
+                                                data-solicitante="Pedro Fuentes"
+                                                data-cliente="Restaurant La Olla"
+                                                data-ubicacion="Bellavista 200, Santiago">
+                                                <td>
+                                                    <div class="fw-semibold">BV-7700</div>
+                                                    <div class="text-muted" style="font-size: 12px;">Bosch KSV-48V</div>
+                                                </td>
+                                                <td>SurFrio Ltda.</td>
+                                                <td><span class="badge-tipo">Baja definitiva</span></td>
+                                                <td class="text-truncate" style="max-width: 200px;" title="Equipo antiguo. Distribuidor solicita baja para reemplazo por modelo nuevo.">Equipo antiguo. Distribuidor solicita baja para reemplazo por modelo nuevo.</td>
+                                                <td>15/06/2026</td>
+                                                <td><span class="badge-status badge-rechazada">Rechazada</span></td>
+                                                <td class="text-end">
+                                                    <div class="btn-action-group justify-content-end">
+                                                        <button class="btn btn-outline-secondary btn-sm" disabled title="Solicitud ya resuelta">
+                                                            <i class="bi bi-check-lg"></i>
+                                                        </button>
+                                                        <button class="btn btn-outline-secondary btn-sm" disabled title="Solicitud ya resuelta">
+                                                            <i class="bi bi-x-lg"></i>
+                                                        </button>
+                                                        <button class="btn btn-outline-secondary btn-sm" onclick="abrirDetalles(this)" title="Ver detalles del equipo y evidencia">
+                                                            <i class="bi bi-eye me-1"></i>Detalles
+                                                        </button>
+                                                    </div>
+                                                </td>
+                                            </tr>
+
+                                            <!-- Fila 9 -->
+                                            <tr data-estado="pendiente"
+                                                data-equipo="HL-5510"
+                                                data-marca="Hussmann" data-modelo="ELC-3D"
+                                                data-distribuidor="Distribuidora Norte"
+                                                data-tipo="Cambio de equipo"
+                                                data-motivo="Equipo con condensador dañado por mal uso del cliente. Se solicita cambio y envío del actual a SSTT."
+                                                data-fecha="04/07/2026"
+                                                data-solicitante="María Soto"
+                                                data-cliente="Supermercado Express"
+                                                data-ubicacion="Av. Las Condes 9500, Las Condes">
+                                                <td>
+                                                    <div class="fw-semibold">HL-5510</div>
+                                                    <div class="text-muted" style="font-size: 12px;">Hussmann ELC-3D</div>
+                                                </td>
+                                                <td>Distribuidora Norte</td>
+                                                <td><span class="badge-tipo">Cambio de equipo</span></td>
+                                                <td class="text-truncate" style="max-width: 200px;" title="Equipo con condensador dañado por mal uso del cliente. Se solicita cambio y envío del actual a SSTT.">Equipo con condensador dañado por mal uso del cliente. Se solicita cambio y envío del actual a SSTT.</td>
+                                                <td>04/07/2026</td>
+                                                <td><span class="badge-status badge-pendiente">Pendiente</span></td>
+                                                <td class="text-end">
+                                                    <div class="btn-action-group justify-content-end">
+                                                        <button class="btn btn-success btn-sm" onclick="aprobarSolicitud(this)" title="Aprobar solicitud">
+                                                            <i class="bi bi-check-lg me-1"></i>Aprobar
+                                                        </button>
+                                                        <button class="btn btn-warning btn-sm" onclick="rechazarSolicitud(this)" title="Rechazar solicitud">
+                                                            <i class="bi bi-x-lg me-1"></i>Rechazar
+                                                        </button>
+                                                        <button class="btn btn-outline-secondary btn-sm" onclick="abrirDetalles(this)" title="Ver detalles del equipo y evidencia">
+                                                            <i class="bi bi-eye me-1"></i>Detalles
+                                                        </button>
+                                                    </div>
+                                                </td>
+                                            </tr>
+
+                                            <!-- Fila 10 -->
+                                            <tr data-estado="pendiente"
+                                                data-equipo="FR-6620"
+                                                data-marca="Foster" data-modelo="FVR-300"
+                                                data-distribuidor="SurFrio Ltda."
+                                                data-tipo="Baja definitiva"
+                                                data-motivo="Equipo destruido por incendio en punto de venta. Acta de bomberos adjunta."
+                                                data-fecha="30/06/2026"
+                                                data-solicitante="Pedro Fuentes"
+                                                data-cliente="Botillería Amanecer"
+                                                data-ubicacion="La Florida 2000, La Florida">
+                                                <td>
+                                                    <div class="fw-semibold">FR-6620</div>
+                                                    <div class="text-muted" style="font-size: 12px;">Foster FVR-300</div>
+                                                </td>
+                                                <td>SurFrio Ltda.</td>
+                                                <td><span class="badge-tipo">Baja definitiva</span></td>
+                                                <td class="text-truncate" style="max-width: 200px;" title="Equipo destruido por incendio en punto de venta. Acta de bomberos adjunta.">Equipo destruido por incendio en punto de venta. Acta de bomberos adjunta.</td>
+                                                <td>30/06/2026</td>
+                                                <td><span class="badge-status badge-pendiente">Pendiente</span></td>
+                                                <td class="text-end">
+                                                    <div class="btn-action-group justify-content-end">
+                                                        <button class="btn btn-success btn-sm" onclick="aprobarSolicitud(this)" title="Aprobar solicitud">
+                                                            <i class="bi bi-check-lg me-1"></i>Aprobar
+                                                        </button>
+                                                        <button class="btn btn-warning btn-sm" onclick="rechazarSolicitud(this)" title="Rechazar solicitud">
+                                                            <i class="bi bi-x-lg me-1"></i>Rechazar
+                                                        </button>
+                                                        <button class="btn btn-outline-secondary btn-sm" onclick="abrirDetalles(this)" title="Ver detalles del equipo y evidencia">
+                                                            <i class="bi bi-eye me-1"></i>Detalles
+                                                        </button>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                                <!-- Paginación -->
+                                <div class="d-flex justify-content-between align-items-center mt-3">
+                                    <div class="text-muted" style="font-size: 13px;" id="resultadoInfo">
+                                        Mostrando 1–10 de 24 solicitudes
+                                    </div>
+                                    <nav aria-label="Paginación de solicitudes">
+                                        <ul class="pagination mb-0">
+                                            <li class="page-item disabled">
+                                                <a class="page-link" href="#" tabindex="-1" aria-disabled="true">
+                                                    <i class="bi bi-chevron-left"></i>
+                                                </a>
+                                            </li>
+                                            <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                                            <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                            <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                            <li class="page-item">
+                                                <a class="page-link" href="#">
+                                                    <i class="bi bi-chevron-right"></i>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </nav>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- ===== Modal: Detalles de la solicitud ===== -->
+    <div class="modal fade" id="modalDetalles" tabindex="-1" aria-labelledby="modalDetallesLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg-custom">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalDetallesLabel">
+                        <i class="bi bi-info-circle me-2"></i>Detalles de Solicitud de Movimiento
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                </div>
+                <div class="modal-body">
+                    <!-- Info de la solicitud -->
+                    <div class="detail-section-title">
+                        <i class="bi bi-clipboard-data"></i>Datos de la Solicitud
+                    </div>
+                    <div class="detail-info-grid">
+                        <div class="detail-info-item">
+                            <div class="label">Equipo</div>
+                            <div class="value" id="detalleEquipo">—</div>
+                        </div>
+                        <div class="detail-info-item">
+                            <div class="label">Marca / Modelo</div>
+                            <div class="value" id="detalleMarcaModelo">—</div>
+                        </div>
+                        <div class="detail-info-item">
+                            <div class="label">Distribuidor</div>
+                            <div class="value" id="detalleDistribuidor">—</div>
+                        </div>
+                        <div class="detail-info-item">
+                            <div class="label">Tipo de Solicitud</div>
+                            <div class="value" id="detalleTipo">—</div>
+                        </div>
+                        <div class="detail-info-item">
+                            <div class="label">Cliente Final</div>
+                            <div class="value" id="detalleCliente">—</div>
+                        </div>
+                        <div class="detail-info-item">
+                            <div class="label">Ubicación</div>
+                            <div class="value" id="detalleUbicacion">—</div>
+                        </div>
+                        <div class="detail-info-item">
+                            <div class="label">Solicitante</div>
+                            <div class="value" id="detalleSolicitante">—</div>
+                        </div>
+                        <div class="detail-info-item">
+                            <div class="label">Fecha de Solicitud</div>
+                            <div class="value" id="detalleFecha">—</div>
+                        </div>
+                    </div>
+
+                    <!-- Motivo -->
+                    <div class="detail-section-title">
+                        <i class="bi bi-chat-left-text"></i>Motivo de la Solicitud
+                    </div>
+                    <div class="mb-4 p-3 rounded" style="background: var(--gris-claro); font-size: 14px; color: #333; line-height: 1.6;" id="detalleMotivo">
+                        —
+                    </div>
+
+                    <!-- Timeline -->
+                    <div class="detail-section-title">
+                        <i class="bi bi-clock-history"></i>Historial del Equipo
+                    </div>
+                    <ul class="timeline mb-4">
+                        <li class="timeline-item">
+                            <div class="timeline-dot dot-navy"></div>
+                            <div class="timeline-date">15/01/2025</div>
+                            <div class="timeline-title">Registrado en Maestro</div>
+                            <div class="timeline-desc">Equipo ingresado al sistema por el Mandante (Savory Chile).</div>
+                            <div class="timeline-actor">Actor: Savory Chile (Mandante)</div>
+                        </li>
+                        <li class="timeline-item">
+                            <div class="timeline-dot dot-blue"></div>
+                            <div class="timeline-date">22/01/2025</div>
+                            <div class="timeline-title">Asignado a Distribuidor</div>
+                            <div class="timeline-desc">Equipo asignado al distribuidor. Guía de Despacho N° GD-2025-0145 adjunta.</div>
+                            <div class="timeline-actor">Actor: Savory Chile (Mandante)</div>
+                        </li>
+                        <li class="timeline-item">
+                            <div class="timeline-dot dot-green"></div>
+                            <div class="timeline-date">25/01/2025</div>
+                            <div class="timeline-title">Recibido y Aceptado</div>
+                            <div class="timeline-desc">Distribuidor confirma recepción e inspección visual. Equipo en estado "En Distribuidor".</div>
+                            <div class="timeline-actor">Actor: Distribuidor</div>
+                        </li>
+                        <li class="timeline-item">
+                            <div class="timeline-dot dot-blue"></div>
+                            <div class="timeline-date">10/02/2025</div>
+                            <div class="timeline-title">Asignado a Cliente Final</div>
+                            <div class="timeline-desc">Equipo asignado a punto de venta. Guía de Despacho generada.</div>
+                            <div class="timeline-actor">Actor: Distribuidor</div>
+                        </li>
+                        <li class="timeline-item">
+                            <div class="timeline-dot dot-orange"></div>
+                            <div class="timeline-date" id="timelineFechaSolicitud">—</div>
+                            <div class="timeline-title">Solicitud de Movimiento Creada</div>
+                            <div class="timeline-desc" id="timelineMotivo">—</div>
+                            <div class="timeline-actor">Actor: Distribuidor (Solicitante)</div>
+                        </li>
+                        <li class="timeline-item" id="timelineResolucion" style="display: none;">
+                            <div class="timeline-dot dot-green" id="timelineDotResolucion"></div>
+                            <div class="timeline-date" id="timelineFechaResolucion">—</div>
+                            <div class="timeline-title" id="timelineTituloResolucion">—</div>
+                            <div class="timeline-desc" id="timelineDescResolucion">—</div>
+                            <div class="timeline-actor">Actor: Savory Chile (Mandante)</div>
+                        </li>
+                    </ul>
+
+                    <!-- Evidencia adjunta -->
+                    <div class="detail-section-title">
+                        <i class="bi bi-paperclip"></i>Evidencia Adjunta
+                    </div>
+                    <div class="evidence-grid">
+                        <div class="evidence-item" onclick="abrirVisor('Foto equipo - frontal.jpg')">
+                            <div class="evidence-thumb">
+                                <i class="bi bi-image"></i>
+                            </div>
+                            <div class="evidence-meta">
+                                <div class="evidence-name">Foto frontal</div>
+                                <div class="evidence-type">Imagen JPG · 2.4 MB</div>
+                            </div>
+                        </div>
+                        <div class="evidence-item" onclick="abrirVisor('Foto equipo - lateral.jpg')">
+                            <div class="evidence-thumb">
+                                <i class="bi bi-image"></i>
+                            </div>
+                            <div class="evidence-meta">
+                                <div class="evidence-name">Foto lateral</div>
+                                <div class="evidence-type">Imagen JPG · 1.8 MB</div>
+                            </div>
+                        </div>
+                        <div class="evidence-item" onclick="abrirVisor('Informe técnico.pdf')">
+                            <div class="evidence-thumb">
+                                <i class="bi bi-file-earmark-pdf"></i>
+                            </div>
+                            <div class="evidence-meta">
+                                <div class="evidence-name">Informe técnico</div>
+                                <div class="evidence-type">PDF · 450 KB</div>
+                            </div>
+                        </div>
+                        <div class="evidence-item" onclick="abrirVisor('Acta de carabinera.pdf')">
+                            <div class="evidence-thumb">
+                                <i class="bi bi-file-earmark-pdf"></i>
+                            </div>
+                            <div class="evidence-meta">
+                                <div class="evidence-name">Acta carabinera</div>
+                                <div class="evidence-type">PDF · 320 KB</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== Modal: Confirmar aprobación ===== -->
+    <div class="modal fade" id="modalAprobar" tabindex="-1" aria-labelledby="modalAprobarLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalAprobarLabel">
+                        <i class="bi bi-check-circle me-2 text-success"></i>Confirmar Aprobación
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                </div>
+                <div class="modal-body">
+                    <p>¿Está seguro que desea <strong>aprobar</strong> la solicitud de movimiento del equipo <strong id="aprobarEquipo">—</strong>?</p>
+                    <div class="mb-3">
+                        <label for="comentarioAprobacion" class="form-label">Comentario (opcional)</label>
+                        <textarea class="form-control" id="comentarioAprobacion" rows="3" placeholder="Ej: Se autoriza la baja del equipo. Coordinar retiro con logística."></textarea>
+                    </div>
+                    <div class="alert alert-info" style="font-size: 13px; margin-bottom: 0;">
+                        <i class="bi bi-info-circle me-1"></i>
+                        Al aprobar, el equipo cambiará de estado según el tipo de solicitud (Baja / Cambio / En SSTT).
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-success" id="btnConfirmarAprobacion">
+                        <i class="bi bi-check-lg me-1"></i>Confirmar Aprobación
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== Modal: Confirmar rechazo ===== -->
+    <div class="modal fade" id="modalRechazar" tabindex="-1" aria-labelledby="modalRechazarLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalRechazarLabel">
+                        <i class="bi bi-x-circle me-2" style="color: var(--rojo-error);"></i>Confirmar Rechazo
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                </div>
+                <div class="modal-body">
+                    <p>¿Está seguro que desea <strong>rechazar</strong> la solicitud de movimiento del equipo <strong id="rechazarEquipo">—</strong>?</p>
+                    <div class="mb-3">
+                        <label for="comentarioRechazo" class="form-label">Motivo del rechazo</label>
+                        <textarea class="form-control" id="comentarioRechazo" rows="3" placeholder="Ej: No se justifica la baja. Equipo debe ser enviado a SSTT primero." required></textarea>
+                        <div class="invalid-feedback">
+                            Debe ingresar un motivo para el rechazo.
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-warning" id="btnConfirmarRechazo">
+                        <i class="bi bi-x-lg me-1"></i>Confirmar Rechazo
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        let filaActual = null;
+
+        // ===== Filtro por estado =====
+        function filtrarPorEstado() {
+            const filtro = document.getElementById('filtroEstado').value;
+            const filas = document.querySelectorAll('#tablaSolicitudes tbody tr');
+            let visibles = 0;
+
+            filas.forEach(function(fila) {
+                if (filtro === 'todos' || fila.dataset.estado === filtro) {
+                    fila.style.display = '';
+                    visibles++;
+                } else {
+                    fila.style.display = 'none';
+                }
+            });
+
+            document.getElementById('resultadoInfo').textContent =
+                'Mostrando ' + visibles + ' solicitud' + (visibles !== 1 ? 'es' : '') + ' de 24';
+        }
+
+        // ===== Aprobar solicitud =====
+        function aprobarSolicitud(btn) {
+            filaActual = btn.closest('tr');
+            document.getElementById('aprobarEquipo').textContent = filaActual.dataset.equipo;
+            document.getElementById('comentarioAprobacion').value = '';
+            const modal = new bootstrap.Modal(document.getElementById('modalAprobar'));
+            modal.show();
+        }
+
+        document.getElementById('btnConfirmarAprobacion').addEventListener('click', function() {
+            if (filaActual) {
+                filaActual.dataset.estado = 'aprobada';
+                const badge = filaActual.querySelector('.badge-status');
+                badge.textContent = 'Aprobada';
+                badge.className = 'badge-status badge-aprobada';
+
+                const acciones = filaActual.querySelector('.btn-action-group');
+                acciones.innerHTML =
+                    '<button class="btn btn-outline-secondary btn-sm" disabled title="Solicitud ya resuelta"><i class="bi bi-check-lg"></i></button>' +
+                    '<button class="btn btn-outline-secondary btn-sm" disabled title="Solicitud ya resuelta"><i class="bi bi-x-lg"></i></button>' +
+                    '<button class="btn btn-outline-secondary btn-sm" onclick="abrirDetalles(this)" title="Ver detalles del equipo y evidencia"><i class="bi bi-eye me-1"></i>Detalles</button>';
+
+                const modal = bootstrap.Modal.getInstance(document.getElementById('modalAprobar'));
+                modal.hide();
+                alert('Solicitud aprobada correctamente (simulación).');
+            }
+        });
+
+        // ===== Rechazar solicitud =====
+        function rechazarSolicitud(btn) {
+            filaActual = btn.closest('tr');
+            document.getElementById('rechazarEquipo').textContent = filaActual.dataset.equipo;
+            document.getElementById('comentarioRechazo').value = '';
+            document.getElementById('comentarioRechazo').classList.remove('is-invalid');
+            const modal = new bootstrap.Modal(document.getElementById('modalRechazar'));
+            modal.show();
+        }
+
+        document.getElementById('btnConfirmarRechazo').addEventListener('click', function() {
+            const textarea = document.getElementById('comentarioRechazo');
+            if (textarea.value.trim() === '') {
+                textarea.classList.add('is-invalid');
+                return;
+            }
+
+            if (filaActual) {
+                filaActual.dataset.estado = 'rechazada';
+                const badge = filaActual.querySelector('.badge-status');
+                badge.textContent = 'Rechazada';
+                badge.className = 'badge-status badge-rechazada';
+
+                const acciones = filaActual.querySelector('.btn-action-group');
+                acciones.innerHTML =
+                    '<button class="btn btn-outline-secondary btn-sm" disabled title="Solicitud ya resuelta"><i class="bi bi-check-lg"></i></button>' +
+                    '<button class="btn btn-outline-secondary btn-sm" disabled title="Solicitud ya resuelta"><i class="bi bi-x-lg"></i></button>' +
+                    '<button class="btn btn-outline-secondary btn-sm" onclick="abrirDetalles(this)" title="Ver detalles del equipo y evidencia"><i class="bi bi-eye me-1"></i>Detalles</button>';
+
+                const modal = bootstrap.Modal.getInstance(document.getElementById('modalRechazar'));
+                modal.hide();
+                alert('Solicitud rechazada correctamente (simulación).');
+            }
+        });
+
+        // ===== Detalles =====
+        function abrirDetalles(btn) {
+            const fila = btn.closest('tr');
+            const d = fila.dataset;
+
+            document.getElementById('detalleEquipo').textContent = d.equipo;
+            document.getElementById('detalleMarcaModelo').textContent = d.marca + ' ' + d.modelo;
+            document.getElementById('detalleDistribuidor').textContent = d.distribuidor;
+            document.getElementById('detalleTipo').textContent = d.tipo;
+            document.getElementById('detalleCliente').textContent = d.cliente;
+            document.getElementById('detalleUbicacion').textContent = d.ubicacion;
+            document.getElementById('detalleSolicitante').textContent = d.solicitante;
+            document.getElementById('detalleFecha').textContent = d.fecha;
+            document.getElementById('detalleMotivo').textContent = d.motivo;
+
+            // Timeline dinámico
+            document.getElementById('timelineFechaSolicitud').textContent = d.fecha;
+            document.getElementById('timelineMotivo').textContent =
+                'Solicitud de "' + d.tipo + '" enviada por ' + d.solicitante + '. Motivo: ' + d.motivo;
+
+            // Mostrar o ocultar evento de resolución
+            const resolucion = document.getElementById('timelineResolucion');
+            if (d.estado === 'aprobada') {
+                resolucion.style.display = '';
+                const dot = document.getElementById('timelineDotResolucion');
+                dot.className = 'timeline-dot dot-green';
+                document.getElementById('timelineFechaResolucion').textContent = d.fecha;
+                document.getElementById('timelineTituloResolucion').textContent = 'Solicitud Aprobada';
+                document.getElementById('timelineDescResolucion').textContent =
+                    'El Mandante aprobó la solicitud de "' + d.tipo + '" para el equipo ' + d.equipo + '.';
+            } else if (d.estado === 'rechazada') {
+                resolucion.style.display = '';
+                const dot = document.getElementById('timelineDotResolucion');
+                dot.className = 'timeline-dot dot-red';
+                document.getElementById('timelineFechaResolucion').textContent = d.fecha;
+                document.getElementById('timelineTituloResolucion').textContent = 'Solicitud Rechazada';
+                document.getElementById('timelineDescResolucion').textContent =
+                    'El Mandante rechazó la solicitud de "' + d.tipo + '" para el equipo ' + d.equipo + '.';
+            } else {
+                resolucion.style.display = 'none';
+            }
+
+            const modal = new bootstrap.Modal(document.getElementById('modalDetalles'));
+            modal.show();
+        }
+
+        // ===== Visor de evidencia (simulado) =====
+        function abrirVisor(nombreArchivo) {
+            alert('Abriendo archivo: ' + nombreArchivo + ' (simulación de visor de evidencia).');
+        }
+
+        // ===== Limpiar validación al cerrar modal de rechazo =====
+        document.getElementById('modalRechazar').addEventListener('hidden.bs.modal', function() {
+            document.getElementById('comentarioRechazo').classList.remove('is-invalid');
+        });
+    </script>
+</body>
+</html>

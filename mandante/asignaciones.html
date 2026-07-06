@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Asignaciones de Equipos — Plataforma Isstec</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="../css/styles.css" rel="stylesheet">
+    <style>
+        .filter-bar {
+            display: flex;
+            gap: 12px;
+            align-items: flex-end;
+            flex-wrap: wrap;
+        }
+
+        .filter-bar .form-control,
+        .filter-bar .form-select {
+            max-width: 220px;
+        }
+
+        .btn-back {
+            color: var(--gris-medio);
+            font-size: 14px;
+            font-weight: 500;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: color 0.15s;
+        }
+
+        .btn-back:hover {
+            color: var(--azul-primario);
+        }
+
+        .pagination .page-link {
+            color: var(--azul-primario);
+            border: 1px solid #DEE2E6;
+            font-weight: 500;
+            padding: 8px 14px;
+        }
+
+        .pagination .page-item.active .page-link {
+            background-color: var(--azul-primario);
+            border-color: var(--azul-primario);
+            color: #FFFFFF;
+        }
+
+        .pagination .page-item.disabled .page-link {
+            color: var(--gris-medio);
+        }
+
+        .table-asignaciones tbody tr {
+            cursor: pointer;
+            transition: background 0.15s;
+        }
+
+        .table-asignaciones tbody tr:hover {
+            background: #F0F6FF;
+        }
+
+        .action-btn {
+            font-size: 13px;
+            padding: 5px 12px;
+            border-radius: 6px;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            text-decoration: none;
+            transition: all 0.15s;
+        }
+
+        .action-btn-edit {
+            background: rgba(0, 102, 204, 0.1);
+            color: var(--azul-primario);
+        }
+
+        .action-btn-edit:hover {
+            background: var(--azul-primario);
+            color: #FFFFFF;
+        }
+
+        .action-btn-view {
+            background: var(--gris-claro);
+            color: var(--gris-oscuro);
+        }
+
+        .action-btn-view:hover {
+            background: var(--gris-oscuro);
+            color: #FFFFFF;
+        }
+
+        .action-btn-delete {
+            background: rgba(220, 53, 69, 0.1);
+            color: var(--rojo-error);
+        }
+
+        .action-btn-delete:hover {
+            background: var(--rojo-error);
+            color: #FFFFFF;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 48px 20px;
+            color: var(--gris-medio);
+        }
+
+        .empty-state i {
+            font-size: 48px;
+            margin-bottom: 12px;
+            color: #DEE2E6;
+        }
+
+        .draft-indicator {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            font-size: 12px;
+            color: var(--gris-medio);
+            margin-top: 2px;
+        }
+    </style>
+</head>
+<body>
+    <div class="app-layout">
+        <!-- ===== Sidebar ===== -->
+        <nav class="sidebar">
+            <div class="sidebar-logo">
+                <img src="../assets/img/logo.png" alt="Isstec">
+            </div>
+            <div class="sidebar-nav">
+                <div class="nav-section">Principal</div>
+                <a href="dashboard.html" class="nav-link">
+                    <i class="bi bi-speedometer2"></i> Dashboard
+                </a>
+                <a href="asignaciones.html" class="nav-link active">
+                    <i class="bi bi-diagram-3"></i> Asignación de Equipos
+                </a>
+                <div class="nav-section">Operación</div>
+                <a href="autorizacion-movimientos.html" class="nav-link">
+                    <i class="bi bi-shield-check"></i> Autorización de Movimientos
+                </a>
+                <a href="consulta-inventario.html" class="nav-link">
+                    <i class="bi bi-clipboard2-data"></i> Consulta de Inventario
+                </a>
+                <a href="trazabilidad.html" class="nav-link">
+                    <i class="bi bi-geo-alt"></i> Trazabilidad
+                </a>
+                <div class="nav-section">Análisis</div>
+                <a href="informes.html" class="nav-link">
+                    <i class="bi bi-bar-chart"></i> Informes
+                </a>
+                <div class="nav-section">Maestros</div>
+                <a href="maestro-equipos.html" class="nav-link">
+                    <i class="bi bi-hdd-stack"></i> Equipos
+                </a>
+                <a href="gestores.html" class="nav-link">
+                    <i class="bi bi-people"></i> Gestores
+                </a>
+                <a href="servicio-tecnico.html" class="nav-link">
+                    <i class="bi bi-tools"></i> Servicio Técnico
+                </a>
+                <a href="grupo-maquinas.html" class="nav-link">
+                    <i class="bi bi-layers"></i> Grupo de Máquinas
+                </a>
+                <a href="familia-maquinas.html" class="nav-link">
+                    <i class="bi bi-grid"></i> Familia de Máquinas
+                </a>
+                <a href="ubicaciones-bodegas.html" class="nav-link">
+                    <i class="bi bi-geo"></i> Ubicaciones / Bodegas
+                </a>
+                <a href="motivos-movimiento.html" class="nav-link">
+                    <i class="bi bi-list-ul"></i> Motivos de Movimiento
+                </a>
+                <a href="tipos-solicitud.html" class="nav-link">
+                    <i class="bi bi-file-earmark-text"></i> Tipos de Solicitud
+                </a>
+                <a href="plantillas-inspeccion.html" class="nav-link">
+                    <i class="bi bi-clipboard2-check"></i> Plantillas de Inspección
+                </a>
+                <a href="marcas.html" class="nav-link">
+                    <i class="bi bi-tag"></i> Marcas
+                </a>
+                <a href="modelos.html" class="nav-link">
+                    <i class="bi bi-box"></i> Modelos
+                </a>
+                <a href="tipos-incidencias.html" class="nav-link">
+                    <i class="bi bi-exclamation-octagon"></i> Tipos de Incidencias / Catálogo de Fallas
+                </a>
+                <div class="nav-section">Configuración</div>
+                <a href="usuarios.html" class="nav-link">
+                    <i class="bi bi-people-fill"></i> Usuarios
+                </a>
+                <a href="roles.html" class="nav-link">
+                    <i class="bi bi-shield-lock"></i> Roles
+                </a>
+            </div>
+            <div class="sidebar-footer">
+                <a href="../index.html" class="nav-link">
+                    <i class="bi bi-box-arrow-right"></i> Cerrar sesión
+                </a>
+            </div>
+        </nav>
+
+        <!-- ===== Contenido principal ===== -->
+        <div class="app-content">
+            <!-- Navbar superior -->
+            <nav class="navbar-top">
+                <div class="navbar-left">
+                    <a href="dashboard.html" class="btn-back">
+                        <i class="bi bi-arrow-left"></i> Volver
+                    </a>
+                    <h2 class="page-title">Asignación de Equipos a Distribuidor</h2>
+                </div>
+                <div class="navbar-right">
+                    <a href="asignacion-equipos.html?mode=new" class="btn btn-primary btn-sm me-3">
+                        <i class="bi bi-plus-circle me-1"></i>Nueva asignación
+                    </a>
+                    <div class="notification-icon">
+                        <i class="bi bi-bell"></i>
+                        <span class="notification-badge">3</span>
+                    </div>
+                    <div class="user-info">
+                        <div class="user-avatar">SV</div>
+                        <div>
+                            <div class="user-name">Savory Chile</div>
+                            <div class="user-role">Mandante</div>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+
+            <!-- Main -->
+            <main class="app-main">
+                <!-- ===== KPIs rápidos ===== -->
+                <div class="row g-3 mb-4">
+                    <div class="col-6 col-lg-3">
+                        <div class="kpi-card">
+                            <div class="kpi-icon bg-warning-light">
+                                <i class="bi bi-file-earmark-text"></i>
+                            </div>
+                            <div>
+                                <div class="kpi-label">Borradores</div>
+                                <div class="kpi-value" id="kpiBorradores">2</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6 col-lg-3">
+                        <div class="kpi-card">
+                            <div class="kpi-icon bg-primary-light">
+                                <i class="bi bi-truck"></i>
+                            </div>
+                            <div>
+                                <div class="kpi-label">En Tránsito</div>
+                                <div class="kpi-value" id="kpiTransito">4</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6 col-lg-3">
+                        <div class="kpi-card">
+                            <div class="kpi-icon bg-success-light">
+                                <i class="bi bi-check-circle"></i>
+                            </div>
+                            <div>
+                                <div class="kpi-label">En Distribuidor</div>
+                                <div class="kpi-value" id="kpiDistribuidor">5</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6 col-lg-3">
+                        <div class="kpi-card">
+                            <div class="kpi-icon" style="background: rgba(108, 117, 125, 0.1); color: var(--gris-medio);">
+                                <i class="bi bi-exclamation-triangle"></i>
+                            </div>
+                            <div>
+                                <div class="kpi-label">Pendiente de Asignar</div>
+                                <div class="kpi-value" id="kpiPendiente" style="color: var(--gris-medio);">1</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ===== Filtros ===== -->
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <div class="filter-bar">
+                            <div class="flex-grow-1" style="min-width: 200px;">
+                                <label class="form-label">Buscar</label>
+                                <input type="text" class="form-control" id="buscarAsignacion" placeholder="N° asignación o distribuidor…">
+                            </div>
+                            <div>
+                                <label class="form-label">Estado</label>
+                                <select class="form-select" id="filtroEstado">
+                                    <option value="">Todos</option>
+                                    <option value="borrador">Borrador</option>
+                                    <option value="transito">En Tránsito</option>
+                                    <option value="distribuidor">En Distribuidor</option>
+                                    <option value="pendiente">Pendiente de Asignar</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="form-label">Distribuidor</label>
+                                <select class="form-select" id="filtroDistribuidor">
+                                    <option value="">Todos</option>
+                                    <option value="icefree">IceFree Chile</option>
+                                    <option value="norte">Distribuidora Norte</option>
+                                    <option value="sur">Sur Distribución</option>
+                                    <option value="frioaustral">Frío Austral</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="form-label">Desde</label>
+                                <input type="date" class="form-control" id="filtroFechaDesde">
+                            </div>
+                            <div>
+                                <label class="form-label">Hasta</label>
+                                <input type="date" class="form-control" id="filtroFechaHasta">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ===== Tabla de asignaciones ===== -->
+                <div class="card">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <h5 class="card-title mb-0">
+                                <i class="bi bi-list-ul me-2"></i>Asignaciones
+                            </h5>
+                            <a href="asignacion-equipos.html?mode=new" class="btn btn-primary btn-sm">
+                                <i class="bi bi-plus-circle me-1"></i>Nueva asignación
+                            </a>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table table-hover align-middle table-asignaciones" id="tablaAsignaciones">
+                                <thead>
+                                    <tr>
+                                        <th style="width: 110px;">N° Asign.</th>
+                                        <th>Distribuidor destino</th>
+                                        <th class="text-center" style="width: 80px;">Equipos</th>
+                                        <th style="width: 130px;">Fecha creación</th>
+                                        <th style="width: 120px;">Estado</th>
+                                        <th style="width: 180px;">Acciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tbodyAsignaciones">
+                                    <!-- Borrador 1 -->
+                                    <tr data-estado="borrador" data-distribuidor="icefree" data-fecha="2026-07-03">
+                                        <td class="fw-semibold">ASG-0042</td>
+                                        <td>IceFree Chile</td>
+                                        <td class="text-center">3</td>
+                                        <td>03/07/2026</td>
+                                        <td>
+                                            <span class="badge-status badge-borrador">Borrador</span>
+                                            <div class="draft-indicator">
+                                                <i class="bi bi-clock"></i> Sin enviar
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <a href="asignacion-equipos.html?mode=edit&id=ASG-0042" class="action-btn action-btn-edit">
+                                                <i class="bi bi-pencil"></i> Editar
+                                            </a>
+                                            <a href="#" class="action-btn action-btn-delete ms-1" data-bs-toggle="modal" data-bs-target="#modalEliminar" data-id="ASG-0042">
+                                                <i class="bi bi-trash"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    <!-- Borrador 2 -->
+                                    <tr data-estado="borrador" data-distribuidor="norte" data-fecha="2026-07-02">
+                                        <td class="fw-semibold">ASG-0041</td>
+                                        <td>Distribuidora Norte</td>
+                                        <td class="text-center">0</td>
+                                        <td>02/07/2026</td>
+                                        <td>
+                                            <span class="badge-status badge-borrador">Borrador</span>
+                                            <div class="draft-indicator">
+                                                <i class="bi bi-exclamation-circle"></i> Sin equipos
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <a href="asignacion-equipos.html?mode=edit&id=ASG-0041" class="action-btn action-btn-edit">
+                                                <i class="bi bi-pencil"></i> Editar
+                                            </a>
+                                            <a href="#" class="action-btn action-btn-delete ms-1" data-bs-toggle="modal" data-bs-target="#modalEliminar" data-id="ASG-0041">
+                                                <i class="bi bi-trash"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    <!-- En Tránsito (antes Enviada) -->
+                                    <tr data-estado="transito" data-distribuidor="sur" data-fecha="2026-07-01">
+                                        <td class="fw-semibold">ASG-0040</td>
+                                        <td>Sur Distribución</td>
+                                        <td class="text-center">12</td>
+                                        <td>01/07/2026</td>
+                                        <td>
+                                            <span class="badge-status badge-transito">En Tránsito</span>
+                                        </td>
+                                        <td>
+                                            <a href="asignacion-equipos.html?mode=view&id=ASG-0040" class="action-btn action-btn-view">
+                                                <i class="bi bi-eye"></i> Ver detalle
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    <!-- En Tránsito 1 -->
+                                    <tr data-estado="transito" data-distribuidor="icefree" data-fecha="2026-06-28">
+                                        <td class="fw-semibold">ASG-0039</td>
+                                        <td>IceFree Chile</td>
+                                        <td class="text-center">8</td>
+                                        <td>28/06/2026</td>
+                                        <td>
+                                            <span class="badge-status badge-transito">En Tránsito</span>
+                                        </td>
+                                        <td>
+                                            <a href="asignacion-equipos.html?mode=view&id=ASG-0039" class="action-btn action-btn-view">
+                                                <i class="bi bi-eye"></i> Ver detalle
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    <!-- En Tránsito 2 -->
+                                    <tr data-estado="transito" data-distribuidor="frioaustral" data-fecha="2026-06-25">
+                                        <td class="fw-semibold">ASG-0038</td>
+                                        <td>Frío Austral</td>
+                                        <td class="text-center">15</td>
+                                        <td>25/06/2026</td>
+                                        <td>
+                                            <span class="badge-status badge-transito">En Tránsito</span>
+                                        </td>
+                                        <td>
+                                            <a href="asignacion-equipos.html?mode=view&id=ASG-0038" class="action-btn action-btn-view">
+                                                <i class="bi bi-eye"></i> Ver detalle
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    <!-- En Tránsito 3 -->
+                                    <tr data-estado="transito" data-distribuidor="norte" data-fecha="2026-06-22">
+                                        <td class="fw-semibold">ASG-0037</td>
+                                        <td>Distribuidora Norte</td>
+                                        <td class="text-center">6</td>
+                                        <td>22/06/2026</td>
+                                        <td>
+                                            <span class="badge-status badge-transito">En Tránsito</span>
+                                        </td>
+                                        <td>
+                                            <a href="asignacion-equipos.html?mode=view&id=ASG-0037" class="action-btn action-btn-view">
+                                                <i class="bi bi-eye"></i> Ver detalle
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    <!-- En Distribuidor 1 -->
+                                    <tr data-estado="distribuidor" data-distribuidor="icefree" data-fecha="2026-06-15">
+                                        <td class="fw-semibold">ASG-0036</td>
+                                        <td>IceFree Chile</td>
+                                        <td class="text-center">20</td>
+                                        <td>15/06/2026</td>
+                                        <td>
+                                            <span class="badge-status badge-distribuidor">En Distribuidor</span>
+                                        </td>
+                                        <td>
+                                            <a href="asignacion-equipos.html?mode=view&id=ASG-0036" class="action-btn action-btn-view">
+                                                <i class="bi bi-eye"></i> Ver detalle
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    <!-- En Distribuidor 2 -->
+                                    <tr data-estado="distribuidor" data-distribuidor="sur" data-fecha="2026-06-10">
+                                        <td class="fw-semibold">ASG-0035</td>
+                                        <td>Sur Distribución</td>
+                                        <td class="text-center">10</td>
+                                        <td>10/06/2026</td>
+                                        <td>
+                                            <span class="badge-status badge-distribuidor">En Distribuidor</span>
+                                        </td>
+                                        <td>
+                                            <a href="asignacion-equipos.html?mode=view&id=ASG-0035" class="action-btn action-btn-view">
+                                                <i class="bi bi-eye"></i> Ver detalle
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    <!-- En Distribuidor 3 -->
+                                    <tr data-estado="distribuidor" data-distribuidor="frioaustral" data-fecha="2026-06-05">
+                                        <td class="fw-semibold">ASG-0034</td>
+                                        <td>Frío Austral</td>
+                                        <td class="text-center">5</td>
+                                        <td>05/06/2026</td>
+                                        <td>
+                                            <span class="badge-status badge-distribuidor">En Distribuidor</span>
+                                        </td>
+                                        <td>
+                                            <a href="asignacion-equipos.html?mode=view&id=ASG-0034" class="action-btn action-btn-view">
+                                                <i class="bi bi-eye"></i> Ver detalle
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    <!-- Pendiente de Asignar (con reparos) -->
+                                    <tr data-estado="pendiente" data-distribuidor="norte" data-fecha="2026-06-01">
+                                        <td class="fw-semibold">ASG-0033</td>
+                                        <td>Distribuidora Norte</td>
+                                        <td class="text-center">4</td>
+                                        <td>01/06/2026</td>
+                                        <td>
+                                            <span class="badge-status badge-pendiente">Pendiente de Asignar</span>
+                                        </td>
+                                        <td>
+                                            <a href="asignacion-equipos.html?mode=view&id=ASG-0033" class="action-btn action-btn-view">
+                                                <i class="bi bi-eye"></i> Ver detalle
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    <!-- En Distribuidor 4 -->
+                                    <tr data-estado="distribuidor" data-distribuidor="icefree" data-fecha="2026-05-28">
+                                        <td class="fw-semibold">ASG-0032</td>
+                                        <td>IceFree Chile</td>
+                                        <td class="text-center">18</td>
+                                        <td>28/05/2026</td>
+                                        <td>
+                                            <span class="badge-status badge-distribuidor">En Distribuidor</span>
+                                        </td>
+                                        <td>
+                                            <a href="asignacion-equipos.html?mode=view&id=ASG-0032" class="action-btn action-btn-view">
+                                                <i class="bi bi-eye"></i> Ver detalle
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    <!-- En Distribuidor 5 -->
+                                    <tr data-estado="distribuidor" data-distribuidor="sur" data-fecha="2026-05-20">
+                                        <td class="fw-semibold">ASG-0031</td>
+                                        <td>Sur Distribución</td>
+                                        <td class="text-center">7</td>
+                                        <td>20/05/2026</td>
+                                        <td>
+                                            <span class="badge-status badge-distribuidor">En Distribuidor</span>
+                                        </td>
+                                        <td>
+                                            <a href="asignacion-equipos.html?mode=view&id=ASG-0031" class="action-btn action-btn-view">
+                                                <i class="bi bi-eye"></i> Ver detalle
+                                            </a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <!-- Empty state (hidden by default) -->
+                        <div class="empty-state" id="emptyState" style="display: none;">
+                            <i class="bi bi-inbox"></i>
+                            <p class="mb-0">No se encontraron asignaciones con los filtros seleccionados.</p>
+                        </div>
+
+                        <!-- Paginación -->
+                        <div class="d-flex justify-content-between align-items-center mt-3">
+                            <div class="text-muted" style="font-size: 13px;" id="contadorRegistros">
+                                Mostrando 12 asignaciones
+                            </div>
+                            <nav aria-label="Paginación de asignaciones">
+                                <ul class="pagination mb-0">
+                                    <li class="page-item disabled">
+                                        <a class="page-link" href="#" tabindex="-1" aria-disabled="true">
+                                            <i class="bi bi-chevron-left"></i>
+                                        </a>
+                                    </li>
+                                    <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                                    <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                    <li class="page-item">
+                                        <a class="page-link" href="#">
+                                            <i class="bi bi-chevron-right"></i>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- ===== Modal: Eliminar borrador ===== -->
+    <div class="modal fade" id="modalEliminar" tabindex="-1" aria-labelledby="modalEliminarLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalEliminarLabel">
+                        <i class="bi bi-exclamation-triangle text-danger me-2"></i>Eliminar borrador
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                </div>
+                <div class="modal-body">
+                    <p>¿Estás seguro de que deseas eliminar el borrador <strong id="eliminarId">ASG-0000</strong>?</p>
+                    <p class="text-muted mb-0">Esta acción no se puede deshacer. Los equipos seleccionados volverán a estar disponibles para futuras asignaciones.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-danger" id="btnConfirmarEliminar">
+                        <i class="bi bi-trash me-2"></i>Eliminar
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        const buscarAsignacion = document.getElementById('buscarAsignacion');
+        const filtroEstado = document.getElementById('filtroEstado');
+        const filtroDistribuidor = document.getElementById('filtroDistribuidor');
+        const filtroFechaDesde = document.getElementById('filtroFechaDesde');
+        const filtroFechaHasta = document.getElementById('filtroFechaHasta');
+        const tbody = document.getElementById('tbodyAsignaciones');
+        const emptyState = document.getElementById('emptyState');
+        const contadorRegistros = document.getElementById('contadorRegistros');
+        const tablaAsignaciones = document.getElementById('tablaAsignaciones');
+
+        function filtrar() {
+            const texto = buscarAsignacion.value.toLowerCase().trim();
+            const estado = filtroEstado.value;
+            const distribuidor = filtroDistribuidor.value;
+            const fechaDesde = filtroFechaDesde.value;
+            const fechaHasta = filtroFechaHasta.value;
+
+            let visibles = 0;
+            const filas = tbody.querySelectorAll('tr');
+
+            filas.forEach(fila => {
+                const numAsign = fila.querySelector('td:nth-child(1)').textContent.toLowerCase();
+                const distNombre = fila.querySelector('td:nth-child(2)').textContent.toLowerCase();
+                const filaEstado = fila.dataset.estado;
+                const filaDist = fila.dataset.distribuidor;
+                const filaFecha = fila.dataset.fecha;
+
+                let mostrar = true;
+
+                if (texto && !numAsign.includes(texto) && !distNombre.includes(texto)) {
+                    mostrar = false;
+                }
+                if (estado && filaEstado !== estado) {
+                    mostrar = false;
+                }
+                if (distribuidor && filaDist !== distribuidor) {
+                    mostrar = false;
+                }
+                if (fechaDesde && filaFecha < fechaDesde) {
+                    mostrar = false;
+                }
+                if (fechaHasta && filaFecha > fechaHasta) {
+                    mostrar = false;
+                }
+
+                fila.style.display = mostrar ? '' : 'none';
+                if (mostrar) visibles++;
+            });
+
+            if (visibles === 0) {
+                tablaAsignaciones.style.display = 'none';
+                emptyState.style.display = 'block';
+            } else {
+                tablaAsignaciones.style.display = '';
+                emptyState.style.display = 'none';
+            }
+
+            contadorRegistros.textContent = `Mostrando ${visibles} asignación${visibles !== 1 ? 'es' : ''}`;
+        }
+
+        buscarAsignacion.addEventListener('input', filtrar);
+        filtroEstado.addEventListener('change', filtrar);
+        filtroDistribuidor.addEventListener('change', filtrar);
+        filtroFechaDesde.addEventListener('change', filtrar);
+        filtroFechaHasta.addEventListener('change', filtrar);
+
+        // Modal eliminar: cargar ID
+        const modalEliminar = document.getElementById('modalEliminar');
+        let idEliminar = '';
+        modalEliminar.addEventListener('show.bs.modal', function(event) {
+            const trigger = event.relatedTarget;
+            idEliminar = trigger.dataset.id;
+            document.getElementById('eliminarId').textContent = idEliminar;
+        });
+
+        document.getElementById('btnConfirmarEliminar').addEventListener('click', function() {
+            const fila = tbody.querySelector(`tr td.fw-semibold`);
+            const filaAEliminar = Array.from(tbody.querySelectorAll('tr')).find(tr =>
+                tr.querySelector('.fw-semibold')?.textContent === idEliminar
+            );
+            if (filaAEliminar) {
+                filaAEliminar.remove();
+                filtrar();
+            }
+            bootstrap.Modal.getInstance(modalEliminar).hide();
+        });
+    </script>
+</body>
+</html>

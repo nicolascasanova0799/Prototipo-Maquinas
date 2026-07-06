@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Informes — Plataforma Isstec</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="../css/styles.css" rel="stylesheet">
+</head>
+<body>
+    <div class="app-layout">
+        <!-- ===== Sidebar ===== -->
+        <nav class="sidebar">
+            <div class="sidebar-logo">
+                <img src="../assets/img/logo.png" alt="Isstec">
+            </div>
+            <div class="sidebar-nav">
+                <div class="nav-section">Principal</div>
+                <a href="dashboard.html" class="nav-link">
+                    <i class="bi bi-speedometer2"></i> Dashboard
+                </a>
+                <a href="asignaciones.html" class="nav-link">
+                    <i class="bi bi-diagram-3"></i> Asignación de Equipos
+                </a>
+                <div class="nav-section">Operación</div>
+                <a href="autorizacion-movimientos.html" class="nav-link">
+                    <i class="bi bi-shield-check"></i> Autorización de Movimientos
+                </a>
+                <a href="consulta-inventario.html" class="nav-link">
+                    <i class="bi bi-clipboard2-data"></i> Consulta de Inventario
+                </a>
+                <a href="trazabilidad.html" class="nav-link">
+                    <i class="bi bi-geo-alt"></i> Trazabilidad
+                </a>
+                <div class="nav-section">Análisis</div>
+                <a href="informes.html" class="nav-link active">
+                    <i class="bi bi-bar-chart"></i> Informes
+                </a>
+                <div class="nav-section">Maestros</div>
+                <a href="maestro-equipos.html" class="nav-link">
+                    <i class="bi bi-hdd-stack"></i> Equipos
+                </a>
+                <a href="gestores.html" class="nav-link">
+                    <i class="bi bi-people"></i> Gestores
+                </a>
+                <a href="servicio-tecnico.html" class="nav-link">
+                    <i class="bi bi-tools"></i> Servicio Técnico
+                </a>
+                <a href="grupo-maquinas.html" class="nav-link">
+                    <i class="bi bi-layers"></i> Grupo de Máquinas
+                </a>
+                <a href="familia-maquinas.html" class="nav-link">
+                    <i class="bi bi-grid"></i> Familia de Máquinas
+                </a>
+                <a href="ubicaciones-bodegas.html" class="nav-link">
+                    <i class="bi bi-geo"></i> Ubicaciones / Bodegas
+                </a>
+                <a href="motivos-movimiento.html" class="nav-link">
+                    <i class="bi bi-list-ul"></i> Motivos de Movimiento
+                </a>
+                <a href="tipos-solicitud.html" class="nav-link">
+                    <i class="bi bi-file-earmark-text"></i> Tipos de Solicitud
+                </a>
+                <a href="plantillas-inspeccion.html" class="nav-link">
+                    <i class="bi bi-clipboard2-check"></i> Plantillas de Inspección
+                </a>
+                <a href="marcas.html" class="nav-link">
+                    <i class="bi bi-tag"></i> Marcas
+                </a>
+                <a href="modelos.html" class="nav-link">
+                    <i class="bi bi-box"></i> Modelos
+                </a>
+                <a href="tipos-incidencias.html" class="nav-link">
+                    <i class="bi bi-exclamation-octagon"></i> Tipos de Incidencias / Catálogo de Fallas
+                </a>
+                <div class="nav-section">Configuración</div>
+                <a href="usuarios.html" class="nav-link">
+                    <i class="bi bi-people-fill"></i> Usuarios
+                </a>
+                <a href="roles.html" class="nav-link">
+                    <i class="bi bi-shield-lock"></i> Roles
+                </a>
+            </div>
+            <div class="sidebar-footer">
+                <a href="../index.html" class="nav-link">
+                    <i class="bi bi-box-arrow-right"></i> Cerrar sesión
+                </a>
+            </div>
+        </nav>
+
+        <!-- ===== Contenido principal ===== -->
+        <div class="app-content">
+            <!-- Navbar superior -->
+            <nav class="navbar-top">
+                <div class="navbar-left">
+                    <h2 class="page-title">Informes</h2>
+                </div>
+                <div class="navbar-right">
+                    <div class="notification-icon">
+                        <i class="bi bi-bell"></i>
+                        <span class="notification-badge">3</span>
+                    </div>
+                    <div class="user-info">
+                        <div class="user-avatar">SV</div>
+                        <div>
+                            <div class="user-name">Savory Chile</div>
+                            <div class="user-role">Mandante</div>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+
+            <!-- Main -->
+            <main class="app-main">
+                <!-- Filtro común: rango de fechas -->
+                <div class="card mb-3">
+                    <div class="card-body py-3">
+                        <div class="row g-2 align-items-end">
+                            <div class="col-auto">
+                                <label class="form-label mb-1">Desde</label>
+                                <input type="date" class="form-control" value="2025-06-01">
+                            </div>
+                            <div class="col-auto">
+                                <label class="form-label mb-1">Hasta</label>
+                                <input type="date" class="form-control" value="2025-07-05">
+                            </div>
+                            <div class="col-auto">
+                                <button class="btn btn-primary"><i class="bi bi-funnel me-1"></i> Aplicar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ===== Tabs ===== -->
+                <ul class="nav nav-tabs report-tabs" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#tab-geo" type="button" role="tab">
+                            <i class="bi bi-geo-alt me-1"></i> Geolocalización
+                        </button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" data-bs-toggle="tab" data-bs-target="#tab-piramidal" type="button" role="tab">
+                            <i class="bi bi-bar-chart-line me-1"></i> Piramidal de Ventas
+                        </button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" data-bs-toggle="tab" data-bs-target="#tab-rendimiento" type="button" role="tab">
+                            <i class="bi bi-graph-up me-1"></i> Rendimiento por Equipo
+                        </button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" data-bs-toggle="tab" data-bs-target="#tab-sstt" type="button" role="tab">
+                            <i class="bi bi-tools me-1"></i> Servicio Técnico
+                        </button>
+                    </li>
+                </ul>
+
+                <div class="tab-content pt-3">
+
+                    <!-- ============================= -->
+                    <!-- Tab 1: Geolocalización        -->
+                    <!-- ============================= -->
+                    <div class="tab-pane fade show active" id="tab-geo" role="tabpanel">
+                        <!-- Filtros específicos -->
+                        <div class="row g-2 mb-3">
+                            <div class="col-md-2">
+                                <label class="form-label">Tipo de máquina</label>
+                                <select class="form-select">
+                                    <option selected>Todos</option>
+                                    <option>Freezer Savory 500L</option>
+                                    <option>Freezer Savory 700L</option>
+                                    <option>Conservadora Polar 300L</option>
+                                    <option>Conservadora Arctic 200L</option>
+                                </select>
+                            </div>
+                            <div class="col-md-2">
+                                <label class="form-label">Distribuidor</label>
+                                <select class="form-select">
+                                    <option selected>Todos</option>
+                                    <option>IceFree Chile</option>
+                                    <option>Distribuidora Norte</option>
+                                    <option>Sur Distribución</option>
+                                </select>
+                            </div>
+                            <div class="col-md-2">
+                                <label class="form-label">Región</label>
+                                <select class="form-select">
+                                    <option selected>Todas</option>
+                                    <option>Metropolitana</option>
+                                    <option>Valparaíso</option>
+                                    <option>Biobío</option>
+                                    <option>Araucanía</option>
+                                    <option>Antofagasta</option>
+                                    <option>O'Higgins</option>
+                                </select>
+                            </div>
+                            <div class="col-md-2">
+                                <label class="form-label">Comuna</label>
+                                <select class="form-select">
+                                    <option selected>Todas</option>
+                                    <option>Santiago</option>
+                                    <option>Las Condes</option>
+                                    <option>Valparaíso</option>
+                                    <option>Concepción</option>
+                                    <option>Temuco</option>
+                                    <option>Antofagasta</option>
+                                </select>
+                            </div>
+                            <div class="col-md-2 d-flex align-items-end">
+                                <button class="btn btn-primary w-100"><i class="bi bi-funnel me-1"></i> Filtrar</button>
+                            </div>
+                        </div>
+
+                        <!-- Mapa -->
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">Distribución geográfica de equipos</h5>
+                                <div class="map-container" style="height: 500px;">
+                                    <img src="../assets/img/map.png" alt="Mapa de distribución de equipos">
+                                    <div class="map-controls">
+                                        <button title="Acercar"><i class="bi bi-plus"></i></button>
+                                        <button title="Alejar"><i class="bi bi-dash"></i></button>
+                                    </div>
+                                    <div class="map-legend">
+                                        <div class="legend-item">
+                                            <span class="legend-dot" style="background: var(--azul-primario);"></span>
+                                            Equipos operativos
+                                        </div>
+                                        <div class="legend-item">
+                                            <span class="legend-dot" style="background: var(--naranja-coral);"></span>
+                                            Equipos en SSTT
+                                        </div>
+                                        <div class="legend-item">
+                                            <span class="legend-dot" style="background: var(--gris-medio);"></span>
+                                            Equipos inactivos
+                                        </div>
+                                    </div>
+                                    <!-- Pines de equipos -->
+                                    <div class="map-point" style="top: 22%; left: 28%;" data-status="operativo"></div>
+                                    <div class="map-point" style="top: 35%; left: 45%;" data-status="sstt"></div>
+                                    <div class="map-point" style="top: 18%; left: 62%;" data-status="inactivo"></div>
+                                    <div class="map-point" style="top: 48%; left: 33%;" data-status="operativo"></div>
+                                    <div class="map-point" style="top: 55%; left: 58%;" data-status="operativo"></div>
+                                    <div class="map-point" style="top: 30%; left: 75%;" data-status="sstt"></div>
+                                    <div class="map-point" style="top: 68%; left: 42%;" data-status="inactivo"></div>
+                                    <div class="map-point" style="top: 42%; left: 20%;" data-status="operativo"></div>
+                                    <div class="map-point" style="top: 60%; left: 68%;" data-status="operativo"></div>
+                                    <div class="map-point" style="top: 25%; left: 52%;" data-status="inactivo"></div>
+                                    <div class="map-point" style="top: 52%; left: 25%;" data-status="sstt"></div>
+                                    <div class="map-point" style="top: 38%; left: 55%;" data-status="operativo"></div>
+                                    <div class="map-point" style="top: 15%; left: 40%;" data-status="operativo"></div>
+                                    <div class="map-point" style="top: 72%; left: 55%;" data-status="operativo"></div>
+                                    <div class="map-point" style="top: 45%; left: 70%;" data-status="sstt"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ============================= -->
+                    <!-- Tab 2: Piramidal de Ventas    -->
+                    <!-- ============================= -->
+                    <div class="tab-pane fade" id="tab-piramidal" role="tabpanel">
+                        <!-- Filtros específicos -->
+                        <div class="row g-2 mb-3">
+                            <div class="col-md-3">
+                                <label class="form-label">Distribuidor</label>
+                                <select class="form-select">
+                                    <option selected>Todos</option>
+                                    <option>IceFree Chile</option>
+                                    <option>Distribuidora Norte</option>
+                                    <option>Sur Distribución</option>
+                                </select>
+                            </div>
+                            <div class="col-md-3">
+                                <label class="form-label">Tipo de máquina</label>
+                                <select class="form-select">
+                                    <option selected>Todos</option>
+                                    <option>Freezer Savory 500L</option>
+                                    <option>Freezer Savory 700L</option>
+                                    <option>Conservadora Polar 300L</option>
+                                    <option>Conservadora Arctic 200L</option>
+                                </select>
+                            </div>
+                            <div class="col-md-3">
+                                <label class="form-label">Agrupación</label>
+                                <select class="form-select">
+                                    <option value="equipo" selected>Por equipo (N° serie)</option>
+                                    <option value="tipo">Por tipo de máquina</option>
+                                    <option value="distribuidor">Por distribuidor</option>
+                                </select>
+                            </div>
+                            <div class="col-md-3 d-flex align-items-end">
+                                <button class="btn btn-primary w-100"><i class="bi bi-funnel me-1"></i> Filtrar</button>
+                            </div>
+                        </div>
+
+                        <!-- Nota RN-14 -->
+                        <div class="alert alert-info d-flex align-items-start gap-2 mb-3">
+                            <i class="bi bi-info-circle mt-1"></i>
+                            <div>
+                                <strong>Nota (RN-14):</strong> Las ventas mostradas solo consideran líneas de producto marcadas como provenientes de una máquina (no la factura completa). Si el ERP no identificó el N° de serie exacto, el dato se agrupa a nivel de Tipo de Máquina.
+                            </div>
+                        </div>
+
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">Ventas por equipo / tipo de máquina</h5>
+                                <div style="position: relative; height: 420px;">
+                                    <canvas id="piramidalChart"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ============================= -->
+                    <!-- Tab 3: Rendimiento por Equipo -->
+                    <!-- ============================= -->
+                    <div class="tab-pane fade" id="tab-rendimiento" role="tabpanel">
+                        <!-- Filtros específicos -->
+                        <div class="row g-2 mb-3">
+                            <div class="col-md-3">
+                                <label class="form-label">Distribuidor</label>
+                                <select class="form-select">
+                                    <option selected>Todos</option>
+                                    <option>IceFree Chile</option>
+                                    <option>Distribuidora Norte</option>
+                                    <option>Sur Distribución</option>
+                                </select>
+                            </div>
+                            <div class="col-md-3">
+                                <label class="form-label">Tipo de máquina</label>
+                                <select class="form-select">
+                                    <option selected>Todos</option>
+                                    <option>Freezer Savory 500L</option>
+                                    <option>Freezer Savory 700L</option>
+                                    <option>Conservadora Polar 300L</option>
+                                    <option>Conservadora Arctic 200L</option>
+                                </select>
+                            </div>
+                            <div class="col-md-3">
+                                <label class="form-label">Punto de venta</label>
+                                <select class="form-select">
+                                    <option selected>Todos</option>
+                                    <option>Supermercado Centro</option>
+                                    <option>Minimarket Las Condes</option>
+                                    <option>Almacén La Serena</option>
+                                    <option>Botillería Temuco</option>
+                                    <option>Supermercado Viña</option>
+                                </select>
+                            </div>
+                            <div class="col-md-3 d-flex align-items-end">
+                                <button class="btn btn-primary w-100"><i class="bi bi-funnel me-1"></i> Filtrar</button>
+                            </div>
+                        </div>
+
+                        <!-- Nota RN-14 -->
+                        <div class="alert alert-info d-flex align-items-start gap-2 mb-3">
+                            <i class="bi bi-info-circle mt-1"></i>
+                            <div>
+                                <strong>Nota (RN-14):</strong> Las ventas mostradas solo consideran líneas de producto marcadas como provenientes de una máquina (no la factura completa). Si el ERP no identificó el N° de serie exacto, el dato se agrupa a nivel de Tipo de Máquina.
+                            </div>
+                        </div>
+
+                        <div class="card mb-3">
+                            <div class="card-body">
+                                <h5 class="card-title">Ventas vs. equipos asignados</h5>
+                                <div style="position: relative; height: 420px;">
+                                    <canvas id="rendimientoChart"></canvas>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Tabla de detalle -->
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">Detalle por equipo</h5>
+                                <div class="table-responsive">
+                                    <table class="table table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th>N° Serie / Tipo de Máquina</th>
+                                                <th>Distribuidor</th>
+                                                <th>Punto de venta</th>
+                                                <th class="text-end">Ventas ($)</th>
+                                                <th class="text-end">Equipos asignados</th>
+                                                <th class="text-end">Ingreso por equipo</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td><span class="fw-semibold">FR-1023</span><br><small class="text-muted">Freezer Savory 500L</small></td>
+                                                <td>IceFree Chile</td>
+                                                <td>Supermercado Centro</td>
+                                                <td class="text-end">$ 2.450.000</td>
+                                                <td class="text-end">1</td>
+                                                <td class="text-end">$ 2.450.000</td>
+                                            </tr>
+                                            <tr>
+                                                <td><span class="fw-semibold">FR-2210</span><br><small class="text-muted">Freezer Savory 700L</small></td>
+                                                <td>IceFree Chile</td>
+                                                <td>Minimarket Las Condes</td>
+                                                <td class="text-end">$ 3.120.000</td>
+                                                <td class="text-end">1</td>
+                                                <td class="text-end">$ 3.120.000</td>
+                                            </tr>
+                                            <tr>
+                                                <td><span class="fw-semibold">CZ-0845</span><br><small class="text-muted">Conservadora Polar 300L</small></td>
+                                                <td>Distribuidora Norte</td>
+                                                <td>Almacén La Serena</td>
+                                                <td class="text-end">$ 1.890.000</td>
+                                                <td class="text-end">1</td>
+                                                <td class="text-end">$ 1.890.000</td>
+                                            </tr>
+                                            <tr>
+                                                <td><span class="fw-semibold">Freezer Savory 500L</span><br><small class="text-muted">Agrupado por tipo (sin serie)</small></td>
+                                                <td>Sur Distribución</td>
+                                                <td>Varios puntos</td>
+                                                <td class="text-end">$ 5.680.000</td>
+                                                <td class="text-end">3</td>
+                                                <td class="text-end">$ 1.893.333</td>
+                                            </tr>
+                                            <tr>
+                                                <td><span class="fw-semibold">CZ-1198</span><br><small class="text-muted">Conservadora Arctic 200L</small></td>
+                                                <td>Sur Distribución</td>
+                                                <td>Botillería Temuco</td>
+                                                <td class="text-end">$ 980.000</td>
+                                                <td class="text-end">1</td>
+                                                <td class="text-end">$ 980.000</td>
+                                            </tr>
+                                            <tr>
+                                                <td><span class="fw-semibold">FR-3056</span><br><small class="text-muted">Freezer Savory 500L</small></td>
+                                                <td>Distribuidora Norte</td>
+                                                <td>Supermercado Viña</td>
+                                                <td class="text-end">$ 2.210.000</td>
+                                                <td class="text-end">1</td>
+                                                <td class="text-end">$ 2.210.000</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ============================= -->
+                    <!-- Tab 4: Servicio Técnico       -->
+                    <!-- ============================= -->
+                    <div class="tab-pane fade" id="tab-sstt" role="tabpanel">
+                        <!-- Filtros específicos -->
+                        <div class="row g-2 mb-3">
+                            <div class="col-md-3">
+                                <label class="form-label">Distribuidor</label>
+                                <select class="form-select">
+                                    <option selected>Todos</option>
+                                    <option>IceFree Chile</option>
+                                    <option>Distribuidora Norte</option>
+                                    <option>Sur Distribución</option>
+                                </select>
+                            </div>
+                            <div class="col-md-3">
+                                <label class="form-label">Proveedor SSTT</label>
+                                <select class="form-select">
+                                    <option selected>Todos</option>
+                                    <option>TecnoFrio Chile</option>
+                                    <option>Refrigeración Andina</option>
+                                    <option>Servicio Polar</option>
+                                </select>
+                            </div>
+                            <div class="col-md-3">
+                                <label class="form-label">Estado SLA</label>
+                                <select class="form-select">
+                                    <option selected>Todos</option>
+                                    <option>En reparación</option>
+                                    <option>SLA al límite</option>
+                                    <option>SLA vencido</option>
+                                </select>
+                            </div>
+                            <div class="col-md-3 d-flex align-items-end">
+                                <button class="btn btn-primary w-100"><i class="bi bi-funnel me-1"></i> Filtrar</button>
+                            </div>
+                        </div>
+
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between align-items-center mb-3">
+                                    <h5 class="card-title mb-0">Equipos en Servicio Técnico</h5>
+                                    <span class="badge-status badge-sstt">118 equipos</span>
+                                </div>
+                                <div class="table-responsive">
+                                    <table class="table table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th>Equipo</th>
+                                                <th>Distribuidor</th>
+                                                <th>Fecha ingreso</th>
+                                                <th>Proveedor SSTT</th>
+                                                <th>SLA (días)</th>
+                                                <th class="text-end">Días en reparación</th>
+                                                <th>Estado</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td><span class="fw-semibold">FR-1023</span><br><small class="text-muted">Freezer Savory 500L</small></td>
+                                                <td>IceFree Chile</td>
+                                                <td>20/06/2025</td>
+                                                <td>TecnoFrio Chile</td>
+                                                <td>15</td>
+                                                <td class="text-end"><span class="text-danger fw-semibold">16</span></td>
+                                                <td><span class="badge-status badge-rechazada">SLA vencido</span></td>
+                                            </tr>
+                                            <tr>
+                                                <td><span class="fw-semibold">CZ-0845</span><br><small class="text-muted">Conservadora Polar 300L</small></td>
+                                                <td>Distribuidora Norte</td>
+                                                <td>25/06/2025</td>
+                                                <td>Refrigeración Andina</td>
+                                                <td>10</td>
+                                                <td class="text-end"><span class="text-warning fw-semibold">11</span></td>
+                                                <td><span class="badge-status badge-sstt">SLA vencido</span></td>
+                                            </tr>
+                                            <tr>
+                                                <td><span class="fw-semibold">FR-2210</span><br><small class="text-muted">Freezer Savory 700L</small></td>
+                                                <td>IceFree Chile</td>
+                                                <td>28/06/2025</td>
+                                                <td>TecnoFrio Chile</td>
+                                                <td>15</td>
+                                                <td class="text-end">8</td>
+                                                <td><span class="badge-status badge-pendiente">En reparación</span></td>
+                                            </tr>
+                                            <tr>
+                                                <td><span class="fw-semibold">CZ-1198</span><br><small class="text-muted">Conservadora Arctic 200L</small></td>
+                                                <td>Sur Distribución</td>
+                                                <td>01/07/2025</td>
+                                                <td>Servicio Polar</td>
+                                                <td>7</td>
+                                                <td class="text-end">5</td>
+                                                <td><span class="badge-status badge-pendiente">En reparación</span></td>
+                                            </tr>
+                                            <tr>
+                                                <td><span class="fw-semibold">FR-3056</span><br><small class="text-muted">Freezer Savory 500L</small></td>
+                                                <td>Distribuidora Norte</td>
+                                                <td>02/07/2025</td>
+                                                <td>Refrigeración Andina</td>
+                                                <td>10</td>
+                                                <td class="text-end">4</td>
+                                                <td><span class="badge-status badge-pendiente">En reparación</span></td>
+                                            </tr>
+                                            <tr>
+                                                <td><span class="fw-semibold">FR-4077</span><br><small class="text-muted">Freezer Savory 700L</small></td>
+                                                <td>IceFree Chile</td>
+                                                <td>03/07/2025</td>
+                                                <td>TecnoFrio Chile</td>
+                                                <td>15</td>
+                                                <td class="text-end">3</td>
+                                                <td><span class="badge-status badge-pendiente">En reparación</span></td>
+                                            </tr>
+                                            <tr>
+                                                <td><span class="fw-semibold">CZ-2204</span><br><small class="text-muted">Conservadora Polar 300L</small></td>
+                                                <td>Sur Distribución</td>
+                                                <td>30/06/2025</td>
+                                                <td>Servicio Polar</td>
+                                                <td>7</td>
+                                                <td class="text-end"><span class="text-warning fw-semibold">6</span></td>
+                                                <td><span class="badge-status badge-sstt">SLA al límite</span></td>
+                                            </tr>
+                                            <tr>
+                                                <td><span class="fw-semibold">FR-5128</span><br><small class="text-muted">Freezer Savory 500L</small></td>
+                                                <td>Distribuidora Norte</td>
+                                                <td>04/07/2025</td>
+                                                <td>Refrigeración Andina</td>
+                                                <td>10</td>
+                                                <td class="text-end">2</td>
+                                                <td><span class="badge-status badge-pendiente">En reparación</span></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div><!-- /tab-content -->
+            </main>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <script>
+        // ===== Chart colors =====
+        const C_PRIMARY = '#0066CC';
+        const C_ORANGE  = '#FF6B35';
+        const C_GREEN   = '#28A745';
+        const C_GRAY    = '#6C757D';
+        const C_NAVY    = '#001F3F';
+
+        // ===== Tab 2: Piramidal de Ventas — bar chart =====
+        const piramidalCtx = document.getElementById('piramidalChart').getContext('2d');
+        new Chart(piramidalCtx, {
+            type: 'bar',
+            data: {
+                labels: [
+                    'FR-1023\nFreezer 500L',
+                    'FR-2210\nFreezer 700L',
+                    'CZ-0845\nConservadora 300L',
+                    'Freezer 500L\n(sin serie)',
+                    'CZ-1198\nArctic 200L',
+                    'FR-3056\nFreezer 500L',
+                    'FR-4077\nFreezer 700L',
+                    'Conservadora 300L\n(sin serie)'
+                ],
+                datasets: [{
+                    label: 'Ventas ($)',
+                    data: [2450000, 3120000, 1890000, 5680000, 980000, 2210000, 1750000, 3400000],
+                    backgroundColor: C_PRIMARY,
+                    borderRadius: 4,
+                    maxBarThickness: 60
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: false },
+                    tooltip: {
+                        callbacks: {
+                            label: function(ctx) {
+                                return 'Ventas: $ ' + ctx.raw.toLocaleString('es-CL');
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    x: {
+                        ticks: { font: { size: 11 }, maxRotation: 45, minRotation: 30 },
+                        grid: { display: false }
+                    },
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            callback: function(v) { return '$ ' + (v / 1000000).toFixed(1) + 'M'; }
+                        },
+                        grid: { color: '#EEF0F2' }
+                    }
+                }
+            }
+        });
+
+        // ===== Tab 3: Rendimiento — grouped bar chart =====
+        const rendimientoCtx = document.getElementById('rendimientoChart').getContext('2d');
+        new Chart(rendimientoCtx, {
+            type: 'bar',
+            data: {
+                labels: [
+                    'IceFree Chile',
+                    'Distribuidora Norte',
+                    'Sur Distribución'
+                ],
+                datasets: [
+                    {
+                        label: 'Ventas ($)',
+                        data: [7320000, 4100000, 4660000],
+                        backgroundColor: C_PRIMARY,
+                        borderRadius: 4,
+                        maxBarThickness: 50,
+                        yAxisID: 'y'
+                    },
+                    {
+                        label: 'Equipos asignados',
+                        data: [3, 2, 3],
+                        backgroundColor: C_ORANGE,
+                        borderRadius: 4,
+                        maxBarThickness: 50,
+                        yAxisID: 'y1'
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                        labels: { usePointStyle: true, pointStyle: 'rectRounded' }
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(ctx) {
+                                if (ctx.dataset.label === 'Ventas ($)') {
+                                    return 'Ventas: $ ' + ctx.raw.toLocaleString('es-CL');
+                                }
+                                return 'Equipos asignados: ' + ctx.raw;
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    x: {
+                        grid: { display: false }
+                    },
+                    y: {
+                        beginAtZero: true,
+                        position: 'left',
+                        ticks: {
+                            callback: function(v) { return '$ ' + (v / 1000000).toFixed(1) + 'M'; }
+                        },
+                        grid: { color: '#EEF0F2' }
+                    },
+                    y1: {
+                        beginAtZero: true,
+                        position: 'right',
+                        ticks: { stepSize: 1 },
+                        grid: { display: false }
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>

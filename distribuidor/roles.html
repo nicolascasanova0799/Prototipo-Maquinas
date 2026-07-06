@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Roles — Plataforma Isstec</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="../css/styles.css" rel="stylesheet">
+    <style>
+        .pagination .page-link { color: var(--azul-primario); border: 1px solid #DEE2E6; font-weight: 500; padding: 8px 14px; }
+        .pagination .page-item.active .page-link { background-color: var(--azul-primario); border-color: var(--azul-primario); color: #FFFFFF; }
+        .pagination .page-item.disabled .page-link { color: var(--gris-medio); }
+        .perm-accordion .accordion-item { border: 1px solid #E0E0E0; border-radius: 8px; margin-bottom: 8px; overflow: hidden; }
+        .perm-accordion .accordion-button { padding: 12px 16px; font-size: 13px; font-weight: 600; color: var(--azul-marino); text-transform: uppercase; letter-spacing: 0.3px; background: var(--gris-claro); }
+        .perm-accordion .accordion-button:not(.collapsed) { color: var(--azul-primario); background: rgba(0,102,204,0.05); box-shadow: none; }
+        .perm-accordion .accordion-button:focus { box-shadow: none; border-color: var(--azul-primario); }
+        .perm-accordion .accordion-body { padding: 12px 16px; }
+        .perm-item { display: flex; align-items: center; gap: 8px; padding: 6px 0; }
+        .perm-item .form-check-input { margin: 0; }
+        .perm-item label { font-size: 14px; color: #333; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <div class="app-layout">
+        <nav class="sidebar">
+            <div class="sidebar-logo"><img src="../assets/img/logo.png" alt="Isstec"></div>
+            <div class="sidebar-nav">
+                <div class="nav-section">Principal</div>
+                <a href="dashboard.html" class="nav-link"><i class="bi bi-speedometer2"></i> Dashboard</a>
+                <a href="recepcion-equipos.html" class="nav-link"><i class="bi bi-box-seam"></i> Recepción de Equipos</a>
+                <a href="asignacion-clientes.html" class="nav-link"><i class="bi bi-diagram-3"></i> Asignación a Clientes</a>
+                <div class="nav-section">Operación</div>
+                <a href="solicitudes-movimiento.html" class="nav-link"><i class="bi bi-arrow-left-right"></i> Solicitudes de Movimiento</a>
+                <a href="inventario.html" class="nav-link"><i class="bi bi-clipboard-check"></i> Inventario</a>
+                <a href="guias-despacho.html" class="nav-link"><i class="bi bi-file-earmark-text"></i> Guías de Despacho</a>
+                <div class="nav-section">Análisis</div>
+                <a href="reportes.html" class="nav-link"><i class="bi bi-bar-chart"></i> Reportes</a>
+                <div class="nav-section">Maestros</div>
+                <a href="clientes.html" class="nav-link"><i class="bi bi-shop"></i> Clientes</a>
+                <a href="#" class="nav-link"><i class="bi bi-geo"></i> Ubicaciones / Bodegas</a>
+                <div class="nav-section">Configuración</div>
+                <a href="usuarios.html" class="nav-link"><i class="bi bi-people-fill"></i> Usuarios</a>
+                <a href="roles.html" class="nav-link active"><i class="bi bi-shield-lock"></i> Roles</a>
+            </div>
+            <div class="sidebar-footer"><a href="../index.html" class="nav-link"><i class="bi bi-box-arrow-right"></i> Cerrar sesión</a></div>
+        </nav>
+
+        <div class="app-content">
+            <nav class="navbar-top">
+                <div class="navbar-left">
+                    <a href="dashboard.html" class="btn btn-outline-secondary btn-sm me-2"><i class="bi bi-arrow-left"></i></a>
+                    <h2 class="page-title">Roles</h2>
+                </div>
+                <div class="navbar-right">
+                    <div class="notification-icon"><i class="bi bi-bell"></i><span class="notification-badge">5</span></div>
+                    <div class="user-info">
+                        <div class="user-avatar">ICL</div>
+                        <div><div class="user-name">ISSTEC Chile</div><div class="user-role">Distribuidor</div></div>
+                    </div>
+                </div>
+            </nav>
+
+            <main class="app-main">
+                <div class="row mb-3">
+                    <div class="col-lg-12">
+                        <div class="d-flex justify-content-end">
+                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalAgregarRol">
+                                <i class="bi bi-plus-lg me-2"></i>Agregar rol
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table table-hover align-middle">
+                                        <thead>
+                                            <tr>
+                                                <th>Nombre</th><th>Descripción</th><th>Permisos</th><th>Usuarios asignados</th><th>Estado</th><th class="text-end">Acciones</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr data-nombre="Administrador" data-descripcion="Acceso total al sistema del distribuidor. Puede gestionar usuarios, roles, configuración y todos los módulos." data-usuarios="1" data-estado="Activo" data-estado-value="activo" data-permisos="recepcion,asignacion-clientes,solicitudes,inventario,guias,reportes,clientes,ubicaciones,usuarios,roles">
+                                                <td><span class="fw-semibold"><i class="bi bi-shield-fill-check me-2" style="color: var(--azul-primario);"></i>Administrador</span></td>
+                                                <td class="text-muted">Acceso total al sistema del distribuidor. Puede gestionar usuarios, roles, configuración y todos los módulos.</td>
+                                                <td><span class="badge bg-primary">10 permisos</span></td>
+                                                <td><span class="badge bg-info text-white">1</span></td>
+                                                <td><span class="badge-status badge-activo">Activo</span></td>
+                                                <td class="text-end"><button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modalEditarRol"><i class="bi bi-pencil me-1"></i>Editar</button></td>
+                                            </tr>
+                                            <tr data-nombre="Supervisor" data-descripcion="Supervisión de operaciones del distribuidor. Acceso a reportes, solicitudes y consulta de inventario. Sin gestión de usuarios." data-usuarios="1" data-estado="Activo" data-estado-value="activo" data-permisos="recepcion,asignacion-clientes,solicitudes,inventario,guias,reportes,clientes,ubicaciones">
+                                                <td><span class="fw-semibold"><i class="bi bi-shield-fill me-2" style="color: var(--azul-primario);"></i>Supervisor</span></td>
+                                                <td class="text-muted">Supervisión de operaciones del distribuidor. Acceso a reportes, solicitudes y consulta de inventario. Sin gestión de usuarios.</td>
+                                                <td><span class="badge bg-primary">8 permisos</span></td>
+                                                <td><span class="badge bg-info text-white">1</span></td>
+                                                <td><span class="badge-status badge-activo">Activo</span></td>
+                                                <td class="text-end"><button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modalEditarRol"><i class="bi bi-pencil me-1"></i>Editar</button></td>
+                                            </tr>
+                                            <tr data-nombre="Vendedor" data-descripcion="Gestión de asignación a clientes y guías de despacho. Acceso limitado a operación comercial." data-usuarios="2" data-estado="Activo" data-estado-value="activo" data-permisos="asignacion-clientes,guias,clientes">
+                                                <td><span class="fw-semibold"><i class="bi bi-shield me-2" style="color: var(--verde-exito);"></i>Vendedor</span></td>
+                                                <td class="text-muted">Gestión de asignación a clientes y guías de despacho. Acceso limitado a operación comercial.</td>
+                                                <td><span class="badge bg-primary">3 permisos</span></td>
+                                                <td><span class="badge bg-info text-white">2</span></td>
+                                                <td><span class="badge-status badge-activo">Activo</span></td>
+                                                <td class="text-end"><button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modalEditarRol"><i class="bi bi-pencil me-1"></i>Editar</button></td>
+                                            </tr>
+                                            <tr data-nombre="Bodega" data-descripcion="Recepción de equipos, inventario y ubicaciones. Sin acceso a reportes ni configuración." data-usuarios="1" data-estado="Activo" data-estado-value="activo" data-permisos="recepcion,inventario,ubicaciones">
+                                                <td><span class="fw-semibold"><i class="bi bi-box me-2" style="color: var(--naranja-coral);"></i>Bodega</span></td>
+                                                <td class="text-muted">Recepción de equipos, inventario y ubicaciones. Sin acceso a reportes ni configuración.</td>
+                                                <td><span class="badge bg-primary">3 permisos</span></td>
+                                                <td><span class="badge bg-info text-white">1</span></td>
+                                                <td><span class="badge-status badge-activo">Activo</span></td>
+                                                <td class="text-end"><button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modalEditarRol"><i class="bi bi-pencil me-1"></i>Editar</button></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="d-flex justify-content-between align-items-center mt-3">
+                                    <div class="text-muted" style="font-size:13px;">Mostrando 1–4 de 4 roles</div>
+                                    <nav aria-label="Paginación"><ul class="pagination mb-0">
+                                        <li class="page-item disabled"><a class="page-link" href="#" tabindex="-1" aria-disabled="true"><i class="bi bi-chevron-left"></i></a></li>
+                                        <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                                        <li class="page-item"><a class="page-link" href="#"><i class="bi bi-chevron-right"></i></a></li>
+                                    </ul></nav>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <div class="modal fade" id="modalAgregarRol" tabindex="-1" aria-labelledby="modalAgregarRolLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg"><div class="modal-content">
+            <div class="modal-header"><h5 class="modal-title" id="modalAgregarRolLabel">Agregar rol</h5><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button></div>
+            <div class="modal-body"><form id="formAgregarRol" novalidate>
+                <div class="mb-3"><label for="nombreRol" class="form-label">Nombre del rol</label><input type="text" class="form-control" id="nombreRol" placeholder="Ej: Coordinador" required><div class="invalid-feedback">Ingresa el nombre del rol.</div></div>
+                <div class="mb-3"><label for="descripcionRol" class="form-label">Descripción</label><textarea class="form-control" id="descripcionRol" rows="2" placeholder="Descripción del rol y sus permisos"></textarea></div>
+                <div class="mb-2"><label class="form-label">Permisos del rol</label></div>
+                <div class="accordion perm-accordion" id="accordionAgregar">
+                    <div class="accordion-item">
+                        <h2 class="accordion-header"><button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#agregar-collapse-principal">Principal</button></h2>
+                        <div id="agregar-collapse-principal" class="accordion-collapse collapse show" data-bs-parent="#accordionAgregar">
+                            <div class="accordion-body">
+                                <div class="perm-item"><input class="form-check-input" type="checkbox" id="perm-recepcion" value="recepcion"><label for="perm-recepcion">Recepción de Equipos</label></div>
+                                <div class="perm-item"><input class="form-check-input" type="checkbox" id="perm-asignacion-clientes" value="asignacion-clientes"><label for="perm-asignacion-clientes">Asignación a Clientes</label></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <h2 class="accordion-header"><button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#agregar-collapse-operacion">Operación</button></h2>
+                        <div id="agregar-collapse-operacion" class="accordion-collapse collapse" data-bs-parent="#accordionAgregar">
+                            <div class="accordion-body">
+                                <div class="perm-item"><input class="form-check-input" type="checkbox" id="perm-solicitudes" value="solicitudes"><label for="perm-solicitudes">Solicitudes de Movimiento</label></div>
+                                <div class="perm-item"><input class="form-check-input" type="checkbox" id="perm-inventario" value="inventario"><label for="perm-inventario">Inventario</label></div>
+                                <div class="perm-item"><input class="form-check-input" type="checkbox" id="perm-guias" value="guias"><label for="perm-guias">Guías de Despacho</label></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <h2 class="accordion-header"><button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#agregar-collapse-analisis">Análisis</button></h2>
+                        <div id="agregar-collapse-analisis" class="accordion-collapse collapse" data-bs-parent="#accordionAgregar">
+                            <div class="accordion-body">
+                                <div class="perm-item"><input class="form-check-input" type="checkbox" id="perm-reportes" value="reportes"><label for="perm-reportes">Reportes</label></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <h2 class="accordion-header"><button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#agregar-collapse-maestros">Maestros</button></h2>
+                        <div id="agregar-collapse-maestros" class="accordion-collapse collapse" data-bs-parent="#accordionAgregar">
+                            <div class="accordion-body">
+                                <div class="perm-item"><input class="form-check-input" type="checkbox" id="perm-clientes" value="clientes"><label for="perm-clientes">Clientes</label></div>
+                                <div class="perm-item"><input class="form-check-input" type="checkbox" id="perm-ubicaciones" value="ubicaciones"><label for="perm-ubicaciones">Ubicaciones / Bodegas</label></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <h2 class="accordion-header"><button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#agregar-collapse-config">Configuración</button></h2>
+                        <div id="agregar-collapse-config" class="accordion-collapse collapse" data-bs-parent="#accordionAgregar">
+                            <div class="accordion-body">
+                                <div class="perm-item"><input class="form-check-input" type="checkbox" id="perm-usuarios" value="usuarios"><label for="perm-usuarios">Usuarios</label></div>
+                                <div class="perm-item"><input class="form-check-input" type="checkbox" id="perm-roles" value="roles"><label for="perm-roles">Roles</label></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="mb-3 form-check form-switch"><input class="form-check-input" type="checkbox" id="estadoRol" checked><label class="form-check-label" for="estadoRol">Activo</label></div>
+            </form></div>
+            <div class="modal-footer"><button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancelar</button><button type="button" class="btn btn-primary" id="btnGuardarRol">Guardar</button></div>
+        </div></div>
+    </div>
+
+    <div class="modal fade" id="modalEditarRol" tabindex="-1" aria-labelledby="modalEditarRolLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg"><div class="modal-content">
+            <div class="modal-header"><h5 class="modal-title" id="modalEditarRolLabel">Editar rol</h5><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button></div>
+            <div class="modal-body"><form id="formEditarRol" novalidate>
+                <div class="mb-3"><label for="editarNombreRol" class="form-label">Nombre del rol</label><input type="text" class="form-control" id="editarNombreRol" required><div class="invalid-feedback">Ingresa el nombre del rol.</div></div>
+                <div class="mb-3"><label for="editarDescripcionRol" class="form-label">Descripción</label><textarea class="form-control" id="editarDescripcionRol" rows="2"></textarea></div>
+                <div class="mb-2"><label class="form-label">Permisos del rol</label></div>
+                <div class="accordion perm-accordion" id="accordionEditar">
+                    <div class="accordion-item">
+                        <h2 class="accordion-header"><button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#editar-collapse-principal">Principal</button></h2>
+                        <div id="editar-collapse-principal" class="accordion-collapse collapse show" data-bs-parent="#accordionEditar">
+                            <div class="accordion-body">
+                                <div class="perm-item"><input class="form-check-input" type="checkbox" id="editar-perm-recepcion" value="recepcion"><label for="editar-perm-recepcion">Recepción de Equipos</label></div>
+                                <div class="perm-item"><input class="form-check-input" type="checkbox" id="editar-perm-asignacion-clientes" value="asignacion-clientes"><label for="editar-perm-asignacion-clientes">Asignación a Clientes</label></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <h2 class="accordion-header"><button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#editar-collapse-operacion">Operación</button></h2>
+                        <div id="editar-collapse-operacion" class="accordion-collapse collapse" data-bs-parent="#accordionEditar">
+                            <div class="accordion-body">
+                                <div class="perm-item"><input class="form-check-input" type="checkbox" id="editar-perm-solicitudes" value="solicitudes"><label for="editar-perm-solicitudes">Solicitudes de Movimiento</label></div>
+                                <div class="perm-item"><input class="form-check-input" type="checkbox" id="editar-perm-inventario" value="inventario"><label for="editar-perm-inventario">Inventario</label></div>
+                                <div class="perm-item"><input class="form-check-input" type="checkbox" id="editar-perm-guias" value="guias"><label for="editar-perm-guias">Guías de Despacho</label></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <h2 class="accordion-header"><button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#editar-collapse-analisis">Análisis</button></h2>
+                        <div id="editar-collapse-analisis" class="accordion-collapse collapse" data-bs-parent="#accordionEditar">
+                            <div class="accordion-body">
+                                <div class="perm-item"><input class="form-check-input" type="checkbox" id="editar-perm-reportes" value="reportes"><label for="editar-perm-reportes">Reportes</label></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <h2 class="accordion-header"><button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#editar-collapse-maestros">Maestros</button></h2>
+                        <div id="editar-collapse-maestros" class="accordion-collapse collapse" data-bs-parent="#accordionEditar">
+                            <div class="accordion-body">
+                                <div class="perm-item"><input class="form-check-input" type="checkbox" id="editar-perm-clientes" value="clientes"><label for="editar-perm-clientes">Clientes</label></div>
+                                <div class="perm-item"><input class="form-check-input" type="checkbox" id="editar-perm-ubicaciones" value="ubicaciones"><label for="editar-perm-ubicaciones">Ubicaciones / Bodegas</label></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <h2 class="accordion-header"><button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#editar-collapse-config">Configuración</button></h2>
+                        <div id="editar-collapse-config" class="accordion-collapse collapse" data-bs-parent="#accordionEditar">
+                            <div class="accordion-body">
+                                <div class="perm-item"><input class="form-check-input" type="checkbox" id="editar-perm-usuarios" value="usuarios"><label for="editar-perm-usuarios">Usuarios</label></div>
+                                <div class="perm-item"><input class="form-check-input" type="checkbox" id="editar-perm-roles" value="roles"><label for="editar-perm-roles">Roles</label></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="mb-3 form-check form-switch"><input class="form-check-input" type="checkbox" id="editarEstadoRol"><label class="form-check-label" for="editarEstadoRol">Activo</label></div>
+            </form></div>
+            <div class="modal-footer"><button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancelar</button><button type="button" class="btn btn-primary" id="btnActualizarRol">Guardar cambios</button></div>
+        </div></div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        let filaEditando = null;
+        const todosPermisos = ['recepcion','asignacion-clientes','solicitudes','inventario','guias','reportes','clientes','ubicaciones','usuarios','roles'];
+
+        document.getElementById('btnGuardarRol').addEventListener('click', function() {
+            const form = document.getElementById('formAgregarRol');
+            if (form.checkValidity()) {
+                bootstrap.Modal.getInstance(document.getElementById('modalAgregarRol')).hide();
+                form.reset(); form.classList.remove('was-validated');
+                alert('Rol agregado correctamente (simulación).');
+            } else { form.classList.add('was-validated'); }
+        });
+        document.getElementById('modalAgregarRol').addEventListener('hidden.bs.modal', function() {
+            const form = document.getElementById('formAgregarRol');
+            form.reset(); form.classList.remove('was-validated');
+        });
+        document.getElementById('modalEditarRol').addEventListener('show.bs.modal', function(event) {
+            filaEditando = event.relatedTarget.closest('tr');
+            const d = filaEditando.dataset;
+            document.getElementById('editarNombreRol').value = d.nombre;
+            document.getElementById('editarDescripcionRol').value = d.descripcion;
+            document.getElementById('editarEstadoRol').checked = d.estadoValue === 'activo';
+            const permisos = d.permisos ? d.permisos.split(',') : [];
+            todosPermisos.forEach(function(p) {
+                const cb = document.getElementById('editar-perm-' + p);
+                if (cb) cb.checked = permisos.includes(p);
+            });
+        });
+        document.getElementById('modalEditarRol').addEventListener('hidden.bs.modal', function() {
+            const form = document.getElementById('formEditarRol');
+            form.reset(); form.classList.remove('was-validated'); filaEditando = null;
+        });
+        document.getElementById('btnActualizarRol').addEventListener('click', function() {
+            const form = document.getElementById('formEditarRol');
+            if (form.checkValidity()) {
+                if (filaEditando) {
+                    filaEditando.dataset.nombre = document.getElementById('editarNombreRol').value;
+                    filaEditando.dataset.descripcion = document.getElementById('editarDescripcionRol').value;
+                    const permisosActivos = todosPermisos.filter(function(p) {
+                        const cb = document.getElementById('editar-perm-' + p);
+                        return cb && cb.checked;
+                    });
+                    filaEditando.dataset.permisos = permisosActivos.join(',');
+                    filaEditando.cells[0].querySelector('.fw-semibold').innerHTML = '<i class="bi bi-shield-fill-check me-2" style="color: var(--azul-primario);"></i>' + filaEditando.dataset.nombre;
+                    filaEditando.cells[1].textContent = filaEditando.dataset.descripcion;
+                    filaEditando.cells[2].querySelector('.badge').textContent = permisosActivos.length + ' permisos';
+                    const activo = document.getElementById('editarEstadoRol').checked;
+                    filaEditando.dataset.estado = activo ? 'Activo' : 'Inactivo';
+                    filaEditando.dataset.estadoValue = activo ? 'activo' : 'inactivo';
+                    const badge = filaEditando.querySelector('.badge-status');
+                    badge.textContent = filaEditando.dataset.estado;
+                    badge.className = 'badge-status ' + (activo ? 'badge-activo' : 'badge-baja');
+                }
+                bootstrap.Modal.getInstance(document.getElementById('modalEditarRol')).hide();
+                alert('Rol actualizado correctamente (simulación).');
+            } else { form.classList.add('was-validated'); }
+        });
+    </script>
+</body>
+</html>

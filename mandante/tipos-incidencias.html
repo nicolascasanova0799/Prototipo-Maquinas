@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tipos de Incidencias — Plataforma Isstec</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="../css/styles.css" rel="stylesheet">
+    <style>
+        .pagination .page-link { color: var(--azul-primario); border: 1px solid #DEE2E6; font-weight: 500; padding: 8px 14px; }
+        .pagination .page-item.active .page-link { background-color: var(--azul-primario); border-color: var(--azul-primario); color: #FFFFFF; }
+        .pagination .page-item.disabled .page-link { color: var(--gris-medio); }
+        .severidad-critica { background: var(--rojo-error); color: #FFFFFF; }
+        .severidad-alta { background: var(--naranja-coral); color: #FFFFFF; }
+        .severidad-media { background: #FFC107; color: #333333; }
+        .severidad-baja { background: var(--gris-medio); color: #FFFFFF; }
+    </style>
+</head>
+<body>
+    <div class="app-layout">
+        <nav class="sidebar">
+            <div class="sidebar-logo"><img src="../assets/img/logo.png" alt="Isstec"></div>
+            <div class="sidebar-nav">
+                <div class="nav-section">Principal</div>
+                <a href="dashboard.html" class="nav-link"><i class="bi bi-speedometer2"></i> Dashboard</a>
+                <a href="asignaciones.html" class="nav-link"><i class="bi bi-diagram-3"></i> Asignación de Equipos</a>
+                <div class="nav-section">Operación</div>
+                <a href="autorizacion-movimientos.html" class="nav-link"><i class="bi bi-shield-check"></i> Autorización de Movimientos</a>
+                <a href="consulta-inventario.html" class="nav-link"><i class="bi bi-clipboard2-data"></i> Consulta de Inventario</a>
+                <a href="trazabilidad.html" class="nav-link"><i class="bi bi-geo-alt"></i> Trazabilidad</a>
+                <div class="nav-section">Análisis</div>
+                <a href="informes.html" class="nav-link"><i class="bi bi-bar-chart"></i> Informes</a>
+                <div class="nav-section">Maestros</div>
+                <a href="maestro-equipos.html" class="nav-link"><i class="bi bi-hdd-stack"></i> Equipos</a>
+                <a href="gestores.html" class="nav-link"><i class="bi bi-people"></i> Gestores</a>
+                <a href="servicio-tecnico.html" class="nav-link"><i class="bi bi-tools"></i> Servicio Técnico</a>
+                <a href="grupo-maquinas.html" class="nav-link"><i class="bi bi-layers"></i> Grupo de Máquinas</a>
+                <a href="familia-maquinas.html" class="nav-link"><i class="bi bi-grid"></i> Familia de Máquinas</a>
+                <a href="ubicaciones-bodegas.html" class="nav-link"><i class="bi bi-geo"></i> Ubicaciones / Bodegas</a>
+                <a href="motivos-movimiento.html" class="nav-link"><i class="bi bi-list-ul"></i> Motivos de Movimiento</a>
+                <a href="tipos-solicitud.html" class="nav-link"><i class="bi bi-file-earmark-text"></i> Tipos de Solicitud</a>
+                <a href="plantillas-inspeccion.html" class="nav-link"><i class="bi bi-clipboard2-check"></i> Plantillas de Inspección</a>
+                <a href="marcas.html" class="nav-link"><i class="bi bi-tag"></i> Marcas</a>
+                <a href="modelos.html" class="nav-link"><i class="bi bi-box"></i> Modelos</a>
+                <a href="tipos-incidencias.html" class="nav-link active"><i class="bi bi-exclamation-octagon"></i> Tipos de Incidencias / Catálogo de Fallas</a>
+                <div class="nav-section">Configuración</div>
+                <a href="usuarios.html" class="nav-link"><i class="bi bi-people-fill"></i> Usuarios</a>
+                <a href="roles.html" class="nav-link"><i class="bi bi-shield-lock"></i> Roles</a>
+            </div>
+            <div class="sidebar-footer"><a href="../index.html" class="nav-link"><i class="bi bi-box-arrow-right"></i> Cerrar sesión</a></div>
+        </nav>
+
+        <div class="app-content">
+            <nav class="navbar-top">
+                <div class="navbar-left"><h2 class="page-title">Tipos de Incidencias / Catálogo de Fallas</h2></div>
+                <div class="navbar-right">
+                    <div class="notification-icon"><i class="bi bi-bell"></i><span class="notification-badge">3</span></div>
+                    <div class="user-info">
+                        <div class="user-avatar">SV</div>
+                        <div><div class="user-name">Savory Chile</div><div class="user-role">Mandante</div></div>
+                    </div>
+                </div>
+            </nav>
+
+            <main class="app-main">
+                <div class="row mb-4">
+                    <div class="col-lg-8">
+                        <div class="d-flex gap-2 align-items-center">
+                            <div class="input-group" style="max-width:300px;">
+                                <span class="input-group-text"><i class="bi bi-search"></i></span>
+                                <input type="text" class="form-control" id="buscarIncidencia" placeholder="Buscar incidencia...">
+                            </div>
+                            <select class="form-select" id="filtroSeveridad" style="max-width:180px;">
+                                <option value="">Toda severidad</option>
+                                <option value="critica">Crítica</option>
+                                <option value="alta">Alta</option>
+                                <option value="media">Media</option>
+                                <option value="baja">Baja</option>
+                            </select>
+                            <select class="form-select" id="filtroCategoria" style="max-width:200px;">
+                                <option value="">Toda categoría</option>
+                                <option value="Electrica">Eléctrica</option>
+                                <option value="Refrigeracion">Refrigeración</option>
+                                <option value="Mecanica">Mecánica</option>
+                                <option value="Estructura">Estructura</option>
+                                <option value="Robo">Robo / Pérdida</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="d-flex justify-content-end">
+                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalAgregarIncidencia">
+                                <i class="bi bi-plus-lg me-2"></i>Agregar tipo de incidencia
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table table-hover align-middle">
+                                        <thead>
+                                            <tr>
+                                                <th>Código</th><th>Nombre</th><th>Categoría</th><th>Severidad</th><th>Descripción</th><th>Requiere SSTT</th><th>Estado</th><th class="text-end">Acciones</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr data-codigo="NO_ENCIENDE" data-nombre="No enciende" data-categoria="Electrica" data-severidad="critica" data-descripcion="El equipo no enciende al conectar a la red eléctrica" data-sstt="si" data-estado="Activo" data-estado-value="activo">
+                                                <td><span class="fw-semibold">NO_ENCIENDE</span></td>
+                                                <td>No enciende</td>
+                                                <td>Eléctrica</td>
+                                                <td><span class="badge-status severidad-critica">Crítica</span></td>
+                                                <td class="text-muted">El equipo no enciende al conectar a la red eléctrica</td>
+                                                <td><span class="badge bg-warning text-dark">Sí</span></td>
+                                                <td><span class="badge-status badge-activo">Activo</span></td>
+                                                <td class="text-end"><button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modalEditarIncidencia"><i class="bi bi-pencil me-1"></i>Editar</button></td>
+                                            </tr>
+                                            <tr data-codigo="NO_ENFRIA" data-nombre="No enfría" data-categoria="Refrigeracion" data-severidad="critica" data-descripcion="El equipo enciende pero no alcanza la temperatura objetivo" data-sstt="si" data-estado="Activo" data-estado-value="activo">
+                                                <td><span class="fw-semibold">NO_ENFRIA</span></td>
+                                                <td>No enfría</td>
+                                                <td>Refrigeración</td>
+                                                <td><span class="badge-status severidad-critica">Crítica</span></td>
+                                                <td class="text-muted">El equipo enciende pero no alcanza la temperatura objetivo</td>
+                                                <td><span class="badge bg-warning text-dark">Sí</span></td>
+                                                <td><span class="badge-status badge-activo">Activo</span></td>
+                                                <td class="text-end"><button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modalEditarIncidencia"><i class="bi bi-pencil me-1"></i>Editar</button></td>
+                                            </tr>
+                                            <tr data-codigo="FUGA_GAS" data-nombre="Fuga de gas refrigerante" data-categoria="Refrigeracion" data-severidad="alta" data-descripcion="Pérdida de gas refrigerante detectada por formación de escarcha anormal" data-sstt="si" data-estado="Activo" data-estado-value="activo">
+                                                <td><span class="fw-semibold">FUGA_GAS</span></td>
+                                                <td>Fuga de gas refrigerante</td>
+                                                <td>Refrigeración</td>
+                                                <td><span class="badge-status severidad-alta">Alta</span></td>
+                                                <td class="text-muted">Pérdida de gas refrigerante detectada por formación de escarcha anormal</td>
+                                                <td><span class="badge bg-warning text-dark">Sí</span></td>
+                                                <td><span class="badge-status badge-activo">Activo</span></td>
+                                                <td class="text-end"><button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modalEditarIncidencia"><i class="bi bi-pencil me-1"></i>Editar</button></td>
+                                            </tr>
+                                            <tr data-codigo="PUERTA_NO_CIERRA" data-nombre="Puerta no cierra herméticamente" data-categoria="Mecanica" data-severidad="alta" data-descripcion="La puerta o tapa no sella correctamente, generando pérdida de frío" data-sstt="si" data-estado="Activo" data-estado-value="activo">
+                                                <td><span class="fw-semibold">PUERTA_NO_CIERRA</span></td>
+                                                <td>Puerta no cierra herméticamente</td>
+                                                <td>Mecánica</td>
+                                                <td><span class="badge-status severidad-alta">Alta</span></td>
+                                                <td class="text-muted">La puerta o tapa no sella correctamente, generando pérdida de frío</td>
+                                                <td><span class="badge bg-warning text-dark">Sí</span></td>
+                                                <td><span class="badge-status badge-activo">Activo</span></td>
+                                                <td class="text-end"><button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modalEditarIncidencia"><i class="bi bi-pencil me-1"></i>Editar</button></td>
+                                            </tr>
+                                            <tr data-codigo="COMPRESOR_RUIDO" data-nombre="Compresor con ruido anormal" data-categoria="Mecanica" data-severidad="media" data-descripcion="Ruido excesivo del compresor, posible desgaste de componentes" data-sstt="si" data-estado="Activo" data-estado-value="activo">
+                                                <td><span class="fw-semibold">COMPRESOR_RUIDO</span></td>
+                                                <td>Compresor con ruido anormal</td>
+                                                <td>Mecánica</td>
+                                                <td><span class="badge-status severidad-media">Media</span></td>
+                                                <td class="text-muted">Ruido excesivo del compresor, posible desgaste de componentes</td>
+                                                <td><span class="badge bg-warning text-dark">Sí</span></td>
+                                                <td><span class="badge-status badge-activo">Activo</span></td>
+                                                <td class="text-end"><button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modalEditarIncidencia"><i class="bi bi-pencil me-1"></i>Editar</button></td>
+                                            </tr>
+                                            <tr data-codigo="LUCES_FALLAN" data-nombre="Luces interiores no funcionan" data-categoria="Electrica" data-severidad="baja" data-descripcion="Iluminación interior del equipo no enciende" data-sstt="no" data-estado="Activo" data-estado-value="activo">
+                                                <td><span class="fw-semibold">LUCES_FALLAN</span></td>
+                                                <td>Luces interiores no funcionan</td>
+                                                <td>Eléctrica</td>
+                                                <td><span class="badge-status severidad-baja">Baja</span></td>
+                                                <td class="text-muted">Iluminación interior del equipo no enciende</td>
+                                                <td><span class="badge bg-secondary">No</span></td>
+                                                <td><span class="badge-status badge-activo">Activo</span></td>
+                                                <td class="text-end"><button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modalEditarIncidencia"><i class="bi bi-pencil me-1"></i>Editar</button></td>
+                                            </tr>
+                                            <tr data-codigo="GASCA_HUMEDAD" data-nombre="Goteo / Humedad excesiva" data-categoria="Refrigeracion" data-severidad="media" data-descripcion="Acumulación de agua o condensación excesiva en el equipo" data-sstt="no" data-estado="Activo" data-estado-value="activo">
+                                                <td><span class="fw-semibold">GASCA_HUMEDAD</span></td>
+                                                <td>Goteo / Humedad excesiva</td>
+                                                <td>Refrigeración</td>
+                                                <td><span class="badge-status severidad-media">Media</span></td>
+                                                <td class="text-muted">Acumulación de agua o condensación excesiva en el equipo</td>
+                                                <td><span class="badge bg-secondary">No</span></td>
+                                                <td><span class="badge-status badge-activo">Activo</span></td>
+                                                <td class="text-end"><button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modalEditarIncidencia"><i class="bi bi-pencil me-1"></i>Editar</button></td>
+                                            </tr>
+                                            <tr data-codigo="ABOLLADURA" data-nombre="Abolladura / Daño estético" data-categoria="Estructura" data-severidad="baja" data-descripcion="Daño visible en la estructura externa del equipo sin afectar funcionamiento" data-sstt="no" data-estado="Activo" data-estado-value="activo">
+                                                <td><span class="fw-semibold">ABOLLADURA</span></td>
+                                                <td>Abolladura / Daño estético</td>
+                                                <td>Estructura</td>
+                                                <td><span class="badge-status severidad-baja">Baja</span></td>
+                                                <td class="text-muted">Daño visible en la estructura externa del equipo sin afectar funcionamiento</td>
+                                                <td><span class="badge bg-secondary">No</span></td>
+                                                <td><span class="badge-status badge-activo">Activo</span></td>
+                                                <td class="text-end"><button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modalEditarIncidencia"><i class="bi bi-pencil me-1"></i>Editar</button></td>
+                                            </tr>
+                                            <tr data-codigo="ROBO" data-nombre="Robo de equipo" data-categoria="Robo" data-severidad="critica" data-descripcion="Equipo reportado como robado o extraviado" data-sstt="no" data-estado="Activo" data-estado-value="activo">
+                                                <td><span class="fw-semibold">ROBO</span></td>
+                                                <td>Robo de equipo</td>
+                                                <td>Robo / Pérdida</td>
+                                                <td><span class="badge-status severidad-critica">Crítica</span></td>
+                                                <td class="text-muted">Equipo reportado como robado o extraviado</td>
+                                                <td><span class="badge bg-secondary">No</span></td>
+                                                <td><span class="badge-status badge-activo">Activo</span></td>
+                                                <td class="text-end"><button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modalEditarIncidencia"><i class="bi bi-pencil me-1"></i>Editar</button></td>
+                                            </tr>
+                                            <tr data-codigo="FALTA_PARTE" data-nombre="Falta de parte / accesorio" data-categoria="Estructura" data-severidad="media" data-descripcion="El equipo no cuenta con una parte o accesorio que debería incluir" data-sstt="no" data-estado="Activo" data-estado-value="activo">
+                                                <td><span class="fw-semibold">FALTA_PARTE</span></td>
+                                                <td>Falta de parte / accesorio</td>
+                                                <td>Estructura</td>
+                                                <td><span class="badge-status severidad-media">Media</span></td>
+                                                <td class="text-muted">El equipo no cuenta con una parte o accesorio que debería incluir</td>
+                                                <td><span class="badge bg-secondary">No</span></td>
+                                                <td><span class="badge-status badge-activo">Activo</span></td>
+                                                <td class="text-end"><button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modalEditarIncidencia"><i class="bi bi-pencil me-1"></i>Editar</button></td>
+                                            </tr>
+                                            <tr data-codigo="TERMOSTATO_FALLA" data-nombre="Falla de termostato" data-categoria="Electrica" data-severidad="alta" data-descripcion="El termostato no regula correctamente la temperatura interna" data-sstt="si" data-estado="Inactivo" data-estado-value="inactivo">
+                                                <td><span class="fw-semibold">TERMOSTATO_FALLA</span></td>
+                                                <td>Falla de termostato</td>
+                                                <td>Eléctrica</td>
+                                                <td><span class="badge-status severidad-alta">Alta</span></td>
+                                                <td class="text-muted">El termostato no regula correctamente la temperatura interna</td>
+                                                <td><span class="badge bg-warning text-dark">Sí</span></td>
+                                                <td><span class="badge-status badge-baja">Inactivo</span></td>
+                                                <td class="text-end"><button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modalEditarIncidencia"><i class="bi bi-pencil me-1"></i>Editar</button></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="d-flex justify-content-between align-items-center mt-3">
+                                    <div class="text-muted" style="font-size:13px;">Mostrando 1–11 de 11 tipos de incidencias</div>
+                                    <nav aria-label="Paginación"><ul class="pagination mb-0">
+                                        <li class="page-item disabled"><a class="page-link" href="#" tabindex="-1" aria-disabled="true"><i class="bi bi-chevron-left"></i></a></li>
+                                        <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                                        <li class="page-item"><a class="page-link" href="#"><i class="bi bi-chevron-right"></i></a></li>
+                                    </ul></nav>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <div class="modal fade" id="modalAgregarIncidencia" tabindex="-1" aria-labelledby="modalAgregarIncidenciaLabel" aria-hidden="true">
+        <div class="modal-dialog"><div class="modal-content">
+            <div class="modal-header"><h5 class="modal-title" id="modalAgregarIncidenciaLabel">Agregar tipo de incidencia</h5><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button></div>
+            <div class="modal-body"><form id="formAgregarIncidencia" novalidate>
+                <div class="mb-3"><label for="codigoIncidencia" class="form-label">Código</label><input type="text" class="form-control" id="codigoIncidencia" placeholder="Ej: NO_ENCIENDE" required><div class="invalid-feedback">Ingresa el código de la incidencia.</div></div>
+                <div class="mb-3"><label for="nombreIncidencia" class="form-label">Nombre</label><input type="text" class="form-control" id="nombreIncidencia" placeholder="Ej: No enciende" required><div class="invalid-feedback">Ingresa el nombre de la incidencia.</div></div>
+                <div class="mb-3"><label for="categoriaIncidencia" class="form-label">Categoría</label><select class="form-select" id="categoriaIncidencia" required><option value="">Seleccionar...</option><option>Eléctrica</option><option>Refrigeración</option><option>Mecánica</option><option>Estructura</option><option>Robo / Pérdida</option></select><div class="invalid-feedback">Selecciona una categoría.</div></div>
+                <div class="mb-3"><label for="severidadIncidencia" class="form-label">Severidad</label><select class="form-select" id="severidadIncidencia" required><option value="">Seleccionar...</option><option value="critica">Crítica</option><option value="alta">Alta</option><option value="media">Media</option><option value="baja">Baja</option></select><div class="invalid-feedback">Selecciona la severidad.</div></div>
+                <div class="mb-3"><label for="descripcionIncidencia" class="form-label">Descripción</label><textarea class="form-control" id="descripcionIncidencia" rows="3" placeholder="Descripción del tipo de incidencia"></textarea></div>
+                <div class="mb-3 form-check form-switch"><input class="form-check-input" type="checkbox" id="ssttIncidencia"><label class="form-check-label" for="ssttIncidencia">Requiere envío a Servicio Técnico</label></div>
+                <div class="mb-3 form-check form-switch"><input class="form-check-input" type="checkbox" id="estadoIncidencia" checked><label class="form-check-label" for="estadoIncidencia">Activo</label></div>
+            </form></div>
+            <div class="modal-footer"><button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancelar</button><button type="button" class="btn btn-primary" id="btnGuardarIncidencia">Guardar</button></div>
+        </div></div>
+    </div>
+
+    <div class="modal fade" id="modalEditarIncidencia" tabindex="-1" aria-labelledby="modalEditarIncidenciaLabel" aria-hidden="true">
+        <div class="modal-dialog"><div class="modal-content">
+            <div class="modal-header"><h5 class="modal-title" id="modalEditarIncidenciaLabel">Editar tipo de incidencia</h5><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button></div>
+            <div class="modal-body"><form id="formEditarIncidencia" novalidate>
+                <div class="mb-3"><label for="editarCodigoIncidencia" class="form-label">Código</label><input type="text" class="form-control" id="editarCodigoIncidencia" required><div class="invalid-feedback">Ingresa el código de la incidencia.</div></div>
+                <div class="mb-3"><label for="editarNombreIncidencia" class="form-label">Nombre</label><input type="text" class="form-control" id="editarNombreIncidencia" required><div class="invalid-feedback">Ingresa el nombre de la incidencia.</div></div>
+                <div class="mb-3"><label for="editarCategoriaIncidencia" class="form-label">Categoría</label><select class="form-select" id="editarCategoriaIncidencia" required><option value="">Seleccionar...</option><option>Eléctrica</option><option>Refrigeración</option><option>Mecánica</option><option>Estructura</option><option>Robo / Pérdida</option></select><div class="invalid-feedback">Selecciona una categoría.</div></div>
+                <div class="mb-3"><label for="editarSeveridadIncidencia" class="form-label">Severidad</label><select class="form-select" id="editarSeveridadIncidencia" required><option value="">Seleccionar...</option><option value="critica">Crítica</option><option value="alta">Alta</option><option value="media">Media</option><option value="baja">Baja</option></select><div class="invalid-feedback">Selecciona la severidad.</div></div>
+                <div class="mb-3"><label for="editarDescripcionIncidencia" class="form-label">Descripción</label><textarea class="form-control" id="editarDescripcionIncidencia" rows="3"></textarea></div>
+                <div class="mb-3 form-check form-switch"><input class="form-check-input" type="checkbox" id="editarSsttIncidencia"><label class="form-check-label" for="editarSsttIncidencia">Requiere envío a Servicio Técnico</label></div>
+                <div class="mb-3 form-check form-switch"><input class="form-check-input" type="checkbox" id="editarEstadoIncidencia"><label class="form-check-label" for="editarEstadoIncidencia">Activo</label></div>
+            </form></div>
+            <div class="modal-footer"><button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancelar</button><button type="button" class="btn btn-primary" id="btnActualizarIncidencia">Guardar cambios</button></div>
+        </div></div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        let filaEditando = null;
+        const severidadClases = { critica: 'severidad-critica', alta: 'severidad-alta', media: 'severidad-media', baja: 'severidad-baja' };
+        const severidadLabels = { critica: 'Crítica', alta: 'Alta', media: 'Media', baja: 'Baja' };
+        const categoriaLabels = { 'Electrica': 'Eléctrica', 'Refrigeracion': 'Refrigeración', 'Mecanica': 'Mecánica', 'Estructura': 'Estructura', 'Robo': 'Robo / Pérdida' };
+
+        document.getElementById('btnGuardarIncidencia').addEventListener('click', function() {
+            const form = document.getElementById('formAgregarIncidencia');
+            if (form.checkValidity()) {
+                bootstrap.Modal.getInstance(document.getElementById('modalAgregarIncidencia')).hide();
+                form.reset(); form.classList.remove('was-validated');
+                alert('Tipo de incidencia agregado correctamente (simulación).');
+            } else { form.classList.add('was-validated'); }
+        });
+        document.getElementById('modalAgregarIncidencia').addEventListener('hidden.bs.modal', function() {
+            const form = document.getElementById('formAgregarIncidencia');
+            form.reset(); form.classList.remove('was-validated');
+        });
+        document.getElementById('modalEditarIncidencia').addEventListener('show.bs.modal', function(event) {
+            filaEditando = event.relatedTarget.closest('tr');
+            const d = filaEditando.dataset;
+            document.getElementById('editarCodigoIncidencia').value = d.codigo;
+            document.getElementById('editarNombreIncidencia').value = d.nombre;
+            const catSelect = document.getElementById('editarCategoriaIncidencia');
+            for (const opt of catSelect.options) { if (opt.text === categoriaLabels[d.categoria]) { catSelect.value = opt.text; break; } }
+            document.getElementById('editarSeveridadIncidencia').value = d.severidad;
+            document.getElementById('editarDescripcionIncidencia').value = d.descripcion;
+            document.getElementById('editarSsttIncidencia').checked = d.sstt === 'si';
+            document.getElementById('editarEstadoIncidencia').checked = d.estadoValue === 'activo';
+        });
+        document.getElementById('modalEditarIncidencia').addEventListener('hidden.bs.modal', function() {
+            const form = document.getElementById('formEditarIncidencia');
+            form.reset(); form.classList.remove('was-validated'); filaEditando = null;
+        });
+        document.getElementById('btnActualizarIncidencia').addEventListener('click', function() {
+            const form = document.getElementById('formEditarIncidencia');
+            if (form.checkValidity()) {
+                if (filaEditando) {
+                    filaEditando.dataset.codigo = document.getElementById('editarCodigoIncidencia').value;
+                    filaEditando.dataset.nombre = document.getElementById('editarNombreIncidencia').value;
+                    const catText = document.getElementById('editarCategoriaIncidencia').value;
+                    const catKey = catText === 'Eléctrica' ? 'Electrica' : catText === 'Refrigeración' ? 'Refrigeracion' : catText === 'Mecánica' ? 'Mecanica' : catText === 'Robo / Pérdida' ? 'Robo' : 'Estructura';
+                    filaEditando.dataset.categoria = catKey;
+                    const sev = document.getElementById('editarSeveridadIncidencia').value;
+                    filaEditando.dataset.severidad = sev;
+                    filaEditando.dataset.descripcion = document.getElementById('editarDescripcionIncidencia').value;
+                    const sstt = document.getElementById('editarSsttIncidencia').checked;
+                    filaEditando.dataset.sstt = sstt ? 'si' : 'no';
+                    filaEditando.cells[0].querySelector('.fw-semibold').textContent = filaEditando.dataset.codigo;
+                    filaEditando.cells[1].textContent = filaEditando.dataset.nombre;
+                    filaEditando.cells[2].textContent = catText;
+                    const sevBadge = filaEditando.cells[3].querySelector('.badge-status');
+                    sevBadge.textContent = severidadLabels[sev];
+                    sevBadge.className = 'badge-status ' + severidadClases[sev];
+                    filaEditando.cells[4].textContent = filaEditando.dataset.descripcion;
+                    const ssttBadge = filaEditando.cells[5].querySelector('.badge');
+                    ssttBadge.textContent = sstt ? 'Sí' : 'No';
+                    ssttBadge.className = sstt ? 'badge bg-warning text-dark' : 'badge bg-secondary';
+                    const activo = document.getElementById('editarEstadoIncidencia').checked;
+                    filaEditando.dataset.estado = activo ? 'Activo' : 'Inactivo';
+                    filaEditando.dataset.estadoValue = activo ? 'activo' : 'inactivo';
+                    const badge = filaEditando.querySelector('.badge-status.badge-activo, .badge-status.badge-baja');
+                    badge.textContent = filaEditando.dataset.estado;
+                    badge.className = 'badge-status ' + (activo ? 'badge-activo' : 'badge-baja');
+                }
+                bootstrap.Modal.getInstance(document.getElementById('modalEditarIncidencia')).hide();
+                alert('Tipo de incidencia actualizado correctamente (simulación).');
+            } else { form.classList.add('was-validated'); }
+        });
+        document.getElementById('filtroSeveridad').addEventListener('change', function() {
+            const filtro = this.value;
+            document.querySelectorAll('tbody tr').forEach(function(row) {
+                row.style.display = (filtro === '' || row.dataset.severidad === filtro) ? '' : 'none';
+            });
+        });
+        document.getElementById('filtroCategoria').addEventListener('change', function() {
+            const filtro = this.value;
+            document.querySelectorAll('tbody tr').forEach(function(row) {
+                row.style.display = (filtro === '' || row.dataset.categoria === filtro) ? '' : 'none';
+            });
+        });
+        document.getElementById('buscarIncidencia').addEventListener('input', function() {
+            const texto = this.value.toLowerCase();
+            document.querySelectorAll('tbody tr').forEach(function(row) {
+                const codigo = row.dataset.codigo.toLowerCase();
+                const nombre = row.dataset.nombre.toLowerCase();
+                row.style.display = (codigo.includes(texto) || nombre.includes(texto)) ? '' : 'none';
+            });
+        });
+    </script>
+</body>
+</html>

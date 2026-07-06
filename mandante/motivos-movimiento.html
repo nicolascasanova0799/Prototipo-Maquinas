@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Motivos de Movimiento — Plataforma Isstec</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="../css/styles.css" rel="stylesheet">
+    <style>
+        .pagination .page-link { color: var(--azul-primario); border: 1px solid #DEE2E6; font-weight: 500; padding: 8px 14px; }
+        .pagination .page-item.active .page-link { background-color: var(--azul-primario); border-color: var(--azul-primario); color: #FFFFFF; }
+        .pagination .page-item.disabled .page-link { color: var(--gris-medio); }
+    </style>
+</head>
+<body>
+    <div class="app-layout">
+        <nav class="sidebar">
+            <div class="sidebar-logo"><img src="../assets/img/logo.png" alt="Isstec"></div>
+            <div class="sidebar-nav">
+                <div class="nav-section">Principal</div>
+                <a href="dashboard.html" class="nav-link"><i class="bi bi-speedometer2"></i> Dashboard</a>
+                <a href="asignaciones.html" class="nav-link"><i class="bi bi-diagram-3"></i> Asignación de Equipos</a>
+                <div class="nav-section">Operación</div>
+                <a href="autorizacion-movimientos.html" class="nav-link"><i class="bi bi-shield-check"></i> Autorización de Movimientos</a>
+                <a href="consulta-inventario.html" class="nav-link"><i class="bi bi-clipboard2-data"></i> Consulta de Inventario</a>
+                <a href="trazabilidad.html" class="nav-link"><i class="bi bi-geo-alt"></i> Trazabilidad</a>
+                <div class="nav-section">Análisis</div>
+                <a href="informes.html" class="nav-link"><i class="bi bi-bar-chart"></i> Informes</a>
+                <div class="nav-section">Maestros</div>
+                <a href="maestro-equipos.html" class="nav-link"><i class="bi bi-hdd-stack"></i> Equipos</a>
+                <a href="gestores.html" class="nav-link"><i class="bi bi-people"></i> Gestores</a>
+                <a href="servicio-tecnico.html" class="nav-link"><i class="bi bi-tools"></i> Servicio Técnico</a>
+                <a href="grupo-maquinas.html" class="nav-link"><i class="bi bi-layers"></i> Grupo de Máquinas</a>
+                <a href="familia-maquinas.html" class="nav-link"><i class="bi bi-grid"></i> Familia de Máquinas</a>
+                <a href="ubicaciones-bodegas.html" class="nav-link"><i class="bi bi-geo"></i> Ubicaciones / Bodegas</a>
+                <a href="motivos-movimiento.html" class="nav-link active"><i class="bi bi-list-ul"></i> Motivos de Movimiento</a>
+                <a href="tipos-solicitud.html" class="nav-link"><i class="bi bi-file-earmark-text"></i> Tipos de Solicitud</a>
+                <a href="plantillas-inspeccion.html" class="nav-link"><i class="bi bi-clipboard2-check"></i> Plantillas de Inspección</a>
+                <a href="marcas.html" class="nav-link"><i class="bi bi-tag"></i> Marcas</a>
+                <a href="modelos.html" class="nav-link"><i class="bi bi-box"></i> Modelos</a>
+                <a href="tipos-incidencias.html" class="nav-link"><i class="bi bi-exclamation-octagon"></i> Tipos de Incidencias / Catálogo de Fallas</a>
+                <div class="nav-section">Configuración</div>
+                <a href="usuarios.html" class="nav-link"><i class="bi bi-people-fill"></i> Usuarios</a>
+                <a href="roles.html" class="nav-link"><i class="bi bi-shield-lock"></i> Roles</a>
+            </div>
+            <div class="sidebar-footer"><a href="../index.html" class="nav-link"><i class="bi bi-box-arrow-right"></i> Cerrar sesión</a></div>
+        </nav>
+
+        <div class="app-content">
+            <nav class="navbar-top">
+                <div class="navbar-left"><h2 class="page-title">Motivos de Movimiento</h2></div>
+                <div class="navbar-right">
+                    <div class="notification-icon"><i class="bi bi-bell"></i><span class="notification-badge">3</span></div>
+                    <div class="user-info">
+                        <div class="user-avatar">SV</div>
+                        <div><div class="user-name">Savory Chile</div><div class="user-role">Mandante</div></div>
+                    </div>
+                </div>
+            </nav>
+
+            <main class="app-main">
+                <div class="row mb-4">
+                    <div class="col-lg-12">
+                        <div class="d-flex justify-content-end">
+                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalAgregarMotivo">
+                                <i class="bi bi-plus-lg me-2"></i>Agregar motivo
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table table-hover align-middle">
+                                        <thead>
+                                            <tr>
+                                                <th>Código</th><th>Nombre</th><th>Descripción</th><th>Requiere aprobación</th><th>Estado</th><th class="text-end">Acciones</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr data-codigo="ASIGNACION_DISTRIBUIDOR" data-nombre="Asignación a Distribuidor" data-descripcion="Asignación de equipos desde el mandante a un distribuidor" data-aprobacion="no" data-estado="Activo" data-estado-value="activo">
+                                                <td><span class="fw-semibold">ASIGNACION_DISTRIBUIDOR</span></td>
+                                                <td>Asignación a Distribuidor</td>
+                                                <td class="text-muted">Asignación de equipos desde el mandante a un distribuidor</td>
+                                                <td><span class="badge bg-secondary">No</span></td>
+                                                <td><span class="badge-status badge-activo">Activo</span></td>
+                                                <td class="text-end"><button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modalEditarMotivo"><i class="bi bi-pencil me-1"></i>Editar</button></td>
+                                            </tr>
+                                            <tr data-codigo="ASIGNACION_CLIENTE" data-nombre="Asignación a Cliente" data-descripcion="Asignación de equipos desde el distribuidor a un cliente final" data-aprobacion="no" data-estado="Activo" data-estado-value="activo">
+                                                <td><span class="fw-semibold">ASIGNACION_CLIENTE</span></td>
+                                                <td>Asignación a Cliente</td>
+                                                <td class="text-muted">Asignación de equipos desde el distribuidor a un cliente final</td>
+                                                <td><span class="badge bg-secondary">No</span></td>
+                                                <td><span class="badge-status badge-activo">Activo</span></td>
+                                                <td class="text-end"><button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modalEditarMotivo"><i class="bi bi-pencil me-1"></i>Editar</button></td>
+                                            </tr>
+                                            <tr data-codigo="ENVIO_SSTT" data-nombre="Envío a Servicio Técnico" data-descripcion="Envío de equipo a servicio técnico para reparación" data-aprobacion="si" data-estado="Activo" data-estado-value="activo">
+                                                <td><span class="fw-semibold">ENVIO_SSTT</span></td>
+                                                <td>Envío a Servicio Técnico</td>
+                                                <td class="text-muted">Envío de equipo a servicio técnico para reparación</td>
+                                                <td><span class="badge bg-warning text-dark">Sí</span></td>
+                                                <td><span class="badge-status badge-activo">Activo</span></td>
+                                                <td class="text-end"><button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modalEditarMotivo"><i class="bi bi-pencil me-1"></i>Editar</button></td>
+                                            </tr>
+                                            <tr data-codigo="RETORNO_SSTT" data-nombre="Retorno de Servicio Técnico" data-descripcion="Retorno de equipo reparado desde servicio técnico" data-aprobacion="si" data-estado="Activo" data-estado-value="activo">
+                                                <td><span class="fw-semibold">RETORNO_SSTT</span></td>
+                                                <td>Retorno de Servicio Técnico</td>
+                                                <td class="text-muted">Retorno de equipo reparado desde servicio técnico</td>
+                                                <td><span class="badge bg-warning text-dark">Sí</span></td>
+                                                <td><span class="badge-status badge-activo">Activo</span></td>
+                                                <td class="text-end"><button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modalEditarMotivo"><i class="bi bi-pencil me-1"></i>Editar</button></td>
+                                            </tr>
+                                            <tr data-codigo="RETORNO_MANDANTE" data-nombre="Retorno al Mandante" data-descripcion="Retorno de equipo desde distribuidor al mandante" data-aprobacion="si" data-estado="Activo" data-estado-value="activo">
+                                                <td><span class="fw-semibold">RETORNO_MANDANTE</span></td>
+                                                <td>Retorno al Mandante</td>
+                                                <td class="text-muted">Retorno de equipo desde distribuidor al mandante</td>
+                                                <td><span class="badge bg-warning text-dark">Sí</span></td>
+                                                <td><span class="badge-status badge-activo">Activo</span></td>
+                                                <td class="text-end"><button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modalEditarMotivo"><i class="bi bi-pencil me-1"></i>Editar</button></td>
+                                            </tr>
+                                            <tr data-codigo="BAJA" data-nombre="Baja Definitiva" data-descripcion="Baja definitiva del equipo (requiere aprobación del mandante)" data-aprobacion="si" data-estado="Activo" data-estado-value="activo">
+                                                <td><span class="fw-semibold">BAJA</span></td>
+                                                <td>Baja Definitiva</td>
+                                                <td class="text-muted">Baja definitiva del equipo (requiere aprobación del mandante)</td>
+                                                <td><span class="badge bg-warning text-dark">Sí</span></td>
+                                                <td><span class="badge-status badge-activo">Activo</span></td>
+                                                <td class="text-end"><button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modalEditarMotivo"><i class="bi bi-pencil me-1"></i>Editar</button></td>
+                                            </tr>
+                                            <tr data-codigo="CAMBIO" data-nombre="Cambio de Equipo" data-descripcion="Reemplazo de un equipo por otro en el mismo punto de venta" data-aprobacion="si" data-estado="Activo" data-estado-value="activo">
+                                                <td><span class="fw-semibold">CAMBIO</span></td>
+                                                <td>Cambio de Equipo</td>
+                                                <td class="text-muted">Reemplazo de un equipo por otro en el mismo punto de venta</td>
+                                                <td><span class="badge bg-warning text-dark">Sí</span></td>
+                                                <td><span class="badge-status badge-activo">Activo</span></td>
+                                                <td class="text-end"><button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modalEditarMotivo"><i class="bi bi-pencil me-1"></i>Editar</button></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="d-flex justify-content-between align-items-center mt-3">
+                                    <div class="text-muted" style="font-size:13px;">Mostrando 1–7 de 7 motivos</div>
+                                    <nav aria-label="Paginación"><ul class="pagination mb-0">
+                                        <li class="page-item disabled"><a class="page-link" href="#" tabindex="-1" aria-disabled="true"><i class="bi bi-chevron-left"></i></a></li>
+                                        <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                                        <li class="page-item"><a class="page-link" href="#"><i class="bi bi-chevron-right"></i></a></li>
+                                    </ul></nav>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <div class="modal fade" id="modalAgregarMotivo" tabindex="-1" aria-labelledby="modalAgregarMotivoLabel" aria-hidden="true">
+        <div class="modal-dialog"><div class="modal-content">
+            <div class="modal-header"><h5 class="modal-title" id="modalAgregarMotivoLabel">Agregar motivo de movimiento</h5><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button></div>
+            <div class="modal-body"><form id="formAgregarMotivo" novalidate>
+                <div class="mb-3"><label for="codigoMotivo" class="form-label">Código</label><input type="text" class="form-control" id="codigoMotivo" placeholder="Ej: ENVIO_SSTT" required><div class="invalid-feedback">Ingresa el código del motivo.</div></div>
+                <div class="mb-3"><label for="nombreMotivo" class="form-label">Nombre</label><input type="text" class="form-control" id="nombreMotivo" placeholder="Ej: Envío a Servicio Técnico" required><div class="invalid-feedback">Ingresa el nombre del motivo.</div></div>
+                <div class="mb-3"><label for="descripcionMotivo" class="form-label">Descripción</label><textarea class="form-control" id="descripcionMotivo" rows="3" placeholder="Descripción del motivo de movimiento"></textarea></div>
+                <div class="mb-3 form-check form-switch"><input class="form-check-input" type="checkbox" id="aprobacionMotivo"><label class="form-check-label" for="aprobacionMotivo">Requiere aprobación del mandante</label></div>
+                <div class="mb-3 form-check form-switch"><input class="form-check-input" type="checkbox" id="estadoMotivo" checked><label class="form-check-label" for="estadoMotivo">Activo</label></div>
+            </form></div>
+            <div class="modal-footer"><button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancelar</button><button type="button" class="btn btn-primary" id="btnGuardarMotivo">Guardar</button></div>
+        </div></div>
+    </div>
+
+    <div class="modal fade" id="modalEditarMotivo" tabindex="-1" aria-labelledby="modalEditarMotivoLabel" aria-hidden="true">
+        <div class="modal-dialog"><div class="modal-content">
+            <div class="modal-header"><h5 class="modal-title" id="modalEditarMotivoLabel">Editar motivo de movimiento</h5><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button></div>
+            <div class="modal-body"><form id="formEditarMotivo" novalidate>
+                <div class="mb-3"><label for="editarCodigoMotivo" class="form-label">Código</label><input type="text" class="form-control" id="editarCodigoMotivo" required><div class="invalid-feedback">Ingresa el código del motivo.</div></div>
+                <div class="mb-3"><label for="editarNombreMotivo" class="form-label">Nombre</label><input type="text" class="form-control" id="editarNombreMotivo" required><div class="invalid-feedback">Ingresa el nombre del motivo.</div></div>
+                <div class="mb-3"><label for="editarDescripcionMotivo" class="form-label">Descripción</label><textarea class="form-control" id="editarDescripcionMotivo" rows="3"></textarea></div>
+                <div class="mb-3 form-check form-switch"><input class="form-check-input" type="checkbox" id="editarAprobacionMotivo"><label class="form-check-label" for="editarAprobacionMotivo">Requiere aprobación del mandante</label></div>
+                <div class="mb-3 form-check form-switch"><input class="form-check-input" type="checkbox" id="editarEstadoMotivo"><label class="form-check-label" for="editarEstadoMotivo">Activo</label></div>
+            </form></div>
+            <div class="modal-footer"><button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancelar</button><button type="button" class="btn btn-primary" id="btnActualizarMotivo">Guardar cambios</button></div>
+        </div></div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        let filaEditando = null;
+        document.getElementById('btnGuardarMotivo').addEventListener('click', function() {
+            const form = document.getElementById('formAgregarMotivo');
+            if (form.checkValidity()) {
+                bootstrap.Modal.getInstance(document.getElementById('modalAgregarMotivo')).hide();
+                form.reset(); form.classList.remove('was-validated');
+                alert('Motivo agregado correctamente (simulación).');
+            } else { form.classList.add('was-validated'); }
+        });
+        document.getElementById('modalAgregarMotivo').addEventListener('hidden.bs.modal', function() {
+            const form = document.getElementById('formAgregarMotivo');
+            form.reset(); form.classList.remove('was-validated');
+        });
+        document.getElementById('modalEditarMotivo').addEventListener('show.bs.modal', function(event) {
+            filaEditando = event.relatedTarget.closest('tr');
+            const d = filaEditando.dataset;
+            document.getElementById('editarCodigoMotivo').value = d.codigo;
+            document.getElementById('editarNombreMotivo').value = d.nombre;
+            document.getElementById('editarDescripcionMotivo').value = d.descripcion;
+            document.getElementById('editarAprobacionMotivo').checked = d.aprobacion === 'si';
+            document.getElementById('editarEstadoMotivo').checked = d.estadoValue === 'activo';
+        });
+        document.getElementById('modalEditarMotivo').addEventListener('hidden.bs.modal', function() {
+            const form = document.getElementById('formEditarMotivo');
+            form.reset(); form.classList.remove('was-validated'); filaEditando = null;
+        });
+        document.getElementById('btnActualizarMotivo').addEventListener('click', function() {
+            const form = document.getElementById('formEditarMotivo');
+            if (form.checkValidity()) {
+                if (filaEditando) {
+                    filaEditando.dataset.codigo = document.getElementById('editarCodigoMotivo').value;
+                    filaEditando.dataset.nombre = document.getElementById('editarNombreMotivo').value;
+                    filaEditando.dataset.descripcion = document.getElementById('editarDescripcionMotivo').value;
+                    const aprob = document.getElementById('editarAprobacionMotivo').checked;
+                    filaEditando.dataset.aprobacion = aprob ? 'si' : 'no';
+                    filaEditando.cells[0].querySelector('.fw-semibold').textContent = filaEditando.dataset.codigo;
+                    filaEditando.cells[1].textContent = filaEditando.dataset.nombre;
+                    filaEditando.cells[2].textContent = filaEditando.dataset.descripcion;
+                    const aprobBadge = filaEditando.cells[3].querySelector('.badge');
+                    aprobBadge.textContent = aprob ? 'Sí' : 'No';
+                    aprobBadge.className = aprob ? 'badge bg-warning text-dark' : 'badge bg-secondary';
+                    const activo = document.getElementById('editarEstadoMotivo').checked;
+                    filaEditando.dataset.estado = activo ? 'Activo' : 'Inactivo';
+                    filaEditando.dataset.estadoValue = activo ? 'activo' : 'inactivo';
+                    const badge = filaEditando.querySelector('.badge-status');
+                    badge.textContent = filaEditando.dataset.estado;
+                    badge.className = 'badge-status ' + (activo ? 'badge-activo' : 'badge-pendiente');
+                }
+                bootstrap.Modal.getInstance(document.getElementById('modalEditarMotivo')).hide();
+                alert('Motivo actualizado correctamente (simulación).');
+            } else { form.classList.add('was-validated'); }
+        });
+    </script>
+</body>
+</html>
