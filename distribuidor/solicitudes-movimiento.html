@@ -226,7 +226,10 @@
                 <a href="clientes.html" class="nav-link">
                     <i class="bi bi-shop"></i> Clientes
                 </a>
-                <a href="#" class="nav-link">
+                <a href="vendedores.html" class="nav-link">
+                    <i class="bi bi-person-badge"></i> Vendedores
+                </a>
+                <a href="ubicaciones-bodegas.html" class="nav-link">
                     <i class="bi bi-geo"></i> Ubicaciones / Bodegas
                 </a>
                 <div class="nav-section">Configuración</div>
@@ -274,16 +277,6 @@
 
             <!-- Main -->
             <main class="app-main">
-                <!-- ===== RN-1 Banner ===== -->
-                <div class="rn-banner">
-                    <i class="bi bi-shield-exclamation"></i>
-                    <span>
-                        <strong>RN-1:</strong> El distribuidor no puede aprobar sus propias solicitudes.
-                        Toda solicitud de baja, cambio, envío a SSTT o retorno requiere <strong>aprobación del Mandante</strong>.
-                        Solo "Solicitud de Inventario" es un proceso interno que no requiere aprobación.
-                    </span>
-                </div>
-
                 <!-- ===== KPIs ===== -->
                 <div class="row g-3 mb-4">
                     <div class="col-6 col-lg-3">
@@ -357,7 +350,6 @@
                                     <option value="Cambio de equipo">Cambio de equipo</option>
                                     <option value="Envío a SSTT">Envío a SSTT</option>
                                     <option value="Retorno al Mandante">Retorno al Mandante</option>
-                                    <option value="Solicitud de Inventario">Solicitud de Inventario</option>
                                 </select>
                             </div>
                             <div>
@@ -576,32 +568,6 @@
                                     </tr>
 
                                     <!-- Fila 8 -->
-                                    <tr data-estado="aprobada" data-tipo="Solicitud de Inventario"
-                                        data-equipo="BV-2051" data-marca="Bosch" data-modelo="KSV-36V"
-                                        data-motivo="Inventario trimestral de equipos en punto de venta."
-                                        data-fecha="10/06/2026" data-cliente="Minimarket Don Jorge"
-                                        data-ubicacion="Los Dominicos 450, Las Condes"
-                                        data-resultado="Inventario completado — 3 equipos verificados"
-                                        data-comentario-resolucion="Inventario registrado. Sin discrepancias.">
-                                        <td class="fw-semibold">SOL-0017</td>
-                                        <td>
-                                            <div class="fw-semibold">BV-2051</div>
-                                            <div class="text-muted" style="font-size: 12px;">Bosch KSV-36V</div>
-                                        </td>
-                                        <td><span class="badge-tipo">Solicitud de Inventario</span></td>
-                                        <td>10/06/2026</td>
-                                        <td><span class="badge-status badge-aprobada">Completada</span></td>
-                                        <td class="resultado-cell result-approved">Inventario completado — 3 equipos verificados</td>
-                                        <td>
-                                            <div class="action-btns-group">
-                                                <a href="#" class="action-btn action-btn-view" onclick="abrirDetalles(this); return false;">
-                                                    <i class="bi bi-eye"></i> Ver
-                                                </a>
-                                            </div>
-                                        </td>
-                                    </tr>
-
-                                    <!-- Fila 9 -->
                                     <tr data-estado="rechazada" data-tipo="Baja definitiva"
                                         data-equipo="HL-5510" data-marca="Hussmann" data-modelo="ELC-3D"
                                         data-motivo="Equipo antiguo, cliente quiere reemplazo por modelo nuevo."

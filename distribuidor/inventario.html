@@ -1,0 +1,919 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de Inventario — Plataforma Isstec</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="../css/styles.css" rel="stylesheet">
+    <style>
+        .filter-bar {
+            display: flex;
+            gap: 12px;
+            align-items: flex-end;
+            flex-wrap: wrap;
+        }
+        .filter-bar .form-control,
+        .filter-bar .form-select {
+            max-width: 220px;
+        }
+        .btn-back {
+            color: var(--gris-medio);
+            font-size: 14px;
+            font-weight: 500;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: color 0.15s;
+        }
+        .btn-back:hover { color: var(--azul-primario); }
+        .pagination .page-link {
+            color: var(--azul-primario);
+            border: 1px solid #DEE2E6;
+            font-weight: 500;
+            padding: 8px 14px;
+        }
+        .pagination .page-item.active .page-link {
+            background-color: var(--azul-primario);
+            border-color: var(--azul-primario);
+            color: #FFFFFF;
+        }
+        .pagination .page-item.disabled .page-link {
+            color: var(--gris-medio);
+        }
+        .table-inventario tbody tr {
+            cursor: pointer;
+            transition: background 0.15s;
+        }
+        .table-inventario tbody tr:hover { background: #F0F6FF; }
+        .action-btn {
+            font-size: 13px;
+            padding: 5px 12px;
+            border-radius: 6px;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            text-decoration: none;
+            transition: all 0.15s;
+        }
+        .action-btn-view {
+            background: var(--gris-claro);
+            color: var(--gris-oscuro);
+        }
+        .action-btn-view:hover {
+            background: var(--gris-oscuro);
+            color: #FFFFFF;
+        }
+        .action-btn-conteo {
+            background: rgba(0, 102, 204, 0.1);
+            color: var(--azul-primario);
+        }
+        .action-btn-conteo:hover {
+            background: var(--azul-primario);
+            color: #FFFFFF;
+        }
+        .action-btn-ajustar {
+            background: rgba(255, 107, 53, 0.1);
+            color: var(--naranja-coral);
+        }
+        .action-btn-ajustar:hover {
+            background: var(--naranja-coral);
+            color: #FFFFFF;
+        }
+        .action-btns-group {
+            display: flex;
+            gap: 4px;
+            flex-wrap: wrap;
+        }
+        .empty-state {
+            text-align: center;
+            padding: 48px 20px;
+            color: var(--gris-medio);
+        }
+        .empty-state i {
+            font-size: 48px;
+            margin-bottom: 12px;
+            color: #DEE2E6;
+        }
+        .summary-row {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        .summary-row .summary-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            padding: 10px 0;
+            border-bottom: 1px solid #EEF0F2;
+        }
+        .summary-row .summary-item:last-child {
+            border-bottom: none;
+        }
+        .summary-row .summary-label {
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--gris-medio);
+            font-weight: 600;
+        }
+        .summary-row .summary-value {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--azul-marino);
+            text-align: right;
+        }
+        .disc-badge-yes {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            font-size: 12px;
+            color: var(--naranja-coral);
+            font-weight: 600;
+        }
+        .disc-badge-no {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            font-size: 12px;
+            color: var(--verde-exito);
+            font-weight: 600;
+        }
+        .diff-positive { color: var(--verde-exito); font-weight: 600; }
+        .diff-negative { color: var(--rojo-error); font-weight: 600; }
+        .diff-zero { color: var(--gris-medio); font-weight: 600; }
+        .stat-block {
+            background: #F8F9FA;
+            border-radius: 8px;
+            padding: 16px;
+            text-align: center;
+            border: 1px solid #E9ECEF;
+        }
+        .stat-block-label {
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--gris-medio);
+            font-weight: 600;
+            margin-bottom: 6px;
+        }
+        .stat-block-value {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--azul-marino);
+            line-height: 1.2;
+        }
+    </style>
+</head>
+<body>
+    <div class="app-layout">
+        <!-- ===== Sidebar ===== -->
+        <nav class="sidebar">
+            <div class="sidebar-logo">
+                <img src="../assets/img/logo.png" alt="Isstec">
+            </div>
+            <div class="sidebar-nav">
+                <div class="nav-section">Principal</div>
+                <a href="dashboard.html" class="nav-link">
+                    <i class="bi bi-speedometer2"></i> Dashboard
+                </a>
+                <a href="recepciones.html" class="nav-link">
+                    <i class="bi bi-box-seam"></i> Recepción de Equipos
+                </a>
+                <a href="asignaciones-realizadas.html" class="nav-link">
+                    <i class="bi bi-diagram-3"></i> Asignación a Clientes
+                </a>
+                <div class="nav-section">Operación</div>
+                <a href="solicitudes-movimiento.html" class="nav-link">
+                    <i class="bi bi-arrow-left-right"></i> Solicitudes de Movimiento
+                </a>
+                <a href="inventario.html" class="nav-link active">
+                    <i class="bi bi-clipboard-check"></i> Inventario
+                </a>
+                <a href="guias-despacho.html" class="nav-link">
+                    <i class="bi bi-file-earmark-text"></i> Guías de Despacho
+                </a>
+                <div class="nav-section">Análisis</div>
+                <a href="reportes.html" class="nav-link">
+                    <i class="bi bi-bar-chart"></i> Reportes
+                </a>
+                <div class="nav-section">Maestros</div>
+                <a href="clientes.html" class="nav-link">
+                    <i class="bi bi-shop"></i> Clientes
+                </a>
+                <a href="vendedores.html" class="nav-link">
+                    <i class="bi bi-person-badge"></i> Vendedores
+                </a>
+                <a href="ubicaciones-bodegas.html" class="nav-link">
+                    <i class="bi bi-geo"></i> Ubicaciones / Bodegas
+                </a>
+                <div class="nav-section">Configuración</div>
+                <a href="usuarios.html" class="nav-link">
+                    <i class="bi bi-people-fill"></i> Usuarios
+                </a>
+                <a href="roles.html" class="nav-link">
+                    <i class="bi bi-shield-lock"></i> Roles
+                </a>
+            </div>
+            <div class="sidebar-footer">
+                <a href="../index.html" class="nav-link">
+                    <i class="bi bi-box-arrow-right"></i> Cerrar sesión
+                </a>
+            </div>
+        </nav>
+
+        <!-- ===== Contenido principal ===== -->
+        <div class="app-content">
+            <!-- Navbar superior -->
+            <nav class="navbar-top">
+                <div class="navbar-left">
+                    <a href="dashboard.html" class="btn-back">
+                        <i class="bi bi-arrow-left"></i> Volver al dashboard
+                    </a>
+                    <h2 class="page-title">Gestión de Inventario</h2>
+                </div>
+                <div class="navbar-right">
+                    <a href="solicitud-inventario.html" class="btn btn-primary btn-sm me-3">
+                        <i class="bi bi-plus-circle me-1"></i>Nueva solicitud
+                    </a>
+                    <div class="notification-icon">
+                        <i class="bi bi-bell"></i>
+                        <span class="notification-badge">5</span>
+                    </div>
+                    <div class="user-info">
+                        <div class="user-avatar">ICL</div>
+                        <div>
+                            <div class="user-name">IceFree Chile</div>
+                            <div class="user-role">Distribuidor</div>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+
+            <!-- Main -->
+            <main class="app-main">
+                <!-- ===== KPIs ===== -->
+                <div class="row g-3 mb-4">
+                    <div class="col-6 col-lg-3">
+                        <div class="kpi-card">
+                            <div class="kpi-icon bg-primary-light">
+                                <i class="bi bi-arrow-repeat"></i>
+                            </div>
+                            <div>
+                                <div class="kpi-label">En Curso</div>
+                                <div class="kpi-value">3</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6 col-lg-3">
+                        <div class="kpi-card">
+                            <div class="kpi-icon" style="background: rgba(255, 159, 67, 0.12); color: #E8950C;">
+                                <i class="bi bi-sliders"></i>
+                            </div>
+                            <div>
+                                <div class="kpi-label">En Ajuste</div>
+                                <div class="kpi-value" style="color: #E8950C;">2</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6 col-lg-3">
+                        <div class="kpi-card">
+                            <div class="kpi-icon bg-success-light">
+                                <i class="bi bi-check-circle"></i>
+                            </div>
+                            <div>
+                                <div class="kpi-label">Finalizados</div>
+                                <div class="kpi-value">7</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6 col-lg-3">
+                        <div class="kpi-card">
+                            <div class="kpi-icon" style="background: rgba(108, 117, 125, 0.1); color: var(--gris-medio);">
+                                <i class="bi bi-clipboard-data"></i>
+                            </div>
+                            <div>
+                                <div class="kpi-label">Total Solicitudes</div>
+                                <div class="kpi-value" style="color: var(--gris-medio);">12</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ===== Filtros ===== -->
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <div class="filter-bar">
+                            <div class="flex-grow-1" style="min-width: 200px;">
+                                <label class="form-label">Buscar</label>
+                                <input type="text" class="form-control" id="buscarInventario" placeholder="ID, vendedor o comuna…">
+                            </div>
+                            <div>
+                                <label class="form-label">Estado</label>
+                                <select class="form-select" id="filtroEstado">
+                                    <option value="">Todos</option>
+                                    <option value="curso">En curso</option>
+                                    <option value="ajuste">En ajuste</option>
+                                    <option value="finalizado">Finalizado</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="form-label">Desde</label>
+                                <input type="date" class="form-control" id="filtroFechaDesde">
+                            </div>
+                            <div>
+                                <label class="form-label">Hasta</label>
+                                <input type="date" class="form-control" id="filtroFechaHasta">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ===== Tabla de inventarios ===== -->
+                <div class="card">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <h5 class="card-title mb-0">
+                                <i class="bi bi-list-ul me-2"></i>Solicitudes de Inventario
+                            </h5>
+                            <a href="solicitud-inventario.html" class="btn btn-primary btn-sm">
+                                <i class="bi bi-plus-circle me-1"></i>Nueva solicitud
+                            </a>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table table-hover align-middle table-inventario" id="tablaInventario">
+                                <thead>
+                                    <tr>
+                                        <th style="width: 100px;">ID</th>
+                                        <th style="width: 110px;">Fecha</th>
+                                        <th>Vendedor(es) / Comuna</th>
+                                        <th style="width: 110px;">Estado</th>
+                                        <th class="text-center" style="width: 90px;">N° Equipos</th>
+                                        <th class="text-center" style="width: 120px;">Discrepancias</th>
+                                        <th style="width: 220px;">Acciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tbodyInventario">
+                                    <!-- En curso 1 -->
+                                    <tr data-estado="curso" data-fecha="2026-07-05">
+                                        <td class="fw-semibold">INV-0044</td>
+                                        <td>05/07/2026</td>
+                                        <td>Vendedor: Juan Pérez · Providencia</td>
+                                        <td><span class="badge-status badge-transito">En curso</span></td>
+                                        <td class="text-center">12</td>
+                                        <td class="text-center"><span class="disc-badge-no"><i class="bi bi-dash-circle"></i> —</span></td>
+                                        <td>
+                                            <div class="action-btns-group">
+                                                <a href="#" class="action-btn action-btn-view" data-bs-toggle="modal" data-bs-target="#modalDetalle" data-id="INV-0044">
+                                                    <i class="bi bi-eye"></i> Ver
+                                                </a>
+                                                <a href="registro-conteo.html" class="action-btn action-btn-conteo">
+                                                    <i class="bi bi-clipboard2-check"></i> Registrar conteo
+                                                </a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <!-- En curso 2 -->
+                                    <tr data-estado="curso" data-fecha="2026-07-03">
+                                        <td class="fw-semibold">INV-0043</td>
+                                        <td>03/07/2026</td>
+                                        <td>Vendedor: María González · Ñuñoa</td>
+                                        <td><span class="badge-status badge-transito">En curso</span></td>
+                                        <td class="text-center">8</td>
+                                        <td class="text-center"><span class="disc-badge-no"><i class="bi bi-dash-circle"></i> —</span></td>
+                                        <td>
+                                            <div class="action-btns-group">
+                                                <a href="#" class="action-btn action-btn-view" data-bs-toggle="modal" data-bs-target="#modalDetalle" data-id="INV-0043">
+                                                    <i class="bi bi-eye"></i> Ver
+                                                </a>
+                                                <a href="registro-conteo.html" class="action-btn action-btn-conteo">
+                                                    <i class="bi bi-clipboard2-check"></i> Registrar conteo
+                                                </a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <!-- En curso 3 -->
+                                    <tr data-estado="curso" data-fecha="2026-07-01">
+                                        <td class="fw-semibold">INV-0042</td>
+                                        <td>01/07/2026</td>
+                                        <td>Todos los vendedores · Macul</td>
+                                        <td><span class="badge-status badge-transito">En curso</span></td>
+                                        <td class="text-center">15</td>
+                                        <td class="text-center"><span class="disc-badge-no"><i class="bi bi-dash-circle"></i> —</span></td>
+                                        <td>
+                                            <div class="action-btns-group">
+                                                <a href="#" class="action-btn action-btn-view" data-bs-toggle="modal" data-bs-target="#modalDetalle" data-id="INV-0042">
+                                                    <i class="bi bi-eye"></i> Ver
+                                                </a>
+                                                <a href="registro-conteo.html" class="action-btn action-btn-conteo">
+                                                    <i class="bi bi-clipboard2-check"></i> Registrar conteo
+                                                </a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <!-- En ajuste 1 (con discrepancias) -->
+                                    <tr data-estado="ajuste" data-fecha="2026-06-28">
+                                        <td class="fw-semibold">INV-0041</td>
+                                        <td>28/06/2026</td>
+                                        <td>Vendedor: Carlos Soto · Santiago Centro</td>
+                                        <td><span class="badge-status badge-sstt">En ajuste</span></td>
+                                        <td class="text-center">10</td>
+                                        <td class="text-center"><span class="disc-badge-yes"><i class="bi bi-exclamation-triangle"></i> 3</span></td>
+                                        <td>
+                                            <div class="action-btns-group">
+                                                <a href="#" class="action-btn action-btn-view" data-bs-toggle="modal" data-bs-target="#modalDetalle" data-id="INV-0041">
+                                                    <i class="bi bi-eye"></i> Ver
+                                                </a>
+                                                <a href="ajuste-inventario.html" class="action-btn action-btn-ajustar">
+                                                    <i class="bi bi-sliders"></i> Ajustar
+                                                </a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <!-- Finalizado sin discrepancias 1 -->
+                                    <tr data-estado="finalizado" data-fecha="2026-06-20">
+                                        <td class="fw-semibold">INV-0040</td>
+                                        <td>20/06/2026</td>
+                                        <td>Vendedor: Juan Pérez · Providencia</td>
+                                        <td><span class="badge-status badge-activo">Finalizado</span></td>
+                                        <td class="text-center">6</td>
+                                        <td class="text-center"><span class="disc-badge-no"><i class="bi bi-check-circle"></i> 0</span></td>
+                                        <td>
+                                            <div class="action-btns-group">
+                                                <a href="#" class="action-btn action-btn-view" data-bs-toggle="modal" data-bs-target="#modalDetalle" data-id="INV-0040">
+                                                    <i class="bi bi-eye"></i> Ver
+                                                </a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <!-- En ajuste 2 (con discrepancias) -->
+                                    <tr data-estado="ajuste" data-fecha="2026-06-15">
+                                        <td class="fw-semibold">INV-0039</td>
+                                        <td>15/06/2026</td>
+                                        <td>Vendedor: Ana Rivas · La Florida</td>
+                                        <td><span class="badge-status badge-sstt">En ajuste</span></td>
+                                        <td class="text-center">9</td>
+                                        <td class="text-center"><span class="disc-badge-yes"><i class="bi bi-exclamation-triangle"></i> 2</span></td>
+                                        <td>
+                                            <div class="action-btns-group">
+                                                <a href="#" class="action-btn action-btn-view" data-bs-toggle="modal" data-bs-target="#modalDetalle" data-id="INV-0039">
+                                                    <i class="bi bi-eye"></i> Ver
+                                                </a>
+                                                <a href="ajuste-inventario.html" class="action-btn action-btn-ajustar">
+                                                    <i class="bi bi-sliders"></i> Ajustar
+                                                </a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <!-- Finalizado sin discrepancias 2 -->
+                                    <tr data-estado="finalizado" data-fecha="2026-06-08">
+                                        <td class="fw-semibold">INV-0038</td>
+                                        <td>08/06/2026</td>
+                                        <td>Todos los vendedores · Independencia</td>
+                                        <td><span class="badge-status badge-activo">Finalizado</span></td>
+                                        <td class="text-center">14</td>
+                                        <td class="text-center"><span class="disc-badge-no"><i class="bi bi-check-circle"></i> 0</span></td>
+                                        <td>
+                                            <div class="action-btns-group">
+                                                <a href="#" class="action-btn action-btn-view" data-bs-toggle="modal" data-bs-target="#modalDetalle" data-id="INV-0038">
+                                                    <i class="bi bi-eye"></i> Ver
+                                                </a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <!-- Finalizado sin discrepancias 3 -->
+                                    <tr data-estado="finalizado" data-fecha="2026-05-28">
+                                        <td class="fw-semibold">INV-0037</td>
+                                        <td>28/05/2026</td>
+                                        <td>Vendedor: María González · Ñuñoa</td>
+                                        <td><span class="badge-status badge-activo">Finalizado</span></td>
+                                        <td class="text-center">7</td>
+                                        <td class="text-center"><span class="disc-badge-no"><i class="bi bi-check-circle"></i> 0</span></td>
+                                        <td>
+                                            <div class="action-btns-group">
+                                                <a href="#" class="action-btn action-btn-view" data-bs-toggle="modal" data-bs-target="#modalDetalle" data-id="INV-0037">
+                                                    <i class="bi bi-eye"></i> Ver
+                                                </a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <!-- Finalizado con ajuste aplicado 1 -->
+                                    <tr data-estado="finalizado" data-fecha="2026-05-15">
+                                        <td class="fw-semibold">INV-0036</td>
+                                        <td>15/05/2026</td>
+                                        <td>Vendedor: Carlos Soto · San Joaquín</td>
+                                        <td><span class="badge-status badge-activo">Finalizado</span></td>
+                                        <td class="text-center">11</td>
+                                        <td class="text-center"><span class="disc-badge-no"><i class="bi bi-check-circle"></i> 0</span></td>
+                                        <td>
+                                            <div class="action-btns-group">
+                                                <a href="#" class="action-btn action-btn-view" data-bs-toggle="modal" data-bs-target="#modalDetalle" data-id="INV-0036">
+                                                    <i class="bi bi-eye"></i> Ver
+                                                </a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <!-- Finalizado sin discrepancias 4 -->
+                                    <tr data-estado="finalizado" data-fecha="2026-05-02">
+                                        <td class="fw-semibold">INV-0035</td>
+                                        <td>02/05/2026</td>
+                                        <td>Todos los vendedores · Maipú</td>
+                                        <td><span class="badge-status badge-activo">Finalizado</span></td>
+                                        <td class="text-center">18</td>
+                                        <td class="text-center"><span class="disc-badge-no"><i class="bi bi-check-circle"></i> 0</span></td>
+                                        <td>
+                                            <div class="action-btns-group">
+                                                <a href="#" class="action-btn action-btn-view" data-bs-toggle="modal" data-bs-target="#modalDetalle" data-id="INV-0035">
+                                                    <i class="bi bi-eye"></i> Ver
+                                                </a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <!-- Finalizado sin discrepancias 5 -->
+                                    <tr data-estado="finalizado" data-fecha="2026-04-20">
+                                        <td class="fw-semibold">INV-0034</td>
+                                        <td>20/04/2026</td>
+                                        <td>Vendedor: Juan Pérez · La Cisterna</td>
+                                        <td><span class="badge-status badge-activo">Finalizado</span></td>
+                                        <td class="text-center">5</td>
+                                        <td class="text-center"><span class="disc-badge-no"><i class="bi bi-check-circle"></i> 0</span></td>
+                                        <td>
+                                            <div class="action-btns-group">
+                                                <a href="#" class="action-btn action-btn-view" data-bs-toggle="modal" data-bs-target="#modalDetalle" data-id="INV-0034">
+                                                    <i class="bi bi-eye"></i> Ver
+                                                </a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <!-- Finalizado sin discrepancias 6 -->
+                                    <tr data-estado="finalizado" data-fecha="2026-04-05">
+                                        <td class="fw-semibold">INV-0033</td>
+                                        <td>05/04/2026</td>
+                                        <td>Vendedor: Ana Rivas · Lo Espejo</td>
+                                        <td><span class="badge-status badge-activo">Finalizado</span></td>
+                                        <td class="text-center">9</td>
+                                        <td class="text-center"><span class="disc-badge-no"><i class="bi bi-check-circle"></i> 0</span></td>
+                                        <td>
+                                            <div class="action-btns-group">
+                                                <a href="#" class="action-btn action-btn-view" data-bs-toggle="modal" data-bs-target="#modalDetalle" data-id="INV-0033">
+                                                    <i class="bi bi-eye"></i> Ver
+                                                </a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <!-- Empty state -->
+                        <div class="empty-state" id="emptyState" style="display: none;">
+                            <i class="bi bi-inbox"></i>
+                            <p class="mb-0">No se encontraron inventarios con los filtros seleccionados.</p>
+                        </div>
+
+                        <!-- Paginación -->
+                        <div class="d-flex justify-content-between align-items-center mt-3">
+                            <div class="text-muted" style="font-size: 13px;" id="contadorRegistros">
+                                Mostrando 12 solicitudes
+                            </div>
+                            <nav aria-label="Paginación de inventarios">
+                                <ul class="pagination mb-0">
+                                    <li class="page-item disabled">
+                                        <a class="page-link" href="#" tabindex="-1" aria-disabled="true">
+                                            <i class="bi bi-chevron-left"></i>
+                                        </a>
+                                    </li>
+                                    <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                                    <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                    <li class="page-item">
+                                        <a class="page-link" href="#">
+                                            <i class="bi bi-chevron-right"></i>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- ===== Modal: Detalle de inventario ===== -->
+    <div class="modal fade" id="modalDetalle" tabindex="-1" aria-labelledby="modalDetalleLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalDetalleLabel">
+                        <i class="bi bi-info-circle me-2"></i>Detalle de Inventario
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                </div>
+                <div class="modal-body">
+                    <!-- Datos de la solicitud -->
+                    <div class="row g-3 mb-3">
+                        <div class="col-md-6">
+                            <label class="form-label">ID Inventario</label>
+                            <p class="fw-semibold mb-0" id="detalleId">—</p>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Fecha</label>
+                            <p class="fw-semibold mb-0" id="detalleFecha">—</p>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Vendedor(es)</label>
+                            <p class="mb-0" id="detalleVendedor">—</p>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Comuna</label>
+                            <p class="mb-0" id="detalleComuna">—</p>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Estado</label>
+                            <p class="mb-0" id="detalleEstado">—</p>
+                        </div>
+                    </div>
+
+                    <!-- Resumen -->
+                    <hr>
+                    <label class="form-label">Resumen</label>
+                    <div class="row g-3">
+                        <div class="col-md-4">
+                            <div class="stat-block">
+                                <div class="stat-block-label">Equipos Esperados</div>
+                                <div class="stat-block-value" id="detalleEsperados">—</div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="stat-block">
+                                <div class="stat-block-label">Equipos Encontrados</div>
+                                <div class="stat-block-value" id="detalleEncontrados">—</div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="stat-block">
+                                <div class="stat-block-label">Discrepancias</div>
+                                <div class="stat-block-value" id="detalleDisc">—</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tabla de equipos -->
+                    <hr>
+                    <label class="form-label">Equipos del inventario</label>
+                    <div class="table-responsive">
+                        <table class="table table-sm table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>N° Serie</th>
+                                    <th>Marca</th>
+                                    <th>Modelo</th>
+                                    <th class="text-center">Inv. Sistema</th>
+                                    <th class="text-center">Inv. Físico</th>
+                                    <th class="text-center">Diferencia</th>
+                                </tr>
+                            </thead>
+                            <tbody id="detalleEquipos">
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- Paginación equipos -->
+                    <div class="d-flex justify-content-between align-items-center mt-2">
+                        <div class="text-muted" style="font-size: 13px;" id="contadorEquipos">—</div>
+                        <nav aria-label="Paginación de equipos">
+                            <ul class="pagination pagination-sm mb-0" id="pagEquipos">
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    <a href="registro-conteo.html" id="btnIrConteo" class="btn btn-primary" style="display: none;">
+                        <i class="bi bi-clipboard2-check me-2"></i>Ir a Registro de Conteo
+                    </a>
+                    <a href="ajuste-inventario.html" id="btnIrAjuste" class="btn btn-primary" style="display: none;">
+                        <i class="bi bi-sliders me-2"></i>Ir a <span id="btnIrAjusteLabel">Ajuste</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        const buscarInventario = document.getElementById('buscarInventario');
+        const filtroEstado = document.getElementById('filtroEstado');
+        const filtroFechaDesde = document.getElementById('filtroFechaDesde');
+        const filtroFechaHasta = document.getElementById('filtroFechaHasta');
+        const tbody = document.getElementById('tbodyInventario');
+        const emptyState = document.getElementById('emptyState');
+        const contadorRegistros = document.getElementById('contadorRegistros');
+        const tablaInventario = document.getElementById('tablaInventario');
+
+        function filtrar() {
+            const texto = buscarInventario.value.toLowerCase().trim();
+            const estado = filtroEstado.value;
+            const fechaDesde = filtroFechaDesde.value;
+            const fechaHasta = filtroFechaHasta.value;
+
+            let visibles = 0;
+            const filas = tbody.querySelectorAll('tr');
+
+            filas.forEach(fila => {
+                const idInv = fila.querySelector('td:nth-child(1)').textContent.toLowerCase();
+                const vendedorComuna = fila.querySelector('td:nth-child(3)').textContent.toLowerCase();
+                const filaEstado = fila.dataset.estado;
+                const filaFecha = fila.dataset.fecha;
+
+                let mostrar = true;
+
+                if (texto && !idInv.includes(texto) && !vendedorComuna.includes(texto)) {
+                    mostrar = false;
+                }
+                if (estado && filaEstado !== estado) {
+                    mostrar = false;
+                }
+                if (fechaDesde && filaFecha < fechaDesde) {
+                    mostrar = false;
+                }
+                if (fechaHasta && filaFecha > fechaHasta) {
+                    mostrar = false;
+                }
+
+                fila.style.display = mostrar ? '' : 'none';
+                if (mostrar) visibles++;
+            });
+
+            if (visibles === 0) {
+                tablaInventario.style.display = 'none';
+                emptyState.style.display = 'block';
+            } else {
+                tablaInventario.style.display = '';
+                emptyState.style.display = 'none';
+            }
+
+            contadorRegistros.textContent = `Mostrando ${visibles} solicitud${visibles !== 1 ? 'es' : ''}`;
+        }
+
+        buscarInventario.addEventListener('input', filtrar);
+        filtroEstado.addEventListener('change', filtrar);
+        filtroFechaDesde.addEventListener('change', filtrar);
+        filtroFechaHasta.addEventListener('change', filtrar);
+
+        // ===== Modal detalle: cargar datos de la fila =====
+        const modalDetalle = document.getElementById('modalDetalle');
+        modalDetalle.addEventListener('show.bs.modal', function(event) {
+            const trigger = event.relatedTarget;
+            const id = trigger.dataset.id;
+            const fila = Array.from(tbody.querySelectorAll('tr')).find(tr =>
+                tr.querySelector('.fw-semibold')?.textContent === id
+            );
+            if (!fila) return;
+
+            const tds = fila.querySelectorAll('td');
+            const vendedorComunaText = tds[2].textContent.trim();
+            const parts = vendedorComunaText.split(' · ');
+            const vendedor = parts[0] || '—';
+            const comuna = parts[1] || '—';
+            const estadoFila = fila.dataset.estado;
+            const count = parseInt(tds[4].textContent) || 0;
+            const discText = tds[5].textContent.trim();
+            const discCount = parseInt(discText) || 0;
+
+            document.getElementById('detalleId').textContent = id;
+            document.getElementById('detalleFecha').textContent = tds[1].textContent.trim();
+            document.getElementById('detalleVendedor').textContent = vendedor;
+            document.getElementById('detalleComuna').textContent = comuna;
+            document.getElementById('detalleEstado').innerHTML = tds[2].previousElementSibling
+                ? fila.querySelector('.badge-status')?.outerHTML || '—'
+                : '—';
+
+            // Re-obtener badge correctamente
+            const badgeEl = fila.querySelector('.badge-status');
+            document.getElementById('detalleEstado').innerHTML = badgeEl ? badgeEl.outerHTML : '—';
+
+            // Resumen
+            document.getElementById('detalleEsperados').textContent = count;
+            if (estadoFila === 'curso') {
+                document.getElementById('detalleEncontrados').textContent = '—';
+                document.getElementById('detalleDisc').textContent = '—';
+            } else {
+                document.getElementById('detalleEncontrados').textContent = count - discCount;
+                document.getElementById('detalleDisc').textContent = discCount;
+            }
+
+            // Texto del botón de ajuste según estado
+            const btnIrAjusteLabel = document.getElementById('btnIrAjusteLabel');
+
+            // Botones de acción del modal
+            const btnIrConteo = document.getElementById('btnIrConteo');
+            const btnIrAjuste = document.getElementById('btnIrAjuste');
+            btnIrConteo.style.display = 'none';
+            btnIrAjuste.style.display = 'none';
+
+            if (estadoFila === 'curso') {
+                btnIrConteo.style.display = 'inline-flex';
+            } else if (estadoFila === 'ajuste') {
+                btnIrAjuste.style.display = 'inline-flex';
+                if (btnIrAjusteLabel) btnIrAjusteLabel.textContent = 'Ajuste';
+            }
+
+            // Tabla de equipos simulados con paginación
+            const brands = ['Savory', 'Foster', 'Indel B', 'Vitrifrigo', 'Tecfrigo'];
+            const models = ['VRX-200', 'Chest 400L', 'Countertop 150', 'Upright 700', 'Island 1200'];
+            const equiposData = [];
+            for (let i = 0; i < count; i++) {
+                const serie = 'SVY-' + String(1000 + i * 7 + (i * 13 % 97));
+                const marca = brands[i % brands.length];
+                const modelo = models[i % models.length];
+                let invSistema = 1;
+                let invFisico = '—';
+                let diffClass = 'diff-zero';
+                let diffText = '—';
+
+                if (estadoFila === 'finalizado' || estadoFila === 'ajuste') {
+                    invFisico = invSistema;
+                    diffText = '0';
+                    if (i < discCount) {
+                        const delta = (i % 2 === 0) ? -1 : 1;
+                        invFisico = invSistema + delta;
+                        diffText = (delta > 0 ? '+' : '') + delta;
+                        diffClass = delta > 0 ? 'diff-positive' : 'diff-negative';
+                    }
+                }
+                equiposData.push({ serie, marca, modelo, invSistema, invFisico, diffClass, diffText });
+            }
+
+            const perPage = 5;
+            let currentPage = 1;
+            const totalPages = Math.ceil(equiposData.length / perPage);
+            const tbodyEquipos = document.getElementById('detalleEquipos');
+            const contadorEquipos = document.getElementById('contadorEquipos');
+            const pagEquipos = document.getElementById('pagEquipos');
+
+            function renderPage(page) {
+                currentPage = page;
+                const start = (page - 1) * perPage;
+                const end = Math.min(start + perPage, equiposData.length);
+                let html = '';
+                for (let i = start; i < end; i++) {
+                    const eq = equiposData[i];
+                    html += `<tr>
+                        <td class="fw-semibold">${eq.serie}</td>
+                        <td>${eq.marca}</td>
+                        <td>${eq.modelo}</td>
+                        <td class="text-center">${eq.invSistema}</td>
+                        <td class="text-center">${eq.invFisico}</td>
+                        <td class="text-center ${eq.diffClass}">${eq.diffText}</td>
+                    </tr>`;
+                }
+                tbodyEquipos.innerHTML = html;
+                contadorEquipos.textContent = `Mostrando ${start + 1}–${end} de ${equiposData.length} equipos`;
+                renderPagination();
+            }
+
+            function renderPagination() {
+                let html = '';
+                html += `<li class="page-item ${currentPage === 1 ? 'disabled' : ''}">
+                    <a class="page-link" href="#" tabindex="${currentPage === 1 ? '-1' : '0'}" aria-disabled="${currentPage === 1}"><i class="bi bi-chevron-left"></i></a>
+                </li>`;
+                for (let p = 1; p <= totalPages; p++) {
+                    html += `<li class="page-item ${p === currentPage ? 'active' : ''}"><a class="page-link" href="#">${p}</a></li>`;
+                }
+                html += `<li class="page-item ${currentPage === totalPages ? 'disabled' : ''}">
+                    <a class="page-link" href="#" tabindex="${currentPage === totalPages ? '-1' : '0'}" aria-disabled="${currentPage === totalPages}"><i class="bi bi-chevron-right"></i></a>
+                </li>`;
+                pagEquipos.innerHTML = html;
+
+                pagEquipos.querySelectorAll('a.page-link').forEach(link => {
+                    link.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        if (this.parentElement.classList.contains('disabled')) return;
+                        const text = this.textContent.trim();
+                        if (text.includes('chevron-left') || this.querySelector('.bi-chevron-left')) {
+                            if (currentPage > 1) renderPage(currentPage - 1);
+                        } else if (text.includes('chevron-right') || this.querySelector('.bi-chevron-right')) {
+                            if (currentPage < totalPages) renderPage(currentPage + 1);
+                        } else {
+                            renderPage(parseInt(text) || 1);
+                        }
+                    });
+                });
+            }
+
+            if (equiposData.length > 0) {
+                renderPage(1);
+            } else {
+                tbodyEquipos.innerHTML = '<tr><td colspan="6" class="text-center text-muted">Sin equipos</td></tr>';
+                contadorEquipos.textContent = '0 equipos';
+                pagEquipos.innerHTML = '';
+            }
+        });
+    </script>
+</body>
+</html>

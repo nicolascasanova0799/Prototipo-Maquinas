@@ -237,7 +237,10 @@
                 <a href="clientes.html" class="nav-link">
                     <i class="bi bi-shop"></i> Clientes
                 </a>
-                <a href="#" class="nav-link">
+                <a href="vendedores.html" class="nav-link">
+                    <i class="bi bi-person-badge"></i> Vendedores
+                </a>
+                <a href="ubicaciones-bodegas.html" class="nav-link">
                     <i class="bi bi-geo"></i> Ubicaciones / Bodegas
                 </a>
                 <div class="nav-section">Configuración</div>
@@ -282,16 +285,6 @@
 
             <!-- Main -->
             <main class="app-main">
-                <!-- ===== RN-1 Banner ===== -->
-                <div class="rn-banner">
-                    <i class="bi bi-shield-exclamation"></i>
-                    <span>
-                        <strong>RN-1:</strong> El distribuidor no puede aprobar sus propias solicitudes.
-                        Toda solicitud de baja, cambio, envío a SSTT o retorno requiere <strong>aprobación del Mandante</strong>.
-                        Solo "Solicitud de Inventario" es un proceso interno que no requiere aprobación.
-                    </span>
-                </div>
-
                 <!-- ===== Formulario ===== -->
                 <div class="card">
                     <div class="card-body">
@@ -364,7 +357,6 @@
                                     <option value="Cambio de equipo">Cambio de equipo</option>
                                     <option value="Envío a SSTT">Envío a SSTT</option>
                                     <option value="Retorno al Mandante">Retorno al Mandante</option>
-                                    <option value="Solicitud de Inventario">Solicitud de Inventario</option>
                                 </select>
                                 <div class="form-text" id="tipoHelp" style="font-size: 12px;">
                                     Los tipos de solicitud son estandarizados por el Mandante (MAN-18).
@@ -553,8 +545,7 @@
                 'Baja definitiva': 'El equipo será dado de baja del sistema. Requiere aprobación del Mandante.',
                 'Cambio de equipo': 'Solicita reemplazar el equipo actual por otro. Requiere aprobación del Mandante.',
                 'Envío a SSTT': 'El equipo será enviado a Servicio Técnico para reparación. Requiere aprobación del Mandante.',
-                'Retorno al Mandante': 'El equipo retorna a la bodega del Mandante. Requiere aprobación del Mandante.',
-                'Solicitud de Inventario': 'Proceso interno de toma de inventario. No requiere aprobación del Mandante.'
+                'Retorno al Mandante': 'El equipo retorna a la bodega del Mandante. Requiere aprobación del Mandante.'
             };
             help.textContent = tips[select.value] || 'Los tipos de solicitud son estandarizados por el Mandante (MAN-18).';
         }
@@ -623,11 +614,7 @@
             document.getElementById('confirmEquipo').textContent = equipoSeleccionado.serial + ' (' + equipoSeleccionado.marca + ' ' + equipoSeleccionado.modelo + ')';
             document.getElementById('confirmTipo').textContent = tipo;
             var info = document.getElementById('confirmInfo');
-            if (tipo === 'Solicitud de Inventario') {
-                info.textContent = 'La solicitud de inventario es un proceso interno. No requiere aprobación del Mandante.';
-            } else {
-                info.textContent = 'La solicitud será enviada al Mandante (Savory Chile) para su revisión y aprobación. No podrá modificarla una vez enviada.';
-            }
+            info.textContent = 'La solicitud será enviada al Mandante (Savory Chile) para su revisión y aprobación. No podrá modificarla una vez enviada.';
             var modal = new bootstrap.Modal(document.getElementById('modalConfirmar'));
             modal.show();
         });

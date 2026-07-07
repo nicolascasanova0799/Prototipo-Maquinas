@@ -1,0 +1,1379 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guías de Despacho — Plataforma Isstec</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="../css/styles.css" rel="stylesheet">
+    <style>
+        .filter-bar {
+            display: flex;
+            gap: 12px;
+            align-items: flex-end;
+            flex-wrap: wrap;
+        }
+        .filter-bar .form-control,
+        .filter-bar .form-select {
+            max-width: 220px;
+        }
+        .btn-back {
+            color: var(--gris-medio);
+            font-size: 14px;
+            font-weight: 500;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: color 0.15s;
+        }
+        .btn-back:hover { color: var(--azul-primario); }
+        .pagination .page-link {
+            color: var(--azul-primario);
+            border: 1px solid #DEE2E6;
+            font-weight: 500;
+            padding: 8px 14px;
+        }
+        .pagination .page-item.active .page-link {
+            background-color: var(--azul-primario);
+            border-color: var(--azul-primario);
+            color: #FFFFFF;
+        }
+        .pagination .page-item.disabled .page-link {
+            color: var(--gris-medio);
+        }
+        .table-guias tbody tr {
+            transition: background 0.15s;
+        }
+        .table-guias tbody tr:hover { background: #F0F6FF; }
+        .action-btn {
+            font-size: 13px;
+            padding: 5px 12px;
+            border-radius: 6px;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            text-decoration: none;
+            transition: all 0.15s;
+        }
+        .action-btn-view {
+            background: var(--gris-claro);
+            color: var(--gris-oscuro);
+        }
+        .action-btn-view:hover {
+            background: var(--gris-oscuro);
+            color: #FFFFFF;
+        }
+        .action-btn-upload {
+            background: rgba(255, 107, 53, 0.1);
+            color: var(--naranja-coral);
+        }
+        .action-btn-upload:hover {
+            background: var(--naranja-coral);
+            color: #FFFFFF;
+        }
+        .action-btn-download {
+            background: rgba(40, 167, 69, 0.1);
+            color: var(--verde-exito);
+        }
+        .action-btn-download:hover {
+            background: var(--verde-exito);
+            color: #FFFFFF;
+        }
+        .action-btns-group {
+            display: flex;
+            gap: 4px;
+            flex-wrap: wrap;
+        }
+        .empty-state {
+            text-align: center;
+            padding: 48px 20px;
+            color: var(--gris-medio);
+        }
+        .empty-state i {
+            font-size: 48px;
+            margin-bottom: 12px;
+            color: #DEE2E6;
+        }
+        .badge-gd-auto {
+            background: var(--verde-exito);
+            color: #FFFFFF;
+        }
+        .badge-gd-pdf {
+            background: var(--naranja-coral);
+            color: #FFFFFF;
+        }
+        .badge-gd-pending {
+            background: var(--gris-medio);
+            color: #FFFFFF;
+        }
+        .tipo-recepcion {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 13px;
+            color: var(--azul-marino);
+            font-weight: 600;
+        }
+        .tipo-recepcion i { color: var(--azul-primario); }
+        .tipo-despacho {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 13px;
+            color: var(--azul-marino);
+            font-weight: 600;
+        }
+        .tipo-despacho i { color: var(--naranja-coral); }
+        .rn-note {
+            background: rgba(0, 102, 204, 0.06);
+            border-left: 3px solid var(--azul-primario);
+            border-radius: 0 6px 6px 0;
+            padding: 12px 16px;
+            font-size: 13px;
+            color: var(--gris-oscuro);
+            line-height: 1.5;
+        }
+        .rn-note strong {
+            color: var(--azul-marino);
+        }
+        .file-upload-area {
+            border: 2px dashed #DEE2E6;
+            border-radius: 8px;
+            padding: 28px 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: border-color 0.15s, background 0.15s;
+        }
+        .file-upload-area:hover {
+            border-color: var(--azul-primario);
+            background: rgba(0, 102, 204, 0.03);
+        }
+        .file-upload-area i {
+            font-size: 36px;
+            color: var(--gris-medio);
+            margin-bottom: 8px;
+        }
+        .file-upload-area .upload-text {
+            font-size: 14px;
+            color: var(--gris-oscuro);
+            font-weight: 600;
+        }
+        .file-upload-area .upload-hint {
+            font-size: 12px;
+            color: var(--gris-medio);
+            margin-top: 4px;
+        }
+        .file-upload-area.has-file {
+            border-color: var(--verde-exito);
+            background: rgba(40, 167, 69, 0.04);
+        }
+        .file-upload-area.has-file i {
+            color: var(--verde-exito);
+        }
+        .file-name {
+            font-size: 13px;
+            color: var(--gris-oscuro);
+            font-weight: 600;
+            margin-top: 8px;
+            word-break: break-all;
+        }
+        .summary-row {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        .summary-row .summary-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            padding: 10px 0;
+            border-bottom: 1px solid #EEF0F2;
+        }
+        .summary-row .summary-item:last-child {
+            border-bottom: none;
+        }
+        .summary-row .summary-label {
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--gris-medio);
+            font-weight: 600;
+        }
+        .summary-row .summary-value {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--azul-marino);
+            text-align: right;
+        }
+        .doc-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 14px;
+            color: var(--azul-primario);
+            text-decoration: none;
+            font-weight: 600;
+        }
+        .doc-link:hover { text-decoration: underline; }
+    </style>
+</head>
+<body>
+    <div class="app-layout">
+        <!-- ===== Sidebar ===== -->
+        <nav class="sidebar">
+            <div class="sidebar-logo">
+                <img src="../assets/img/logo.png" alt="Isstec">
+            </div>
+            <div class="sidebar-nav">
+                <div class="nav-section">Principal</div>
+                <a href="dashboard.html" class="nav-link">
+                    <i class="bi bi-speedometer2"></i> Dashboard
+                </a>
+                <a href="asignaciones.html" class="nav-link">
+                    <i class="bi bi-diagram-3"></i> Asignación de Equipos
+                </a>
+                <div class="nav-section">Operación</div>
+                <a href="autorizacion-movimientos.html" class="nav-link">
+                    <i class="bi bi-shield-check"></i> Autorización de Movimientos
+                </a>
+                <a href="consulta-inventario.html" class="nav-link">
+                    <i class="bi bi-clipboard2-data"></i> Consulta de Inventario
+                </a>
+                <a href="trazabilidad.html" class="nav-link">
+                    <i class="bi bi-geo-alt"></i> Trazabilidad
+                </a>
+                <a href="guias-despacho.html" class="nav-link active">
+                    <i class="bi bi-file-earmark-text"></i> Guías de Despacho
+                </a>
+                <div class="nav-section">Análisis</div>
+                <a href="informes.html" class="nav-link">
+                    <i class="bi bi-bar-chart"></i> Informes
+                </a>
+                <div class="nav-section">Maestros</div>
+                <a href="maestro-equipos.html" class="nav-link">
+                    <i class="bi bi-hdd-stack"></i> Equipos
+                </a>
+                <a href="gestores.html" class="nav-link">
+                    <i class="bi bi-people"></i> Gestores
+                </a>
+                <a href="servicio-tecnico.html" class="nav-link">
+                    <i class="bi bi-tools"></i> Servicio Técnico
+                </a>
+                <a href="grupo-maquinas.html" class="nav-link">
+                    <i class="bi bi-layers"></i> Grupo de Máquinas
+                </a>
+                <a href="familia-maquinas.html" class="nav-link">
+                    <i class="bi bi-grid"></i> Familia de Máquinas
+                </a>
+                <a href="ubicaciones-bodegas.html" class="nav-link">
+                    <i class="bi bi-geo"></i> Ubicaciones / Bodegas
+                </a>
+                <a href="motivos-movimiento.html" class="nav-link">
+                    <i class="bi bi-list-ul"></i> Motivos de Movimiento
+                </a>
+                <a href="tipos-solicitud.html" class="nav-link">
+                    <i class="bi bi-file-earmark-text"></i> Tipos de Solicitud
+                </a>
+                <a href="plantillas-inspeccion.html" class="nav-link">
+                    <i class="bi bi-clipboard2-check"></i> Plantillas de Inspección
+                </a>
+                <a href="marcas.html" class="nav-link">
+                    <i class="bi bi-tag"></i> Marcas
+                </a>
+                <a href="modelos.html" class="nav-link">
+                    <i class="bi bi-box"></i> Modelos
+                </a>
+                <a href="tipos-incidencias.html" class="nav-link">
+                    <i class="bi bi-exclamation-octagon"></i> Tipos de Incidencias / Catálogo de Fallas
+                </a>
+                <div class="nav-section">Configuración</div>
+                <a href="usuarios.html" class="nav-link">
+                    <i class="bi bi-people-fill"></i> Usuarios
+                </a>
+                <a href="roles.html" class="nav-link">
+                    <i class="bi bi-shield-lock"></i> Roles
+                </a>
+            </div>
+            <div class="sidebar-footer">
+                <a href="../index.html" class="nav-link">
+                    <i class="bi bi-box-arrow-right"></i> Cerrar sesión
+                </a>
+            </div>
+        </nav>
+
+        <!-- ===== Contenido principal ===== -->
+        <div class="app-content">
+            <!-- Navbar superior -->
+            <nav class="navbar-top">
+                <div class="navbar-left">
+                    <a href="dashboard.html" class="btn-back">
+                        <i class="bi bi-arrow-left"></i> Volver
+                    </a>
+                    <h2 class="page-title">Guías de Despacho</h2>
+                </div>
+                <div class="navbar-right">
+                    <div class="notification-icon">
+                        <i class="bi bi-bell"></i>
+                        <span class="notification-badge">3</span>
+                    </div>
+                    <div class="user-info">
+                        <div class="user-avatar">SV</div>
+                        <div>
+                            <div class="user-name">Savory Chile</div>
+                            <div class="user-role">Mandante</div>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+
+            <!-- Main -->
+            <main class="app-main">
+                <!-- ===== Nota RN-16 =====
+                <div class="rn-note mb-4">
+                    <strong><i class="bi bi-info-circle me-1"></i>Nota de negocio (RN-16):</strong>
+                    Como Mandante, Savory siempre adjunta el PDF de la Guía de Despacho manualmente al asignar equipos a un distribuidor (§2.4). La generación automática solo aplica a distribuidores con sistema Isstec para los despachos a cliente final. Esta pantalla consolida todas las guías del flujo: las de recepción (Mandante → Distribuidor, adjuntadas por Savory) y las de despacho (Distribuidor → Cliente, generadas o adjuntadas por cada distribuidor).
+                </div>
+                -->
+
+                <!-- ===== KPIs ===== -->
+                <div class="row g-3 mb-4">
+                    <div class="col-6 col-lg-3">
+                        <div class="kpi-card">
+                            <div class="kpi-icon bg-primary-light">
+                                <i class="bi bi-file-earmark-text"></i>
+                            </div>
+                            <div>
+                                <div class="kpi-label">Total GD</div>
+                                <div class="kpi-value">18</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6 col-lg-3">
+                        <div class="kpi-card">
+                            <div class="kpi-icon bg-warning-light">
+                                <i class="bi bi-file-earmark-pdf"></i>
+                            </div>
+                            <div>
+                                <div class="kpi-label">PDF adjuntos (por Mandante)</div>
+                                <div class="kpi-value" style="color: var(--naranja-coral);">8</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6 col-lg-3">
+                        <div class="kpi-card">
+                            <div class="kpi-icon bg-success-light">
+                                <i class="bi bi-file-earmark-check"></i>
+                            </div>
+                            <div>
+                                <div class="kpi-label">Generadas por distribuidores</div>
+                                <div class="kpi-value" style="color: var(--verde-exito);">7</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6 col-lg-3">
+                        <div class="kpi-card">
+                            <div class="kpi-icon" style="background: rgba(108, 117, 125, 0.1); color: var(--gris-medio);">
+                                <i class="bi bi-clock"></i>
+                            </div>
+                            <div>
+                                <div class="kpi-label">Pendientes</div>
+                                <div class="kpi-value" style="color: var(--gris-medio);">3</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ===== Filtros ===== -->
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <div class="filter-bar">
+                            <div class="flex-grow-1" style="min-width: 200px;">
+                                <label class="form-label">Buscar</label>
+                                <input type="text" class="form-control" id="buscarGD" placeholder="N° GD, N° asignación, cliente o distribuidor…">
+                            </div>
+                            <div>
+                                <label class="form-label">Tipo</label>
+                                <select class="form-select" id="filtroTipo">
+                                    <option value="">Todos</option>
+                                    <option value="recepcion">Recepción (Mandante → Distribuidor)</option>
+                                    <option value="despacho">Despacho (Distribuidor → Cliente)</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="form-label">Distribuidor</label>
+                                <select class="form-select" id="filtroDistribuidor">
+                                    <option value="">Todos</option>
+                                    <option value="icefree">IceFree Chile</option>
+                                    <option value="friosur">FríoSur</option>
+                                    <option value="coldtech">ColdTech</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="form-label">Estado</label>
+                                <select class="form-select" id="filtroEstado">
+                                    <option value="">Todos</option>
+                                    <option value="auto">Generada automáticamente</option>
+                                    <option value="pdf">PDF adjunto</option>
+                                    <option value="pendiente">Pendiente</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="form-label">Desde</label>
+                                <input type="date" class="form-control" id="filtroFechaDesde">
+                            </div>
+                            <div>
+                                <label class="form-label">Hasta</label>
+                                <input type="date" class="form-control" id="filtroFechaHasta">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ===== Tabla de Guías de Despacho ===== -->
+                <div class="card">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <h5 class="card-title mb-0">
+                                <i class="bi bi-list-ul me-2"></i>Guías de Despacho — Consolidado
+                            </h5>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table table-hover align-middle table-guias" id="tablaGuias">
+                                <thead>
+                                    <tr>
+                                        <th style="width: 130px;">N° GD</th>
+                                        <th style="width: 170px;">Tipo</th>
+                                        <th>Distribuidor</th>
+                                        <th>Origen</th>
+                                        <th>Destino</th>
+                                        <th class="text-center" style="width: 70px;">Equipos</th>
+                                        <th style="width: 100px;">Fecha</th>
+                                        <th style="width: 150px;">Estado</th>
+                                        <th style="width: 200px;">Acciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tbodyGuias">
+                                    <!-- Recepción IceFree — PDF adjunto -->
+                                    <tr data-tipo="recepcion" data-estado="pdf" data-distribuidor="icefree" data-fecha="2026-07-02" data-buscar="GD-REC-0042 REC-0042 savory icefree chile">
+                                        <td class="fw-semibold">GD-REC-0042</td>
+                                        <td><span class="tipo-recepcion"><i class="bi bi-box-arrow-in-down"></i> Recepción Mandante→Distribuidor</span></td>
+                                        <td>IceFree Chile</td>
+                                        <td>Savory (Mandante)</td>
+                                        <td>IceFree Chile</td>
+                                        <td class="text-center">50</td>
+                                        <td>02/07/2026</td>
+                                        <td><span class="badge-status badge-gd-pdf">PDF adjunto</span></td>
+                                        <td>
+                                            <div class="action-btns-group">
+                                                <a href="#" class="action-btn action-btn-view" data-bs-toggle="modal" data-bs-target="#modalDetalle" data-id="GD-REC-0042">
+                                                    <i class="bi bi-eye"></i> Ver
+                                                </a>
+                                                <a href="#" class="action-btn action-btn-download" data-bs-toggle="modal" data-bs-target="#modalDescargar" data-id="GD-REC-0042">
+                                                    <i class="bi bi-download"></i> Descargar
+                                                </a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <!-- Recepción FríoSur — PDF adjunto -->
+                                    <tr data-tipo="recepcion" data-estado="pdf" data-distribuidor="friosur" data-fecha="2026-06-28" data-buscar="GD-REC-0041 REC-0041 savory friosur">
+                                        <td class="fw-semibold">GD-REC-0041</td>
+                                        <td><span class="tipo-recepcion"><i class="bi bi-box-arrow-in-down"></i> Recepción Mandante→Distribuidor</span></td>
+                                        <td>FríoSur</td>
+                                        <td>Savory (Mandante)</td>
+                                        <td>FríoSur</td>
+                                        <td class="text-center">30</td>
+                                        <td>28/06/2026</td>
+                                        <td><span class="badge-status badge-gd-pdf">PDF adjunto</span></td>
+                                        <td>
+                                            <div class="action-btns-group">
+                                                <a href="#" class="action-btn action-btn-view" data-bs-toggle="modal" data-bs-target="#modalDetalle" data-id="GD-REC-0041">
+                                                    <i class="bi bi-eye"></i> Ver
+                                                </a>
+                                                <a href="#" class="action-btn action-btn-download" data-bs-toggle="modal" data-bs-target="#modalDescargar" data-id="GD-REC-0041">
+                                                    <i class="bi bi-download"></i> Descargar
+                                                </a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <!-- Recepción ColdTech — Pendiente (Savory debe adjuntar PDF) -->
+                                    <tr data-tipo="recepcion" data-estado="pendiente" data-distribuidor="coldtech" data-fecha="2026-07-05" data-buscar="ASG-M-0088 coldtech savory pendiente">
+                                        <td class="fw-semibold text-muted">—</td>
+                                        <td><span class="tipo-recepcion"><i class="bi bi-box-arrow-in-down"></i> Recepción Mandante→Distribuidor</span></td>
+                                        <td>ColdTech</td>
+                                        <td>Savory (Mandante)</td>
+                                        <td>ColdTech</td>
+                                        <td class="text-center">20</td>
+                                        <td>05/07/2026</td>
+                                        <td><span class="badge-status badge-gd-pending">Pendiente</span></td>
+                                        <td>
+                                            <div class="action-btns-group">
+                                                <a href="#" class="action-btn action-btn-view" data-bs-toggle="modal" data-bs-target="#modalDetalle" data-id="ASG-M-0088">
+                                                    <i class="bi bi-eye"></i> Ver
+                                                </a>
+                                                <a href="#" class="action-btn action-btn-upload" data-bs-toggle="modal" data-bs-target="#modalSubirPDF" data-id="ASG-M-0088" data-cliente="ColdTech" data-tipo="recepcion">
+                                                    <i class="bi bi-upload"></i> Subir PDF
+                                                </a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <!-- Recepción IceFree — Pendiente -->
+                                    <tr data-tipo="recepcion" data-estado="pendiente" data-distribuidor="icefree" data-fecha="2026-07-04" data-buscar="ASG-M-0089 icefree savory pendiente">
+                                        <td class="fw-semibold text-muted">—</td>
+                                        <td><span class="tipo-recepcion"><i class="bi bi-box-arrow-in-down"></i> Recepción Mandante→Distribuidor</span></td>
+                                        <td>IceFree Chile</td>
+                                        <td>Savory (Mandante)</td>
+                                        <td>IceFree Chile</td>
+                                        <td class="text-center">15</td>
+                                        <td>04/07/2026</td>
+                                        <td><span class="badge-status badge-gd-pending">Pendiente</span></td>
+                                        <td>
+                                            <div class="action-btns-group">
+                                                <a href="#" class="action-btn action-btn-view" data-bs-toggle="modal" data-bs-target="#modalDetalle" data-id="ASG-M-0089">
+                                                    <i class="bi bi-eye"></i> Ver
+                                                </a>
+                                                <a href="#" class="action-btn action-btn-upload" data-bs-toggle="modal" data-bs-target="#modalSubirPDF" data-id="ASG-M-0089" data-cliente="IceFree Chile" data-tipo="recepcion">
+                                                    <i class="bi bi-upload"></i> Subir PDF
+                                                </a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <!-- Recepción ColdTech — PDF adjunto -->
+                                    <tr data-tipo="recepcion" data-estado="pdf" data-distribuidor="coldtech" data-fecha="2026-05-10" data-buscar="GD-REC-0040 REC-0040 savory coldtech">
+                                        <td class="fw-semibold">GD-REC-0040</td>
+                                        <td><span class="tipo-recepcion"><i class="bi bi-box-arrow-in-down"></i> Recepción Mandante→Distribuidor</span></td>
+                                        <td>ColdTech</td>
+                                        <td>Savory (Mandante)</td>
+                                        <td>ColdTech</td>
+                                        <td class="text-center">25</td>
+                                        <td>10/05/2026</td>
+                                        <td><span class="badge-status badge-gd-pdf">PDF adjunto</span></td>
+                                        <td>
+                                            <div class="action-btns-group">
+                                                <a href="#" class="action-btn action-btn-view" data-bs-toggle="modal" data-bs-target="#modalDetalle" data-id="GD-REC-0040">
+                                                    <i class="bi bi-eye"></i> Ver
+                                                </a>
+                                                <a href="#" class="action-btn action-btn-download" data-bs-toggle="modal" data-bs-target="#modalDescargar" data-id="GD-REC-0040">
+                                                    <i class="bi bi-download"></i> Descargar
+                                                </a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <!-- Despacho IceFree — Pendiente (gestionado por el distribuidor) -->
+                                    <tr data-tipo="despacho" data-estado="pendiente" data-distribuidor="icefree" data-fecha="2026-07-04" data-buscar="ASG-C-0156 icefree minimarket don eduardo">
+                                        <td class="fw-semibold text-muted">—</td>
+                                        <td><span class="tipo-despacho"><i class="bi bi-box-arrow-up-right"></i> Despacho Distribuidor→Cliente</span></td>
+                                        <td>IceFree Chile</td>
+                                        <td>IceFree Chile</td>
+                                        <td>Minimarket Don Eduardo</td>
+                                        <td class="text-center">2</td>
+                                        <td>04/07/2026</td>
+                                        <td><span class="badge-status badge-gd-pending">Pendiente</span></td>
+                                        <td>
+                                            <div class="action-btns-group">
+                                                <a href="#" class="action-btn action-btn-view" data-bs-toggle="modal" data-bs-target="#modalDetalle" data-id="ASG-C-0156">
+                                                    <i class="bi bi-eye"></i> Ver
+                                                </a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <!-- Despacho IceFree — Pendiente 2 -->
+                                    <tr data-tipo="despacho" data-estado="pendiente" data-distribuidor="icefree" data-fecha="2026-07-03" data-buscar="ASG-C-0155 icefree almacen estrella">
+                                        <td class="fw-semibold text-muted">—</td>
+                                        <td><span class="tipo-despacho"><i class="bi bi-box-arrow-up-right"></i> Despacho Distribuidor→Cliente</span></td>
+                                        <td>IceFree Chile</td>
+                                        <td>IceFree Chile</td>
+                                        <td>Almacén Estrella</td>
+                                        <td class="text-center">1</td>
+                                        <td>03/07/2026</td>
+                                        <td><span class="badge-status badge-gd-pending">Pendiente</span></td>
+                                        <td>
+                                            <div class="action-btns-group">
+                                                <a href="#" class="action-btn action-btn-view" data-bs-toggle="modal" data-bs-target="#modalDetalle" data-id="ASG-C-0155">
+                                                    <i class="bi bi-eye"></i> Ver
+                                                </a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <!-- Despacho IceFree — Auto 1 -->
+                                    <tr data-tipo="despacho" data-estado="auto" data-distribuidor="icefree" data-fecha="2026-06-28" data-buscar="GD-2026-0044 ASG-C-0153 icefree botilleria la esquina">
+                                        <td class="fw-semibold">GD-2026-0044</td>
+                                        <td><span class="tipo-despacho"><i class="bi bi-box-arrow-up-right"></i> Despacho Distribuidor→Cliente</span></td>
+                                        <td>IceFree Chile</td>
+                                        <td>IceFree Chile</td>
+                                        <td>Botillería La Esquina</td>
+                                        <td class="text-center">1</td>
+                                        <td>28/06/2026</td>
+                                        <td><span class="badge-status badge-gd-auto">Generada automáticamente</span></td>
+                                        <td>
+                                            <div class="action-btns-group">
+                                                <a href="#" class="action-btn action-btn-view" data-bs-toggle="modal" data-bs-target="#modalDetalle" data-id="GD-2026-0044">
+                                                    <i class="bi bi-eye"></i> Ver
+                                                </a>
+                                                <a href="#" class="action-btn action-btn-download" data-bs-toggle="modal" data-bs-target="#modalDescargar" data-id="GD-2026-0044">
+                                                    <i class="bi bi-download"></i> Descargar
+                                                </a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <!-- Despacho IceFree — Auto 2 -->
+                                    <tr data-tipo="despacho" data-estado="auto" data-distribuidor="icefree" data-fecha="2026-06-25" data-buscar="GD-2026-0041 ASG-C-0152 icefree minimarket las acacias">
+                                        <td class="fw-semibold">GD-2026-0041</td>
+                                        <td><span class="tipo-despacho"><i class="bi bi-box-arrow-up-right"></i> Despacho Distribuidor→Cliente</span></td>
+                                        <td>IceFree Chile</td>
+                                        <td>IceFree Chile</td>
+                                        <td>Minimarket Las Acacias</td>
+                                        <td class="text-center">2</td>
+                                        <td>25/06/2026</td>
+                                        <td><span class="badge-status badge-gd-auto">Generada automáticamente</span></td>
+                                        <td>
+                                            <div class="action-btns-group">
+                                                <a href="#" class="action-btn action-btn-view" data-bs-toggle="modal" data-bs-target="#modalDetalle" data-id="GD-2026-0041">
+                                                    <i class="bi bi-eye"></i> Ver
+                                                </a>
+                                                <a href="#" class="action-btn action-btn-download" data-bs-toggle="modal" data-bs-target="#modalDescargar" data-id="GD-2026-0041">
+                                                    <i class="bi bi-download"></i> Descargar
+                                                </a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <!-- Despacho IceFree — PDF adjunto 1 -->
+                                    <tr data-tipo="despacho" data-estado="pdf" data-distribuidor="icefree" data-fecha="2026-06-22" data-buscar="PDF-EXT-0038 ASG-C-0151 icefree almacen san jorge">
+                                        <td class="fw-semibold">PDF-EXT-0038</td>
+                                        <td><span class="tipo-despacho"><i class="bi bi-box-arrow-up-right"></i> Despacho Distribuidor→Cliente</span></td>
+                                        <td>IceFree Chile</td>
+                                        <td>IceFree Chile</td>
+                                        <td>Almacén San Jorge</td>
+                                        <td class="text-center">1</td>
+                                        <td>22/06/2026</td>
+                                        <td><span class="badge-status badge-gd-pdf">PDF adjunto</span></td>
+                                        <td>
+                                            <div class="action-btns-group">
+                                                <a href="#" class="action-btn action-btn-view" data-bs-toggle="modal" data-bs-target="#modalDetalle" data-id="PDF-EXT-0038">
+                                                    <i class="bi bi-eye"></i> Ver
+                                                </a>
+                                                <a href="#" class="action-btn action-btn-download" data-bs-toggle="modal" data-bs-target="#modalDescargar" data-id="PDF-EXT-0038">
+                                                    <i class="bi bi-download"></i> Descargar
+                                                </a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <!-- Despacho FríoSur — Auto 1 -->
+                                    <tr data-tipo="despacho" data-estado="auto" data-distribuidor="friosur" data-fecha="2026-06-20" data-buscar="GD-2026-0038 ASG-C-0210 friosur supermercado el rocio">
+                                        <td class="fw-semibold">GD-2026-0038</td>
+                                        <td><span class="tipo-despacho"><i class="bi bi-box-arrow-up-right"></i> Despacho Distribuidor→Cliente</span></td>
+                                        <td>FríoSur</td>
+                                        <td>FríoSur</td>
+                                        <td>Supermercado El Rocío</td>
+                                        <td class="text-center">3</td>
+                                        <td>20/06/2026</td>
+                                        <td><span class="badge-status badge-gd-auto">Generada automáticamente</span></td>
+                                        <td>
+                                            <div class="action-btns-group">
+                                                <a href="#" class="action-btn action-btn-view" data-bs-toggle="modal" data-bs-target="#modalDetalle" data-id="GD-2026-0038">
+                                                    <i class="bi bi-eye"></i> Ver
+                                                </a>
+                                                <a href="#" class="action-btn action-btn-download" data-bs-toggle="modal" data-bs-target="#modalDescargar" data-id="GD-2026-0038">
+                                                    <i class="bi bi-download"></i> Descargar
+                                                </a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <!-- Despacho IceFree — PDF adjunto 2 -->
+                                    <tr data-tipo="despacho" data-estado="pdf" data-distribuidor="icefree" data-fecha="2026-06-18" data-buscar="PDF-EXT-0037 ASG-C-0150 icefree comercial el sol">
+                                        <td class="fw-semibold">PDF-EXT-0037</td>
+                                        <td><span class="tipo-despacho"><i class="bi bi-box-arrow-up-right"></i> Despacho Distribuidor→Cliente</span></td>
+                                        <td>IceFree Chile</td>
+                                        <td>IceFree Chile</td>
+                                        <td>Comercial El Sol</td>
+                                        <td class="text-center">4</td>
+                                        <td>18/06/2026</td>
+                                        <td><span class="badge-status badge-gd-pdf">PDF adjunto</span></td>
+                                        <td>
+                                            <div class="action-btns-group">
+                                                <a href="#" class="action-btn action-btn-view" data-bs-toggle="modal" data-bs-target="#modalDetalle" data-id="PDF-EXT-0037">
+                                                    <i class="bi bi-eye"></i> Ver
+                                                </a>
+                                                <a href="#" class="action-btn action-btn-download" data-bs-toggle="modal" data-bs-target="#modalDescargar" data-id="PDF-EXT-0037">
+                                                    <i class="bi bi-download"></i> Descargar
+                                                </a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <!-- Despacho IceFree — Auto 3 -->
+                                    <tr data-tipo="despacho" data-estado="auto" data-distribuidor="icefree" data-fecha="2026-06-10" data-buscar="GD-2026-0032 ASG-C-0149 icefree minimarket la amistad">
+                                        <td class="fw-semibold">GD-2026-0032</td>
+                                        <td><span class="tipo-despacho"><i class="bi bi-box-arrow-up-right"></i> Despacho Distribuidor→Cliente</span></td>
+                                        <td>IceFree Chile</td>
+                                        <td>IceFree Chile</td>
+                                        <td>Minimarket La Amistad</td>
+                                        <td class="text-center">1</td>
+                                        <td>10/06/2026</td>
+                                        <td><span class="badge-status badge-gd-auto">Generada automáticamente</span></td>
+                                        <td>
+                                            <div class="action-btns-group">
+                                                <a href="#" class="action-btn action-btn-view" data-bs-toggle="modal" data-bs-target="#modalDetalle" data-id="GD-2026-0032">
+                                                    <i class="bi bi-eye"></i> Ver
+                                                </a>
+                                                <a href="#" class="action-btn action-btn-download" data-bs-toggle="modal" data-bs-target="#modalDescargar" data-id="GD-2026-0032">
+                                                    <i class="bi bi-download"></i> Descargar
+                                                </a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <!-- Despacho FríoSur — PDF adjunto -->
+                                    <tr data-tipo="despacho" data-estado="pdf" data-distribuidor="friosur" data-fecha="2026-06-08" data-buscar="PDF-EXT-0035 ASG-C-0208 friosur almacen el paraiso">
+                                        <td class="fw-semibold">PDF-EXT-0035</td>
+                                        <td><span class="tipo-despacho"><i class="bi bi-box-arrow-up-right"></i> Despacho Distribuidor→Cliente</span></td>
+                                        <td>FríoSur</td>
+                                        <td>FríoSur</td>
+                                        <td>Almacén El Paraíso</td>
+                                        <td class="text-center">2</td>
+                                        <td>08/06/2026</td>
+                                        <td><span class="badge-status badge-gd-pdf">PDF adjunto</span></td>
+                                        <td>
+                                            <div class="action-btns-group">
+                                                <a href="#" class="action-btn action-btn-view" data-bs-toggle="modal" data-bs-target="#modalDetalle" data-id="PDF-EXT-0035">
+                                                    <i class="bi bi-eye"></i> Ver
+                                                </a>
+                                                <a href="#" class="action-btn action-btn-download" data-bs-toggle="modal" data-bs-target="#modalDescargar" data-id="PDF-EXT-0035">
+                                                    <i class="bi bi-download"></i> Descargar
+                                                </a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <!-- Despacho IceFree — PDF adjunto 3 -->
+                                    <tr data-tipo="despacho" data-estado="pdf" data-distribuidor="icefree" data-fecha="2026-06-05" data-buscar="PDF-EXT-0029 ASG-C-0148 icefree almacen el puente">
+                                        <td class="fw-semibold">PDF-EXT-0029</td>
+                                        <td><span class="tipo-despacho"><i class="bi bi-box-arrow-up-right"></i> Despacho Distribuidor→Cliente</span></td>
+                                        <td>IceFree Chile</td>
+                                        <td>IceFree Chile</td>
+                                        <td>Almacén El Puente</td>
+                                        <td class="text-center">2</td>
+                                        <td>05/06/2026</td>
+                                        <td><span class="badge-status badge-gd-pdf">PDF adjunto</span></td>
+                                        <td>
+                                            <div class="action-btns-group">
+                                                <a href="#" class="action-btn action-btn-view" data-bs-toggle="modal" data-bs-target="#modalDetalle" data-id="PDF-EXT-0029">
+                                                    <i class="bi bi-eye"></i> Ver
+                                                </a>
+                                                <a href="#" class="action-btn action-btn-download" data-bs-toggle="modal" data-bs-target="#modalDescargar" data-id="PDF-EXT-0029">
+                                                    <i class="bi bi-download"></i> Descargar
+                                                </a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <!-- Despacho IceFree — Auto 4 -->
+                                    <tr data-tipo="despacho" data-estado="auto" data-distribuidor="icefree" data-fecha="2026-05-28" data-buscar="GD-2026-0025 ASG-C-0147 icefree supermercado mi tierra">
+                                        <td class="fw-semibold">GD-2026-0025</td>
+                                        <td><span class="tipo-despacho"><i class="bi bi-box-arrow-up-right"></i> Despacho Distribuidor→Cliente</span></td>
+                                        <td>IceFree Chile</td>
+                                        <td>IceFree Chile</td>
+                                        <td>Supermercado Mi Tierra</td>
+                                        <td class="text-center">1</td>
+                                        <td>28/05/2026</td>
+                                        <td><span class="badge-status badge-gd-auto">Generada automáticamente</span></td>
+                                        <td>
+                                            <div class="action-btns-group">
+                                                <a href="#" class="action-btn action-btn-view" data-bs-toggle="modal" data-bs-target="#modalDetalle" data-id="GD-2026-0025">
+                                                    <i class="bi bi-eye"></i> Ver
+                                                </a>
+                                                <a href="#" class="action-btn action-btn-download" data-bs-toggle="modal" data-bs-target="#modalDescargar" data-id="GD-2026-0025">
+                                                    <i class="bi bi-download"></i> Descargar
+                                                </a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <!-- Despacho IceFree — Auto 5 -->
+                                    <tr data-tipo="despacho" data-estado="auto" data-distribuidor="icefree" data-fecha="2026-05-20" data-buscar="GD-2026-0021 ASG-C-0146 icefree minimarket buenos aires">
+                                        <td class="fw-semibold">GD-2026-0021</td>
+                                        <td><span class="tipo-despacho"><i class="bi bi-box-arrow-up-right"></i> Despacho Distribuidor→Cliente</span></td>
+                                        <td>IceFree Chile</td>
+                                        <td>IceFree Chile</td>
+                                        <td>Minimarket Buenos Aires</td>
+                                        <td class="text-center">3</td>
+                                        <td>20/05/2026</td>
+                                        <td><span class="badge-status badge-gd-auto">Generada automáticamente</span></td>
+                                        <td>
+                                            <div class="action-btns-group">
+                                                <a href="#" class="action-btn action-btn-view" data-bs-toggle="modal" data-bs-target="#modalDetalle" data-id="GD-2026-0021">
+                                                    <i class="bi bi-eye"></i> Ver
+                                                </a>
+                                                <a href="#" class="action-btn action-btn-download" data-bs-toggle="modal" data-bs-target="#modalDescargar" data-id="GD-2026-0021">
+                                                    <i class="bi bi-download"></i> Descargar
+                                                </a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <!-- Despacho ColdTech — PDF adjunto -->
+                                    <tr data-tipo="despacho" data-estado="pdf" data-distribuidor="coldtech" data-fecha="2026-05-15" data-buscar="PDF-EXT-0018 ASG-C-0305 coldtech distribuidora norte">
+                                        <td class="fw-semibold">PDF-EXT-0018</td>
+                                        <td><span class="tipo-despacho"><i class="bi bi-box-arrow-up-right"></i> Despacho Distribuidor→Cliente</span></td>
+                                        <td>ColdTech</td>
+                                        <td>ColdTech</td>
+                                        <td>Distribuidora Norte</td>
+                                        <td class="text-center">2</td>
+                                        <td>15/05/2026</td>
+                                        <td><span class="badge-status badge-gd-pdf">PDF adjunto</span></td>
+                                        <td>
+                                            <div class="action-btns-group">
+                                                <a href="#" class="action-btn action-btn-view" data-bs-toggle="modal" data-bs-target="#modalDetalle" data-id="PDF-EXT-0018">
+                                                    <i class="bi bi-eye"></i> Ver
+                                                </a>
+                                                <a href="#" class="action-btn action-btn-download" data-bs-toggle="modal" data-bs-target="#modalDescargar" data-id="PDF-EXT-0018">
+                                                    <i class="bi bi-download"></i> Descargar
+                                                </a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <!-- Despacho IceFree — PDF adjunto 4 -->
+                                    <tr data-tipo="despacho" data-estado="pdf" data-distribuidor="icefree" data-fecha="2026-05-15" data-buscar="PDF-EXT-0017 ASG-C-0145 icefree almacen la esperanza">
+                                        <td class="fw-semibold">PDF-EXT-0017</td>
+                                        <td><span class="tipo-despacho"><i class="bi bi-box-arrow-up-right"></i> Despacho Distribuidor→Cliente</span></td>
+                                        <td>IceFree Chile</td>
+                                        <td>IceFree Chile</td>
+                                        <td>Almacén La Esperanza</td>
+                                        <td class="text-center">2</td>
+                                        <td>15/05/2026</td>
+                                        <td><span class="badge-status badge-gd-pdf">PDF adjunto</span></td>
+                                        <td>
+                                            <div class="action-btns-group">
+                                                <a href="#" class="action-btn action-btn-view" data-bs-toggle="modal" data-bs-target="#modalDetalle" data-id="PDF-EXT-0017">
+                                                    <i class="bi bi-eye"></i> Ver
+                                                </a>
+                                                <a href="#" class="action-btn action-btn-download" data-bs-toggle="modal" data-bs-target="#modalDescargar" data-id="PDF-EXT-0017">
+                                                    <i class="bi bi-download"></i> Descargar
+                                                </a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <!-- Empty state -->
+                        <div class="empty-state" id="emptyState" style="display: none;">
+                            <i class="bi bi-inbox"></i>
+                            <p class="mb-0">No se encontraron guías de despacho con los filtros seleccionados.</p>
+                        </div>
+
+                        <!-- Paginación -->
+                        <div class="d-flex justify-content-between align-items-center mt-3">
+                            <div class="text-muted" style="font-size: 13px;" id="contadorRegistros">
+                                Mostrando 18 guías
+                            </div>
+                            <nav aria-label="Paginación de guías">
+                                <ul class="pagination mb-0">
+                                    <li class="page-item disabled">
+                                        <a class="page-link" href="#" tabindex="-1" aria-disabled="true">
+                                            <i class="bi bi-chevron-left"></i>
+                                        </a>
+                                    </li>
+                                    <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                                    <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                    <li class="page-item">
+                                        <a class="page-link" href="#">
+                                            <i class="bi bi-chevron-right"></i>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- ===== Modal: Detalle de Guía de Despacho ===== -->
+    <div class="modal fade" id="modalDetalle" tabindex="-1" aria-labelledby="modalDetalleLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalDetalleLabel">
+                        <i class="bi bi-info-circle me-2"></i>Detalle de Guía de Despacho
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row g-3 mb-3">
+                        <div class="col-md-6">
+                            <label class="form-label">N° Guía de Despacho</label>
+                            <p class="fw-semibold mb-0" id="detalleNumGD">—</p>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Fecha</label>
+                            <p class="fw-semibold mb-0" id="detalleFecha">—</p>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Tipo</label>
+                            <p class="mb-0" id="detalleTipo">—</p>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Distribuidor</label>
+                            <p class="fw-semibold mb-0" id="detalleDistribuidor">—</p>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Origen</label>
+                            <p class="mb-0" id="detalleOrigen">—</p>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Destino</label>
+                            <p class="mb-0" id="detalleDestino">—</p>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">N° Asignación / Lote</label>
+                            <p class="mb-0" id="detalleAsignacion">—</p>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Estado</label>
+                            <p class="mb-0" id="detalleEstado">—</p>
+                        </div>
+                        <div class="col-12">
+                            <label class="form-label">Origen del documento</label>
+                            <p class="mb-0" id="detalleOrigenDoc">—</p>
+                        </div>
+                    </div>
+                    <hr>
+                    <label class="form-label">Equipos amparados</label>
+                    <div class="table-responsive">
+                        <table class="table table-sm table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>N° Serie</th>
+                                    <th>Marca</th>
+                                    <th>Modelo</th>
+                                    <th>Familia</th>
+                                </tr>
+                            </thead>
+                            <tbody id="detalleEquipos">
+                            </tbody>
+                        </table>
+                    </div>
+                    <hr>
+                    <label class="form-label">Documento</label>
+                    <div id="detalleDocumento">
+                        <p class="text-muted mb-0">—</p>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    <button type="button" class="btn btn-success" id="btnDescargarDesdeDetalle" style="display: none;">
+                        <i class="bi bi-download me-2"></i>Descargar PDF
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== Modal: Subir PDF de Guía de Despacho (carga manual — RN-16 Mandante) ===== -->
+    <div class="modal fade" id="modalSubirPDF" tabindex="-1" aria-labelledby="modalSubirPDFLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalSubirPDFLabel">
+                        <i class="bi bi-upload me-2"></i>Subir Guía de Despacho (PDF)
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="formSubirPDF" novalidate>
+                        <div class="rn-note mb-3">
+                            <strong><i class="bi bi-info-circle me-1"></i>RN-16 — Mandante</strong><br>
+                            Como Mandante, Savory adjunta el PDF de la Guía de Despacho generado externamente como respaldo del movimiento de equipos hacia el distribuidor.
+                        </div>
+                        <div class="summary-row mb-3">
+                            <div class="summary-item">
+                                <span class="summary-label">N° Asignación / Lote</span>
+                                <span class="summary-value" id="pdfUploadId">—</span>
+                            </div>
+                            <div class="summary-item">
+                                <span class="summary-label">Distribuidor destino</span>
+                                <span class="summary-value" id="pdfUploadCliente">—</span>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Archivo PDF <span class="text-danger">*</span></label>
+                            <div class="file-upload-area" id="uploadAreaPDF">
+                                <i class="bi bi-cloud-arrow-up d-block"></i>
+                                <div class="upload-text">Haz clic o arrastra el archivo aquí</div>
+                                <div class="upload-hint">Formato PDF · Máx. 10 MB</div>
+                                <input type="file" id="inputFilePDF" accept=".pdf,application/pdf" style="display: none;" required>
+                            </div>
+                            <div class="file-name" id="fileNamePDF" style="display: none;"></div>
+                            <div class="invalid-feedback" id="errorFilePDF">
+                                Debes adjuntar el PDF de la Guía de Despacho.
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="numDocumentoPDF" class="form-label">N° de documento <span class="text-muted">(opcional)</span></label>
+                            <input type="text" class="form-control" id="numDocumentoPDF" placeholder="Ej: GD-2026-00123">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary" id="btnConfirmarSubirPDF">
+                        <i class="bi bi-save me-2"></i>Guardar PDF
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== Modal: Descargar PDF ===== -->
+    <div class="modal fade" id="modalDescargar" tabindex="-1" aria-labelledby="modalDescargarLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalDescargarLabel">
+                        <i class="bi bi-download me-2"></i>Descargar Guía de Despacho
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="summary-row mb-3">
+                        <div class="summary-item">
+                            <span class="summary-label">N° Guía de Despacho</span>
+                            <span class="summary-value" id="descNumGD">—</span>
+                        </div>
+                        <div class="summary-item">
+                            <span class="summary-label">Tipo</span>
+                            <span class="summary-value" id="descTipo">—</span>
+                        </div>
+                        <div class="summary-item">
+                            <span class="summary-label">Distribuidor</span>
+                            <span class="summary-value" id="descDistribuidor">—</span>
+                        </div>
+                        <div class="summary-item">
+                            <span class="summary-label">Destino</span>
+                            <span class="summary-value" id="descDestino">—</span>
+                        </div>
+                    </div>
+                    <div class="text-center py-3">
+                        <i class="bi bi-file-earmark-pdf" style="font-size: 48px; color: var(--naranja-coral);"></i>
+                        <p class="fw-semibold mt-2 mb-1" id="descFileName">guia-despacho.pdf</p>
+                        <p class="text-muted mb-0" style="font-size: 13px;">Documento PDF adjunto al sistema</p>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <a href="#" class="btn btn-success" id="btnDescargarPDF">
+                        <i class="bi bi-download me-2"></i>Descargar PDF
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // ===== Datos simulados de equipos para modal detalle =====
+        const equiposData = [
+            { serie: 'FR-1023', marca: 'Savory', modelo: 'SF-200', familia: 'Congelados' },
+            { serie: 'FR-1024', marca: 'Savory', modelo: 'SF-200', familia: 'Congelados' },
+            { serie: 'FS-2201', marca: 'Foster', modelo: 'F-350', familia: 'Vitrina' },
+            { serie: 'TR-3301', marca: 'True', modelo: 'T-500', familia: 'Vertical' },
+            { serie: 'FR-1025', marca: 'Savory', modelo: 'SF-150', familia: 'Congelados' },
+        ];
+
+        // ===== Filtrado de tabla =====
+        const buscarGD = document.getElementById('buscarGD');
+        const filtroTipo = document.getElementById('filtroTipo');
+        const filtroDistribuidor = document.getElementById('filtroDistribuidor');
+        const filtroEstado = document.getElementById('filtroEstado');
+        const filtroFechaDesde = document.getElementById('filtroFechaDesde');
+        const filtroFechaHasta = document.getElementById('filtroFechaHasta');
+        const tbody = document.getElementById('tbodyGuias');
+        const emptyState = document.getElementById('emptyState');
+        const contadorRegistros = document.getElementById('contadorRegistros');
+        const tablaGuias = document.getElementById('tablaGuias');
+
+        function filtrar() {
+            const texto = buscarGD.value.toLowerCase().trim();
+            const tipo = filtroTipo.value;
+            const distribuidor = filtroDistribuidor.value;
+            const estado = filtroEstado.value;
+            const fechaDesde = filtroFechaDesde.value;
+            const fechaHasta = filtroFechaHasta.value;
+
+            let visibles = 0;
+            const filas = tbody.querySelectorAll('tr');
+
+            filas.forEach(fila => {
+                const buscarText = (fila.dataset.buscar || '').toLowerCase();
+                const filaTipo = fila.dataset.tipo;
+                const filaDistribuidor = fila.dataset.distribuidor;
+                const filaEstado = fila.dataset.estado;
+                const filaFecha = fila.dataset.fecha;
+
+                let mostrar = true;
+
+                if (texto && !buscarText.includes(texto)) {
+                    mostrar = false;
+                }
+                if (tipo && filaTipo !== tipo) {
+                    mostrar = false;
+                }
+                if (distribuidor && filaDistribuidor !== distribuidor) {
+                    mostrar = false;
+                }
+                if (estado && filaEstado !== estado) {
+                    mostrar = false;
+                }
+                if (fechaDesde && filaFecha < fechaDesde) {
+                    mostrar = false;
+                }
+                if (fechaHasta && filaFecha > fechaHasta) {
+                    mostrar = false;
+                }
+
+                fila.style.display = mostrar ? '' : 'none';
+                if (mostrar) visibles++;
+            });
+
+            if (visibles === 0) {
+                tablaGuias.style.display = 'none';
+                emptyState.style.display = 'block';
+            } else {
+                tablaGuias.style.display = '';
+                emptyState.style.display = 'none';
+            }
+
+            contadorRegistros.textContent = `Mostrando ${visibles} guía${visibles !== 1 ? 's' : ''}`;
+        }
+
+        buscarGD.addEventListener('input', filtrar);
+        filtroTipo.addEventListener('change', filtrar);
+        filtroDistribuidor.addEventListener('change', filtrar);
+        filtroEstado.addEventListener('change', filtrar);
+        filtroFechaDesde.addEventListener('change', filtrar);
+        filtroFechaHasta.addEventListener('change', filtrar);
+
+        // ===== Modal: Detalle de Guía de Despacho =====
+        const modalDetalle = document.getElementById('modalDetalle');
+        modalDetalle.addEventListener('show.bs.modal', function(event) {
+            const trigger = event.relatedTarget;
+            const id = trigger.dataset.id;
+            const fila = Array.from(tbody.querySelectorAll('tr')).find(tr =>
+                tr.querySelector('.fw-semibold')?.textContent === id ||
+                (tr.dataset.buscar || '').toLowerCase().includes(id.toLowerCase())
+            );
+            if (!fila) return;
+
+            const tds = fila.querySelectorAll('td');
+            const numGD = tds[0].textContent.trim();
+            const tipoText = tds[1].textContent.trim();
+            const distribuidor = tds[2].textContent.trim();
+            const origen = tds[3].textContent.trim();
+            const destino = tds[4].textContent.trim();
+            const equiposCount = parseInt(tds[5].textContent) || 1;
+            const fecha = tds[6].textContent.trim();
+            const estadoHTML = tds[7].innerHTML;
+            const filaEstado = fila.dataset.estado;
+            const filaTipo = fila.dataset.tipo;
+
+            document.getElementById('detalleNumGD').textContent = numGD === '—' ? 'Pendiente de generación' : numGD;
+            document.getElementById('detalleFecha').textContent = fecha;
+            document.getElementById('detalleTipo').textContent = tipoText;
+            document.getElementById('detalleDistribuidor').textContent = distribuidor;
+            document.getElementById('detalleOrigen').textContent = origen;
+            document.getElementById('detalleDestino').textContent = destino;
+            document.getElementById('detalleEstado').innerHTML = estadoHTML;
+
+            // N° asignación
+            const buscarParts = (fila.dataset.buscar || '').split(' ');
+            const asignacion = buscarParts.find(p => p.match(/^(ASG|REC)/i)) || '—';
+            document.getElementById('detalleAsignacion').textContent = asignacion;
+
+            // Origen del documento
+            let origenDoc = '—';
+            if (filaEstado === 'auto') {
+                origenDoc = '<span style="color: var(--verde-exito); font-weight: 600;"><i class="bi bi-file-earmark-check me-1"></i>Generada automáticamente por el distribuidor (Isstec)</span>';
+            } else if (filaEstado === 'pdf') {
+                if (filaTipo === 'recepcion') {
+                    origenDoc = '<span style="color: var(--naranja-coral); font-weight: 600;"><i class="bi bi-file-earmark-pdf me-1"></i>PDF adjuntado por el Mandante (Savory)</span>';
+                } else {
+                    origenDoc = '<span style="color: var(--naranja-coral); font-weight: 600;"><i class="bi bi-file-earmark-pdf me-1"></i>PDF adjuntado por el distribuidor</span>';
+                }
+            } else {
+                if (filaTipo === 'recepcion') {
+                    origenDoc = '<span style="color: var(--gris-medio); font-weight: 600;"><i class="bi bi-clock me-1"></i>Pendiente — el Mandante debe adjuntar el PDF</span>';
+                } else {
+                    origenDoc = '<span style="color: var(--gris-medio); font-weight: 600;"><i class="bi bi-clock me-1"></i>Pendiente — el distribuidor debe generar o adjuntar la GD</span>';
+                }
+            }
+            document.getElementById('detalleOrigenDoc').innerHTML = origenDoc;
+
+            // Equipos
+            let equiposHTML = '';
+            for (let i = 0; i < equiposCount && i < equiposData.length; i++) {
+                const eq = equiposData[i];
+                equiposHTML += `<tr><td class="fw-semibold">${eq.serie}</td><td>${eq.marca}</td><td>${eq.modelo}</td><td>${eq.familia}</td></tr>`;
+            }
+            document.getElementById('detalleEquipos').innerHTML = equiposHTML;
+
+            // Documento
+            const docDiv = document.getElementById('detalleDocumento');
+            const btnDescDetalle = document.getElementById('btnDescargarDesdeDetalle');
+            if (filaEstado === 'auto') {
+                docDiv.innerHTML = `<a href="#" class="doc-link"><i class="bi bi-file-earmark-pdf"></i> ${numGD}.pdf — Descargar documento generado</a>`;
+                btnDescDetalle.style.display = '';
+            } else if (filaEstado === 'pdf') {
+                docDiv.innerHTML = `<a href="#" class="doc-link"><i class="bi bi-file-earmark-pdf"></i> ${numGD}.pdf — Descargar documento adjunto</a>`;
+                btnDescDetalle.style.display = '';
+            } else {
+                if (filaTipo === 'recepcion') {
+                    docDiv.innerHTML = '<p class="text-muted mb-0"><i class="bi bi-clock me-1"></i>Esta guía no tiene documento adjunto. Utilice la acción "Subir PDF" para adjuntar el respaldo del envío al distribuidor.</p>';
+                } else {
+                    docDiv.innerHTML = '<p class="text-muted mb-0"><i class="bi bi-clock me-1"></i>Esta guía está pendiente de gestión por parte del distribuidor.</p>';
+                }
+                btnDescDetalle.style.display = 'none';
+            }
+        });
+
+        // ===== Modal: Subir PDF de Guía de Despacho =====
+        const modalSubirPDF = document.getElementById('modalSubirPDF');
+        const uploadAreaPDF = document.getElementById('uploadAreaPDF');
+        const inputFilePDF = document.getElementById('inputFilePDF');
+        const fileNamePDF = document.getElementById('fileNamePDF');
+        const formSubirPDF = document.getElementById('formSubirPDF');
+        const btnConfirmarSubirPDF = document.getElementById('btnConfirmarSubirPDF');
+
+        modalSubirPDF.addEventListener('show.bs.modal', function(event) {
+            const trigger = event.relatedTarget;
+            const id = trigger.dataset.id;
+            const cliente = trigger.dataset.cliente;
+
+            document.getElementById('pdfUploadId').textContent = id;
+            document.getElementById('pdfUploadCliente').textContent = cliente;
+
+            // Reset form
+            formSubirPDF.classList.remove('was-validated');
+            uploadAreaPDF.classList.remove('has-file');
+            fileNamePDF.style.display = 'none';
+            inputFilePDF.value = '';
+            document.getElementById('numDocumentoPDF').value = '';
+            uploadAreaPDF.querySelector('.upload-text').textContent = 'Haz clic o arrastra el archivo aquí';
+            uploadAreaPDF.querySelector('.upload-hint').textContent = 'Formato PDF · Máx. 10 MB';
+        });
+
+        // Click para abrir selector de archivo
+        uploadAreaPDF.addEventListener('click', function() {
+            inputFilePDF.click();
+        });
+
+        // Change de input file
+        inputFilePDF.addEventListener('change', function() {
+            if (this.files && this.files[0]) {
+                const file = this.files[0];
+                if (file.type === 'application/pdf' || file.name.toLowerCase().endsWith('.pdf')) {
+                    fileNamePDF.textContent = file.name;
+                    fileNamePDF.style.display = 'block';
+                    uploadAreaPDF.classList.add('has-file');
+                    uploadAreaPDF.querySelector('.upload-text').textContent = 'Archivo cargado — clic para cambiar';
+                    uploadAreaPDF.querySelector('.upload-hint').textContent = file.name;
+                } else {
+                    alert('Solo se permiten archivos PDF.');
+                    this.value = '';
+                }
+            }
+        });
+
+        // Drag & drop
+        uploadAreaPDF.addEventListener('dragover', function(e) {
+            e.preventDefault();
+            this.style.borderColor = 'var(--azul-primario)';
+            this.style.background = 'rgba(0, 102, 204, 0.06)';
+        });
+
+        uploadAreaPDF.addEventListener('dragleave', function(e) {
+            e.preventDefault();
+            this.style.borderColor = '';
+            this.style.background = '';
+        });
+
+        uploadAreaPDF.addEventListener('drop', function(e) {
+            e.preventDefault();
+            this.style.borderColor = '';
+            this.style.background = '';
+            if (e.dataTransfer.files && e.dataTransfer.files[0]) {
+                inputFilePDF.files = e.dataTransfer.files;
+                inputFilePDF.dispatchEvent(new Event('change'));
+            }
+        });
+
+        // Confirmar subir PDF
+        btnConfirmarSubirPDF.addEventListener('click', function() {
+            if (!inputFilePDF.files || !inputFilePDF.files[0]) {
+                formSubirPDF.classList.add('was-validated');
+                uploadAreaPDF.style.borderColor = 'var(--rojo-error)';
+                return;
+            }
+
+            const id = document.getElementById('pdfUploadId').textContent;
+            const numDoc = document.getElementById('numDocumentoPDF').value.trim();
+            const gdNum = numDoc || ('GD-REC-' + String(Math.floor(Math.random() * 9000) + 1000));
+
+            // Actualizar la fila de la tabla
+            const fila = Array.from(tbody.querySelectorAll('tr')).find(tr =>
+                (tr.dataset.buscar || '').toLowerCase().includes(id.toLowerCase())
+            );
+            if (fila) {
+                const tds = fila.querySelectorAll('td');
+                tds[0].innerHTML = `<span class="fw-semibold">${gdNum}</span>`;
+                tds[7].innerHTML = '<span class="badge-status badge-gd-pdf">PDF adjunto</span>';
+
+                fila.dataset.buscar = (fila.dataset.buscar || '') + ' ' + gdNum.toLowerCase();
+                fila.dataset.estado = 'pdf';
+
+                // Reemplazar acciones: Subir PDF → Descargar
+                const actionsCell = tds[8];
+                const uploadBtn = actionsCell.querySelector('.action-btn-upload');
+                if (uploadBtn) uploadBtn.remove();
+
+                // Añadir botón Descargar
+                const downloadBtn = document.createElement('a');
+                downloadBtn.href = '#';
+                downloadBtn.className = 'action-btn action-btn-download';
+                downloadBtn.setAttribute('data-bs-toggle', 'modal');
+                downloadBtn.setAttribute('data-bs-target', '#modalDescargar');
+                downloadBtn.setAttribute('data-id', gdNum);
+                downloadBtn.innerHTML = '<i class="bi bi-download"></i> Descargar';
+                actionsCell.querySelector('.action-btns-group').appendChild(downloadBtn);
+            }
+
+            // Cerrar modal
+            const modal = bootstrap.Modal.getInstance(modalSubirPDF);
+            modal.hide();
+        });
+
+        // ===== Modal: Descargar PDF =====
+        const modalDescargar = document.getElementById('modalDescargar');
+        modalDescargar.addEventListener('show.bs.modal', function(event) {
+            const trigger = event.relatedTarget;
+            const id = trigger.dataset.id;
+            const fila = Array.from(tbody.querySelectorAll('tr')).find(tr =>
+                tr.querySelector('.fw-semibold')?.textContent === id
+            );
+            if (!fila) return;
+
+            const tds = fila.querySelectorAll('td');
+            const numGD = tds[0].textContent.trim();
+            const tipoText = tds[1].textContent.trim();
+            const distribuidor = tds[2].textContent.trim();
+            const destino = tds[4].textContent.trim();
+
+            document.getElementById('descNumGD').textContent = numGD;
+            document.getElementById('descTipo').textContent = tipoText;
+            document.getElementById('descDistribuidor').textContent = distribuidor;
+            document.getElementById('descDestino').textContent = destino;
+            document.getElementById('descFileName').textContent = numGD + '.pdf';
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nueva Solicitud de Inventario — Plataforma Isstec</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="../css/styles.css" rel="stylesheet">
+    <style>
+        .btn-back {
+            color: var(--gris-medio);
+            font-size: 14px;
+            font-weight: 500;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: color 0.15s;
+        }
+        .btn-back:hover { color: var(--azul-primario); }
+
+        /* ===== Info banner (GEN-5) ===== */
+        .info-banner {
+            background: #E3F2FD;
+            border: 1px solid #BBDEFB;
+            border-radius: 8px;
+            padding: 12px 18px;
+            font-size: 13px;
+            color: #0D47A1;
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            margin-bottom: 24px;
+        }
+        .info-banner i {
+            font-size: 18px;
+            color: var(--azul-primario);
+            flex-shrink: 0;
+            margin-top: 1px;
+        }
+
+        /* ===== Form layout ===== */
+        .form-card {
+            max-width: 640px;
+        }
+        .form-card .card-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--azul-marino);
+        }
+        .form-card .card-subtitle {
+            font-size: 13px;
+            color: var(--gris-medio);
+            margin-bottom: 24px;
+        }
+        .form-group-compact {
+            margin-bottom: 20px;
+        }
+        .form-group-compact label {
+            font-size: 12px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 6px;
+        }
+        .form-group-compact .form-text {
+            font-size: 12px;
+            color: var(--gris-medio);
+            margin-top: 4px;
+        }
+        .date-row {
+            display: flex;
+            gap: 16px;
+            align-items: flex-start;
+        }
+        .date-row > div {
+            flex: 1;
+        }
+
+        /* ===== Detail info grid (modal) ===== */
+        .detail-info-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px 24px;
+            margin-bottom: 20px;
+        }
+        .detail-info-item .label {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+            color: var(--gris-medio);
+            font-weight: 600;
+            margin-bottom: 2px;
+        }
+        .detail-info-item .value {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--gris-oscuro);
+        }
+
+        /* ===== Required asterisk ===== */
+        .req { color: var(--rojo-error); }
+    </style>
+</head>
+<body>
+    <div class="app-layout">
+        <!-- ===== Sidebar ===== -->
+        <nav class="sidebar">
+            <div class="sidebar-logo">
+                <img src="../assets/img/logo.png" alt="Isstec">
+            </div>
+            <div class="sidebar-nav">
+                <div class="nav-section">Principal</div>
+                <a href="dashboard.html" class="nav-link">
+                    <i class="bi bi-speedometer2"></i> Dashboard
+                </a>
+                <a href="recepciones.html" class="nav-link">
+                    <i class="bi bi-box-seam"></i> Recepción de Equipos
+                </a>
+                <a href="asignaciones-realizadas.html" class="nav-link">
+                    <i class="bi bi-diagram-3"></i> Asignación a Clientes
+                </a>
+                <div class="nav-section">Operación</div>
+                <a href="solicitudes-movimiento.html" class="nav-link">
+                    <i class="bi bi-arrow-left-right"></i> Solicitudes de Movimiento
+                </a>
+                <a href="inventario.html" class="nav-link active">
+                    <i class="bi bi-clipboard-check"></i> Inventario
+                </a>
+                <a href="guias-despacho.html" class="nav-link">
+                    <i class="bi bi-file-earmark-text"></i> Guías de Despacho
+                </a>
+                <div class="nav-section">Análisis</div>
+                <a href="reportes.html" class="nav-link">
+                    <i class="bi bi-bar-chart"></i> Reportes
+                </a>
+                <div class="nav-section">Maestros</div>
+                <a href="clientes.html" class="nav-link">
+                    <i class="bi bi-shop"></i> Clientes
+                </a>
+                <a href="vendedores.html" class="nav-link">
+                    <i class="bi bi-person-badge"></i> Vendedores
+                </a>
+                <a href="ubicaciones-bodegas.html" class="nav-link">
+                    <i class="bi bi-geo"></i> Ubicaciones / Bodegas
+                </a>
+                <div class="nav-section">Configuración</div>
+                <a href="usuarios.html" class="nav-link">
+                    <i class="bi bi-people-fill"></i> Usuarios
+                </a>
+                <a href="roles.html" class="nav-link">
+                    <i class="bi bi-shield-lock"></i> Roles
+                </a>
+            </div>
+            <div class="sidebar-footer">
+                <a href="../index.html" class="nav-link">
+                    <i class="bi bi-box-arrow-right"></i> Cerrar sesión
+                </a>
+            </div>
+        </nav>
+
+        <!-- ===== Contenido principal ===== -->
+        <div class="app-content">
+            <!-- Navbar superior -->
+            <nav class="navbar-top">
+                <div class="navbar-left">
+                    <a href="inventario.html" class="btn-back">
+                        <i class="bi bi-arrow-left"></i> Volver a Inventario
+                    </a>
+                    <h2 class="page-title">Nueva Solicitud de Inventario</h2>
+                </div>
+                <div class="navbar-right">
+                    <div class="notification-icon">
+                        <i class="bi bi-bell"></i>
+                        <span class="notification-badge">5</span>
+                    </div>
+                    <div class="user-info">
+                        <div class="user-avatar">ICL</div>
+                        <div>
+                            <div class="user-name">IceFree Chile</div>
+                            <div class="user-role">Distribuidor</div>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+
+            <!-- Main -->
+            <main class="app-main">
+                <!-- ===== Banner informativo GEN-5 ===== -->
+                <div class="info-banner">
+                    <i class="bi bi-info-circle"></i>
+                    <span>
+                        <strong>Solicitud web de inventario.</strong> La toma física en terreno (lectura de código/QR, GPS, evidencia fotográfica)
+                        es responsabilidad de la app móvil de terreno (GEN-5). El conteo físico se ingresa manualmente en el paso de registro (3.5d).
+                    </span>
+                </div>
+
+                <!-- ===== Formulario ===== -->
+                <div class="card form-card">
+                    <div class="card-body">
+                        <h5 class="card-title mb-1">
+                            <i class="bi bi-plus-circle me-2"></i>Datos de la Solicitud de Inventario
+                        </h5>
+                        <p class="card-subtitle">
+                            Defina el alcance de la toma de inventario físico. Los campos marcados como opcionales pueden omitirse para aplicar a todos.
+                        </p>
+
+                        <form id="formSolicitudInventario">
+                            <!-- Vendedor (opcional) -->
+                            <div class="form-group-compact">
+                                <label class="form-label" for="selectVendedor">
+                                    <i class="bi bi-person me-1"></i>Vendedor
+                                </label>
+                                <select class="form-select" id="selectVendedor">
+                                    <option value="">Todos los vendedores</option>
+                                    <option value="Juan Pérez">Juan Pérez</option>
+                                    <option value="María González">María González</option>
+                                    <option value="Carlos Soto">Carlos Soto</option>
+                                    <option value="Ana Rivas">Ana Rivas</option>
+                                    <option value="Pedro Fuentes">Pedro Fuentes</option>
+                                </select>
+                                <div class="form-text">Opcional — si se omite, aplica a todos los vendedores.</div>
+                            </div>
+
+                            <!-- Comuna (opcional) -->
+                            <div class="form-group-compact">
+                                <label class="form-label" for="selectComuna">
+                                    <i class="bi bi-geo-alt me-1"></i>Comuna
+                                </label>
+                                <select class="form-select" id="selectComuna">
+                                    <option value="">Todas las comunas</option>
+                                    <option value="Providencia">Providencia</option>
+                                    <option value="Ñuñoa">Ñuñoa</option>
+                                    <option value="Macul">Macul</option>
+                                    <option value="Santiago Centro">Santiago Centro</option>
+                                    <option value="La Florida">La Florida</option>
+                                    <option value="Independencia">Independencia</option>
+                                    <option value="San Joaquín">San Joaquín</option>
+                                    <option value="Maipú">Maipú</option>
+                                    <option value="La Cisterna">La Cisterna</option>
+                                    <option value="Lo Espejo">Lo Espejo</option>
+                                </select>
+                                <div class="form-text">Opcional — si se omite, aplica a todas las comunas.</div>
+                            </div>
+
+                            <!-- Rango de fechas (obligatorio) -->
+                            <div class="form-group-compact">
+                                <label class="form-label">
+                                    <i class="bi bi-calendar-range me-1"></i>Rango de Fechas <span class="req">*</span>
+                                </label>
+                                <div class="date-row">
+                                    <div>
+                                        <input type="date" class="form-control" id="fechaInicio" required>
+                                        <div class="form-text">Fecha inicio</div>
+                                    </div>
+                                    <div>
+                                        <input type="date" class="form-control" id="fechaFin" required>
+                                        <div class="form-text">Fecha fin</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Observación (opcional) -->
+                            <div class="form-group-compact">
+                                <label class="form-label" for="textareaObservacion">
+                                    <i class="bi bi-chat-left-text me-1"></i>Observación
+                                </label>
+                                <textarea
+                                    class="form-control"
+                                    id="textareaObservacion"
+                                    rows="4"
+                                    placeholder="Indicaciones adicionales para el equipo de terreno. Ej: Priorizar puntos de venta con mayor rotación."
+                                ></textarea>
+                                <div class="form-text">Opcional</div>
+                            </div>
+
+                            <!-- Acciones del formulario -->
+                            <div class="d-flex justify-content-end gap-3 mt-4">
+                                <a href="inventario.html" class="btn btn-outline-secondary">
+                                    <i class="bi bi-x-lg me-1"></i>Cancelar
+                                </a>
+                                <button type="submit" class="btn btn-primary btn-lg">
+                                    <i class="bi bi-check2-circle me-1"></i>Crear solicitud
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- ===== Modal: Confirmar creación ===== -->
+    <div class="modal fade" id="modalConfirmar" tabindex="-1" aria-labelledby="modalConfirmarLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalConfirmarLabel">
+                        <i class="bi bi-clipboard-check me-2 text-primary"></i>Confirmar Solicitud de Inventario
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="detail-info-grid mb-3">
+                        <div class="detail-info-item">
+                            <div class="label">Vendedor</div>
+                            <div class="value" id="confirmVendedor">—</div>
+                        </div>
+                        <div class="detail-info-item">
+                            <div class="label">Comuna</div>
+                            <div class="value" id="confirmComuna">—</div>
+                        </div>
+                        <div class="detail-info-item">
+                            <div class="label">Fecha Inicio</div>
+                            <div class="value" id="confirmFechaInicio">—</div>
+                        </div>
+                        <div class="detail-info-item">
+                            <div class="label">Fecha Fin</div>
+                            <div class="value" id="confirmFechaFin">—</div>
+                        </div>
+                    </div>
+                    <div class="alert alert-info" style="font-size: 13px; margin-bottom: 0;">
+                        <i class="bi bi-info-circle me-1"></i>
+                        La solicitud se creará con estado <strong>"En curso"</strong> y quedará pendiente de registro de conteo físico (3.5d).
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary" id="btnConfirmarCreacion">
+                        <i class="bi bi-check2-circle me-1"></i>Confirmar y Crear
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== Modal: Solicitud creada exitosamente ===== -->
+    <div class="modal fade" id="modalExito" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-body text-center py-4">
+                    <div style="font-size: 48px; color: var(--verde-exito); margin-bottom: 12px;">
+                        <i class="bi bi-check-circle-fill"></i>
+                    </div>
+                    <h5 class="mb-2" style="color: var(--azul-marino);">Solicitud Creada</h5>
+                    <p class="text-muted mb-0" style="font-size: 14px;">
+                        La solicitud de inventario <strong id="nuevoId">INV-0045</strong> ha sido creada con estado <strong>"En curso"</strong>.<br>
+                        Pendiente de registro de conteo físico.
+                    </p>
+                </div>
+                <div class="modal-footer justify-content-center">
+                    <a href="inventario.html" class="btn btn-primary">Ir a Inventario</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // ===== Validación de fechas =====
+        const fechaInicio = document.getElementById('fechaInicio');
+        const fechaFin = document.getElementById('fechaFin');
+
+        // Fechas mínimas: hoy
+        const hoy = new Date().toISOString().split('T')[0];
+        fechaInicio.setAttribute('min', hoy);
+        fechaFin.setAttribute('min', hoy);
+
+        fechaInicio.addEventListener('change', function() {
+            fechaFin.setAttribute('min', this.value);
+            if (fechaFin.value && fechaFin.value < this.value) {
+                fechaFin.value = this.value;
+            }
+        });
+
+        // ===== Formatear fecha a DD/MM/YYYY =====
+        function formatFecha(fechaStr) {
+            if (!fechaStr) return '—';
+            const parts = fechaStr.split('-');
+            return parts[2] + '/' + parts[1] + '/' + parts[0];
+        }
+
+        // ===== Submit form =====
+        document.getElementById('formSolicitudInventario').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const fInicio = fechaInicio.value;
+            const fFin = fechaFin.value;
+
+            if (!fInicio || !fFin) {
+                alert('Debe ingresar el rango de fechas (fecha inicio y fecha fin son obligatorios).');
+                return;
+            }
+
+            if (fFin < fInicio) {
+                alert('La fecha fin no puede ser anterior a la fecha inicio.');
+                return;
+            }
+
+            // Llenar modal de confirmación
+            const vendedor = document.getElementById('selectVendedor').value;
+            const comuna = document.getElementById('selectComuna').value;
+            document.getElementById('confirmVendedor').textContent = vendedor || 'Todos los vendedores';
+            document.getElementById('confirmComuna').textContent = comuna || 'Todas las comunas';
+            document.getElementById('confirmFechaInicio').textContent = formatFecha(fInicio);
+            document.getElementById('confirmFechaFin').textContent = formatFecha(fFin);
+
+            // Generar ID simulado
+            const nuevoId = 'INV-' + String(45 + Math.floor(Math.random() * 10));
+            document.getElementById('nuevoId').textContent = nuevoId;
+
+            const modal = new bootstrap.Modal(document.getElementById('modalConfirmar'));
+            modal.show();
+        });
+
+        // ===== Confirmar creación =====
+        document.getElementById('btnConfirmarCreacion').addEventListener('click', function() {
+            const modal = bootstrap.Modal.getInstance(document.getElementById('modalConfirmar'));
+            modal.hide();
+            setTimeout(function() {
+                const modalExito = new bootstrap.Modal(document.getElementById('modalExito'));
+                modalExito.show();
+            }, 300);
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vendedores — Plataforma Isstec</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="../css/styles.css" rel="stylesheet">
+    <style>
+        .pagination .page-link { color: var(--azul-primario); border: 1px solid #DEE2E6; font-weight: 500; padding: 8px 14px; }
+        .pagination .page-item.active .page-link { background-color: var(--azul-primario); border-color: var(--azul-primario); color: #FFFFFF; }
+        .pagination .page-item.disabled .page-link { color: var(--gris-medio); }
+        .client-chip { display: inline-flex; align-items: center; gap: 6px; background: rgba(0,102,204,0.08); border: 1px solid rgba(0,102,204,0.2); border-radius: 20px; padding: 4px 12px; font-size: 13px; color: var(--azul-marino); margin: 2px; }
+        .client-chip .remove-chip { cursor: pointer; color: var(--gris-medio); font-size: 14px; line-height: 1; }
+        .client-chip .remove-chip:hover { color: var(--rojo-peligro); }
+        .client-pick-list { max-height: 320px; overflow-y: auto; border: 1px solid #DEE2E6; border-radius: 8px; }
+        .client-pick-item { display: flex; align-items: center; gap: 10px; padding: 10px 14px; border-bottom: 1px solid #F0F0F0; cursor: pointer; }
+        .client-pick-item:last-child { border-bottom: none; }
+        .client-pick-item:hover { background: #F8F9FA; }
+        .client-pick-item.selected { background: #E3F2FD; }
+        .client-pick-item input[type="checkbox"] { width: 18px; height: 18px; accent-color: var(--azul-primario); }
+        .client-pick-item .pick-name { font-weight: 600; font-size: 14px; }
+        .client-pick-item .pick-detail { font-size: 12px; color: var(--gris-medio); }
+    </style>
+</head>
+<body>
+    <div class="app-layout">
+        <nav class="sidebar">
+            <div class="sidebar-logo"><img src="../assets/img/logo.png" alt="Isstec"></div>
+            <div class="sidebar-nav">
+                <div class="nav-section">Principal</div>
+                <a href="dashboard.html" class="nav-link"><i class="bi bi-speedometer2"></i> Dashboard</a>
+                <a href="recepciones.html" class="nav-link"><i class="bi bi-box-seam"></i> Recepción de Equipos</a>
+                <a href="asignaciones-realizadas.html" class="nav-link"><i class="bi bi-diagram-3"></i> Asignación a Clientes</a>
+                <div class="nav-section">Operación</div>
+                <a href="solicitudes-movimiento.html" class="nav-link"><i class="bi bi-arrow-left-right"></i> Solicitudes de Movimiento</a>
+                <a href="inventario.html" class="nav-link"><i class="bi bi-clipboard-check"></i> Inventario</a>
+                <a href="guias-despacho.html" class="nav-link"><i class="bi bi-file-earmark-text"></i> Guías de Despacho</a>
+                <div class="nav-section">Análisis</div>
+                <a href="reportes.html" class="nav-link"><i class="bi bi-bar-chart"></i> Reportes</a>
+                <div class="nav-section">Maestros</div>
+                <a href="clientes.html" class="nav-link"><i class="bi bi-shop"></i> Clientes</a>
+                <a href="vendedores.html" class="nav-link active"><i class="bi bi-person-badge"></i> Vendedores</a>
+                <a href="ubicaciones-bodegas.html" class="nav-link"><i class="bi bi-geo"></i> Ubicaciones / Bodegas</a>
+                <div class="nav-section">Configuración</div>
+                <a href="usuarios.html" class="nav-link"><i class="bi bi-people-fill"></i> Usuarios</a>
+                <a href="roles.html" class="nav-link"><i class="bi bi-shield-lock"></i> Roles</a>
+            </div>
+            <div class="sidebar-footer"><a href="../index.html" class="nav-link"><i class="bi bi-box-arrow-right"></i> Cerrar sesión</a></div>
+        </nav>
+
+        <div class="app-content">
+            <nav class="navbar-top">
+                <div class="navbar-left">
+                    <a href="dashboard.html" class="btn btn-outline-secondary btn-sm me-2"><i class="bi bi-arrow-left"></i></a>
+                    <h2 class="page-title">Vendedores</h2>
+                </div>
+                <div class="navbar-right">
+                    <div class="notification-icon"><i class="bi bi-bell"></i><span class="notification-badge">5</span></div>
+                    <div class="user-info">
+                        <div class="user-avatar">ICL</div>
+                        <div><div class="user-name">IceFree Chile</div><div class="user-role">Distribuidor</div></div>
+                    </div>
+                </div>
+            </nav>
+
+            <main class="app-main">
+                <div class="page-header mb-3">
+                    <h1>Vendedores</h1>
+                    <p class="subtitle">Vendedores del distribuidor — usados como filtro en solicitudes de inventario y asociados a puntos de venta</p>
+                </div>
+
+                <div class="alert alert-info d-flex align-items-center gap-2 mb-3">
+                    <i class="bi bi-info-circle"></i>
+                    <span>Los vendedores se usan como filtro en Solicitudes de Inventario (DIS-5) y se asocian a clientes para segmentar la gestión comercial. Hoy el dato proviene del ERP; un maestro propio aplica para distribuidores sin ERP integrado.</span>
+                </div>
+
+                <div class="row mb-3">
+                    <div class="col-lg-12">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div class="d-flex gap-2" style="width: 55%;">
+                                <input type="text" class="form-control" id="buscarNombre" placeholder="Buscar por nombre o RUT...">
+                                <select class="form-select" id="filtroEstado" style="max-width: 160px;">
+                                    <option value="">Todos</option>
+                                    <option value="activo">Activo</option>
+                                    <option value="inactivo">Inactivo</option>
+                                </select>
+                            </div>
+                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalAgregarVendedor">
+                                <i class="bi bi-plus-lg me-2"></i>Agregar vendedor
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table table-hover align-middle">
+                                        <thead>
+                                            <tr>
+                                                <th>Nombre</th>
+                                                <th>RUT</th>
+                                                <th>Teléfono</th>
+                                                <th>Email</th>
+                                                <th>Clientes asignados</th>
+                                                <th>Estado</th>
+                                                <th class="text-end">Acciones</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr data-nombre="Juan Pérez" data-rut="12.345.678-9" data-telefono="+56 9 1111 2222" data-email="juan.perez@icefree.cl" data-clientes="Minimarket Don Eduardo|Minimarket Las Acacias|Minimarket Buenos Aires" data-estado="Activo" data-estado-value="activo">
+                                                <td><div class="d-flex align-items-center gap-2"><div class="user-avatar" style="width:32px;height:32px;font-size:12px;">JP</div><span class="fw-semibold">Juan Pérez</span></div></td>
+                                                <td>12.345.678-9</td>
+                                                <td class="text-muted">+56 9 1111 2222</td>
+                                                <td class="text-muted">juan.perez@icefree.cl</td>
+                                                <td><span class="badge bg-primary">3 clientes</span></td>
+                                                <td><span class="badge-status badge-activo">Activo</span></td>
+                                                <td class="text-end">
+                                                    <button class="btn btn-outline-primary btn-sm me-1" data-bs-toggle="modal" data-bs-target="#modalAsignarClientes"><i class="bi bi-link-45deg me-1"></i>Clientes</button>
+                                                    <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modalEditarVendedor"><i class="bi bi-pencil me-1"></i>Editar</button>
+                                                </td>
+                                            </tr>
+                                            <tr data-nombre="María González" data-rut="13.456.789-0" data-telefono="+56 9 3333 4444" data-email="maria.gonzalez@icefree.cl" data-clientes="Almacén Estrella|Comercial El Sol" data-estado="Activo" data-estado-value="activo">
+                                                <td><div class="d-flex align-items-center gap-2"><div class="user-avatar" style="width:32px;height:32px;font-size:12px;">MG</div><span class="fw-semibold">María González</span></div></td>
+                                                <td>13.456.789-0</td>
+                                                <td class="text-muted">+56 9 3333 4444</td>
+                                                <td class="text-muted">maria.gonzalez@icefree.cl</td>
+                                                <td><span class="badge bg-primary">2 clientes</span></td>
+                                                <td><span class="badge-status badge-activo">Activo</span></td>
+                                                <td class="text-end">
+                                                    <button class="btn btn-outline-primary btn-sm me-1" data-bs-toggle="modal" data-bs-target="#modalAsignarClientes"><i class="bi bi-link-45deg me-1"></i>Clientes</button>
+                                                    <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modalEditarVendedor"><i class="bi bi-pencil me-1"></i>Editar</button>
+                                                </td>
+                                            </tr>
+                                            <tr data-nombre="Carlos Soto" data-rut="14.567.890-1" data-telefono="+56 9 5555 6666" data-email="carlos.soto@icefree.cl" data-clientes="Supermercado El Ahorro|Minimarket La Amistad" data-estado="Activo" data-estado-value="activo">
+                                                <td><div class="d-flex align-items-center gap-2"><div class="user-avatar" style="width:32px;height:32px;font-size:12px;">CS</div><span class="fw-semibold">Carlos Soto</span></div></td>
+                                                <td>14.567.890-1</td>
+                                                <td class="text-muted">+56 9 5555 6666</td>
+                                                <td class="text-muted">carlos.soto@icefree.cl</td>
+                                                <td><span class="badge bg-primary">2 clientes</span></td>
+                                                <td><span class="badge-status badge-activo">Activo</span></td>
+                                                <td class="text-end">
+                                                    <button class="btn btn-outline-primary btn-sm me-1" data-bs-toggle="modal" data-bs-target="#modalAsignarClientes"><i class="bi bi-link-45deg me-1"></i>Clientes</button>
+                                                    <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modalEditarVendedor"><i class="bi bi-pencil me-1"></i>Editar</button>
+                                                </td>
+                                            </tr>
+                                            <tr data-nombre="Ana Rivas" data-rut="15.678.901-2" data-telefono="+56 9 7777 8888" data-email="ana.rivas@icefree.cl" data-clientes="Botillería La Esquina|Almacén El Puente" data-estado="Activo" data-estado-value="activo">
+                                                <td><div class="d-flex align-items-center gap-2"><div class="user-avatar" style="width:32px;height:32px;font-size:12px;">AR</div><span class="fw-semibold">Ana Rivas</span></div></td>
+                                                <td>15.678.901-2</td>
+                                                <td class="text-muted">+56 9 7777 8888</td>
+                                                <td class="text-muted">ana.rivas@icefree.cl</td>
+                                                <td><span class="badge bg-primary">2 clientes</span></td>
+                                                <td><span class="badge-status badge-activo">Activo</span></td>
+                                                <td class="text-end">
+                                                    <button class="btn btn-outline-primary btn-sm me-1" data-bs-toggle="modal" data-bs-target="#modalAsignarClientes"><i class="bi bi-link-45deg me-1"></i>Clientes</button>
+                                                    <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modalEditarVendedor"><i class="bi bi-pencil me-1"></i>Editar</button>
+                                                </td>
+                                            </tr>
+                                            <tr data-nombre="Pedro Fuentes" data-rut="16.789.012-3" data-telefono="+56 9 9999 0000" data-email="pedro.fuentes@icefree.cl" data-clientes="Almacén San Jorge|Supermercado Mi Tierra" data-estado="Activo" data-estado-value="activo">
+                                                <td><div class="d-flex align-items-center gap-2"><div class="user-avatar" style="width:32px;height:32px;font-size:12px;">PF</div><span class="fw-semibold">Pedro Fuentes</span></div></td>
+                                                <td>16.789.012-3</td>
+                                                <td class="text-muted">+56 9 9999 0000</td>
+                                                <td class="text-muted">pedro.fuentes@icefree.cl</td>
+                                                <td><span class="badge bg-primary">2 clientes</span></td>
+                                                <td><span class="badge-status badge-activo">Activo</span></td>
+                                                <td class="text-end">
+                                                    <button class="btn btn-outline-primary btn-sm me-1" data-bs-toggle="modal" data-bs-target="#modalAsignarClientes"><i class="bi bi-link-45deg me-1"></i>Clientes</button>
+                                                    <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modalEditarVendedor"><i class="bi bi-pencil me-1"></i>Editar</button>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="d-flex justify-content-between align-items-center mt-3">
+                                    <div class="text-muted" style="font-size:13px;">Mostrando 1–5 de 5 vendedores</div>
+                                    <nav aria-label="Paginación"><ul class="pagination mb-0">
+                                        <li class="page-item disabled"><a class="page-link" href="#" tabindex="-1" aria-disabled="true"><i class="bi bi-chevron-left"></i></a></li>
+                                        <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                                        <li class="page-item"><a class="page-link" href="#"><i class="bi bi-chevron-right"></i></a></li>
+                                    </ul></nav>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- Modal Agregar Vendedor -->
+    <div class="modal fade" id="modalAgregarVendedor" tabindex="-1" aria-labelledby="modalAgregarVendedorLabel" aria-hidden="true">
+        <div class="modal-dialog"><div class="modal-content">
+            <div class="modal-header"><h5 class="modal-title" id="modalAgregarVendedorLabel">Agregar vendedor</h5><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button></div>
+            <div class="modal-body"><form id="formAgregarVendedor" novalidate>
+                <div class="row">
+                    <div class="col-md-7 mb-3"><label for="nombreVendedor" class="form-label">Nombre completo</label><input type="text" class="form-control" id="nombreVendedor" placeholder="Ej: Juan Pérez" required><div class="invalid-feedback">Ingresa el nombre.</div></div>
+                    <div class="col-md-5 mb-3"><label for="rutVendedor" class="form-label">RUT</label><input type="text" class="form-control" id="rutVendedor" placeholder="Ej: 12.345.678-9" required><div class="invalid-feedback">Ingresa el RUT.</div></div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 mb-3"><label for="telefonoVendedor" class="form-label">Teléfono</label><input type="text" class="form-control" id="telefonoVendedor" placeholder="+56 9 1234 5678"></div>
+                    <div class="col-md-6 mb-3"><label for="emailVendedor" class="form-label">Email</label><input type="email" class="form-control" id="emailVendedor" placeholder="vendedor@icefree.cl"></div>
+                </div>
+                <div class="mb-3 form-check form-switch"><input class="form-check-input" type="checkbox" id="estadoVendedor" checked><label class="form-check-label" for="estadoVendedor">Activo</label></div>
+            </form></div>
+            <div class="modal-footer"><button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancelar</button><button type="button" class="btn btn-primary" id="btnGuardarVendedor">Guardar</button></div>
+        </div></div>
+    </div>
+
+    <!-- Modal Editar Vendedor -->
+    <div class="modal fade" id="modalEditarVendedor" tabindex="-1" aria-labelledby="modalEditarVendedorLabel" aria-hidden="true">
+        <div class="modal-dialog"><div class="modal-content">
+            <div class="modal-header"><h5 class="modal-title" id="modalEditarVendedorLabel">Editar vendedor</h5><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button></div>
+            <div class="modal-body"><form id="formEditarVendedor" novalidate>
+                <div class="row">
+                    <div class="col-md-7 mb-3"><label for="editarNombreVendedor" class="form-label">Nombre completo</label><input type="text" class="form-control" id="editarNombreVendedor" required><div class="invalid-feedback">Ingresa el nombre.</div></div>
+                    <div class="col-md-5 mb-3"><label for="editarRutVendedor" class="form-label">RUT</label><input type="text" class="form-control" id="editarRutVendedor" required><div class="invalid-feedback">Ingresa el RUT.</div></div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 mb-3"><label for="editarTelefonoVendedor" class="form-label">Teléfono</label><input type="text" class="form-control" id="editarTelefonoVendedor"></div>
+                    <div class="col-md-6 mb-3"><label for="editarEmailVendedor" class="form-label">Email</label><input type="email" class="form-control" id="editarEmailVendedor"></div>
+                </div>
+                <div class="mb-3 form-check form-switch"><input class="form-check-input" type="checkbox" id="editarEstadoVendedor"><label class="form-check-label" for="editarEstadoVendedor">Activo</label></div>
+            </form></div>
+            <div class="modal-footer"><button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancelar</button><button type="button" class="btn btn-primary" id="btnActualizarVendedor">Guardar cambios</button></div>
+        </div></div>
+    </div>
+
+    <!-- Modal Asignar Clientes -->
+    <div class="modal fade" id="modalAsignarClientes" tabindex="-1" aria-labelledby="modalAsignarClientesLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg"><div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalAsignarClientesLabel">Asignar clientes a vendedor</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+            </div>
+            <div class="modal-body">
+                <div class="alert alert-info d-flex align-items-center gap-2 mb-3" style="font-size:13px;">
+                    <i class="bi bi-info-circle"></i>
+                    <span>Selecciona los clientes (puntos de venta) que gestiona este vendedor. Un cliente solo puede estar asignado a un vendedor a la vez.</span>
+                </div>
+                <div class="d-flex align-items-center gap-2 mb-3">
+                    <div class="fw-semibold" id="nombreVendedorAsignar">—</div>
+                    <span class="badge bg-primary" id="contadorAsignados">0 clientes asignados</span>
+                </div>
+                <div class="mb-3">
+                    <div class="input-group">
+                        <span class="input-group-text"><i class="bi bi-search"></i></span>
+                        <input type="text" class="form-control" id="buscarClienteAsignar" placeholder="Buscar cliente por nombre, RUT o comuna...">
+                    </div>
+                </div>
+                <div class="client-pick-list" id="listaClientesAsignar">
+                    <div class="client-pick-item" data-cliente="Minimarket Don Eduardo" data-rut="76.543.210-1" data-comuna="Providencia">
+                        <input type="checkbox" class="check-cliente">
+                        <div><div class="pick-name">Minimarket Don Eduardo</div><div class="pick-detail">76.543.210-1 · Providencia</div></div>
+                    </div>
+                    <div class="client-pick-item" data-cliente="Almacén Estrella" data-rut="77.123.456-7" data-comuna="Santiago Centro">
+                        <input type="checkbox" class="check-cliente">
+                        <div><div class="pick-name">Almacén Estrella</div><div class="pick-detail">77.123.456-7 · Santiago Centro</div></div>
+                    </div>
+                    <div class="client-pick-item" data-cliente="Supermercado El Ahorro" data-rut="78.987.654-3" data-comuna="Independencia">
+                        <input type="checkbox" class="check-cliente">
+                        <div><div class="pick-name">Supermercado El Ahorro</div><div class="pick-detail">78.987.654-3 · Independencia</div></div>
+                    </div>
+                    <div class="client-pick-item" data-cliente="Botillería La Esquina" data-rut="79.456.123-0" data-comuna="Ñuñoa">
+                        <input type="checkbox" class="check-cliente">
+                        <div><div class="pick-name">Botillería La Esquina</div><div class="pick-detail">79.456.123-0 · Ñuñoa</div></div>
+                    </div>
+                    <div class="client-pick-item" data-cliente="Minimarket Las Acacias" data-rut="80.234.567-8" data-comuna="Macul">
+                        <input type="checkbox" class="check-cliente">
+                        <div><div class="pick-name">Minimarket Las Acacias</div><div class="pick-detail">80.234.567-8 · Macul</div></div>
+                    </div>
+                    <div class="client-pick-item" data-cliente="Almacén San Jorge" data-rut="81.345.678-9" data-comuna="La Florida">
+                        <input type="checkbox" class="check-cliente">
+                        <div><div class="pick-name">Almacén San Jorge</div><div class="pick-detail">81.345.678-9 · La Florida</div></div>
+                    </div>
+                    <div class="client-pick-item" data-cliente="Comercial El Sol" data-rut="82.567.890-1" data-comuna="San Joaquín">
+                        <input type="checkbox" class="check-cliente">
+                        <div><div class="pick-name">Comercial El Sol</div><div class="pick-detail">82.567.890-1 · San Joaquín</div></div>
+                    </div>
+                    <div class="client-pick-item" data-cliente="Minimarket La Amistad" data-rut="83.678.901-2" data-comuna="La Cisterna">
+                        <input type="checkbox" class="check-cliente">
+                        <div><div class="pick-name">Minimarket La Amistad</div><div class="pick-detail">83.678.901-2 · La Cisterna</div></div>
+                    </div>
+                    <div class="client-pick-item" data-cliente="Almacén El Puente" data-rut="84.789.012-3" data-comuna="Lo Espejo">
+                        <input type="checkbox" class="check-cliente">
+                        <div><div class="pick-name">Almacén El Puente</div><div class="pick-detail">84.789.012-3 · Lo Espejo</div></div>
+                    </div>
+                    <div class="client-pick-item" data-cliente="Supermercado Mi Tierra" data-rut="85.890.123-4" data-comuna="Recoleta">
+                        <input type="checkbox" class="check-cliente">
+                        <div><div class="pick-name">Supermercado Mi Tierra</div><div class="pick-detail">85.890.123-4 · Recoleta</div></div>
+                    </div>
+                    <div class="client-pick-item" data-cliente="Minimarket Buenos Aires" data-rut="86.901.234-5" data-comuna="Maipú">
+                        <input type="checkbox" class="check-cliente">
+                        <div><div class="pick-name">Minimarket Buenos Aires</div><div class="pick-detail">86.901.234-5 · Maipú</div></div>
+                    </div>
+                    <div class="client-pick-item" data-cliente="Almacén La Esperanza" data-rut="87.012.345-6" data-comuna="San Miguel">
+                        <input type="checkbox" class="check-cliente">
+                        <div><div class="pick-name">Almacén La Esperanza</div><div class="pick-detail">87.012.345-6 · San Miguel</div></div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-primary" id="btnConfirmarAsignacion">Confirmar asignación</button>
+            </div>
+        </div></div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        let filaEditando = null;
+        let filaAsignando = null;
+
+        // Agregar vendedor
+        document.getElementById('btnGuardarVendedor').addEventListener('click', function() {
+            const form = document.getElementById('formAgregarVendedor');
+            if (form.checkValidity()) {
+                bootstrap.Modal.getInstance(document.getElementById('modalAgregarVendedor')).hide();
+                form.reset(); form.classList.remove('was-validated');
+                alert('Vendedor agregado correctamente (simulación).');
+            } else { form.classList.add('was-validated'); }
+        });
+        document.getElementById('modalAgregarVendedor').addEventListener('hidden.bs.modal', function() {
+            const form = document.getElementById('formAgregarVendedor');
+            form.reset(); form.classList.remove('was-validated');
+        });
+
+        // Editar vendedor
+        document.getElementById('modalEditarVendedor').addEventListener('show.bs.modal', function(event) {
+            filaEditando = event.relatedTarget.closest('tr');
+            const d = filaEditando.dataset;
+            document.getElementById('editarNombreVendedor').value = d.nombre;
+            document.getElementById('editarRutVendedor').value = d.rut;
+            document.getElementById('editarTelefonoVendedor').value = d.telefono || '';
+            document.getElementById('editarEmailVendedor').value = d.email || '';
+            document.getElementById('editarEstadoVendedor').checked = d.estadoValue === 'activo';
+        });
+        document.getElementById('modalEditarVendedor').addEventListener('hidden.bs.modal', function() {
+            const form = document.getElementById('formEditarVendedor');
+            form.reset(); form.classList.remove('was-validated'); filaEditando = null;
+        });
+        document.getElementById('btnActualizarVendedor').addEventListener('click', function() {
+            const form = document.getElementById('formEditarVendedor');
+            if (form.checkValidity()) {
+                if (filaEditando) {
+                    filaEditando.dataset.nombre = document.getElementById('editarNombreVendedor').value;
+                    filaEditando.dataset.rut = document.getElementById('editarRutVendedor').value;
+                    filaEditando.dataset.telefono = document.getElementById('editarTelefonoVendedor').value;
+                    filaEditando.dataset.email = document.getElementById('editarEmailVendedor').value;
+                    const activo = document.getElementById('editarEstadoVendedor').checked;
+                    filaEditando.dataset.estado = activo ? 'Activo' : 'Inactivo';
+                    filaEditando.dataset.estadoValue = activo ? 'activo' : 'inactivo';
+                    const iniciales = filaEditando.dataset.nombre.split(' ').map(p => p[0]).join('').substring(0, 2).toUpperCase();
+                    filaEditando.cells[0].querySelector('.fw-semibold').textContent = filaEditando.dataset.nombre;
+                    filaEditando.cells[0].querySelector('.user-avatar').textContent = iniciales;
+                    filaEditando.cells[1].textContent = filaEditando.dataset.rut;
+                    filaEditando.cells[2].textContent = filaEditando.dataset.telefono;
+                    filaEditando.cells[3].textContent = filaEditando.dataset.email;
+                    const badge = filaEditando.querySelector('.badge-status');
+                    badge.textContent = filaEditando.dataset.estado;
+                    badge.className = 'badge-status ' + (activo ? 'badge-activo' : 'badge-baja');
+                }
+                bootstrap.Modal.getInstance(document.getElementById('modalEditarVendedor')).hide();
+                alert('Vendedor actualizado correctamente (simulación).');
+            } else { form.classList.add('was-validated'); }
+        });
+
+        // Asignar clientes
+        document.getElementById('modalAsignarClientes').addEventListener('show.bs.modal', function(event) {
+            filaAsignando = event.relatedTarget.closest('tr');
+            const d = filaAsignando.dataset;
+            document.getElementById('nombreVendedorAsignar').textContent = d.nombre;
+            const clientesAsignados = (d.clientes || '').split('|').filter(c => c);
+            const items = document.querySelectorAll('#listaClientesAsignar .client-pick-item');
+            items.forEach(function(item) {
+                const checkbox = item.querySelector('.check-cliente');
+                if (clientesAsignados.includes(item.dataset.cliente)) {
+                    checkbox.checked = true;
+                    item.classList.add('selected');
+                } else {
+                    checkbox.checked = false;
+                    item.classList.remove('selected');
+                }
+            });
+            actualizarContador();
+        });
+
+        // Toggle selección visual
+        document.querySelectorAll('#listaClientesAsignar .client-pick-item').forEach(function(item) {
+            item.addEventListener('click', function(e) {
+                if (e.target.tagName === 'INPUT') return;
+                const checkbox = item.querySelector('.check-cliente');
+                checkbox.checked = !checkbox.checked;
+                item.classList.toggle('selected', checkbox.checked);
+                actualizarContador();
+            });
+            item.querySelector('.check-cliente').addEventListener('change', function() {
+                item.classList.toggle('selected', this.checked);
+                actualizarContador();
+            });
+        });
+
+        function actualizarContador() {
+            const count = document.querySelectorAll('#listaClientesAsignar .check-cliente:checked').length;
+            document.getElementById('contadorAsignados').textContent = count + (count === 1 ? ' cliente asignado' : ' clientes asignados');
+        }
+
+        // Buscador dentro del modal
+        document.getElementById('buscarClienteAsignar').addEventListener('input', function() {
+            const term = this.value.toLowerCase();
+            document.querySelectorAll('#listaClientesAsignar .client-pick-item').forEach(function(item) {
+                const text = (item.dataset.cliente + ' ' + item.dataset.rut + ' ' + item.dataset.comuna).toLowerCase();
+                item.style.display = text.includes(term) ? '' : 'none';
+            });
+        });
+
+        // Confirmar asignación
+        document.getElementById('btnConfirmarAsignacion').addEventListener('click', function() {
+            if (filaAsignando) {
+                const seleccionados = [];
+                document.querySelectorAll('#listaClientesAsignar .check-cliente:checked').forEach(function(cb) {
+                    seleccionados.push(cb.closest('.client-pick-item').dataset.cliente);
+                });
+                filaAsignando.dataset.clientes = seleccionados.join('|');
+                const badge = filaAsignando.cells[4].querySelector('.badge');
+                const count = seleccionados.length;
+                if (count === 0) {
+                    badge.textContent = 'Sin clientes';
+                    badge.className = 'badge bg-light text-muted';
+                } else {
+                    badge.textContent = count + (count === 1 ? ' cliente' : ' clientes');
+                    badge.className = 'badge bg-primary';
+                }
+            }
+            bootstrap.Modal.getInstance(document.getElementById('modalAsignarClientes')).hide();
+            alert('Asignación de clientes actualizada correctamente (simulación).');
+        });
+
+        document.getElementById('modalAsignarClientes').addEventListener('hidden.bs.modal', function() {
+            document.getElementById('buscarClienteAsignar').value = '';
+            filaAsignando = null;
+        });
+    </script>
+</body>
+</html>

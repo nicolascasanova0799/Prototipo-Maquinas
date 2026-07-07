@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clientes — Plataforma Isstec</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="../css/styles.css" rel="stylesheet">
+    <style>
+        .pagination .page-link { color: var(--azul-primario); border: 1px solid #DEE2E6; font-weight: 500; padding: 8px 14px; }
+        .pagination .page-item.active .page-link { background-color: var(--azul-primario); border-color: var(--azul-primario); color: #FFFFFF; }
+        .pagination .page-item.disabled .page-link { color: var(--gris-medio); }
+    </style>
+</head>
+<body>
+    <div class="app-layout">
+        <nav class="sidebar">
+            <div class="sidebar-logo"><img src="../assets/img/logo.png" alt="Isstec"></div>
+            <div class="sidebar-nav">
+                <div class="nav-section">Principal</div>
+                <a href="dashboard.html" class="nav-link"><i class="bi bi-speedometer2"></i> Dashboard</a>
+                <a href="recepciones.html" class="nav-link"><i class="bi bi-box-seam"></i> Recepción de Equipos</a>
+                <a href="asignaciones-realizadas.html" class="nav-link"><i class="bi bi-diagram-3"></i> Asignación a Clientes</a>
+                <div class="nav-section">Operación</div>
+                <a href="solicitudes-movimiento.html" class="nav-link"><i class="bi bi-arrow-left-right"></i> Solicitudes de Movimiento</a>
+                <a href="inventario.html" class="nav-link"><i class="bi bi-clipboard-check"></i> Inventario</a>
+                <a href="guias-despacho.html" class="nav-link"><i class="bi bi-file-earmark-text"></i> Guías de Despacho</a>
+                <div class="nav-section">Análisis</div>
+                <a href="reportes.html" class="nav-link"><i class="bi bi-bar-chart"></i> Reportes</a>
+                <div class="nav-section">Maestros</div>
+                <a href="clientes.html" class="nav-link active"><i class="bi bi-shop"></i> Clientes</a>
+                <a href="vendedores.html" class="nav-link"><i class="bi bi-person-badge"></i> Vendedores</a>
+                <a href="ubicaciones-bodegas.html" class="nav-link"><i class="bi bi-geo"></i> Ubicaciones / Bodegas</a>
+                <div class="nav-section">Configuración</div>
+                <a href="usuarios.html" class="nav-link"><i class="bi bi-people-fill"></i> Usuarios</a>
+                <a href="roles.html" class="nav-link"><i class="bi bi-shield-lock"></i> Roles</a>
+            </div>
+            <div class="sidebar-footer"><a href="../index.html" class="nav-link"><i class="bi bi-box-arrow-right"></i> Cerrar sesión</a></div>
+        </nav>
+
+        <div class="app-content">
+            <nav class="navbar-top">
+                <div class="navbar-left">
+                    <a href="dashboard.html" class="btn btn-outline-secondary btn-sm me-2"><i class="bi bi-arrow-left"></i></a>
+                    <h2 class="page-title">Clientes</h2>
+                </div>
+                <div class="navbar-right">
+                    <a href="asignacion-clientes.html" class="btn btn-primary btn-sm me-3">
+                        <i class="bi bi-plus-circle me-1"></i>Nueva asignación
+                    </a>
+                    <div class="notification-icon"><i class="bi bi-bell"></i><span class="notification-badge">5</span></div>
+                    <div class="user-info">
+                        <div class="user-avatar">ICL</div>
+                        <div><div class="user-name">IceFree Chile</div><div class="user-role">Distribuidor</div></div>
+                    </div>
+                </div>
+            </nav>
+
+            <main class="app-main">
+                <div class="row mb-3">
+                    <div class="col-lg-12">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div class="d-flex gap-2" style="width: 65%;">
+                                <input type="text" class="form-control" id="buscarNombre" placeholder="Buscar por nombre o RUT...">
+                                <select class="form-select" id="filtroComuna" style="max-width: 200px;">
+                                    <option value="">Todas las comunas</option>
+                                    <option value="Providencia">Providencia</option>
+                                    <option value="Santiago Centro">Santiago Centro</option>
+                                    <option value="Independencia">Independencia</option>
+                                    <option value="Ñuñoa">Ñuñoa</option>
+                                    <option value="Macul">Macul</option>
+                                    <option value="La Florida">La Florida</option>
+                                    <option value="San Joaquín">San Joaquín</option>
+                                    <option value="La Cisterna">La Cisterna</option>
+                                    <option value="Lo Espejo">Lo Espejo</option>
+                                    <option value="Recoleta">Recoleta</option>
+                                    <option value="Maipú">Maipú</option>
+                                    <option value="San Miguel">San Miguel</option>
+                                </select>
+                                <select class="form-select" id="filtroVendedor" style="max-width: 180px;">
+                                    <option value="">Todos los vendedores</option>
+                                    <option value="Juan Pérez">Juan Pérez</option>
+                                    <option value="María González">María González</option>
+                                    <option value="Carlos Soto">Carlos Soto</option>
+                                    <option value="Ana Rivas">Ana Rivas</option>
+                                    <option value="Pedro Fuentes">Pedro Fuentes</option>
+                                    <option value="sin-asignar">Sin asignar</option>
+                                </select>
+                                <select class="form-select" id="filtroEstado" style="max-width: 160px;">
+                                    <option value="">Todos</option>
+                                    <option value="activo">Activo</option>
+                                    <option value="inactivo">Inactivo</option>
+                                </select>
+                            </div>
+                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalAgregarCliente">
+                                <i class="bi bi-plus-lg me-2"></i>Agregar cliente
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table table-hover align-middle">
+                                        <thead>
+                                            <tr>
+                                                <th>Nombre</th>
+                                                <th>RUT</th>
+                                                <th>Dirección</th>
+                                                <th>Comuna</th>
+                                                <th>Vendedor</th>
+                                                <th>Equipos asignados</th>
+                                                <th>Origen</th>
+                                                <th>Estado</th>
+                                                <th class="text-end">Acciones</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr data-nombre="Minimarket Don Eduardo" data-vendedor="Juan Pérez" data-rut="76.543.210-1" data-direccion="Av. Providencia 1234" data-comuna="Providencia" data-equipos="3" data-origen="ERP" data-origen-value="erp" data-estado="Activo" data-estado-value="activo">
+                                                <td><div class="d-flex align-items-center gap-2"><div class="user-avatar" style="width:32px;height:32px;font-size:12px;background:rgba(0,102,204,0.1);color:var(--azul-primario);">MD</div><span class="fw-semibold">Minimarket Don Eduardo</span></div></td>
+                                                <td>76.543.210-1</td>
+                                                <td class="text-muted">Av. Providencia 1234</td>
+                                                <td>Providencia</td>
+                                                <td>Juan Pérez</td>
+                                                <td><span class="badge bg-primary">3 equipos</span></td>
+                                                <td><span class="badge bg-light text-dark"><i class="bi bi-cloud-download me-1"></i>ERP</span></td>
+                                                <td><span class="badge-status badge-activo">Activo</span></td>
+                                                <td class="text-end"><button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modalEditarCliente"><i class="bi bi-pencil me-1"></i>Editar</button></td>
+                                            </tr>
+                                            <tr data-nombre="Almacén Estrella" data-vendedor="María González" data-rut="77.123.456-7" data-direccion="Calle Huérfanos 876" data-comuna="Santiago Centro" data-equipos="2" data-origen="ERP" data-origen-value="erp" data-estado="Activo" data-estado-value="activo">
+                                                <td><div class="d-flex align-items-center gap-2"><div class="user-avatar" style="width:32px;height:32px;font-size:12px;background:rgba(0,102,204,0.1);color:var(--azul-primario);">AE</div><span class="fw-semibold">Almacén Estrella</span></div></td>
+                                                <td>77.123.456-7</td>
+                                                <td class="text-muted">Calle Huérfanos 876</td>
+                                                <td>Santiago Centro</td>
+                                                <td>María González</td>
+                                                <td><span class="badge bg-primary">2 equipos</span></td>
+                                                <td><span class="badge bg-light text-dark"><i class="bi bi-cloud-download me-1"></i>ERP</span></td>
+                                                <td><span class="badge-status badge-activo">Activo</span></td>
+                                                <td class="text-end"><button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modalEditarCliente"><i class="bi bi-pencil me-1"></i>Editar</button></td>
+                                            </tr>
+                                            <tr data-nombre="Supermercado El Ahorro" data-vendedor="Carlos Soto" data-rut="78.987.654-3" data-direccion="Av. Independencia 5421" data-comuna="Independencia" data-equipos="5" data-origen="ERP" data-origen-value="erp" data-estado="Activo" data-estado-value="activo">
+                                                <td><div class="d-flex align-items-center gap-2"><div class="user-avatar" style="width:32px;height:32px;font-size:12px;background:rgba(0,102,204,0.1);color:var(--azul-primario);">SA</div><span class="fw-semibold">Supermercado El Ahorro</span></div></td>
+                                                <td>78.987.654-3</td>
+                                                <td class="text-muted">Av. Independencia 5421</td>
+                                                <td>Independencia</td>
+                                                <td>Carlos Soto</td>
+                                                <td><span class="badge bg-primary">5 equipos</span></td>
+                                                <td><span class="badge bg-light text-dark"><i class="bi bi-cloud-download me-1"></i>ERP</span></td>
+                                                <td><span class="badge-status badge-activo">Activo</span></td>
+                                                <td class="text-end"><button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modalEditarCliente"><i class="bi bi-pencil me-1"></i>Editar</button></td>
+                                            </tr>
+                                            <tr data-nombre="Botillería La Esquina" data-vendedor="Ana Rivas" data-rut="79.456.123-0" data-direccion="Calle Portugal 234" data-comuna="Ñuñoa" data-equipos="1" data-origen="ERP" data-origen-value="erp" data-estado="Activo" data-estado-value="activo">
+                                                <td><div class="d-flex align-items-center gap-2"><div class="user-avatar" style="width:32px;height:32px;font-size:12px;background:rgba(0,102,204,0.1);color:var(--azul-primario);">BE</div><span class="fw-semibold">Botillería La Esquina</span></div></td>
+                                                <td>79.456.123-0</td>
+                                                <td class="text-muted">Calle Portugal 234</td>
+                                                <td>Ñuñoa</td>
+                                                <td>Ana Rivas</td>
+                                                <td><span class="badge bg-primary">1 equipo</span></td>
+                                                <td><span class="badge bg-light text-dark"><i class="bi bi-cloud-download me-1"></i>ERP</span></td>
+                                                <td><span class="badge-status badge-activo">Activo</span></td>
+                                                <td class="text-end"><button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modalEditarCliente"><i class="bi bi-pencil me-1"></i>Editar</button></td>
+                                            </tr>
+                                            <tr data-nombre="Minimarket Las Acacias" data-vendedor="Juan Pérez" data-rut="80.234.567-8" data-direccion="Av. Macul 3456" data-comuna="Macul" data-equipos="0" data-origen="ERP" data-origen-value="erp" data-estado="Activo" data-estado-value="activo">
+                                                <td><div class="d-flex align-items-center gap-2"><div class="user-avatar" style="width:32px;height:32px;font-size:12px;background:rgba(0,102,204,0.1);color:var(--azul-primario);">MA</div><span class="fw-semibold">Minimarket Las Acacias</span></div></td>
+                                                <td>80.234.567-8</td>
+                                                <td class="text-muted">Av. Macul 3456</td>
+                                                <td>Macul</td>
+                                                <td>Juan Pérez</td>
+                                                <td><span class="badge bg-light text-muted">Sin equipos</span></td>
+                                                <td><span class="badge bg-light text-dark"><i class="bi bi-cloud-download me-1"></i>ERP</span></td>
+                                                <td><span class="badge-status badge-activo">Activo</span></td>
+                                                <td class="text-end"><button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modalEditarCliente"><i class="bi bi-pencil me-1"></i>Editar</button></td>
+                                            </tr>
+                                            <tr data-nombre="Almacén San Jorge" data-vendedor="Pedro Fuentes" data-rut="81.345.678-9" data-direccion="Calle San Jorge 789" data-comuna="La Florida" data-equipos="2" data-origen="ERP" data-origen-value="erp" data-estado="Activo" data-estado-value="activo">
+                                                <td><div class="d-flex align-items-center gap-2"><div class="user-avatar" style="width:32px;height:32px;font-size:12px;background:rgba(0,102,204,0.1);color:var(--azul-primario);">SJ</div><span class="fw-semibold">Almacén San Jorge</span></div></td>
+                                                <td>81.345.678-9</td>
+                                                <td class="text-muted">Calle San Jorge 789</td>
+                                                <td>La Florida</td>
+                                                <td>Pedro Fuentes</td>
+                                                <td><span class="badge bg-primary">2 equipos</span></td>
+                                                <td><span class="badge bg-light text-dark"><i class="bi bi-cloud-download me-1"></i>ERP</span></td>
+                                                <td><span class="badge-status badge-activo">Activo</span></td>
+                                                <td class="text-end"><button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modalEditarCliente"><i class="bi bi-pencil me-1"></i>Editar</button></td>
+                                            </tr>
+                                            <tr data-nombre="Comercial El Sol" data-vendedor="María González" data-rut="82.567.890-1" data-direccion="Av. Vicuña Mackenna 4321" data-comuna="San Joaquín" data-equipos="4" data-origen="ERP" data-origen-value="erp" data-estado="Activo" data-estado-value="activo">
+                                                <td><div class="d-flex align-items-center gap-2"><div class="user-avatar" style="width:32px;height:32px;font-size:12px;background:rgba(0,102,204,0.1);color:var(--azul-primario);">CS</div><span class="fw-semibold">Comercial El Sol</span></div></td>
+                                                <td>82.567.890-1</td>
+                                                <td class="text-muted">Av. Vicuña Mackenna 4321</td>
+                                                <td>San Joaquín</td>
+                                                <td>María González</td>
+                                                <td><span class="badge bg-primary">4 equipos</span></td>
+                                                <td><span class="badge bg-light text-dark"><i class="bi bi-cloud-download me-1"></i>ERP</span></td>
+                                                <td><span class="badge-status badge-activo">Activo</span></td>
+                                                <td class="text-end"><button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modalEditarCliente"><i class="bi bi-pencil me-1"></i>Editar</button></td>
+                                            </tr>
+                                            <tr data-nombre="Minimarket La Amistad" data-vendedor="Carlos Soto" data-rut="83.678.901-2" data-direccion="Calle Santa Rosa 1876" data-comuna="La Cisterna" data-equipos="1" data-origen="ERP" data-origen-value="erp" data-estado="Activo" data-estado-value="activo">
+                                                <td><div class="d-flex align-items-center gap-2"><div class="user-avatar" style="width:32px;height:32px;font-size:12px;background:rgba(0,102,204,0.1);color:var(--azul-primario);">LA</div><span class="fw-semibold">Minimarket La Amistad</span></div></td>
+                                                <td>83.678.901-2</td>
+                                                <td class="text-muted">Calle Santa Rosa 1876</td>
+                                                <td>La Cisterna</td>
+                                                <td>Carlos Soto</td>
+                                                <td><span class="badge bg-primary">1 equipo</span></td>
+                                                <td><span class="badge bg-light text-dark"><i class="bi bi-cloud-download me-1"></i>ERP</span></td>
+                                                <td><span class="badge-status badge-activo">Activo</span></td>
+                                                <td class="text-end"><button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modalEditarCliente"><i class="bi bi-pencil me-1"></i>Editar</button></td>
+                                            </tr>
+                                            <tr data-nombre="Almacén El Puente" data-vendedor="Ana Rivas" data-rut="84.789.012-3" data-direccion="Av. Pedro Aguirre Cerda 654" data-comuna="Lo Espejo" data-equipos="0" data-origen="Manual" data-origen-value="manual" data-estado="Activo" data-estado-value="activo">
+                                                <td><div class="d-flex align-items-center gap-2"><div class="user-avatar" style="width:32px;height:32px;font-size:12px;background:rgba(0,102,204,0.1);color:var(--azul-primario);">EP</div><span class="fw-semibold">Almacén El Puente</span></div></td>
+                                                <td>84.789.012-3</td>
+                                                <td class="text-muted">Av. Pedro Aguirre Cerda 654</td>
+                                                <td>Lo Espejo</td>
+                                                <td>Ana Rivas</td>
+                                                <td><span class="badge bg-light text-muted">Sin equipos</span></td>
+                                                <td><span class="badge bg-light text-dark"><i class="bi bi-person-plus me-1"></i>Manual</span></td>
+                                                <td><span class="badge-status badge-activo">Activo</span></td>
+                                                <td class="text-end"><button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modalEditarCliente"><i class="bi bi-pencil me-1"></i>Editar</button></td>
+                                            </tr>
+                                            <tr data-nombre="Supermercado Mi Tierra" data-vendedor="Pedro Fuentes" data-rut="85.890.123-4" data-direccion="Calle Recoleta 2345" data-comuna="Recoleta" data-equipos="6" data-origen="ERP" data-origen-value="erp" data-estado="Activo" data-estado-value="activo">
+                                                <td><div class="d-flex align-items-center gap-2"><div class="user-avatar" style="width:32px;height:32px;font-size:12px;background:rgba(0,102,204,0.1);color:var(--azul-primario);">MT</div><span class="fw-semibold">Supermercado Mi Tierra</span></div></td>
+                                                <td>85.890.123-4</td>
+                                                <td class="text-muted">Calle Recoleta 2345</td>
+                                                <td>Recoleta</td>
+                                                <td>Pedro Fuentes</td>
+                                                <td><span class="badge bg-primary">6 equipos</span></td>
+                                                <td><span class="badge bg-light text-dark"><i class="bi bi-cloud-download me-1"></i>ERP</span></td>
+                                                <td><span class="badge-status badge-activo">Activo</span></td>
+                                                <td class="text-end"><button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modalEditarCliente"><i class="bi bi-pencil me-1"></i>Editar</button></td>
+                                            </tr>
+                                            <tr data-nombre="Minimarket Buenos Aires" data-vendedor="Juan Pérez" data-rut="86.901.234-5" data-direccion="Av. Pajaritos 1234" data-comuna="Maipú" data-equipos="3" data-origen="ERP" data-origen-value="erp" data-estado="Activo" data-estado-value="activo">
+                                                <td><div class="d-flex align-items-center gap-2"><div class="user-avatar" style="width:32px;height:32px;font-size:12px;background:rgba(0,102,204,0.1);color:var(--azul-primario);">BA</div><span class="fw-semibold">Minimarket Buenos Aires</span></div></td>
+                                                <td>86.901.234-5</td>
+                                                <td class="text-muted">Av. Pajaritos 1234</td>
+                                                <td>Maipú</td>
+                                                <td>Juan Pérez</td>
+                                                <td><span class="badge bg-primary">3 equipos</span></td>
+                                                <td><span class="badge bg-light text-dark"><i class="bi bi-cloud-download me-1"></i>ERP</span></td>
+                                                <td><span class="badge-status badge-activo">Activo</span></td>
+                                                <td class="text-end"><button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modalEditarCliente"><i class="bi bi-pencil me-1"></i>Editar</button></td>
+                                            </tr>
+                                            <tr data-nombre="Almacén La Esperanza" data-vendedor="Sin asignar" data-rut="87.012.345-6" data-direccion="Calle Gran Avenida 4567" data-comuna="San Miguel" data-equipos="0" data-origen="Manual" data-origen-value="manual" data-estado="Inactivo" data-estado-value="inactivo">
+                                                <td><div class="d-flex align-items-center gap-2"><div class="user-avatar" style="width:32px;height:32px;font-size:12px;background:rgba(108,117,125,0.1);color:var(--gris-medio);">LE</div><span class="fw-semibold">Almacén La Esperanza</span></div></td>
+                                                <td>87.012.345-6</td>
+                                                <td class="text-muted">Calle Gran Avenida 4567</td>
+                                                <td>San Miguel</td>
+                                                <td class="text-muted">Sin asignar</td>
+                                                <td><span class="badge bg-light text-muted">Sin equipos</span></td>
+                                                <td><span class="badge bg-light text-dark"><i class="bi bi-person-plus me-1"></i>Manual</span></td>
+                                                <td><span class="badge-status badge-baja">Inactivo</span></td>
+                                                <td class="text-end"><button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modalEditarCliente"><i class="bi bi-pencil me-1"></i>Editar</button></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="d-flex justify-content-between align-items-center mt-3">
+                                    <div class="text-muted" style="font-size:13px;">Mostrando 1–12 de 124 clientes</div>
+                                    <nav aria-label="Paginación"><ul class="pagination mb-0">
+                                        <li class="page-item disabled"><a class="page-link" href="#" tabindex="-1" aria-disabled="true"><i class="bi bi-chevron-left"></i></a></li>
+                                        <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                                        <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                        <li class="page-item"><a class="page-link" href="#">…</a></li>
+                                        <li class="page-item"><a class="page-link" href="#">11</a></li>
+                                        <li class="page-item"><a class="page-link" href="#"><i class="bi bi-chevron-right"></i></a></li>
+                                    </ul></nav>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <div class="modal fade" id="modalAgregarCliente" tabindex="-1" aria-labelledby="modalAgregarClienteLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg"><div class="modal-content">
+            <div class="modal-header"><h5 class="modal-title" id="modalAgregarClienteLabel">Agregar cliente</h5><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button></div>
+            <div class="modal-body"><form id="formAgregarCliente" novalidate>
+                <div class="row">
+                    <div class="col-md-7 mb-3"><label for="nombreCliente" class="form-label">Nombre / Razón social</label><input type="text" class="form-control" id="nombreCliente" placeholder="Ej: Minimarket Don Eduardo" required><div class="invalid-feedback">Ingresa el nombre o razón social.</div></div>
+                    <div class="col-md-5 mb-3"><label for="rutCliente" class="form-label">RUT</label><input type="text" class="form-control" id="rutCliente" placeholder="Ej: 76.543.210-1" required><div class="invalid-feedback">Ingresa el RUT.</div></div>
+                </div>
+                <div class="row">
+                    <div class="col-md-8 mb-3"><label for="direccionCliente" class="form-label">Dirección</label><input type="text" class="form-control" id="direccionCliente" placeholder="Ej: Av. Providencia 1234" required><div class="invalid-feedback">Ingresa la dirección.</div></div>
+                    <div class="col-md-4 mb-3"><label for="comunaCliente" class="form-label">Comuna</label><select class="form-select" id="comunaCliente" required>
+                        <option value="" selected disabled>Seleccionar...</option>
+                        <option>Providencia</option><option>Santiago Centro</option><option>Independencia</option>
+                        <option>Ñuñoa</option><option>Macul</option><option>La Florida</option>
+                        <option>San Joaquín</option><option>La Cisterna</option><option>Lo Espejo</option>
+                        <option>Recoleta</option><option>Maipú</option><option>San Miguel</option>
+                    </select><div class="invalid-feedback">Selecciona una comuna.</div></div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label for="telefonoCliente" class="form-label">Teléfono (opcional)</label>
+                        <input type="text" class="form-control" id="telefonoCliente" placeholder="+56 9 1234 5678">
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="vendedorCliente" class="form-label">Vendedor asignado</label>
+                        <select class="form-select" id="vendedorCliente">
+                            <option value="" selected>Sin asignar</option>
+                            <option value="Juan Pérez">Juan Pérez</option>
+                            <option value="María González">María González</option>
+                            <option value="Carlos Soto">Carlos Soto</option>
+                            <option value="Ana Rivas">Ana Rivas</option>
+                            <option value="Pedro Fuentes">Pedro Fuentes</option>
+                        </select>
+                        <div class="form-text">Puedes gestionar los vendedores en el <a href="vendedores.html">maestro de Vendedores</a>.</div>
+                    </div>
+                </div>
+                <div class="mb-3 form-check form-switch"><input class="form-check-input" type="checkbox" id="estadoCliente" checked><label class="form-check-label" for="estadoCliente">Activo</label></div>
+            </form></div>
+            <div class="modal-footer"><button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancelar</button><button type="button" class="btn btn-primary" id="btnGuardarCliente">Guardar</button></div>
+        </div></div>
+    </div>
+
+    <div class="modal fade" id="modalEditarCliente" tabindex="-1" aria-labelledby="modalEditarClienteLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg"><div class="modal-content">
+            <div class="modal-header"><h5 class="modal-title" id="modalEditarClienteLabel">Editar cliente</h5><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button></div>
+            <div class="modal-body"><form id="formEditarCliente" novalidate>
+                <div class="row">
+                    <div class="col-md-7 mb-3"><label for="editarNombreCliente" class="form-label">Nombre / Razón social</label><input type="text" class="form-control" id="editarNombreCliente" required><div class="invalid-feedback">Ingresa el nombre o razón social.</div></div>
+                    <div class="col-md-5 mb-3"><label for="editarRutCliente" class="form-label">RUT</label><input type="text" class="form-control" id="editarRutCliente" required><div class="invalid-feedback">Ingresa el RUT.</div></div>
+                </div>
+                <div class="row">
+                    <div class="col-md-8 mb-3"><label for="editarDireccionCliente" class="form-label">Dirección</label><input type="text" class="form-control" id="editarDireccionCliente" required><div class="invalid-feedback">Ingresa la dirección.</div></div>
+                    <div class="col-md-4 mb-3"><label for="editarComunaCliente" class="form-label">Comuna</label><select class="form-select" id="editarComunaCliente" required>
+                        <option>Providencia</option><option>Santiago Centro</option><option>Independencia</option>
+                        <option>Ñuñoa</option><option>Macul</option><option>La Florida</option>
+                        <option>San Joaquín</option><option>La Cisterna</option><option>Lo Espejo</option>
+                        <option>Recoleta</option><option>Maipú</option><option>San Miguel</option>
+                    </select><div class="invalid-feedback">Selecciona una comuna.</div></div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4 mb-3"><label for="editarTelefonoCliente" class="form-label">Teléfono (opcional)</label><input type="text" class="form-control" id="editarTelefonoCliente"></div>
+                    <div class="col-md-4 mb-3"><label for="editarVendedorCliente" class="form-label">Vendedor asignado</label><select class="form-select" id="editarVendedorCliente"><option value="">Sin asignar</option><option value="Juan Pérez">Juan Pérez</option><option value="María González">María González</option><option value="Carlos Soto">Carlos Soto</option><option value="Ana Rivas">Ana Rivas</option><option value="Pedro Fuentes">Pedro Fuentes</option></select></div>
+                    <div class="col-md-4 mb-3"><label for="editarOrigenCliente" class="form-label">Origen</label><input type="text" class="form-control" id="editarOrigenCliente" disabled></div>
+                </div>
+                <div class="mb-3 form-check form-switch"><input class="form-check-input" type="checkbox" id="editarEstadoCliente"><label class="form-check-label" for="editarEstadoCliente">Activo</label></div>
+            </form></div>
+            <div class="modal-footer"><button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancelar</button><button type="button" class="btn btn-primary" id="btnActualizarCliente">Guardar cambios</button></div>
+        </div></div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        let filaEditando = null;
+        document.getElementById('btnGuardarCliente').addEventListener('click', function() {
+            const form = document.getElementById('formAgregarCliente');
+            if (form.checkValidity()) {
+                bootstrap.Modal.getInstance(document.getElementById('modalAgregarCliente')).hide();
+                form.reset(); form.classList.remove('was-validated');
+                alert('Cliente agregado correctamente (simulación).');
+            } else { form.classList.add('was-validated'); }
+        });
+        document.getElementById('modalAgregarCliente').addEventListener('hidden.bs.modal', function() {
+            const form = document.getElementById('formAgregarCliente');
+            form.reset(); form.classList.remove('was-validated');
+        });
+        document.getElementById('modalEditarCliente').addEventListener('show.bs.modal', function(event) {
+            filaEditando = event.relatedTarget.closest('tr');
+            const d = filaEditando.dataset;
+            document.getElementById('editarNombreCliente').value = d.nombre;
+            document.getElementById('editarRutCliente').value = d.rut;
+            document.getElementById('editarDireccionCliente').value = d.direccion;
+            document.getElementById('editarComunaCliente').value = d.comuna;
+            document.getElementById('editarOrigenCliente').value = d.origen;
+            document.getElementById('editarVendedorCliente').value = d.vendedor || '';
+            document.getElementById('editarEstadoCliente').checked = d.estadoValue === 'activo';
+        });
+        document.getElementById('modalEditarCliente').addEventListener('hidden.bs.modal', function() {
+            const form = document.getElementById('formEditarCliente');
+            form.reset(); form.classList.remove('was-validated'); filaEditando = null;
+        });
+        document.getElementById('btnActualizarCliente').addEventListener('click', function() {
+            const form = document.getElementById('formEditarCliente');
+            if (form.checkValidity()) {
+                if (filaEditando) {
+                    filaEditando.dataset.nombre = document.getElementById('editarNombreCliente').value;
+                    filaEditando.dataset.rut = document.getElementById('editarRutCliente').value;
+                    filaEditando.dataset.direccion = document.getElementById('editarDireccionCliente').value;
+                    filaEditando.dataset.comuna = document.getElementById('editarComunaCliente').value;
+                    filaEditando.dataset.vendedor = document.getElementById('editarVendedorCliente').value || 'Sin asignar';
+                    const activo = document.getElementById('editarEstadoCliente').checked;
+                    filaEditando.dataset.estado = activo ? 'Activo' : 'Inactivo';
+                    filaEditando.dataset.estadoValue = activo ? 'activo' : 'inactivo';
+                    const iniciales = filaEditando.dataset.nombre.split(' ').map(p => p[0]).join('').substring(0, 2).toUpperCase();
+                    filaEditando.cells[0].querySelector('.fw-semibold').textContent = filaEditando.dataset.nombre;
+                    filaEditando.cells[0].querySelector('.user-avatar').textContent = iniciales;
+                    filaEditando.cells[1].textContent = filaEditando.dataset.rut;
+                    filaEditando.cells[2].textContent = filaEditando.dataset.direccion;
+                    filaEditando.cells[3].textContent = filaEditando.dataset.comuna;
+                    filaEditando.cells[4].textContent = filaEditando.dataset.vendedor === 'Sin asignar' ? 'Sin asignar' : filaEditando.dataset.vendedor;
+                    filaEditando.cells[4].className = filaEditando.dataset.vendedor === 'Sin asignar' ? 'text-muted' : '';
+                    const badge = filaEditando.querySelector('.badge-status');
+                    badge.textContent = filaEditando.dataset.estado;
+                    badge.className = 'badge-status ' + (activo ? 'badge-activo' : 'badge-baja');
+                }
+                bootstrap.Modal.getInstance(document.getElementById('modalEditarCliente')).hide();
+                alert('Cliente actualizado correctamente (simulación).');
+            } else { form.classList.add('was-validated'); }
+        });
+    </script>
+</body>
+</html>
