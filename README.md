@@ -1,331 +1,280 @@
-# Prototipo — Plataforma de Gestión de Equipos Refrigerados
+# Prototipo Maquinas — Documentación Funcional
 
-Este documento describe **el prototipo navegable** (maqueta no funcional, sin backend real) construido en esta carpeta. Su objetivo es que cualquier persona —técnica o administrativa— entienda qué vistas existen, para qué sirven, y cómo se conectan entre sí, sin necesidad de conocer el proyecto de antemano.
+> Documentación funcional del prototipo navegable (no funcional) de la **Plataforma de Gestión de Equipos Refrigerados** de Isstec. Cubre exclusivamente **qué hace cada vista, para quién y por qué existe** — no describe estilos visuales ni código (ver `css/styles.css` y `md/DESIGN.md` para el sistema de diseño).
+>
+> **Fuentes correlacionadas para esta documentación**: el HTML real de cada pantalla en este directorio (`index.html`, `mandante/*.html`, `distribuidor/*.html`) y la documentación funcional en `../md/` (`PROPOSAL.md`, `prd_features.md`, `maestros.md`, `stitch_prompts.md`, `business_rules_and_open_questions.md`, `verification_report.md`). Donde el prototipo y la documentación difieren, se documenta lo que **realmente existe en el prototipo** y se anota la discrepancia en la sección de [Inconsistencias e información faltante](./#inconsistencias-e-información-faltante).
 
-> **Fuentes usadas:** este README se construyó revisando el código HTML de las 39 pantallas del prototipo (`index.html`, `mandante/*.html`, `distribuidor/*.html`) y la documentación funcional en `../md/` (`PROPOSAL.md`, `prd_features.md`, `maestros.md`, `business_rules_and_open_questions.md`, `system_diagrams.md`, `stitch_prompts.md`). **Cuando hubo diferencias entre lo documentado y lo realmente implementado, se priorizó el prototipo** y la diferencia se deja registrada en la sección 7.
+## 1. Contexto del proyecto
 
----
+La plataforma resuelve la pérdida de visibilidad y control que sufre un **Mandante** (dueño de equipos de frío, ej. Savory) sobre los activos que entrega en comodato a **Distribuidores/Gestores** (ej. IceFree, Dimer) para instalarlos en puntos de venta de **Clientes finales**. Hoy ese control se lleva en planillas Excel, lo que genera pérdidas, uso indebido de los equipos y falta de trazabilidad. La plataforma reemplaza ese control manual con dos paneles web (Mandante y Distribuidor) que administran el ciclo de vida completo del equipo: carga, asignación, recepción, asignación a cliente final, inventario, movimientos/bajas e informes. Ver `../md/README.md` §1-§7 para el detalle completo del problema y la solución de negocio.
 
-## 1. Qué es este prototipo
+**Alcance de este prototipo**: es una maqueta HTML estática (Bootstrap 5), sin backend ni lógica real, pensada para validar el flujo de usuario y presentar la solución comercialmente.
 
-Es una maqueta web **no funcional** (HTML + Bootstrap 5, sin backend, sin base de datos real) que simula una plataforma para que un **Mandante** (dueño de freezers y conservadoras, ej. Savory) controle el ciclo de vida completo de esos equipos que entrega en comodato a **Distribuidores/Gestores** (ej. IceFree), quienes a su vez los instalan en **Clientes finales** (puntos de venta como minimarkets).
+## 2. Roles y acceso
 
-Hoy ese control se hace con planillas Excel. El prototipo demuestra cómo se vería una plataforma web que reemplace ese proceso manual, cubriendo: carga de equipos, asignación al distribuidor, recepción e inspección, asignación a clientes finales, solicitudes de movimiento/baja, gestión de inventario, guías de despacho, trazabilidad e informes.
+| Rol                       | Descripción                                                                                                                             | Paneles disponibles en el prototipo                                                                           |
+| ------------------------- | --------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------- |
+| **Mandante**              | Dueño de los equipos (ej. Savory). Administra maestros, asigna equipos, autoriza movimientos, consulta inventario e informes.           | Completo (21 vistas)                                                                                          |
+| **Distribuidor / Gestor** | Recibe equipos en comodato, los asigna a clientes finales, solicita movimientos y reporta inventario/ventas.                            | Parcial (solo Dashboard, Usuarios y Roles — ver [Inconsistencias](./#inconsistencias-e-información-faltante)) |
+| **Cliente final**         | Punto de venta donde se instala el equipo. No es usuario del sistema en esta fase; aparece solo como dato referenciado en otras vistas. | Sin acceso                                                                                                    |
 
-Todos los datos que se ven (nombres, RUT, cifras) son **ficticios**. No hay lógica de negocio real: los botones simulan comportamiento con JavaScript en el navegador (por ejemplo, cambiar el color de un badge o mostrar un modal), pero no persisten información en un servidor.
+## 3. Estructura de navegación
 
-## 2. Cómo navegar el prototipo
+Ambos paneles usan un sidebar fijo agrupado en secciones **Principal · Operación · Análisis · Maestros · Configuración**, definido en `mandante/dashboard.html` y `distribuidor/dashboard.html`.
 
-### 2.1 Login (`index.html`)
+**Sidebar Mandante** (todos los enlaces resuelven a un archivo real): `Principal`: Dashboard, Asignación de Equipos · `Operación`: Autorización de Movimientos, Consulta de Inventario, Trazabilidad · `Análisis`: Informes · `Maestros`: Equipos, Gestores, Servicio Técnico, Grupo de Máquinas, Familia de Máquinas, Ubicaciones/Bodegas, Motivos de Movimiento, Tipos de Solicitud, Plantillas de Inspección, Marcas, Modelos, Tipos de Incidencias · `Configuración`: Usuarios, Roles.
 
-- **Objetivo:** punto de entrada único a la plataforma.
-- **Funcionalidad:** formulario con RUT (con validación de formato chileno), contraseña (con botón para mostrar/ocultar) y un selector de **rol** mediante dos tarjetas: **Mandante** o **Distribuidor**.
-- **Flujo de usuario:**
-  - *Antes:* el usuario no tiene sesión iniciada.
-  - *Durante:* ingresa RUT/contraseña (cualquier valor funciona, es una maqueta) y elige manualmente su rol.
-  - *Después:* es redirigido a `mandante/dashboard.html` o `distribuidor/dashboard.html` según el rol elegido.
-- **Relación con otras vistas:** es la única puerta de entrada; todas las demás vistas tienen un botón "Cerrar sesión" en el pie del sidebar que devuelve aquí.
+**Sidebar Distribuidor** (la mayoría de los enlaces **no** resuelven a un archivo existente — ver sección de inconsistencias): `Principal`: Dashboard ✅, Recepción de Equipos ❌, Asignación a Clientes ❌ · `Operación`: Solicitudes de Movimiento ❌, Inventario ❌, Guías de Despacho ❌ · `Análisis`: Reportes ❌ · `Maestros`: Clientes ❌, Ubicaciones/Bodegas (enlace `#`) · `Configuración`: Usuarios ✅, Roles ✅.
 
-### 2.2 Estructura de navegación (sidebar)
-
-Ambos paneles comparten el mismo patrón visual: un **sidebar** fijo a la izquierda agrupado en 5 secciones — **Principal**, **Operación**, **Análisis**, **Maestros** y **Configuración** — y una barra superior (**navbar**) con accesos rápidos, notificaciones y datos del usuario conectado. Este README sigue ese mismo agrupamiento para presentar las vistas de cada panel.
+***
 
-### 2.3 Modelo de estados (aplica a casi todas las vistas)
+## 4. Vista transversal — Login
 
-Antes de entrar al detalle de cada vista, es útil saber que el prototipo distingue **5 "ejes" de estado independientes** (documentados en `../md/business_rules_and_open_questions.md` §0), porque varias vistas muestran badges de "Pendiente", "Rechazado", etc. con significados distintos según el contexto:
+### Login
 
-| Eje | Dónde se ve | Valores |
-|---|---|---|
-| 1. Estado del **equipo** | Maestro de Equipos, Trazabilidad, etc. | Activo → Asignado al Distribuidor → Asignado a Cliente → En SSTT → Pendiente de Revisión / Rechazado / Baja |
-| 2. Estado del **lote de recepción** | `recepciones.html` | En Tránsito → Pendiente de Inspección → En Inspección → Recibido / Rechazado |
-| 3. Estado del **registro de asignación** (Mandante→Distribuidor) | `asignaciones.html` | Borrador → Enviada → Completada |
-| 4. Estado de la **solicitud/autorización** | `autorizacion-movimientos.html`, `solicitudes-movimiento.html` | Pendiente de Aprobación → Aprobada / Rechazada |
-| 5. Estado de **asignación a cliente final** | `asignaciones-realizadas.html` | Activo / En SSTT / Baja (es un filtro del Eje 1, no un catálogo propio) |
-
----
-
-## 3. Panel del Mandante
-
-Usuario tipo: administrador de activos de Savory. Su rol es controlar el maestro de equipos, decidir a qué distribuidor se asigna cada lote, aprobar o rechazar solicitudes del distribuidor, y consultar informes/trazabilidad.
-
-### 3.1 Sección Principal
+* **Nombre de la vista**: Login (`index.html`)
+* **Objetivo / problema que resuelve**: punto de entrada único a la plataforma; controla el acceso diferenciado por perfil (Mandante / Distribuidor).
+* **Motivo por el que fue creada**: sin autenticación no existe forma de separar lo que ve y puede hacer cada actor del negocio (AUTH-1 en `prd_features.md`).
+* **Funcionalidad principal**: formulario con RUT (validación de formato chileno), contraseña (con toggle mostrar/ocultar) y selector visual de rol (tarjetas radio "Mandante" / "Distribuidor"). Botón "Ingresar" con validación de campos obligatorios.
+* **Flujo de usuario**: el usuario llega directamente (es la home del sitio) → ingresa RUT y contraseña → selecciona su rol manualmente → hace clic en "Ingresar" → si los datos son válidos, es redirigido a `mandante/dashboard.html` o `distribuidor/dashboard.html` según el rol elegido.
+* **Relación con otras vistas**: es el punto de entrada a todas las demás vistas del prototipo; el botón "Cerrar sesión" del pie del sidebar (en cualquier vista de ambos paneles) regresa aquí.
 
-#### `mandante/dashboard.html` — Dashboard Mandante
-- **Objetivo:** dar una vista panorámica del estado de la flota de equipos al entrar al sistema.
-- **Motivo:** el Mandante hoy no tiene visibilidad centralizada; esta pantalla resuelve el problema de "no sé cuántos equipos tengo ni en qué estado están" sin tener que abrir varias planillas.
-- **Funcionalidad principal:** 4 KPI (Total de equipos, Activos, En Servicio Técnico, Solicitudes Pendientes), mapa de distribución geográfica, gráfico de dona con estado de equipos, y tabla de solicitudes pendientes con acciones rápidas de Aprobar/Rechazar.
-- **Flujo:** *antes* — el usuario recién inició sesión; *durante* — revisa KPIs y detecta solicitudes pendientes; *después* — puede hacer clic en una solicitud y ser dirigido a `autorizacion-movimientos.html`, o navegar a cualquier otra sección del sidebar.
-- **Relación:** es el punto de partida hacia todas las demás vistas del panel Mandante.
+***
 
-#### `mandante/asignaciones.html` — Asignación de Equipos (listado)
-- **Objetivo:** mostrar el historial de lotes de equipos ya asignados (o en proceso de asignar) a distribuidores.
-- **Motivo:** sin esta vista no habría forma de auditar qué se envió a quién y cuándo; formaliza el envío de planillas informales por Excel.
-- **Funcionalidad principal:** tabla de registros de asignación con su estado de proceso (Borrador/Enviada/Completada) y desglose de cuántos equipos del lote quedaron en cada estado (Eje 3 del modelo de estados).
-- **Flujo:** *antes* — el Mandante decide enviar equipos a un distribuidor; *durante* — consulta el historial o inicia una nueva asignación con el botón "Nueva asignación" del navbar; *después* — si crea una nueva, es dirigido a `asignacion-equipos.html`.
-- **Relación:** el sidebar "Asignación de Equipos" apunta a este listado; el botón "Nueva asignación" (presente en el navbar de casi todas las vistas del Mandante) lleva a la pantalla de creación.
-
-#### `mandante/asignacion-equipos.html` — Asignación de Equipos (creación)
-- **Objetivo:** ejecutar el envío de un lote de equipos a un distribuidor específico.
-- **Motivo:** es el corazón del flujo Mandante→Distribuidor descrito en `PROPOSAL.md`; reemplaza el envío manual de planillas.
-- **Funcionalidad principal:** selector de "Distribuidor destino", tabla de equipos disponibles (sin asignar) con checkboxes, panel resumen con conteo de seleccionados, botón "Confirmar asignación". Al confirmar, se abre un modal para **adjuntar el PDF de la Guía de Despacho** (el Mandante siempre sube el PDF manualmente; la generación automática solo aplica a distribuidores con sistema Isstec en el flujo inverso).
-- **Flujo:** *antes* — hay equipos en estado "Activo" sin distribuidor asignado; *durante* — se elige distribuidor y equipos, se confirma y se adjunta la guía; *después* — los equipos pasan a "Asignado al Distribuidor" y aparece una notificación simulada hacia el distribuidor.
-- **Relación:** alimenta directamente `distribuidor/recepciones.html` (el lote enviado aparecerá ahí como "En Tránsito"); se accede desde `asignaciones.html` o desde el botón del navbar.
-
-### 3.2 Sección Operación
-
-#### `mandante/autorizacion-movimientos.html` — Autorización de Movimientos
-- **Objetivo:** que el Mandante apruebe o rechace las solicitudes de baja, cambio o envío a SSTT que genera el Distribuidor.
-- **Motivo:** regla de negocio central del proyecto (RN-1): el Distribuidor **nunca** puede dar de baja un equipo por su cuenta; siempre requiere aprobación del Mandante. Sin esta vista, esa regla no tendría dónde ejecutarse.
-- **Funcionalidad principal:** filtro por estado (Pendiente/Aprobada/Rechazada), tabla de solicitudes con acciones Aprobar/Rechazar/Detalles, y un modal de detalle con historial (timeline) y evidencia adjunta (fotos/documentos).
-- **Flujo:** *antes* — el Distribuidor generó una solicitud desde `distribuidor/nueva-solicitud.html`; *durante* — el Mandante revisa la evidencia y decide; *después* — el estado del equipo se actualiza (ej. a "En SSTT" o "Baja") y queda registrado en `trazabilidad.html`.
-- **Relación:** recibe solicitudes de `distribuidor/solicitudes-movimiento.html`; sus decisiones se reflejan en `maestro-equipos.html` y `trazabilidad.html`.
-
-#### `mandante/consulta-inventario.html` — Consulta de Inventario
-- **Objetivo:** dar visibilidad al Mandante de los inventarios físicos que cada Distribuidor gestiona, **en modo solo lectura**.
-- **Motivo:** el Mandante necesita saber si hay discrepancias entre lo que el sistema dice tener y lo que el Distribuidor cuenta físicamente, pero no es su responsabilidad generar o ajustar esos inventarios (eso es exclusivo del Distribuidor).
-- **Funcionalidad principal:** filtros por Distribuidor/Estado/fechas, tabla de inventarios con expansión de detalle (Equipo | Inventario Sistema | Inventario Físico | Diferencia).
-- **Flujo:** *antes* — un Distribuidor generó y cerró un inventario; *durante* — el Mandante lo consulta para auditar discrepancias; *después* — no hay acción posterior desde esta vista (es informativa).
-- **Relación:** es el espejo de solo lectura de todo el flujo de inventario del Distribuidor (`inventario.html` → `solicitud-inventario.html` → `registro-conteo.html` → `ajuste-inventario.html`).
-
-#### `mandante/trazabilidad.html` — Trazabilidad de Equipo
-- **Objetivo:** consultar el historial completo de un equipo específico.
-- **Motivo:** resuelve la frustración explícita del Mandante de "no tener trazabilidad histórica de por dónde ha pasado una máquina" (ver `../md/user_personas.md`).
-- **Funcionalidad principal:** buscador por N° de serie, card con datos actuales del equipo, y una línea de tiempo (timeline) vertical con cada evento (registro, asignación, recepción, asignación a cliente, envío a SSTT, baja) con fecha, actor y comentario.
-- **Flujo:** *antes* — el usuario necesita investigar un equipo puntual (ej. por una disputa o auditoría); *durante* — busca por serie y revisa el historial; *después* — puede usar la información para decidir en `autorizacion-movimientos.html`.
-- **Relación:** se accede también desde `maestro-equipos.html` (botón "Ver detalle" de un equipo); consolida eventos generados por casi todas las demás vistas.
-
-#### `mandante/guias-despacho.html` — Guías de Despacho (Mandante)
-- **Objetivo:** listado centralizado de todas las Guías de Despacho (GD) del flujo: las que el Mandante adjunta al asignar equipos, y las que cada Distribuidor genera o adjunta al despachar a un cliente final.
-- **Motivo:** el requisito de negocio RN-8 exige generar/controlar guías de despacho para el traslado físico de las máquinas; esta vista da visibilidad consolidada al Mandante sobre el cumplimiento de ese requisito en toda la red de distribuidores.
-- **Funcionalidad principal:** 4 KPI (Total GD, PDF adjuntos, Generadas por distribuidores, Pendientes), filtros (tipo, distribuidor, estado, fechas), tabla con acciones "Ver" y "Descargar PDF".
-- **Flujo:** *antes* — se ejecutó una asignación (`asignacion-equipos.html`) o una asignación a cliente (`distribuidor/asignaciones-realizadas.html`); *durante* — el Mandante audita que las guías existan y estén correctas; *después* — no aplica acción transaccional, es de consulta.
-- **Relación:** consolida datos generados en `asignacion-equipos.html` (Mandante→Distribuidor) y en `distribuidor/asignaciones-realizadas.html` (Distribuidor→Cliente).
-
-### 3.3 Sección Análisis
-
-#### `mandante/informes.html` — Informes
-- **Objetivo:** entregar indicadores de negocio y geolocalización de los activos.
-- **Motivo:** cubre la necesidad de "visualizar la distribución geográfica de los activos y su rendimiento comercial" (persona Marcela, `user_personas.md`).
-- **Funcionalidad principal:** 4 pestañas — Geolocalización (mapa con pines, filtros por tipo de máquina/distribuidor), Piramidal de Ventas (barras), Rendimiento por Equipo (ventas vs. equipos asignados), Servicio Técnico (tabla de equipos en SSTT con SLA y días en reparación).
-- **Flujo:** *antes* — existen datos de ventas notificados por los ERP de los distribuidores (vía API, fuera del alcance visual del prototipo) y equipos con ubicación; *durante* — el usuario filtra por fecha/tipo/distribuidor; *después* — no hay transacción, es de consulta.
-- **Relación:** consume datos de `maestro-equipos.html` (ubicación/tipo), `gestores.html` (filtro por distribuidor) y `servicio-tecnico.html` (SLA).
-
-### 3.4 Sección Maestros
-
-Los "maestros" son catálogos administrables por el Mandante. Todos siguen un patrón común de CRUD: tabla con buscador/filtros, botón para agregar (modal), acciones de editar y activar/desactivar por fila. A continuación el detalle de cada uno (objetivo y a qué otras vistas alimenta), según `../md/maestros.md` §1 y §3.1, verificado contra el prototipo:
-
-| Vista | Objetivo / qué resuelve | Alimenta a |
-|---|---|---|
-| `maestro-equipos.html` — **Equipos** | Registro central de todos los activos fríos (N° de serie, marca, modelo, estado, distribuidor). Es la entidad núcleo del sistema: casi todo proceso referencia un equipo por su serie. | Asignación, Recepción, Asignación a Clientes, Solicitudes, Trazabilidad, Inventario, Informes, Guías de Despacho |
-| `gestores.html` — **Gestores (Distribuidores)** | Alta y administración de distribuidores autorizados (RUT, dirección, estado, tipo de integración ERP: Isstec/SAP/Odoo/Otro). El tipo de ERP decide si la GD se genera automática o vía PDF adjunto (RN-16). | Asignación de Equipos, Autorización, Informes, Guías de Despacho |
-| `servicio-tecnico.html` — **Servicio Técnico** | Catálogo de proveedores de SSTT autorizados, con su SLA en días para medir atrasos en reparación. | Solicitud de Movimiento, Informes (tab SSTT) |
-| `grupo-maquinas.html` — **Grupo de Máquinas** | Clasificación por tamaño (Grande, Mediana, Pequeña, Barquilleras), heredada del ERP Isstec. | Maestro de Equipos, Informes, matching de ventas |
-| `familia-maquinas.html` — **Familia de Máquinas** | Clasificación por tipo de mueble (Vitrina, Vertical, Barquillera, Congelados, etc.). Es clave para el "matching" de ventas contra tipo de máquina (RN-14) cuando el ERP no identifica el N° de serie exacto. | Maestro de Equipos, Informes |
-| `ubicaciones-bodegas.html` — **Ubicaciones / Bodegas** | Lugares físicos (bodegas del Mandante o del Distribuidor, puntos de retiro) donde puede estar un equipo. Da un origen/destino normalizado a cada movimiento en vez de texto libre. | Recepción, Trazabilidad, Informes, Inventario |
-| `motivos-movimiento.html` — **Motivos de Movimiento** | Catálogo administrable de razones por las que se mueve un equipo (asignación, baja, cambio, reparación, devolución). Normaliza el reporting (ej. cuántas bajas por robo vs. daño). | Solicitud de Movimiento, Autorización, Trazabilidad |
-| `tipos-solicitud.html` — **Tipos de Solicitud** | Catálogo estandarizado **por el Mandante** de todos los tipos de solicitud de la plataforma (Baja definitiva, Envío a SSTT, Cambio de equipo, Retorno al Mandante, Solicitud de Inventario), indicando cuáles requieren aprobación. | Solicitud de Movimiento, Autorización, Gestión de Inventario |
-| `plantillas-inspeccion.html` — **Plantillas de Inspección** | Listas de verificación configurables para la inspección visual de equipos en la recepción del Distribuidor. Da respaldo objetivo ante disputas. | Recepción de Equipos (checklist) |
-| `marcas.html` — **Marcas** | Catálogo de marcas de equipos (Savory, Coldex, etc.), normalizando un campo que antes era texto libre. | Maestro de Equipos, Modelos, Informes |
-| `modelos.html` — **Modelos** | Catálogo de modelos vinculados a una Marca, con Familia, Grupo y Capacidad. Requiere una Marca existente para poder crearse. | Maestro de Equipos, Asignación, Recepción, Informes |
-| `tipos-incidencias.html` — **Tipos de Incidencias / Catálogo de Fallas** | Catálogo de fallas/siniestros que puede sufrir un equipo, indicando si requiere derivación a SSTT. Alimenta el dropdown de "Motivo" al reportar un problema en la recepción. | Recepción de Equipos (motivo de rechazo), Solicitud de Movimiento |
-
-### 3.5 Sección Configuración
-
-#### `mandante/usuarios.html` — Usuarios
-- **Objetivo:** administrar las cuentas de personas que operan el panel Mandante.
-- **Motivo:** control de acceso — define quién puede operar como Mandante.
-- **Funcionalidad principal:** tabla con nombre, RUT, email, rol (Administrador/Supervisor/Operador/Solo Lectura), estado y último acceso; filtros por RUT/nombre/rol/estado; modal para agregar/editar usuario.
-- **Flujo:** *antes* — se necesita dar acceso a un nuevo colaborador; *durante* — se completa el modal con sus datos y rol; *después* — el usuario queda disponible para iniciar sesión (simulado).
-- **Relación:** el rol asignado aquí determina qué permisos se configuran en `roles.html`.
-
-#### `mandante/roles.html` — Roles
-- **Objetivo:** definir qué puede hacer cada perfil de usuario dentro del panel.
-- **Motivo:** cubre AUTH-2 (gestión de roles y permisos) — sin esto, todos los usuarios tendrían el mismo nivel de acceso.
-- **Funcionalidad principal:** tabla de roles y, al agregar/editar uno, un acordeón de permisos agrupados por sección (Principal, Operación, etc.) con checkboxes por funcionalidad (ej. "Asignación de Equipos", "Autorización de Movimientos").
-- **Flujo:** *antes* — se definieron los usuarios; *durante* — se ajustan permisos por rol; *después* — los permisos condicionan (conceptualmente) qué ve cada usuario al iniciar sesión.
-- **Relación:** trabaja en conjunto con `usuarios.html`.
-
----
-
-## 4. Panel del Distribuidor
-
-Usuario tipo: operador logístico del distribuidor (ej. IceFree). Su rol es recibir e inspeccionar los equipos que le asigna el Mandante, entregarlos a sus clientes finales, gestionar su propio inventario físico y solicitar movimientos/bajas cuando corresponda.
-
-### 4.1 Sección Principal
-
-#### `distribuidor/dashboard.html` — Dashboard Distribuidor
-- **Objetivo:** panorama operativo diario del Distribuidor.
-- **Motivo:** Rodrigo (persona del Distribuidor) necesita saber rápidamente cuántos equipos tiene pendientes de inspeccionar o asignar sin revisar planillas.
-- **Funcionalidad principal:** 4 KPI (Pendientes de inspección, Asignados a clientes, Pendientes de asignar, Solicitudes en curso), lista de notificaciones recientes, gráfico de dona de distribución de equipos.
-- **Flujo:** *antes* — inicia sesión; *durante* — revisa KPIs y notificaciones (ej. "nuevo lote recibido"); *después* — navega a `recepciones.html` si hay un lote nuevo, o a cualquier otra vista.
-- **Relación:** punto de partida hacia todo el panel Distribuidor.
-
-#### `distribuidor/recepciones.html` — Recepción de Equipos (listado de lotes)
-- **Objetivo:** listar los lotes enviados por el Mandante y su estado de proceso.
-- **Motivo:** formaliza el paso "el Distribuidor recibe notificación de que debe cargar máquinas" del flujo de negocio original (PDF de flujo de carga).
-- **Funcionalidad principal:** KPIs por estado de lote (En Tránsito, Pendiente de Inspección, Recibidos, Con Problema, Rechazados), tabla con acciones según estado — **"Registrar llegada"** (transiciona el lote de "En Tránsito" a "Pendiente de Inspección" vía un modal, sin recargar la página) e **"Inspeccionar"/"Continuar"** (lleva a la inspección detallada).
-- **Flujo:** *antes* — el Mandante confirmó una asignación en `mandante/asignacion-equipos.html`; *durante* — el Distribuidor registra la llegada física del lote; *después* — pasa a `recepcion-equipos.html` para la inspección uno a uno.
-- **Relación:** recibe lotes generados en `mandante/asignacion-equipos.html`; enlaza a `recepcion-equipos.html`.
-
-#### `distribuidor/recepcion-equipos.html` — Recepción de Equipos (inspección)
-- **Objetivo:** inspeccionar visualmente cada equipo de un lote y decidir si se acepta o se reporta con problema.
-- **Motivo:** resuelve directamente la pregunta de negocio "¿qué pasa si el Distribuidor acepta por error una máquina en mal estado?" — obliga a una inspección explícita antes de aceptar (RN visible en `business_rules_and_open_questions.md`).
-- **Funcionalidad principal:** tabla de equipos del lote con acciones "Aceptar"/"Reportar Problema" por fila, botones masivos "Aceptar Todo"/"Reportar Todo" (con modal de confirmación porque omiten la inspección individual), formulario inline de Motivo (alimentado desde el maestro **Tipos de Incidencias** del Mandante) al reportar un problema, barra de progreso y botón "Confirmar recepción".
-- **Flujo:** *antes* — el lote está en "Pendiente de Inspección" o "En Inspección"; *durante* — se revisa equipo por equipo; *después* — los equipos aceptados quedan disponibles para asignar a clientes; los con problema quedan "Pendiente de Revisión"; si **todo** el lote se reporta con problema, el lote completo queda "Rechazado" a la espera de que el Mandante lo retire (mismo mecanismo que un rechazo individual, RN-9).
-- **Relación:** equipos aceptados aquí alimentan `asignacion-clientes.html`; equipos con problema generan la notificación que verá el Mandante en `mandante/autorizacion-movimientos.html`/`trazabilidad.html`.
-
-#### `distribuidor/asignaciones-realizadas.html` — Asignación a Clientes (listado)
-- **Objetivo:** listar las asignaciones de equipos ya entregados a clientes finales (puntos de venta).
-- **Motivo:** da trazabilidad de qué equipo quedó en qué punto de venta, y centraliza la gestión de la Guía de Despacho de ese tramo del proceso (Distribuidor→Cliente).
-- **Funcionalidad principal:** KPIs (Asignados a clientes, En SSTT, Retirados/Devueltos, Clientes activos), tabla con estado de Guía de Despacho por fila y acciones **"Generar GD"** (simula generación automática vía ERP Isstec, con modal de 3 pasos: confirmación → spinner → éxito) y **"Subir PDF"** (para distribuidores sin sistema Isstec, con zona de drag & drop).
-- **Flujo:** *antes* — hay equipos aceptados sin cliente asignado; *durante* — se revisa el listado o se crea una nueva asignación; *después* — se gestiona la Guía de Despacho de esa asignación desde esta misma tabla.
-- **Relación:** el sidebar "Asignación a Clientes" dirige aquí; el botón "Nueva asignación" del navbar lleva a `asignacion-clientes.html`. Las guías generadas aquí también aparecen consolidadas en `guias-despacho.html` (Distribuidor) y en `mandante/guias-despacho.html`.
-
-#### `distribuidor/asignacion-clientes.html` — Asignación a Clientes Finales (creación)
-- **Objetivo:** vincular un equipo aceptado con un cliente final concreto.
-- **Motivo:** es el paso que materializa la entrega física del equipo al punto de venta.
-- **Funcionalidad principal:** dos columnas — equipos disponibles para asignar (izquierda) y puntos de venta disponibles (derecha), ambas con buscador; se selecciona un equipo y un cliente y se confirma con el botón "Asignar". El modal de confirmación aclara que la Guía de Despacho **no** se gestiona en este paso, sino después desde `asignaciones-realizadas.html`.
-- **Flujo:** *antes* — el equipo está aceptado y sin cliente; *durante* — se elige el cliente destino; *después* — el equipo pasa a "Asignado a Cliente" y aparece en el listado de `asignaciones-realizadas.html`.
-- **Relación:** se accede desde el botón "Nueva asignación" del navbar o desde `asignaciones-realizadas.html`; depende de `clientes.html` para tener puntos de venta disponibles.
-
-### 4.2 Sección Operación
-
-#### `distribuidor/solicitudes-movimiento.html` — Solicitudes de Movimiento (listado)
-- **Objetivo:** listar las solicitudes de baja, cambio, envío a SSTT o retorno que el Distribuidor ha enviado al Mandante.
-- **Motivo:** da seguimiento a solicitudes que, por regla de negocio (RN-1), el Distribuidor no puede resolver unilateralmente.
-- **Funcionalidad principal:** tabla con Equipo, Tipo, Fecha, Estado (Pendiente/Aprobada/Rechazada) y Resultado.
-- **Flujo:** *antes* — un equipo presenta un problema (robo, falla, fin de contrato); *durante* — se revisa el estado de solicitudes ya enviadas o se crea una nueva; *después* — si la solicitud es aprobada por el Mandante, el estado del equipo se actualiza.
-- **Relación:** el sidebar dirige aquí; el botón "Nueva solicitud" lleva a `nueva-solicitud.html`; las solicitudes se resuelven en `mandante/autorizacion-movimientos.html`.
-
-#### `distribuidor/nueva-solicitud.html` — Nueva Solicitud de Movimiento (creación)
-- **Objetivo:** crear una solicitud formal dirigida al Mandante.
-- **Motivo:** reemplaza la "comunicación informal con el Mandante" que hoy usan los distribuidores (frustración documentada en `user_personas.md`, persona Rodrigo).
-- **Funcionalidad principal:** formulario con buscador de equipo (autocompletado por N° de serie), tipo de solicitud (alimentado desde el maestro **Tipos de Solicitud** del Mandante), motivo (texto) y zona de carga de evidencia (fotos/documentos, múltiples archivos).
-- **Flujo:** *antes* — se detectó un problema con un equipo; *durante* — se completa el formulario y se adjunta evidencia; *después* — la solicitud queda "Pendiente de Aprobación" y aparece en la bandeja del Mandante.
-- **Relación:** se accede desde `solicitudes-movimiento.html` o el botón del navbar; depende del maestro `mandante/tipos-solicitud.html`.
-
-#### `distribuidor/inventario.html` — Gestión de Inventario (listado)
-- **Objetivo:** listar las solicitudes de toma de inventario físico gestionadas por el Distribuidor.
-- **Motivo:** cubre la "Capa 1" de inventario definida en `PROPOSAL.md` (gestión web de solicitudes/conteo/ajustes), distinta de la auditoría física con GPS/fotos que depende de una futura app móvil (fuera de alcance).
-- **Funcionalidad principal:** KPIs (En curso, En ajuste, Finalizados, Total), tabla con acciones según estado — **"Registrar conteo"** (en curso) y **"Ajustar"** (en ajuste).
-- **Flujo:** *antes* — se necesita verificar el inventario físico en terreno; *durante* — se revisa el listado o se crea una nueva solicitud; *después* — cada solicitud avanza por el flujo de sub-vistas descrito abajo.
-- **Relación:** el sidebar dirige aquí; alimenta a `solicitud-inventario.html`, `registro-conteo.html` y `ajuste-inventario.html`. También es la fuente de datos de `mandante/consulta-inventario.html` (solo lectura).
-
-#### `distribuidor/solicitud-inventario.html` — Nueva Solicitud de Inventario (creación)
-- **Objetivo:** iniciar una nueva toma de inventario.
-- **Motivo:** define el alcance de la toma (a quién y cuándo aplica) antes del conteo físico.
-- **Funcionalidad principal:** formulario con filtros opcionales "por vendedor" y "por comuna", rango de fechas obligatorio y observación.
-- **Flujo:** *antes* — no existe solicitud activa para ese alcance; *durante* — se define el alcance y fechas; *después* — la solicitud queda "En curso", pendiente de que se registre el conteo físico.
-- **Relación:** primer paso del flujo de inventario; continúa en `registro-conteo.html`.
-
-#### `distribuidor/registro-conteo.html` — Registro de Conteo (físico)
-- **Objetivo:** ingresar manualmente el resultado del conteo físico de equipos.
-- **Motivo:** cierra un hueco identificado en el flujo original: sin este paso no existían valores de "Inventario Físico" con los que comparar ni ajustar.
-- **Funcionalidad principal:** tabla de equipos con Inventario Sistema (valor esperado) vs. Inventario Físico (input editable), diferencia calculada automáticamente, barra de progreso, botones "Guardar progreso" y "Finalizar inventario" (deshabilitado hasta completar todos los equipos).
-- **Flujo:** *antes* — existe una solicitud "En curso" (`solicitud-inventario.html`); *durante* — personal en terreno cuenta y se ingresan los valores; *después* — el inventario pasa a "Finalizado" (sin discrepancias) o "En ajuste" (con discrepancias).
-- **Relación:** paso intermedio entre `solicitud-inventario.html` y `ajuste-inventario.html`.
-
-#### `distribuidor/ajuste-inventario.html` — Ajuste de Inventario
-- **Objetivo:** corregir el valor del sistema según las discrepancias detectadas en el conteo físico.
-- **Motivo:** sin ajuste, el sistema seguiría mostrando datos desactualizados respecto a la realidad física.
-- **Funcionalidad principal:** tabla comparativa (Sistema vs. Físico vs. Diferencia) con botón "Corregir" por fila y botón "Confirmar ajustes" (siempre habilitado; permite aceptar las diferencias tal cual si no se corrige nada).
-- **Flujo:** *antes* — el inventario quedó "En ajuste" tras el conteo; *durante* — se corrigen (o no) las discrepancias; *después* — el inventario pasa a "Finalizado".
-- **Relación:** último paso del flujo `inventario.html` → `solicitud-inventario.html` → `registro-conteo.html` → `ajuste-inventario.html`.
-
-#### `distribuidor/guias-despacho.html` — Guías de Despacho (Distribuidor)
-- **Objetivo:** listado centralizado de las guías de despacho asociadas al distribuidor (recepción Mandante→Distribuidor y despacho Distribuidor→Cliente).
-- **Motivo:** da al Distribuidor una vista única de cumplimiento documental, en vez de buscar la guía en cada asignación individual.
-- **Funcionalidad principal:** KPIs (Total GD, Generadas automáticamente, PDF adjuntos, Pendientes), filtros, tabla con acciones Ver/Generar GD/Subir PDF/Descargar PDF.
-- **Flujo:** *antes* — existen asignaciones con o sin guía; *durante* — se revisan o gestionan las guías pendientes; *después* — no hay paso posterior, es de consulta/gestión documental.
-- **Relación:** las mismas acciones de generar/subir GD también están disponibles directamente en `asignaciones-realizadas.html`; se refleja en `mandante/guias-despacho.html`.
-
-### 4.3 Sección Análisis
-
-#### `distribuidor/reportes.html` — Reportes
-- **Objetivo:** analizar ventas y rendimiento comercial de los equipos asignados a cada cliente.
-- **Motivo:** cubre la necesidad de Rodrigo (persona) de "ver el rendimiento de ventas de cada punto de venta versus el equipo asignado".
-- **Funcionalidad principal:** 3 pestañas — "Ventas y Rendimiento" (gráfico de barras + tabla de rendimiento por equipo), "Cliente–Máquina" (relación cliente↔equipo↔ventas), "Geolocalización" (mapa de equipos asignados a clientes).
-- **Flujo:** *antes* — existen ventas notificadas por el ERP del distribuidor y equipos asignados a clientes; *durante* — se filtra por fecha/cliente/comuna; *después* — es de consulta, sin transacción posterior.
-- **Relación:** consume datos de `clientes.html` y de las asignaciones realizadas.
-
-### 4.4 Sección Maestros
-
-#### `distribuidor/clientes.html` — Clientes
-- **Objetivo:** administrar los puntos de venta (clientes finales) del distribuidor.
-- **Motivo:** sin un cliente sincronizado no se puede asignar ningún equipo a un punto de venta; según la documentación, este dato se sincroniza automáticamente vía API desde el ERP del distribuidor, con carga manual como respaldo.
-- **Funcionalidad principal:** tabla de clientes (nombre, dirección, comuna) con buscador y CRUD.
-- **Flujo:** *antes* — no hay puntos de venta disponibles para asignar equipos; *durante* — se sincronizan o cargan manualmente; *después* — quedan disponibles en `asignacion-clientes.html`.
-- **Relación:** alimenta `asignacion-clientes.html`, `guias-despacho.html`, `reportes.html` e `inventario.html` (filtro por comuna).
-
-#### `distribuidor/vendedores.html` — Vendedores
-- **Objetivo:** administrar los vendedores del distribuidor.
-- **Motivo:** se usa como filtro operativo para dirigir solicitudes de inventario a un subconjunto de clientes, y para asignar clientes por vendedor.
-- **Funcionalidad principal:** CRUD completo con tabla (nombre, RUT, teléfono, email, clientes asignados, estado) y un modal adicional para asignar clientes a cada vendedor.
-- **Flujo:** *antes* — se necesita organizar la cartera de clientes por responsable; *durante* — se crea el vendedor y se le asignan clientes; *después* — el vendedor queda disponible como filtro en `solicitud-inventario.html`.
-- **Relación:** alimenta `solicitud-inventario.html` (filtro "por vendedor") y `asignacion-clientes.html`.
-
-#### `distribuidor/ubicaciones-bodegas.html` — Ubicaciones / Bodegas
-- **Objetivo:** administrar bodegas y puntos de retiro propios del Distribuidor.
-- **Motivo:** da un origen/destino físico normalizado a los movimientos de equipos que gestiona el propio distribuidor.
-- **Funcionalidad principal:** tabla con CRUD (nombre, dirección, tipo, responsable, estado) — pantalla completamente funcional en el prototipo (ver discrepancia documental en sección 7).
-- **Flujo:** *antes* — no hay bodegas registradas; *durante* — se dan de alta; *después* — quedan disponibles como referencia en procesos de recepción/inventario.
-- **Relación:** complementa al maestro homónimo del Mandante (`mandante/ubicaciones-bodegas.html`), pero administra las bodegas propias del distribuidor.
-
-### 4.5 Sección Configuración
-
-#### `distribuidor/usuarios.html` — Usuarios
-- **Objetivo y funcionalidad:** igual que `mandante/usuarios.html`, pero para las cuentas del panel del Distribuidor (tabla con CRUD de nombre, RUT, email, rol, estado, último acceso).
-- **Relación:** trabaja junto con `roles.html`.
-
-#### `distribuidor/roles.html` — Roles
-- **Objetivo y funcionalidad:** igual que `mandante/roles.html`, pero define permisos para los perfiles del Distribuidor (acordeón de permisos por sección del sidebar).
-- **Relación:** trabaja junto con `usuarios.html`.
-
----
-
-## 5. Flujos de extremo a extremo (cómo se conectan las vistas entre paneles)
-
-Para entender el prototipo como un todo, estos son los 4 recorridos completos que atraviesan ambos paneles:
-
-1. **Ciclo de vida de un equipo:** `mandante/maestro-equipos.html` (alta) → `mandante/asignacion-equipos.html` (asignación + GD) → `distribuidor/recepciones.html` (llegada del lote) → `distribuidor/recepcion-equipos.html` (inspección: aceptar o reportar problema) → `distribuidor/asignacion-clientes.html` (entrega a punto de venta) → `distribuidor/asignaciones-realizadas.html` (gestión de GD del despacho) → eventualmente `distribuidor/nueva-solicitud.html` (si hay baja/cambio/SSTT) → `mandante/autorizacion-movimientos.html` (aprobación) → todo queda registrado en `mandante/trazabilidad.html`.
-2. **Inventario del Distribuidor:** `distribuidor/inventario.html` → `distribuidor/solicitud-inventario.html` → `distribuidor/registro-conteo.html` → `distribuidor/ajuste-inventario.html`, visible en modo solo lectura para el Mandante en `mandante/consulta-inventario.html`.
-3. **Guías de Despacho:** generadas/adjuntadas en `mandante/asignacion-equipos.html` (tramo Mandante→Distribuidor) y en `distribuidor/asignaciones-realizadas.html` (tramo Distribuidor→Cliente), consolidadas en `mandante/guias-despacho.html` y `distribuidor/guias-despacho.html`.
-4. **Configuración de acceso:** `usuarios.html` + `roles.html` en cada panel, independientes entre Mandante y Distribuidor.
-
----
-
-## 6. Documentación relacionada
-
-| Documento | Para qué sirve |
-|---|---|
-| `../md/PROPOSAL.md` | Propuesta de negocio original |
-| `../md/user_personas.md` | Perfiles de usuario y escenarios de uso |
-| `../md/prd_features.md` | Requisitos funcionales priorizados (MoSCoW) |
-| `../md/maestros.md` | Detalle y conexiones de cada maestro con las pantallas/procesos |
-| `../md/business_rules_and_open_questions.md` | Reglas de negocio, modelo unificado de estados y preguntas abiertas |
-| `../md/system_diagrams.md` | Diagramas de flujo, ERD y navegación |
-| `../md/stitch_prompts.md` | Especificación detallada de contenido por pantalla (usada como insumo de construcción del prototipo) |
-| `../md/DESIGN.md` | Sistema de diseño (colores, componentes, layouts) |
-
----
-
-## 7. Diferencias detectadas entre la documentación y el prototipo
-
-> **Actualizado tras revisión posterior:** las dos diferencias originalmente detectadas en esta sección ya fueron corregidas por el equipo en `../md/maestros.md` y `../md/stitch_prompts.md`. Se dejan documentadas igual, a modo de registro histórico de la corrección.
-
-- ~~**Usuarios y Roles no son "stubs".**~~ **Corregido.** `maestros.md` (§1 y §2) describía estas pantallas como de solo referencia ("stubs"); en el prototipo real, tanto `mandante/usuarios.html` / `mandante/roles.html` como sus equivalentes en `distribuidor/` están **completamente implementados** (tablas con filtros, modales de alta/edición y, en Roles, un acordeón funcional de permisos por sección). `maestros.md` y `stitch_prompts.md` ya fueron actualizados para reflejar esto.
-- ~~**`distribuidor/ubicaciones-bodegas.html` no es un enlace stub (`#`).**~~ **Corregido.** `maestros.md` §2 lo describía como "🔲 Enlace en sidebar (stub `#`)"; el prototipo tiene esta pantalla **totalmente construida** (tabla, filtros y modal CRUD). `maestros.md` ya fue actualizado.
-
-**Re-verificación de esta revisión:** se confirmó que `../md/system_diagrams.md` (diagrama de navegación, §7) ya no contenía marcadores `*stub*` para estos nodos (Usuarios, Roles, Ubicaciones/Bodegas del Distribuidor), por lo que está alineado sin necesidad de cambios. La única fuente que aún contiene referencias a "stub `#`" para estos ítems es `../md/verification_report.md`, un reporte histórico de QA con fecha anterior a la implementación actual (incluso da como "no existentes" archivos como `clientes.html`, `reportes.html` o `guias-despacho.html`, que sí existen hoy en el prototipo) — no se considera documentación viva del proyecto, por lo que no constituye una discrepancia vigente.
-
-**Conclusión: no quedan discrepancias activas** entre la documentación viva (`maestros.md`, `stitch_prompts.md`, `system_diagrams.md`, `business_rules_and_open_questions.md`) y el prototipo implementado.
-
----
-
-## 8. Autoverificación
-
-- ✅ **Cobertura de vistas:** se revisaron las 39 pantallas HTML del prototipo (1 login + 21 del panel Mandante + 17 del panel Distribuidor), confirmando su `<title>`, su `<h2 class="page-title">` y su estructura de sidebar/navbar directamente desde el código fuente.
-- ✅ **Funcionalidades no omitidas:** se contrastó cada vista contra `prd_features.md` (IDs MAN-x, DIS-x, GEN-x, AUTH-x) y `maestros.md`, confirmando que todas las funcionalidades "Must/Should/Could" con pantalla implementada quedaron documentadas.
-- ✅ **Consistencia de flujos:** los flujos descritos (recepción, asignación a clientes, inventario, guías de despacho) se verificaron contra las notas de navegación de `stitch_prompts.md` y contra los `href` reales del sidebar/navbar en el HTML, confirmando que los sub-flujos (listado → creación → sub-pasos) coinciden con lo implementado.
-- ✅ **Comprensibilidad para no expertos:** cada vista se documentó con Objetivo, Motivo, Funcionalidad, Flujo (antes/durante/después) y Relación con otras vistas, evitando dar por sentado conocimiento previo del dominio (comodato de equipos de frío, ERP, etc.), explicando estos conceptos la primera vez que aparecen (secciones 1 y 2).
-- ✅ **Diferencias documentación↔prototipo:** quedaron registradas explícitamente en la sección 7, sin alterar el resto del contenido que sí coincide entre ambas fuentes.
+## 5. Panel del Mandante
+
+### 5.1 Dashboard Mandante
+
+* **Nombre de la vista**: Dashboard Mandante (`mandante/dashboard.html`)
+* **Objetivo / problema que resuelve**: dar al Mandante una visión general e inmediata del estado de su flota de equipos y de las solicitudes que requieren su atención, sin tener que revisar planillas.
+* **Motivo por el que fue creada**: es la pantalla de aterrizaje tras el login; resume en un vistazo los indicadores clave del negocio (objetivo 1 de `md/README.md`).
+* **Funcionalidad principal**: 4 KPIs (Total de Equipos, Activos, En Servicio Técnico, Solicitudes Pendientes), mapa con pines de ubicación de equipos, gráfico de dona con distribución de estados (Operativos/En SSTT/Inactivos) y tabla de "Solicitudes Pendientes" con acciones rápidas Aprobar/Rechazar.
+* **Flujo de usuario**: el Mandante llega aquí tras el login → visualiza KPIs y mapa → revisa la tabla de solicitudes pendientes → puede aprobar/rechazar directamente o hacer clic en "Ver todas" para ir al detalle completo.
+* **Relación con otras vistas**: enlaza a `autorizacion-movimientos.html` ("Ver todas" solicitudes); es el punto de partida de la navegación hacia todo el sidebar Mandante.
+
+### 5.2 Asignaciones de Equipos (listado)
+
+* **Nombre de la vista**: Asignaciones de Equipos (`mandante/asignaciones.html`)
+* **Objetivo / problema que resuelve**: dar visibilidad de todas las asignaciones de lotes de equipos realizadas o en curso hacia los distribuidores, evitando perder el registro en Excel.
+* **Motivo por el que fue creada**: complemento natural de la pantalla de creación/edición de asignación (`asignacion-equipos.html`); permite listar, filtrar, editar borradores y ver el detalle histórico de cada asignación (documentado como decisión de UI en `md/verification_report.md` §8).
+* **Funcionalidad principal**: tabla de asignaciones con N° de asignación, distribuidor, cantidad de equipos, fecha y estado del registro (Borrador / Enviada / Completada — ver modelo unificado de estados en `md/business_rules_and_open_questions.md` §0), con acciones "Editar" (si es borrador), "Ver detalle" (si ya fue confirmada) y "Eliminar".
+* **Flujo de usuario**: se accede desde el ítem "Asignación de Equipos" del sidebar (sección Principal) → el usuario revisa la lista → hace clic en "Nueva asignación" para crear una, en "Editar" para continuar un borrador, o en "Ver detalle" para revisar una ya confirmada.
+* **Relación con otras vistas**: enlaza a `asignacion-equipos.html` en sus tres modos (`?mode=new`, `?mode=edit&id=...`, `?mode=view&id=...`); consume el maestro de Gestores y el Maestro de Equipos.
+
+### 5.3 Asignación de Equipos (creación / edición / detalle)
+
+* **Nombre de la vista**: Asignación de Equipos (`mandante/asignacion-equipos.html`)
+* **Objetivo / problema que resuelve**: formalizar el traspaso de un lote de equipos del Mandante a un Distribuidor, dejando registro de la Guía de Despacho.
+* **Motivo por el que fue creada**: es el flujo operativo central de la plataforma — sin asignación formal no hay forma de saber qué equipos están en poder de qué distribuidor (MAN-5 y MAN-5b en `prd_features.md`).
+* **Funcionalidad principal**: selector de distribuidor destino, tabla de equipos disponibles con checkbox de selección, panel resumen sticky con el conteo de equipos seleccionados, botones "Confirmar asignación" / "Limpiar selección", y modal "Adjuntar Guía de Despacho" (carga de PDF obligatoria + N° de documento opcional). Al confirmar, el estado del equipo cambia a "Asignado al Distribuidor". Soporta 3 modos vía query string: `new` (crear), `edit` (continuar borrador) y `view` (solo lectura).
+* **Flujo de usuario**: llega desde `asignaciones.html` (botón "Nueva asignación" o "Editar"/"Ver detalle") → selecciona distribuidor → marca los equipos a asignar → confirma → adjunta la Guía de Despacho en PDF → el sistema simula el cambio de estado a "Asignado al Distribuidor" y vuelve al listado.
+* **Relación con otras vistas**: depende del Maestro de Equipos (`maestro-equipos.html`) y de Gestores (`gestores.html`); su resultado es consumido conceptualmente por la Trazabilidad (`trazabilidad.html`) y por la (inexistente) Recepción del Distribuidor.
+* **Nota de negocio (RN-16)**: la Guía de Despacho **siempre se adjunta como PDF manual** en este flujo — el Mandante nunca la genera automáticamente.
+
+### 5.4 Autorización de Movimientos
+
+* **Nombre de la vista**: Autorización de Movimientos (`mandante/autorizacion-movimientos.html`)
+* **Objetivo / problema que resuelve**: centralizar la aprobación/rechazo de solicitudes de baja, cambio o envío a SSTT que hace el Distribuidor, garantizando que ningún equipo se dé de baja sin el visto bueno del Mandante.
+* **Motivo por el que fue creada**: formaliza la regla de negocio RN-1 ("el Distribuidor nunca puede aprobar sus propias solicitudes") y responde a MAN-6 en `prd_features.md`.
+* **Funcionalidad principal**: filtro por estado (Todos/Pendiente de Aprobación/Aprobada/Rechazada), tabla con Equipo, Distribuidor, Tipo de solicitud, Motivo, Fecha, Estado y acciones (Aprobar/Rechazar/Detalles), y un modal de detalle con timeline del equipo y evidencia adjunta (fotos/documentos).
+* **Flujo de usuario**: se llega desde el sidebar (Operación) o desde el Dashboard ("Ver todas") → el Mandante filtra por pendientes → abre el detalle de una solicitud para revisar evidencia → aprueba o rechaza.
+* **Relación con otras vistas**: recibe solicitudes que en el flujo de negocio completo se originarían en la (inexistente) pantalla de Solicitud de Movimiento del Distribuidor; su resultado se refleja en la Trazabilidad del equipo.
+
+### 5.5 Trazabilidad de Equipo
+
+* **Nombre de la vista**: Trazabilidad de Equipo (`mandante/trazabilidad.html`)
+* **Objetivo / problema que resuelve**: dar auditoría completa del historial de un equipo específico, respondiendo "¿dónde ha estado y qué le ha pasado a este equipo?".
+* **Motivo por el que fue creada**: cubre MAN-8, una necesidad explícita del negocio para poder disputar/verificar el estado de un activo ante reclamos o pérdidas.
+* **Funcionalidad principal**: buscador por N° de serie, card con la información actual del equipo (marca, modelo, estado, distribuidor, cliente) y un timeline vertical cronológico con cada evento (registro, asignación, recepción, asignación a cliente, envío a SSTT, baja) mostrando estado anterior → nuevo, actor y comentario.
+* **Flujo de usuario**: se accede desde el sidebar (Operación) o desde el botón "Atrás" en el Maestro de Equipos → el usuario busca un N° de serie → revisa el card resumen y el timeline completo.
+* **Relación con otras vistas**: se alcanza también desde `maestro-equipos.html` (por equipo); consolida información generada por Asignación de Equipos, Autorización de Movimientos y (conceptualmente) Recepción/Asignación a Clientes del Distribuidor.
+
+### 5.6 Informes
+
+* **Nombre de la vista**: Informes (`mandante/informes.html`)
+* **Objetivo / problema que resuelve**: dar visibilidad analítica (geográfica, comercial y de servicio técnico) sobre la flota de equipos, más allá del seguimiento operativo puntual.
+* **Motivo por el que fue creada**: agrupa cuatro funcionalidades relacionadas de análisis (MAN-9 a MAN-12) en una sola pantalla con pestañas, evitando fragmentar la navegación.
+* **Funcionalidad principal**: 4 tabs — **Geolocalización** (mapa con pines, filtros por tipo de máquina/distribuidor), **Piramidal de Ventas** (gráfico de barras de ventas por equipo), **Rendimiento por Equipo** (gráfico + tabla comparando ventas vs. equipos asignados) y **Servicio Técnico** (tabla de equipos en SSTT con proveedor, SLA y días en reparación). Filtro común de rango de fechas.
+* **Flujo de usuario**: se accede desde el sidebar (Análisis) → el usuario navega entre tabs según el análisis que necesite → aplica filtros → revisa gráficos/tablas resultantes.
+* **Relación con otras vistas**: consume datos del Maestro de Equipos, Gestores, Servicio Técnico y Grupo/Familia de Máquinas. La nota de negocio RN-14 (matching venta↔máquina por línea de producto) es visible en los tabs de ventas/rendimiento.
+
+### 5.7 Consulta de Inventario
+
+* **Nombre de la vista**: Consulta de Inventario (`mandante/consulta-inventario.html`)
+* **Objetivo / problema que resuelve**: permitir al Mandante ver, en modo solo lectura, el resultado de los inventarios físicos que gestiona cada Distribuidor, sin poder generarlos ni ajustarlos (esa operación es exclusiva del Distribuidor).
+* **Motivo por el que fue creada**: cubre MAN-7, aclarado explícitamente en `md/maestros.md` §3.3 como una necesidad de control cruzado sin duplicar responsabilidades operativas.
+* **Funcionalidad principal**: filtros por Distribuidor, Estado (En curso/Finalizado) y rango de fechas; tabla con Distribuidor, Fecha, Vendedor(es)/Comuna, Estado, N° de equipos inventariados y discrepancias detectadas; al expandir una fila se muestra el detalle (Equipo | Inventario Sistema | Inventario Físico | Diferencia), con codificación visual de diferencias positivas/negativas/cero.
+* **Flujo de usuario**: se accede desde el sidebar (Operación) → el Mandante filtra por distribuidor/estado/fecha → expande una fila para revisar discrepancias puntuales.
+* **Relación con otras vistas**: es la contraparte de solo lectura de la (inexistente) pantalla "Inventario" del Distribuidor, que sería quien realmente solicita, consulta y ajusta el inventario.
+
+***
+
+## 6. Panel del Mandante — Maestros
+
+> Todos los maestros comparten un mismo patrón de interacción: tabla con buscador/filtros y paginación, botón "Nuevo" que abre un modal de alta, acción "Editar" por fila que abre el mismo modal precargado, y activar/desactivar como baja lógica (salvo excepciones indicadas).
+
+### 6.1 Maestro de Equipos
+
+* **Nombre de la vista**: Maestro de Equipos (`mandante/maestro-equipos.html`)
+* **Objetivo / problema que resuelve**: es el registro central de todos los activos fríos del Mandante — sin él no hay forma de saber cuántos equipos existen ni en qué estado están.
+* **Motivo por el que fue creada**: núcleo del sistema (MAN-1); todas las demás operaciones (asignación, recepción, movimientos, inventario, informes) referencian un equipo de este maestro.
+* **Funcionalidad principal**: buscador por N° de serie, filtros por Estado y Distribuidor, botones "Cargar equipos manualmente" (carga Excel/CSV de respaldo) y "Nuevo equipo" (modal de alta individual); tabla con N° Serie, Marca, Modelo, Tipo, Estado (badge), Distribuidor, Cliente/Ubicación, Condición y Última actualización; acciones "Ver detalle" y "Editar" por fila; paginación.
+* **Flujo de usuario**: se accede desde el sidebar (Maestros) → el usuario busca/filtra equipos → puede dar de alta uno nuevo, editarlo o revisar su detalle → desde el detalle puede navegar a la Trazabilidad del equipo.
+* **Relación con otras vistas**: alimenta Asignación de Equipos, Autorización de Movimientos, Trazabilidad, Consulta de Inventario e Informes; depende de los maestros Marcas, Modelos, Grupo y Familia de Máquinas y Gestores.
+
+### 6.2 Gestores (Distribuidores)
+
+* **Nombre de la vista**: Gestores (`mandante/gestores.html`)
+* **Objetivo / problema que resuelve**: administrar el alta y estado de los distribuidores autorizados a recibir equipos en comodato.
+* **Motivo por el que fue creada**: cubre MAN-4; sin un maestro de distribuidores no se podría filtrar ni restringir a quién se le asignan equipos.
+* **Funcionalidad principal**: tabla con Nombre, RUT, Dirección, Estado (Activo/Inactivo), N° de equipos asignados y tipo de integración ERP (Isstec/SAP/Odoo/Otro, mostrado como subtítulo bajo el nombre); botón "Agregar distribuidor" y modal CRUD.
+* **Flujo de usuario**: se accede desde el sidebar (Maestros) → el usuario da de alta o edita un distribuidor → define su tipo de integración ERP (dato clave para decidir si la Guía de Despacho se genera automática o se adjunta manualmente, RN-16).
+* **Relación con otras vistas**: es dropdown obligatorio en Asignación de Equipos y filtro en Maestro de Equipos, Autorización de Movimientos e Informes. Solo distribuidores en estado Activo pueden recibir asignaciones.
+
+### 6.3 Servicio Técnico
+
+* **Nombre de la vista**: Servicio Técnico (`mandante/servicio-tecnico.html`)
+* **Objetivo / problema que resuelve**: registrar los proveedores de SSTT autorizados y su SLA comprometido, para poder medir atrasos en reparación.
+* **Motivo por el que fue creada**: cubre MAN-3; necesario para que Autorización de Movimientos e Informes puedan referenciar a quién se envía un equipo a reparar y en cuánto tiempo debería volver.
+* **Funcionalidad principal**: tabla con Nombre, RUT, Dirección, SLA (días) y Estado; modal CRUD de alta/edición.
+* **Flujo de usuario**: se accede desde el sidebar (Maestros) → el usuario administra el catálogo de proveedores SSTT.
+* **Relación con otras vistas**: consumido por el tab "Servicio Técnico" de Informes (SLA y días en reparación) y conceptualmente por la Solicitud de Movimiento del Distribuidor (envío a SSTT).
+
+### 6.4 Grupo de Máquinas
+
+* **Nombre de la vista**: Grupo de Máquinas (`mandante/grupo-maquinas.html`)
+* **Objetivo / problema que resuelve**: clasificar los equipos por tamaño físico (Grande, Mediana, Pequeña, Barquilleras), heredado del catálogo `grupo_maquina` del ERP Isstec.
+* **Motivo por el que fue creada**: cubre MAN-13; normaliza un dato que antes era texto libre, mejorando filtros y reportes.
+* **Funcionalidad principal**: tabla con código, nombre, descripción, N° de equipos y estado; modal CRUD.
+* **Flujo de usuario**: se accede desde el sidebar (Maestros) → administración simple de catálogo.
+* **Relación con otras vistas**: usado como clasificación en Modelos y en el Maestro de Equipos; filtra en Informes.
+
+### 6.5 Familia de Máquinas
+
+* **Nombre de la vista**: Familia de Máquinas (`mandante/familia-maquinas.html`)
+* **Objetivo / problema que resuelve**: clasificar los equipos por tipo de mueble (Vitrina, Vertical, Barquillera, Congelados, Batidora, Exhibidor, Impulsivo).
+* **Motivo por el que fue creada**: cubre MAN-14; es la clasificación clave para el **matching venta↔máquina** (RN-14) cuando el ERP del distribuidor no identifica el N° de serie exacto de la venta.
+* **Funcionalidad principal**: tabla con código, nombre, descripción, N° de equipos y estado; modal CRUD.
+* **Flujo de usuario**: se accede desde el sidebar (Maestros) → administración simple de catálogo.
+* **Relación con otras vistas**: usado en Modelos y Maestro de Equipos; clave para agrupar ventas en Informes cuando falta el N° de serie exacto.
+
+### 6.6 Ubicaciones / Bodegas
+
+* **Nombre de la vista**: Ubicaciones / Bodegas (`mandante/ubicaciones-bodegas.html`)
+* **Objetivo / problema que resuelve**: dar un origen/destino físico normalizado a cada movimiento de equipo (bodegas del Mandante, del Distribuidor, puntos de retiro), en vez de usar texto libre.
+* **Motivo por el que fue creada**: base para la trazabilidad y la geolocalización de equipos.
+* **Funcionalidad principal**: tabla con nombre, dirección, tipo, responsable y estado; modal CRUD.
+* **Flujo de usuario**: se accede desde el sidebar (Maestros) → administración simple de catálogo.
+* **Relación con otras vistas**: usada conceptualmente por la (inexistente) Recepción de Equipos del Distribuidor, por Trazabilidad e Informes/Geolocalización.
+
+### 6.7 Motivos de Movimiento
+
+* **Nombre de la vista**: Motivos de Movimiento (`mandante/motivos-movimiento.html`)
+* **Objetivo / problema que resuelve**: estandarizar las razones por las que se mueve un equipo (asignación, baja, cambio, reparación, devolución), para poder reportarlas de forma consistente.
+* **Motivo por el que fue creada**: cubre MAN-16; antes era un enum fijo del ERP, aquí se vuelve administrable por el Mandante.
+* **Funcionalidad principal**: tabla con código, nombre, descripción, si requiere aprobación y estado; modal CRUD.
+* **Flujo de usuario**: se accede desde el sidebar (Maestros) → administración del catálogo de motivos.
+* **Relación con otras vistas**: es dropdown en la (inexistente) Solicitud de Movimiento del Distribuidor y criterio de decisión en Autorización de Movimientos; también aparece en Trazabilidad.
+
+### 6.8 Tipos de Solicitud
+
+* **Nombre de la vista**: Tipos de Solicitud (`mandante/tipos-solicitud.html`)
+* **Objetivo / problema que resuelve**: evitar que cada distribuidor invente sus propias categorías de solicitud, estandarizando qué tipos existen en toda la plataforma y cuáles requieren aprobación del Mandante.
+* **Motivo por el que fue creada**: cubre MAN-18; se separó de Motivos de Movimiento (04/07/2026) porque los motivos catalogan _por qué_ se mueve un equipo y los tipos de solicitud catalogan _qué tipos de trámite existen_ (algunos con motivo asociado, otros sin él, ej. "Solicitud de Inventario").
+* **Funcionalidad principal**: tabla con código, nombre, descripción, motivo de movimiento asociado (opcional), si requiere aprobación y estado; modal CRUD.
+* **Flujo de usuario**: se accede desde el sidebar (Maestros) → el Mandante administra el catálogo; el Distribuidor solo selecciona de los tipos disponibles (en pantallas que en este prototipo aún no existen para el Distribuidor).
+* **Relación con otras vistas**: dropdown en la (inexistente) Solicitud de Movimiento; columna "Tipo solicitud" en Autorización de Movimientos y Trazabilidad.
+
+### 6.9 Plantillas de Inspección
+
+* **Nombre de la vista**: Plantillas de Inspección (`mandante/plantillas-inspeccion.html`)
+* **Objetivo / problema que resuelve**: estandarizar qué se revisa al inspeccionar un equipo recibido, dando respaldo objetivo ante disputas Mandante↔Distribuidor sobre el estado de un equipo.
+* **Motivo por el que fue creada**: cubre MAN-17 (prioridad Could); checklist configurable en lugar de criterios informales.
+* **Funcionalidad principal**: tabla con nombre, descripción, ítems de la plantilla, a qué aplica y estado; modal CRUD principal + modal secundario para administrar los ítems de cada plantilla.
+* **Flujo de usuario**: se accede desde el sidebar (Maestros) → el Mandante define o edita una plantilla y sus ítems de verificación.
+* **Relación con otras vistas**: se usaría como checklist en la (inexistente) pantalla de Recepción de Equipos del Distribuidor.
+
+### 6.10 Marcas
+
+* **Nombre de la vista**: Marcas (`mandante/marcas.html`)
+* **Objetivo / problema que resuelve**: normalizar la marca del equipo (Savory, Coldex, Indura, etc.) como catálogo en vez de texto libre.
+* **Motivo por el que fue creada**: mejora la calidad de datos y la consistencia de filtros en Maestro de Equipos e Informes.
+* **Funcionalidad principal**: tabla con código, nombre, descripción, N° de modelos asociados y estado; modal CRUD completo (listar, agregar, editar, activar/desactivar) con paginación.
+* **Flujo de usuario**: se accede desde el sidebar (Maestros) → administración del catálogo de marcas.
+* **Relación con otras vistas**: es FK obligatoria al crear un registro en Modelos; dropdown en Maestro de Equipos; filtro en Informes.
+
+### 6.11 Modelos
+
+* **Nombre de la vista**: Modelos (`mandante/modelos.html`)
+* **Objetivo / problema que resuelve**: normalizar el modelo del equipo y vincularlo a su clasificación completa (Marca, Familia, Grupo, Capacidad).
+* **Motivo por el que fue creada**: complementa a Marcas para mejorar la calidad de datos en la carga manual y la consistencia de los filtros de todo el sistema.
+* **Funcionalidad principal**: tabla con código, nombre, marca, familia, grupo, capacidad y estado; buscador, filtro por marca, modal CRUD completo con paginación.
+* **Flujo de usuario**: se accede desde el sidebar (Maestros) → el usuario filtra por marca → agrega o edita un modelo, seleccionando su marca, familia y grupo.
+* **Relación con otras vistas**: dropdown en Maestro de Equipos; columna en Asignación de Equipos; filtro en Informes. Depende de Marcas, Familia de Máquinas y Grupo de Máquinas.
+
+### 6.12 Tipos de Incidencias / Catálogo de Fallas
+
+* **Nombre de la vista**: Tipos de Incidencias (`mandante/tipos-incidencias.html`)
+* **Objetivo / problema que resuelve**: catalogar los tipos de fallas o siniestros (pérdida, robo, destrucción, daño) que puede sufrir un equipo, con su severidad y categoría.
+* **Motivo por el que fue creada**: corresponde al Módulo de Siniestros e Incidencias (GEN-3 en `prd_features.md`).
+* **Funcionalidad principal**: tabla con código, categoría, severidad y si requiere derivación a SSTT; modal CRUD.
+* **Flujo de usuario**: se accede desde el sidebar (Maestros) → administración del catálogo de fallas.
+* **Relación con otras vistas**: se referenciaría al reportar un problema en la (inexistente) Recepción de Equipos del Distribuidor y en Solicitud de Movimiento.
+
+***
+
+## 7. Configuración (ambos paneles)
+
+### 7.1 Usuarios
+
+* **Nombre de la vista**: Usuarios (`mandante/usuarios.html` y `distribuidor/usuarios.html`)
+* **Objetivo / problema que resuelve**: administrar las cuentas de las personas que operan la plataforma dentro de cada organización (Mandante o Distribuidor).
+* **Motivo por el que fue creada**: soporta el control de acceso diferenciado exigido por AUTH-2.
+* **Funcionalidad principal**: tabla de usuarios con acciones de alta/edición (estructura equivalente en ambos paneles, con contenido propio para cada rol).
+* **Flujo de usuario**: se accede desde el sidebar (Configuración) → el administrador da de alta un usuario y le asigna un rol del catálogo de Roles.
+* **Relación con otras vistas**: depende del maestro de Roles; define quién puede operar como Mandante o Distribuidor.
+
+### 7.2 Roles
+
+* **Nombre de la vista**: Roles (`mandante/roles.html` y `distribuidor/roles.html`)
+* **Objetivo / problema que resuelve**: definir perfiles de acceso con distintos niveles de permiso dentro de cada panel.
+* **Motivo por el que fue creada**: cubre AUTH-2 (Should); necesario para no dar acceso total a todos los usuarios de una organización.
+* **Funcionalidad principal**: tabla de roles con acción "Agregar rol", que abre un modal con un acordeón de permisos agrupado por sección del sidebar (Principal, Operación, etc.), permitiendo marcar qué módulos puede ver/editar cada rol.
+* **Flujo de usuario**: se accede desde el sidebar (Configuración) → el administrador crea o edita un rol → marca los permisos por sección/pantalla en el acordeón → guarda.
+* **Relación con otras vistas**: es prerrequisito de Usuarios; sus permisos referencian, uno a uno, las pantallas del sidebar de cada panel.
+
+***
+
+## 8. Panel del Distribuidor
+
+> **Advertencia de cobertura**: de las 8 vistas funcionales que la documentación de negocio define para el Distribuidor, en este prototipo **solo existe el Dashboard**. Usuarios y Roles también existen pero son de Configuración, no de operación de negocio. Ver detalle completo en [Inconsistencias](./#inconsistencias-e-información-faltante).
+
+### 8.1 Dashboard Distribuidor
+
+* **Nombre de la vista**: Dashboard Distribuidor (`distribuidor/dashboard.html`)
+* **Objetivo / problema que resuelve**: dar al Distribuidor una vista general del estado de sus equipos y de las notificaciones relevantes del día a día (lotes recibidos, rechazos, inventarios, aprobaciones, sincronizaciones).
+* **Motivo por el que fue creada**: pantalla de aterrizaje tras el login como Distribuidor, equivalente en propósito al Dashboard Mandante.
+* **Funcionalidad principal**: 4 KPIs (Pendientes de inspección, Asignados a clientes, Pendientes de asignar, Solicitudes en curso), lista de notificaciones recientes con badges de estado (Nuevo/Alerta/Revisión/Aprobada/Sincronizado) y un gráfico de dona con la distribución de equipos entre esos 4 estados.
+* **Flujo de usuario**: el Distribuidor llega aquí tras el login → revisa KPIs y notificaciones → en un prototipo completo navegaría desde aquí a Recepción, Asignación a Clientes, etc. (pantallas no implementadas en este build).
+* **Relación con otras vistas**: en el sidebar enlaza a Recepción de Equipos, Asignación a Clientes, Solicitudes de Movimiento, Inventario, Guías de Despacho y Reportes — **ninguno de esos archivos existe** en el prototipo actual; solo los enlaces a Usuarios y Roles (Configuración) funcionan.
+
+### 8.2 Usuarios (Distribuidor)
+
+Ver [§7.1 Usuarios](./#71-usuarios) — misma vista/patrón, con alcance limitado a los usuarios de la organización Distribuidor.
+
+### 8.3 Roles (Distribuidor)
+
+Ver [§7.2 Roles](./#72-roles) — misma vista/patrón, con alcance limitado a los roles de la organización Distribuidor.
+
+***
+
+## 9. Referencias
+
+| Documento                                    | Uso en esta documentación                                                            |
+| -------------------------------------------- | ------------------------------------------------------------------------------------ |
+| `../md/README.md`                            | Contexto de negocio, problema y objetivos generales                                  |
+| `../md/prd_features.md`                      | IDs de funcionalidades (MAN-x, DIS-x, GEN-x, AUTH-x) citados por vista               |
+| `../md/maestros.md`                          | Propósito y conexiones de cada maestro del Mandante y Distribuidor                   |
+| `../md/stitch_prompts.md`                    | Especificación funcional original de contenido por pantalla                          |
+| `../md/verification_report.md`               | Verificación 1:1 prototipo vs. documentación (base de la sección de inconsistencias) |
+| `../md/business_rules_and_open_questions.md` | Reglas de negocio (RN-x) referenciadas en los flujos                                 |
