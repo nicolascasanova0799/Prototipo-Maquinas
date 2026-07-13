@@ -97,12 +97,6 @@
                 <a href="servicio-tecnico.html" class="nav-link">
                     <i class="bi bi-tools"></i> Servicio Técnico
                 </a>
-                <a href="grupo-maquinas.html" class="nav-link">
-                    <i class="bi bi-layers"></i> Grupo de Máquinas
-                </a>
-                <a href="familia-maquinas.html" class="nav-link">
-                    <i class="bi bi-grid"></i> Familia de Máquinas
-                </a>
                 <a href="ubicaciones-bodegas.html" class="nav-link">
                     <i class="bi bi-geo"></i> Ubicaciones / Bodegas
                 </a>
@@ -114,12 +108,6 @@
                 </a>
                 <a href="plantillas-inspeccion.html" class="nav-link">
                     <i class="bi bi-clipboard2-check"></i> Plantillas de Inspección
-                </a>
-                <a href="marcas.html" class="nav-link">
-                    <i class="bi bi-tag"></i> Marcas
-                </a>
-                <a href="modelos.html" class="nav-link">
-                    <i class="bi bi-box"></i> Modelos
                 </a>
                 <a href="tipos-incidencias.html" class="nav-link">
                     <i class="bi bi-exclamation-octagon"></i> Tipos de Incidencias / Catálogo de Fallas
@@ -155,9 +143,9 @@
                         <span class="notification-badge">3</span>
                     </div>
                     <div class="user-info">
-                        <div class="user-avatar">SV</div>
+                        <div class="user-avatar" style="overflow:hidden;"><img src="../assets/img/carozzi_logo.jpg" alt="Carozzi" style="width:100%;height:100%;object-fit:cover;"></div>
                         <div>
-                            <div class="user-name">Savory Chile</div>
+                            <div class="user-name">Carozzi Chile</div>
                             <div class="user-role">Mandante</div>
                         </div>
                     </div>
@@ -183,7 +171,7 @@
                                     <select class="form-select" id="filtroEstado">
                                         <option selected>Todos</option>
                                         <option>Activo</option>
-                                        <option>Asignado al Distribuidor</option>
+                                        <option>Asignado al Gestor</option>
                                         <option>Asignado a Cliente</option>
                                         <option>En SSTT</option>
                                         <option>Pendiente de Revisión</option>
@@ -192,8 +180,8 @@
                                     </select>
                                 </div>
                                 <div class="col-lg-2 col-md-3">
-                                    <label for="filtroDistribuidor" class="form-label">Distribuidor</label>
-                                    <select class="form-select" id="filtroDistribuidor">
+                                    <label for="filtroGestor" class="form-label">Gestor</label>
+                                    <select class="form-select" id="filtroGestor">
                                         <option selected>Todos</option>
                                         <option>IceFree Chile</option>
                                         <option>Distribuidora Norte</option>
@@ -203,10 +191,7 @@
                                 </div>
                                 <div class="col-lg-4 col-md-12 d-flex justify-content-lg-end gap-2">
                                     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalCargaManual">
-                                        <i class="bi bi-upload me-2"></i>Cargar equipos manualmente
-                                    </button>
-                                    <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modalNuevoEquipo">
-                                        <i class="bi bi-plus-lg me-2"></i>Nuevo equipo
+                                        <i class="bi bi-upload me-2"></i>Cargar equipos masivamente
                                     </button>
                                 </div>
                             </div>
@@ -228,16 +213,16 @@
                                                 <th>Modelo</th>
                                                 <th>Tipo</th>
                                                 <th>Estado</th>
-                                                <th>Distribuidor</th>
+                                                <th>Gestor</th>
                                                 <th>Cliente / Ubicación</th>
                                                 <th>Última actualización</th>
                                                 <th></th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr data-serie="FR-1023" data-marca-modelo="Savory Freezer 500L" data-tipo-tamano="Vertical / Mediana" data-estado="Activo" data-estado-class="badge-activo" data-distribuidor="IceFree Chile" data-cliente="Supermercado Plaza Norte" data-fecha-compra="15/03/2022" data-contrato="CC-2024-0042" data-guia="GD-982345" data-ultima-actualizacion="03/07/2025 14:32">
+                                            <tr data-serie="FR-1023" data-marca-modelo="Carozzi Freezer 500L" data-tipo-tamano="Vertical / Mediana" data-estado="Activo" data-estado-class="badge-activo" data-gestor="IceFree Chile" data-cliente="Supermercado Plaza Norte" data-fecha-compra="15/03/2022" data-contrato="CC-2024-0042" data-guia="GD-982345" data-ultima-actualizacion="03/07/2025 14:32">
                                                 <td><span class="fw-semibold">FR-1023</span></td>
-                                                <td>Savory</td>
+                                                <td>Carozzi</td>
                                                 <td>Freezer 500L</td>
                                                 <td>Vertical</td>
                                                 <td><span class="badge-status badge-activo">Activo</span></td>
@@ -253,12 +238,12 @@
                                                     </button>
                                                 </td>
                                             </tr>
-                                            <tr data-serie="CZ-0845" data-marca-modelo="Polar Conservadora 300L" data-tipo-tamano="Exhibidor / Pequeña" data-estado="Asignado al Distribuidor" data-estado-class="badge-distribuidor" data-distribuidor="Distribuidora Norte" data-cliente="—" data-fecha-compra="22/06/2023" data-contrato="—" data-guia="GD-982401" data-ultima-actualizacion="02/07/2025 09:15">
+                                            <tr data-serie="CZ-0845" data-marca-modelo="Polar Conservadora 300L" data-tipo-tamano="Exhibidor / Pequeña" data-estado="Asignado al Gestor" data-estado-class="badge-gestor" data-gestor="Distribuidora Norte" data-cliente="—" data-fecha-compra="22/06/2023" data-contrato="—" data-guia="GD-982401" data-ultima-actualizacion="02/07/2025 09:15">
                                                 <td><span class="fw-semibold">CZ-0845</span></td>
                                                 <td>Polar</td>
                                                 <td>Conservadora 300L</td>
                                                 <td>Exhibidor</td>
-                                                <td><span class="badge-status badge-distribuidor">Asignado al Distribuidor</span></td>
+                                                <td><span class="badge-status badge-gestor">Asignado al Gestor</span></td>
                                                 <td>Distribuidora Norte</td>
                                                 <td>Bodega Distribuidora Norte</td>
                                                 <td>02/07/2025</td>
@@ -271,9 +256,9 @@
                                                     </button>
                                                 </td>
                                             </tr>
-                                            <tr data-serie="FR-2210" data-marca-modelo="Savory Freezer 700L" data-tipo-tamano="Vertical / Grande" data-estado="En SSTT" data-estado-class="badge-sstt" data-distribuidor="IceFree Chile" data-cliente="—" data-fecha-compra="10/01/2021" data-contrato="CC-2023-0118" data-guia="GD-982356" data-ultima-actualizacion="02/07/2025 16:45">
+                                            <tr data-serie="FR-2210" data-marca-modelo="Carozzi Freezer 700L" data-tipo-tamano="Vertical / Grande" data-estado="En SSTT" data-estado-class="badge-sstt" data-gestor="IceFree Chile" data-cliente="—" data-fecha-compra="10/01/2021" data-contrato="CC-2023-0118" data-guia="GD-982356" data-ultima-actualizacion="02/07/2025 16:45">
                                                 <td><span class="fw-semibold">FR-2210</span></td>
-                                                <td>Savory</td>
+                                                <td>Carozzi</td>
                                                 <td>Freezer 700L</td>
                                                 <td>Vertical</td>
                                                 <td><span class="badge-status badge-sstt">En SSTT</span></td>
@@ -289,9 +274,9 @@
                                                     </button>
                                                 </td>
                                             </tr>
-                                            <tr data-serie="VT-4501" data-marca-modelo="Savory Vitrina 250L" data-tipo-tamano="Vitrina / Pequeña" data-estado="Pendiente de Revisión" data-estado-class="badge-pendiente" data-distribuidor="Sur Distribución" data-cliente="—" data-fecha-compra="05/04/2024" data-contrato="—" data-guia="GD-982378" data-ultima-actualizacion="01/07/2025 11:20">
+                                            <tr data-serie="VT-4501" data-marca-modelo="Carozzi Vitrina 250L" data-tipo-tamano="Vitrina / Pequeña" data-estado="Pendiente de Revisión" data-estado-class="badge-pendiente" data-gestor="Sur Distribución" data-cliente="—" data-fecha-compra="05/04/2024" data-contrato="—" data-guia="GD-982378" data-ultima-actualizacion="01/07/2025 11:20">
                                                 <td><span class="fw-semibold">VT-4501</span></td>
-                                                <td>Savory</td>
+                                                <td>Carozzi</td>
                                                 <td>Vitrina 250L</td>
                                                 <td>Vitrina</td>
                                                 <td><span class="badge-status badge-pendiente">Pendiente de Revisión</span></td>
@@ -307,9 +292,9 @@
                                                     </button>
                                                 </td>
                                             </tr>
-                                            <tr data-serie="FR-3056" data-marca-modelo="Savory Freezer 500L" data-tipo-tamano="Vertical / Mediana" data-estado="Baja" data-estado-class="badge-baja" data-distribuidor="Distribuidora Norte" data-cliente="—" data-fecha-compra="18/08/2020" data-contrato="CC-2021-0099" data-guia="GD-982312" data-ultima-actualizacion="30/06/2025 13:50">
+                                            <tr data-serie="FR-3056" data-marca-modelo="Carozzi Freezer 500L" data-tipo-tamano="Vertical / Mediana" data-estado="Baja" data-estado-class="badge-baja" data-gestor="Distribuidora Norte" data-cliente="—" data-fecha-compra="18/08/2020" data-contrato="CC-2021-0099" data-guia="GD-982312" data-ultima-actualizacion="30/06/2025 13:50">
                                                 <td><span class="fw-semibold">FR-3056</span></td>
-                                                <td>Savory</td>
+                                                <td>Carozzi</td>
                                                 <td>Freezer 500L</td>
                                                 <td>Vertical</td>
                                                 <td><span class="badge-status badge-baja">Baja</span></td>
@@ -325,12 +310,12 @@
                                                     </button>
                                                 </td>
                                             </tr>
-                                            <tr data-serie="BQ-7712" data-marca-modelo="Savory Barquillera 150L" data-tipo-tamano="Barquillera / Pequeña" data-estado="Asignado al Distribuidor" data-estado-class="badge-distribuidor" data-distribuidor="IceFree Chile" data-cliente="—" data-fecha-compra="12/02/2024" data-contrato="CC-2024-0038" data-guia="GD-982299" data-ultima-actualizacion="29/06/2025 10:05">
+                                            <tr data-serie="BQ-7712" data-marca-modelo="Carozzi Barquillera 150L" data-tipo-tamano="Barquillera / Pequeña" data-estado="Asignado al Gestor" data-estado-class="badge-gestor" data-gestor="IceFree Chile" data-cliente="—" data-fecha-compra="12/02/2024" data-contrato="CC-2024-0038" data-guia="GD-982299" data-ultima-actualizacion="29/06/2025 10:05">
                                                 <td><span class="fw-semibold">BQ-7712</span></td>
-                                                <td>Savory</td>
+                                                <td>Carozzi</td>
                                                 <td>Barquillera 150L</td>
                                                 <td>Barquillera</td>
-                                                <td><span class="badge-status badge-distribuidor">Asignado al Distribuidor</span></td>
+                                                <td><span class="badge-status badge-gestor">Asignado al Gestor</span></td>
                                                 <td>IceFree Chile</td>
                                                 <td>Bodega IceFree Santiago</td>
                                                 <td>29/06/2025</td>
@@ -436,8 +421,8 @@
                             <dd><span id="detalleEstado" class="badge-status"></span></dd>
                         </div>
                         <div class="detail-item">
-                            <dt>Distribuidor</dt>
-                            <dd id="detalleDistribuidor"></dd>
+                            <dt>Gestor</dt>
+                            <dd id="detalleGestor"></dd>
                         </div>
                         <div class="detail-item">
                             <dt>Cliente actual</dt>
@@ -471,95 +456,6 @@
         </div>
     </div>
 
-    <!-- Modal: Nuevo equipo -->
-    <div class="modal fade" id="modalNuevoEquipo" tabindex="-1" aria-labelledby="modalNuevoEquipoLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="modalNuevoEquipoLabel">Nuevo equipo</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
-                </div>
-                <div class="modal-body">
-                    <form id="formNuevoEquipo">
-                        <div class="row g-3">
-                            <div class="col-md-6">
-                                <label for="neNumeroSerie" class="form-label">N° de serie <span class="text-danger">*</span></label>
-                                <input type="text" class="form-control" id="neNumeroSerie" placeholder="Ej: FR-1024" required>
-                            </div>
-                            <div class="col-md-6">
-                                <label for="neMarca" class="form-label">Marca <span class="text-danger">*</span></label>
-                                <select class="form-select" id="neMarca" required>
-                                    <option value="" selected disabled>Seleccionar...</option>
-                                    <option>Savory</option>
-                                    <option>Polar</option>
-                                    <option>Coldex</option>
-                                    <option>Indura</option>
-                                </select>
-                            </div>
-                            <div class="col-md-6">
-                                <label for="neModelo" class="form-label">Modelo <span class="text-danger">*</span></label>
-                                <input type="text" class="form-control" id="neModelo" placeholder="Ej: Freezer 500L" required>
-                            </div>
-                            <div class="col-md-6">
-                                <label for="neTipoMaquina" class="form-label">Tipo de máquina <span class="text-danger">*</span></label>
-                                <select class="form-select" id="neTipoMaquina" required>
-                                    <option value="" selected disabled>Seleccionar...</option>
-                                    <option>Vitrina</option>
-                                    <option>Vertical</option>
-                                    <option>Barquillera</option>
-                                    <option>Congelados</option>
-                                    <option>Batidora</option>
-                                    <option>Exhibidor</option>
-                                    <option>Impulsivo</option>
-                                </select>
-                            </div>
-                            <div class="col-md-6">
-                                <label for="neEstado" class="form-label">Estado <span class="text-danger">*</span></label>
-                                <select class="form-select" id="neEstado" required>
-                                    <option value="" selected disabled>Seleccionar...</option>
-                                    <option>Activo</option>
-                                    <option>Asignado al Distribuidor</option>
-                                    <option>Asignado a Cliente</option>
-                                    <option>En SSTT</option>
-                                    <option>Pendiente de Revisión</option>
-                                    <option>Rechazado</option>
-                                    <option>Baja</option>
-                                </select>
-                            </div>
-                            <div class="col-md-6">
-                                <label for="neDistribuidor" class="form-label">Distribuidor</label>
-                                <select class="form-select" id="neDistribuidor">
-                                    <option value="" selected>Sin asignar</option>
-                                    <option>IceFree Chile</option>
-                                    <option>Distribuidora Norte</option>
-                                    <option>Sur Distribución</option>
-                                </select>
-                            </div>
-                            <div class="col-md-6">
-                                <label for="neFechaCompra" class="form-label">Fecha de compra</label>
-                                <input type="date" class="form-control" id="neFechaCompra">
-                            </div>
-                            <div class="col-12">
-                                <label for="neObservacion" class="form-label">Observación</label>
-                                <textarea class="form-control" id="neObservacion" rows="2" placeholder="Notas internas sobre el equipo..."></textarea>
-                            </div>
-                        </div>
-                        <div class="alert alert-info mt-3 d-flex align-items-start" role="alert">
-                            <i class="bi bi-info-circle me-2 mt-1"></i>
-                            <div style="font-size: 13px;">
-                                El equipo se registrará como propiedad del Mandante. El N° de serie debe ser único — si ya existe, se rechazará el ingreso.
-                            </div>
-                        </div>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancelar</button>
-                    <button type="button" class="btn btn-success" form="formNuevoEquipo"><i class="bi bi-check-lg me-1"></i>Registrar equipo</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
     <!-- Modal: Editar equipo -->
     <div class="modal fade" id="modalEditarEquipo" tabindex="-1" aria-labelledby="modalEditarEquipoLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
@@ -579,7 +475,7 @@
                                 <label for="eeMarca" class="form-label">Marca <span class="text-danger">*</span></label>
                                 <select class="form-select" id="eeMarca" required>
                                     <option value="" disabled>Seleccionar...</option>
-                                    <option>Savory</option>
+                                    <option>Carozzi</option>
                                     <option>Polar</option>
                                     <option>Coldex</option>
                                     <option>Indura</option>
@@ -607,7 +503,7 @@
                                 <select class="form-select" id="eeEstado" required>
                                     <option value="" disabled>Seleccionar...</option>
                                     <option>Activo</option>
-                                    <option>Asignado al Distribuidor</option>
+                                    <option>Asignado al Gestor</option>
                                     <option>Asignado a Cliente</option>
                                     <option>En SSTT</option>
                                     <option>Pendiente de Revisión</option>
@@ -616,8 +512,8 @@
                                 </select>
                             </div>
                             <div class="col-md-6">
-                                <label for="eeDistribuidor" class="form-label">Distribuidor</label>
-                                <select class="form-select" id="eeDistribuidor">
+                                <label for="eeGestor" class="form-label">Gestor</label>
+                                <select class="form-select" id="eeGestor">
                                     <option value="">Sin asignar</option>
                                     <option>IceFree Chile</option>
                                     <option>Distribuidora Norte</option>
@@ -658,7 +554,7 @@
                     document.getElementById('detalleSerie').textContent = data.serie;
                     document.getElementById('detalleMarcaModelo').textContent = data.marcaModelo;
                     document.getElementById('detalleTipoTamano').textContent = data.tipoTamano;
-                    document.getElementById('detalleDistribuidor').textContent = data.distribuidor;
+                    document.getElementById('detalleGestor').textContent = data.gestor;
                     document.getElementById('detalleCliente').textContent = data.cliente;
                     document.getElementById('detalleFechaCompra').textContent = data.fechaCompra;
                     document.getElementById('detalleContrato').textContent = data.contrato;
@@ -713,10 +609,10 @@
                         }
                     }
 
-                    const eeDistribuidor = document.getElementById('eeDistribuidor');
-                    for (let i = 0; i < eeDistribuidor.options.length; i++) {
-                        if (eeDistribuidor.options[i].value === data.distribuidor) {
-                            eeDistribuidor.selectedIndex = i;
+                    const eeGestor = document.getElementById('eeGestor');
+                    for (let i = 0; i < eeGestor.options.length; i++) {
+                        if (eeGestor.options[i].value === data.gestor) {
+                            eeGestor.selectedIndex = i;
                             break;
                         }
                     }
@@ -732,5 +628,6 @@
             }
         });
     </script>
+    <script src="../js/sidebar-scroll.js"></script>
 </body>
 </html>

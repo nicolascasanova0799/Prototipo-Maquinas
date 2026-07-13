@@ -33,14 +33,10 @@
                 <a href="maestro-equipos.html" class="nav-link"><i class="bi bi-hdd-stack"></i> Equipos</a>
                 <a href="gestores.html" class="nav-link"><i class="bi bi-people"></i> Gestores</a>
                 <a href="servicio-tecnico.html" class="nav-link"><i class="bi bi-tools"></i> Servicio Técnico</a>
-                <a href="grupo-maquinas.html" class="nav-link"><i class="bi bi-layers"></i> Grupo de Máquinas</a>
-                <a href="familia-maquinas.html" class="nav-link"><i class="bi bi-grid"></i> Familia de Máquinas</a>
                 <a href="ubicaciones-bodegas.html" class="nav-link"><i class="bi bi-geo"></i> Ubicaciones / Bodegas</a>
                 <a href="motivos-movimiento.html" class="nav-link"><i class="bi bi-list-ul"></i> Motivos de Movimiento</a>
                 <a href="tipos-solicitud.html" class="nav-link"><i class="bi bi-file-earmark-text"></i> Tipos de Solicitud</a>
                 <a href="plantillas-inspeccion.html" class="nav-link active"><i class="bi bi-clipboard2-check"></i> Plantillas de Inspección</a>
-                <a href="marcas.html" class="nav-link"><i class="bi bi-tag"></i> Marcas</a>
-                <a href="modelos.html" class="nav-link"><i class="bi bi-box"></i> Modelos</a>
                 <a href="tipos-incidencias.html" class="nav-link"><i class="bi bi-exclamation-octagon"></i> Tipos de Incidencias / Catálogo de Fallas</a>
                 <div class="nav-section">Configuración</div>
                 <a href="usuarios.html" class="nav-link"><i class="bi bi-people-fill"></i> Usuarios</a>
@@ -58,8 +54,8 @@
                     </a>
                     <div class="notification-icon"><i class="bi bi-bell"></i><span class="notification-badge">3</span></div>
                     <div class="user-info">
-                        <div class="user-avatar">SV</div>
-                        <div><div class="user-name">Savory Chile</div><div class="user-role">Mandante</div></div>
+                        <div class="user-avatar" style="overflow:hidden;"><img src="../assets/img/carozzi_logo.jpg" alt="Carozzi" style="width:100%;height:100%;object-fit:cover;"></div>
+                        <div><div class="user-name">Carozzi Chile</div><div class="user-role">Mandante</div></div>
                     </div>
                 </div>
             </nav>
@@ -83,25 +79,27 @@
                                     <table class="table table-hover align-middle">
                                         <thead>
                                             <tr>
-                                                <th>Nombre</th><th>Descripción</th><th>N° ítems</th><th>Aplica a</th><th>Estado</th><th class="text-end">Acciones</th>
+                                                <th>Nombre</th><th>Descripción</th><th>N° ítems</th><th>Categoría</th><th>Valor</th><th>Estado</th><th class="text-end">Acciones</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr data-nombre="Inspección de Recepción Estándar" data-descripcion="Checklist base para recepción de equipos desde el mandante" data-items="8" data-aplica="Recepción de equipos" data-estado="Activo" data-estado-value="activo">
+                                            <tr data-nombre="Inspección de Recepción Estándar" data-descripcion="Checklist base para recepción de equipos desde el mandante" data-items="8" data-categoria="tipo" data-valor="Todos" data-estado="Activo" data-estado-value="activo">
                                                 <td><div class="d-flex align-items-center gap-3"><div class="bg-primary-light rounded-circle d-flex align-items-center justify-content-center" style="width:40px;height:40px;"><i class="bi bi-clipboard2-check text-primary"></i></div><div><div class="fw-semibold">Inspección de Recepción Estándar</div><div class="text-muted" style="font-size:12px;">8 ítems de verificación</div></div></div></td>
-                                                <td class="text-muted">Checklist base para recepción de equipos desde el mandante</td>
+                                                <td class="text-muted">Checklist base para inspección de equipos al recibir del mandante</td>
                                                 <td><span class="badge bg-primary">8 ítems</span></td>
-                                                <td>Recepción de equipos</td>
+                                                <td>Tipo de Máquina</td>
+                                                <td>Todos</td>
                                                 <td><span class="badge-status badge-activo">Activo</span></td>
                                                 <td class="text-end text-nowrap">
                                                     <button class="btn btn-outline-primary btn-sm me-1" data-bs-toggle="modal" data-bs-target="#modalItemsPlantilla" data-plantilla="Inspección de Recepción Estándar"><i class="bi bi-list-check me-1"></i>Ítems</button>
                                                     <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modalEditarPlantilla"><i class="bi bi-pencil me-1"></i>Editar</button>
                                                 </td>
                                             </tr>
-                                            <tr data-nombre="Inspección Vitrinas Refrigeradas" data-descripcion="Checklist específico para vitrinas y exhibidores refrigerados" data-items="12" data-aplica="Vitrina, Exhibidor" data-estado="Activo" data-estado-value="activo">
+                                            <tr data-nombre="Inspección Vitrinas Refrigeradas" data-descripcion="Checklist específico para vitrinas y exhibidores refrigerados" data-items="12" data-categoria="tipo" data-valor="Vitrina, Exhibidor" data-estado="Activo" data-estado-value="activo">
                                                 <td><div class="d-flex align-items-center gap-3"><div class="bg-primary-light rounded-circle d-flex align-items-center justify-content-center" style="width:40px;height:40px;"><i class="bi bi-clipboard2-check text-primary"></i></div><div><div class="fw-semibold">Inspección Vitrinas Refrigeradas</div><div class="text-muted" style="font-size:12px;">12 ítems de verificación</div></div></div></td>
                                                 <td class="text-muted">Checklist específico para vitrinas y exhibidores refrigerados</td>
                                                 <td><span class="badge bg-primary">12 ítems</span></td>
+                                                <td>Tipo de Máquina</td>
                                                 <td>Vitrina, Exhibidor</td>
                                                 <td><span class="badge-status badge-activo">Activo</span></td>
                                                 <td class="text-end text-nowrap">
@@ -109,10 +107,11 @@
                                                     <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modalEditarPlantilla"><i class="bi bi-pencil me-1"></i>Editar</button>
                                                 </td>
                                             </tr>
-                                            <tr data-nombre="Inspección Congeladores" data-descripcion="Checklist para congeladores horizontales y verticales" data-items="10" data-aplica="Congelados, Vertical" data-estado="Activo" data-estado-value="activo">
+                                            <tr data-nombre="Inspección Congeladores" data-descripcion="Checklist para congeladores horizontales y verticales" data-items="10" data-categoria="tipo" data-valor="Congelados, Vertical" data-estado="Activo" data-estado-value="activo">
                                                 <td><div class="d-flex align-items-center gap-3"><div class="bg-primary-light rounded-circle d-flex align-items-center justify-content-center" style="width:40px;height:40px;"><i class="bi bi-clipboard2-check text-primary"></i></div><div><div class="fw-semibold">Inspección Congeladores</div><div class="text-muted" style="font-size:12px;">10 ítems de verificación</div></div></div></td>
                                                 <td class="text-muted">Checklist para congeladores horizontales y verticales</td>
                                                 <td><span class="badge bg-primary">10 ítems</span></td>
+                                                <td>Tipo de Máquina</td>
                                                 <td>Congelados, Vertical</td>
                                                 <td><span class="badge-status badge-activo">Activo</span></td>
                                                 <td class="text-end text-nowrap">
@@ -120,10 +119,11 @@
                                                     <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modalEditarPlantilla"><i class="bi bi-pencil me-1"></i>Editar</button>
                                                 </td>
                                             </tr>
-                                            <tr data-nombre="Inspección Barquilleras" data-descripcion="Checklist específico para máquinas expendedoras de barquillos" data-items="6" data-aplica="Barquillera" data-estado="Activo" data-estado-value="activo">
+                                            <tr data-nombre="Inspección Barquilleras" data-descripcion="Checklist específico para máquinas expendedoras de barquillos" data-items="6" data-categoria="tipo" data-valor="Barquillera" data-estado="Activo" data-estado-value="activo">
                                                 <td><div class="d-flex align-items-center gap-3"><div class="bg-primary-light rounded-circle d-flex align-items-center justify-content-center" style="width:40px;height:40px;"><i class="bi bi-clipboard2-check text-primary"></i></div><div><div class="fw-semibold">Inspección Barquilleras</div><div class="text-muted" style="font-size:12px;">6 ítems de verificación</div></div></div></td>
                                                 <td class="text-muted">Checklist específico para máquinas expendedoras de barquillos</td>
                                                 <td><span class="badge bg-primary">6 ítems</span></td>
+                                                <td>Tipo de Máquina</td>
                                                 <td>Barquillera</td>
                                                 <td><span class="badge-status badge-activo">Activo</span></td>
                                                 <td class="text-end text-nowrap">
@@ -131,33 +131,11 @@
                                                     <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modalEditarPlantilla"><i class="bi bi-pencil me-1"></i>Editar</button>
                                                 </td>
                                             </tr>
-                                            <tr data-nombre="Inspección Inventario Físico" data-descripcion="Checklist para toma de inventario físico en terreno" data-items="5" data-aplica="Inventario" data-estado="Activo" data-estado-value="activo">
-                                                <td><div class="d-flex align-items-center gap-3"><div class="bg-primary-light rounded-circle d-flex align-items-center justify-content-center" style="width:40px;height:40px;"><i class="bi bi-clipboard2-check text-primary"></i></div><div><div class="fw-semibold">Inspección Inventario Físico</div><div class="text-muted" style="font-size:12px;">5 ítems de verificación</div></div></div></td>
-                                                <td class="text-muted">Checklist para toma de inventario físico en terreno</td>
-                                                <td><span class="badge bg-primary">5 ítems</span></td>
-                                                <td>Inventario</td>
-                                                <td><span class="badge-status badge-activo">Activo</span></td>
-                                                <td class="text-end text-nowrap">
-                                                    <button class="btn btn-outline-primary btn-sm me-1" data-bs-toggle="modal" data-bs-target="#modalItemsPlantilla" data-plantilla="Inspección Inventario Físico"><i class="bi bi-list-check me-1"></i>Ítems</button>
-                                                    <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modalEditarPlantilla"><i class="bi bi-pencil me-1"></i>Editar</button>
-                                                </td>
-                                            </tr>
-                                            <tr data-nombre="Inspección Post-SSTT" data-descripcion="Verificación de equipo tras reparación en servicio técnico" data-items="9" data-aplica="Post servicio técnico" data-estado="Inactivo" data-estado-value="inactivo">
-                                                <td><div class="d-flex align-items-center gap-3"><div class="bg-primary-light rounded-circle d-flex align-items-center justify-content-center" style="width:40px;height:40px;"><i class="bi bi-clipboard2-check text-primary"></i></div><div><div class="fw-semibold">Inspección Post-SSTT</div><div class="text-muted" style="font-size:12px;">9 ítems de verificación</div></div></div></td>
-                                                <td class="text-muted">Verificación de equipo tras reparación en servicio técnico</td>
-                                                <td><span class="badge bg-primary">9 ítems</span></td>
-                                                <td>Post servicio técnico</td>
-                                                <td><span class="badge-status badge-pendiente">Inactivo</span></td>
-                                                <td class="text-end text-nowrap">
-                                                    <button class="btn btn-outline-primary btn-sm me-1" data-bs-toggle="modal" data-bs-target="#modalItemsPlantilla" data-plantilla="Inspección Post-SSTT"><i class="bi bi-list-check me-1"></i>Ítems</button>
-                                                    <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modalEditarPlantilla"><i class="bi bi-pencil me-1"></i>Editar</button>
-                                                </td>
-                                            </tr>
                                         </tbody>
                                     </table>
                                 </div>
                                 <div class="d-flex justify-content-between align-items-center mt-3">
-                                    <div class="text-muted" style="font-size:13px;">Mostrando 1–6 de 6 plantillas</div>
+                                    <div class="text-muted" style="font-size:13px;">Mostrando 1–4 de 4 plantillas</div>
                                     <nav aria-label="Paginación"><ul class="pagination mb-0">
                                         <li class="page-item disabled"><a class="page-link" href="#" tabindex="-1" aria-disabled="true"><i class="bi bi-chevron-left"></i></a></li>
                                         <li class="page-item active"><a class="page-link" href="#">1</a></li>
@@ -178,7 +156,7 @@
             <div class="modal-body"><form id="formAgregarPlantilla" novalidate>
                 <div class="mb-3"><label for="nombrePlantilla" class="form-label">Nombre</label><input type="text" class="form-control" id="nombrePlantilla" placeholder="Ej: Inspección de Recepción Estándar" required><div class="invalid-feedback">Ingresa el nombre de la plantilla.</div></div>
                 <div class="mb-3"><label for="descripcionPlantilla" class="form-label">Descripción</label><textarea class="form-control" id="descripcionPlantilla" rows="3" placeholder="Descripción de la plantilla de inspección"></textarea></div>
-                <div class="mb-3"><label for="aplicaPlantilla" class="form-label">Aplica a</label><input type="text" class="form-control" id="aplicaPlantilla" placeholder="Ej: Recepción de equipos, Vitrina, Inventario"></div>
+                <div class="row g-3 mb-3"><div class="col-md-6"><label for="categoriaPlantilla" class="form-label">Categoría</label><select class="form-select" id="categoriaPlantilla" onchange="poblarValoresCategoria('categoriaPlantilla','valorPlantilla')"><option value="">Seleccionar…</option><option value="marca">Marca</option><option value="modelo">Modelo</option><option value="tipo">Tipo de Máquina</option><option value="familia">Familia</option></select></div><div class="col-md-6"><label for="valorPlantilla" class="form-label">Valor</label><select class="form-select" id="valorPlantilla" disabled><option value="">Seleccionar…</option></select><div class="form-text" style="font-size:12px;">Los valores dependen de la categoría seleccionada</div></div></div>
                 <div class="mb-3 form-check form-switch"><input class="form-check-input" type="checkbox" id="estadoPlantilla" checked><label class="form-check-label" for="estadoPlantilla">Activo</label></div>
                 <hr class="my-3">
                 <div class="d-flex justify-content-between align-items-center">
@@ -202,7 +180,7 @@
             <div class="modal-body"><form id="formEditarPlantilla" novalidate>
                 <div class="mb-3"><label for="editarNombrePlantilla" class="form-label">Nombre</label><input type="text" class="form-control" id="editarNombrePlantilla" required><div class="invalid-feedback">Ingresa el nombre de la plantilla.</div></div>
                 <div class="mb-3"><label for="editarDescripcionPlantilla" class="form-label">Descripción</label><textarea class="form-control" id="editarDescripcionPlantilla" rows="3"></textarea></div>
-                <div class="mb-3"><label for="editarAplicaPlantilla" class="form-label">Aplica a</label><input type="text" class="form-control" id="editarAplicaPlantilla"></div>
+                <div class="row g-3 mb-3"><div class="col-md-6"><label for="editarCategoriaPlantilla" class="form-label">Categoría</label><select class="form-select" id="editarCategoriaPlantilla" onchange="poblarValoresCategoria('editarCategoriaPlantilla','editarValorPlantilla')"><option value="">Seleccionar…</option><option value="marca">Marca</option><option value="modelo">Modelo</option><option value="tipo">Tipo de Máquina</option><option value="familia">Familia</option></select></div><div class="col-md-6"><label for="editarValorPlantilla" class="form-label">Valor</label><select class="form-select" id="editarValorPlantilla" disabled><option value="">Seleccionar…</option></select><div class="form-text" style="font-size:12px;">Los valores dependen de la categoría seleccionada</div></div></div>
                 <div class="mb-3 form-check form-switch"><input class="form-check-input" type="checkbox" id="editarEstadoPlantilla"><label class="form-check-label" for="editarEstadoPlantilla">Activo</label></div>
                 <hr class="my-3">
                 <div class="d-flex justify-content-between align-items-center">
@@ -287,6 +265,31 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
+        const categoriaLabels = { marca: 'Marca', modelo: 'Modelo', tipo: 'Tipo de Máquina', familia: 'Familia' };
+        const categoriasOptions = {
+            marca: ['Todos', 'Carozzi', 'Foster', 'True', 'Bonnet', 'Polar', 'Coldex', 'Indura'],
+            modelo: ['Todos', 'SF-200', 'SF-450', 'F-350', 'T-500', 'B-700', 'VRX-200', 'Chest 400L', 'Countertop 150', 'Upright 700', 'Island 1200'],
+            tipo: ['Todos', 'Vitrina', 'Vertical', 'Barquillera', 'Congelados', 'Exhibidor', 'Batidora', 'Impulsivo'],
+            familia: ['Todos', 'Refrigeración', 'Congelación', 'Exhibición', 'Expendedoras']
+        };
+        function poblarValoresCategoria(selectCatId, selectValId) {
+            const catSelect = document.getElementById(selectCatId);
+            const valSelect = document.getElementById(selectValId);
+            const cat = catSelect.value;
+            valSelect.innerHTML = '<option value="">Seleccionar…</option>';
+            if (cat && categoriasOptions[cat]) {
+                categoriasOptions[cat].forEach(function(v) {
+                    const opt = document.createElement('option');
+                    opt.value = v;
+                    opt.textContent = v;
+                    valSelect.appendChild(opt);
+                });
+                valSelect.disabled = false;
+            } else {
+                valSelect.disabled = true;
+            }
+            valSelect.value = '';
+        }
         let filaEditando = null;
         document.getElementById('btnGuardarPlantilla').addEventListener('click', function() {
             const form = document.getElementById('formAgregarPlantilla');
@@ -305,7 +308,11 @@
             const d = filaEditando.dataset;
             document.getElementById('editarNombrePlantilla').value = d.nombre;
             document.getElementById('editarDescripcionPlantilla').value = d.descripcion;
-            document.getElementById('editarAplicaPlantilla').value = d.aplica;
+            const catSelect = document.getElementById('editarCategoriaPlantilla');
+            catSelect.value = d.categoria || '';
+            poblarValoresCategoria('editarCategoriaPlantilla', 'editarValorPlantilla');
+            const valSelect = document.getElementById('editarValorPlantilla');
+            if (d.valor) { valSelect.value = d.valor; }
             document.getElementById('editarEstadoPlantilla').checked = d.estadoValue === 'activo';
             actualizarResumenItems('resumenItemsEditar', d.nombre);
         });
@@ -319,12 +326,16 @@
                 if (filaEditando) {
                     filaEditando.dataset.nombre = document.getElementById('editarNombrePlantilla').value;
                     filaEditando.dataset.descripcion = document.getElementById('editarDescripcionPlantilla').value;
-                    filaEditando.dataset.aplica = document.getElementById('editarAplicaPlantilla').value;
+                    const catVal = document.getElementById('editarCategoriaPlantilla').value;
+                    const valVal = document.getElementById('editarValorPlantilla').value;
+                    filaEditando.dataset.categoria = catVal;
+                    filaEditando.dataset.valor = valVal;
                     const activo = document.getElementById('editarEstadoPlantilla').checked;
                     filaEditando.dataset.estado = activo ? 'Activo' : 'Inactivo';
                     filaEditando.dataset.estadoValue = activo ? 'activo' : 'inactivo';
                     filaEditando.cells[1].textContent = filaEditando.dataset.descripcion;
-                    filaEditando.cells[3].textContent = filaEditando.dataset.aplica;
+                    filaEditando.cells[3].textContent = categoriaLabels[catVal] || '—';
+                    filaEditando.cells[4].textContent = valVal || '—';
                     const badge = filaEditando.querySelector('.badge-status');
                     badge.textContent = filaEditando.dataset.estado;
                     badge.className = 'badge-status ' + (activo ? 'badge-activo' : 'badge-pendiente');
@@ -380,24 +391,6 @@
                 { desc: 'Limpieza del área de contacto con alimentos', tipo: 'checkbox', obligatorio: true },
                 { desc: 'Estado de la estructura exterior', tipo: 'checkbox', obligatorio: false },
                 { desc: 'Fotografía de la barquillera', tipo: 'foto', obligatorio: true }
-            ],
-            'Inspección Inventario Físico': [
-                { desc: 'Confirmar N° de serie visible', tipo: 'checkbox', obligatorio: true },
-                { desc: 'Estado operativo del equipo', tipo: 'checkbox', obligatorio: true },
-                { desc: 'Ubicación actual del equipo', tipo: 'texto', obligatorio: true },
-                { desc: 'Cliente final asignado', tipo: 'texto', obligatorio: false },
-                { desc: 'Fotografía del equipo en sitio', tipo: 'foto', obligatorio: true }
-            ],
-            'Inspección Post-SSTT': [
-                { desc: 'Verificar encendido post-reparación', tipo: 'checkbox', obligatorio: true },
-                { desc: 'Temperatura de operación (°C)', tipo: 'numero', obligatorio: true },
-                { desc: 'Registro de reparación realizado', tipo: 'checkbox', obligatorio: true },
-                { desc: 'Repuestos reemplazados documentados', tipo: 'texto', obligatorio: true },
-                { desc: 'Estado de pintura y estructura', tipo: 'checkbox', obligatorio: false },
-                { desc: 'Cierre hermético verificado', tipo: 'checkbox', obligatorio: true },
-                { desc: 'Ruidos anormales', tipo: 'checkbox', obligatorio: true },
-                { desc: 'Limpieza general post-reparación', tipo: 'checkbox', obligatorio: false },
-                { desc: 'Fotografía post-reparación', tipo: 'foto', obligatorio: true }
             ]
         };
         let plantillaActual = null;
@@ -559,5 +552,6 @@
             new bootstrap.Modal(document.getElementById('modalItemsPlantilla')).show();
         });
     </script>
+    <script src="../js/sidebar-scroll.js"></script>
 </body>
 </html>

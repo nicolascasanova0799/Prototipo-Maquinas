@@ -38,8 +38,6 @@
                 <div class="nav-section">Análisis</div>
                 <a href="reportes.html" class="nav-link"><i class="bi bi-bar-chart"></i> Reportes</a>
                 <div class="nav-section">Maestros</div>
-                <a href="clientes.html" class="nav-link"><i class="bi bi-shop"></i> Clientes</a>
-                <a href="vendedores.html" class="nav-link"><i class="bi bi-person-badge"></i> Vendedores</a>
                 <a href="ubicaciones-bodegas.html" class="nav-link"><i class="bi bi-geo"></i> Ubicaciones / Bodegas</a>
                 <div class="nav-section">Configuración</div>
                 <a href="usuarios.html" class="nav-link"><i class="bi bi-people-fill"></i> Usuarios</a>
@@ -61,7 +59,7 @@
                     <div class="notification-icon"><i class="bi bi-bell"></i><span class="notification-badge">5</span></div>
                     <div class="user-info">
                         <div class="user-avatar">ICL</div>
-                        <div><div class="user-name">ISSTEC Chile</div><div class="user-role">Distribuidor</div></div>
+                        <div><div class="user-name">ISSTEC Chile</div><div class="user-role">Gestor</div></div>
                     </div>
                 </div>
             </nav>
@@ -89,17 +87,17 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr data-nombre="Administrador" data-descripcion="Acceso total al sistema del distribuidor. Puede gestionar usuarios, roles, configuración y todos los módulos." data-usuarios="1" data-estado="Activo" data-estado-value="activo" data-permisos="recepcion,asignacion-clientes,solicitudes,inventario,guias,reportes,clientes,ubicaciones,usuarios,roles">
+                                            <tr data-nombre="Administrador" data-descripcion="Acceso total al sistema del gestor. Puede gestionar usuarios, roles, configuración y todos los módulos." data-usuarios="1" data-estado="Activo" data-estado-value="activo" data-permisos="recepcion,asignacion-clientes,solicitudes,inventario,guias,reportes,clientes,ubicaciones,usuarios,roles">
                                                 <td><span class="fw-semibold"><i class="bi bi-shield-fill-check me-2" style="color: var(--azul-primario);"></i>Administrador</span></td>
-                                                <td class="text-muted">Acceso total al sistema del distribuidor. Puede gestionar usuarios, roles, configuración y todos los módulos.</td>
+                                                <td class="text-muted">Acceso total al sistema del gestor. Puede gestionar usuarios, roles, configuración y todos los módulos.</td>
                                                 <td><span class="badge bg-primary">10 permisos</span></td>
                                                 <td><span class="badge bg-info text-white">1</span></td>
                                                 <td><span class="badge-status badge-activo">Activo</span></td>
                                                 <td class="text-end"><button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modalEditarRol"><i class="bi bi-pencil me-1"></i>Editar</button></td>
                                             </tr>
-                                            <tr data-nombre="Supervisor" data-descripcion="Supervisión de operaciones del distribuidor. Acceso a reportes, solicitudes y consulta de inventario. Sin gestión de usuarios." data-usuarios="1" data-estado="Activo" data-estado-value="activo" data-permisos="recepcion,asignacion-clientes,solicitudes,inventario,guias,reportes,clientes,ubicaciones">
+                                            <tr data-nombre="Supervisor" data-descripcion="Supervisión de operaciones del gestor. Acceso a reportes, solicitudes y consulta de inventario. Sin gestión de usuarios." data-usuarios="1" data-estado="Activo" data-estado-value="activo" data-permisos="recepcion,asignacion-clientes,solicitudes,inventario,guias,reportes,clientes,ubicaciones">
                                                 <td><span class="fw-semibold"><i class="bi bi-shield-fill me-2" style="color: var(--azul-primario);"></i>Supervisor</span></td>
-                                                <td class="text-muted">Supervisión de operaciones del distribuidor. Acceso a reportes, solicitudes y consulta de inventario. Sin gestión de usuarios.</td>
+                                                <td class="text-muted">Supervisión de operaciones del gestor. Acceso a reportes, solicitudes y consulta de inventario. Sin gestión de usuarios.</td>
                                                 <td><span class="badge bg-primary">8 permisos</span></td>
                                                 <td><span class="badge bg-info text-white">1</span></td>
                                                 <td><span class="badge-status badge-activo">Activo</span></td>
@@ -319,5 +317,6 @@
             } else { form.classList.add('was-validated'); }
         });
     </script>
+    <script src="../js/sidebar-scroll.js"></script>
 </body>
 </html>

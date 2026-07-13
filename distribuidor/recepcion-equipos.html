@@ -8,8 +8,8 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <link href="../css/styles.css" rel="stylesheet">
-    <!-- RN-16: Savory como Mandante siempre adjunta el PDF manualmente en este flujo.
-         La generación automática de Guía de Despacho solo aplica a distribuidores con sistema Isstec al recibir el equipo. -->
+    <!-- RN-16: Carozzi como Mandante siempre adjunta el PDF manualmente en este flujo.
+         La generación automática de Guía de Despacho solo aplica a gestores con sistema Isstec al recibir el equipo. -->
 </head>
 <body>
     <div class="app-layout">
@@ -44,12 +44,6 @@
                     <i class="bi bi-bar-chart"></i> Reportes
                 </a>
                 <div class="nav-section">Maestros</div>
-                <a href="clientes.html" class="nav-link">
-                    <i class="bi bi-shop"></i> Clientes
-                </a>
-                <a href="vendedores.html" class="nav-link">
-                    <i class="bi bi-person-badge"></i> Vendedores
-                </a>
                 <a href="ubicaciones-bodegas.html" class="nav-link">
                     <i class="bi bi-geo"></i> Ubicaciones / Bodegas
                 </a>
@@ -76,7 +70,7 @@
                     <a href="recepciones.html" class="btn-back" style="color: var(--gris-medio); font-size: 14px; font-weight: 500; text-decoration: none; display: inline-flex; align-items: center; gap: 6px; transition: color 0.15s;">
                         <i class="bi bi-arrow-left"></i> Volver a Recepciones
                     </a>
-                    <h2 class="page-title">Inspección de Lote — Savory</h2>
+                    <h2 class="page-title">Inspección de Lote — Carozzi</h2>
                 </div>
                 <div class="navbar-right">
                     <a href="asignacion-clientes.html" class="btn btn-primary btn-sm me-3">
@@ -90,7 +84,7 @@
                         <div class="user-avatar">ICL</div>
                         <div>
                             <div class="user-name">ISSTEC Chile</div>
-                            <div class="user-role">Distribuidor</div>
+                            <div class="user-role">Gestor</div>
                         </div>
                     </div>
                 </div>
@@ -103,7 +97,7 @@
                     <div class="card-body">
                         <div class="d-flex justify-content-between align-items-center flex-wrap gap-3">
                             <div>
-                                <h4 class="mb-1" style="color: var(--azul-marino); font-weight: 700;">Recepción de Lote — Savory</h4>
+                                <h4 class="mb-1" style="color: var(--azul-marino); font-weight: 700;">Recepción de Lote — Carozzi</h4>
                                 <p class="text-muted mb-0" style="font-size: 13px;">Inspeccione cada equipo individualmente antes de confirmar la recepción.</p>
                             </div>
                             <a href="recepciones.html" class="btn btn-outline-secondary btn-sm">
@@ -128,7 +122,7 @@
                             </div>
                             <div class="meta-item">
                                 <span class="meta-label">Origen</span>
-                                <span class="meta-value">Savory (Mandante)</span>
+                                <span class="meta-value">Carozzi (Mandante)</span>
                             </div>
                         </div>
                     </div>
@@ -315,11 +309,88 @@
         </div>
     </div>
 
+    <!-- ===== Modal de Inspección con Planilla ===== -->
+    <div class="modal fade" id="modalInspeccion" tabindex="-1">
+        <div class="modal-dialog modal-lg modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalInspeccionTitle" style="color: var(--azul-marino); font-weight: 600;"></h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body" id="modalInspeccionBody">
+                </div>
+                <div class="modal-footer" id="modalInspeccionFooter">
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
         // ===== Datos de ejemplo: 50 equipos =====
-        const brands = ['Savory', 'Tecfrigo', 'Foster', 'Indel B', 'Vitrifrigo'];
+        const brands = ['Carozzi', 'Tecfrigo', 'Foster', 'Indel B', 'Vitrifrigo'];
         const models = ['VRX-200', 'Chest 400L', 'Countertop 150', 'Upright 700', 'Island 1200'];
+        const tipos = ['Vitrina', 'Exhibidor', 'Congelados', 'Vertical', 'Barquillera'];
+        const familias = ['Refrigeración', 'Congelación', 'Exhibición', 'Expendedoras'];
+
+        // ===== Planillas de inspección disponibles =====
+        const planillasInspeccion = [
+            { nombre: 'Inspección de Recepción Estándar', categoria: 'tipo', valor: 'Todos', items: [
+                { desc: 'Verificar que el equipo encienda correctamente', tipo: 'checkbox', obligatorio: true },
+                { desc: 'Comprobar estado de la pintura y estructura exterior', tipo: 'checkbox', obligatorio: true },
+                { desc: 'Verificar temperatura interna de operación', tipo: 'numero', obligatorio: true },
+                { desc: 'Revisar estado de las ruedas y patines', tipo: 'checkbox', obligatorio: false },
+                { desc: 'Comprobar cierre hermético de puerta/tapa', tipo: 'checkbox', obligatorio: true },
+                { desc: 'Verificar iluminación interior', tipo: 'checkbox', obligatorio: false },
+                { desc: 'Revisar estado de bandejas y estantes', tipo: 'checkbox', obligatorio: false },
+                { desc: 'Fotografía del equipo recibido', tipo: 'foto', obligatorio: true }
+            ]},
+            { nombre: 'Inspección Vitrinas Refrigeradas', categoria: 'tipo', valor: 'Vitrina, Exhibidor', items: [
+                { desc: 'Verificar encendido y display de control', tipo: 'checkbox', obligatorio: true },
+                { desc: 'Temperatura interna (°C)', tipo: 'numero', obligatorio: true },
+                { desc: 'Estado de empaques de puerta', tipo: 'checkbox', obligatorio: true },
+                { desc: 'Cierre automático de puerta', tipo: 'checkbox', obligatorio: true },
+                { desc: 'Iluminación interior LED', tipo: 'checkbox', obligatorio: false },
+                { desc: 'Estado de estantes y bandejas', tipo: 'checkbox', obligatorio: false },
+                { desc: 'Ruidos anormales del compresor', tipo: 'checkbox', obligatorio: true },
+                { desc: 'Sello de goma en buen estado', tipo: 'checkbox', obligatorio: true },
+                { desc: 'Nivel de frío en zona superior', tipo: 'numero', obligatorio: false },
+                { desc: 'Nivel de frío en zona inferior', tipo: 'numero', obligatorio: false },
+                { desc: 'Limpieza interior', tipo: 'checkbox', obligatorio: false },
+                { desc: 'Fotografía de la vitrina', tipo: 'foto', obligatorio: true }
+            ]},
+            { nombre: 'Inspección Congeladores', categoria: 'tipo', valor: 'Congelados, Vertical', items: [
+                { desc: 'Verificar encendido', tipo: 'checkbox', obligatorio: true },
+                { desc: 'Temperatura de congelación (°C)', tipo: 'numero', obligatorio: true },
+                { desc: 'Estado de la tapa/visor', tipo: 'checkbox', obligatorio: true },
+                { desc: 'Cierre hermético', tipo: 'checkbox', obligatorio: true },
+                { desc: 'Formación de escarcha excesiva', tipo: 'checkbox', obligatorio: true },
+                { desc: 'Ruidos del motor', tipo: 'checkbox', obligatorio: false },
+                { desc: 'Estado de ruedas', tipo: 'checkbox', obligatorio: false },
+                { desc: 'Drenaje despejado', tipo: 'checkbox', obligatorio: false },
+                { desc: 'Limpieza interior', tipo: 'checkbox', obligatorio: false },
+                { desc: 'Fotografía del congelador', tipo: 'foto', obligatorio: true }
+            ]},
+            { nombre: 'Inspección Barquilleras', categoria: 'tipo', valor: 'Barquillera', items: [
+                { desc: 'Verificar encendido', tipo: 'checkbox', obligatorio: true },
+                { desc: 'Temperatura de conservación (°C)', tipo: 'numero', obligatorio: true },
+                { desc: 'Estado del mecanismo expendedor', tipo: 'checkbox', obligatorio: true },
+                { desc: 'Limpieza del área de contacto con alimentos', tipo: 'checkbox', obligatorio: true },
+                { desc: 'Estado de la estructura exterior', tipo: 'checkbox', obligatorio: false },
+                { desc: 'Fotografía de la barquillera', tipo: 'foto', obligatorio: true }
+            ]}
+        ];
+
+        function obtenerPlanillaParaEquipo(eq) {
+            // Buscar primero una planilla específica (que no sea "Todos")
+            const especifica = planillasInspeccion.find(function(p) {
+                const valores = p.valor.split(',').map(v => v.trim());
+                return valores.includes(eq.tipo);
+            });
+            if (especifica) return especifica;
+            // Fallback: planilla general "Todos"
+            return planillasInspeccion.find(p => p.valor === 'Todos');
+        }
 
         // Catálogo maestro de Tipos de Incidencias (Mandante) — usado en reporte de problemas de recepción
         const tiposIncidencias = [
@@ -345,14 +416,18 @@
 
         const equipments = [];
         for (let i = 1; i <= 50; i++) {
+            const tipo = tipos[i % tipos.length];
             equipments.push({
                 id: i,
                 serial: 'SVY-' + String(i).padStart(4, '0'),
                 brand: brands[i % brands.length],
                 model: models[i % models.length],
+                tipo: tipo,
+                familia: familias[i % familias.length],
                 status: 'pending',        // pending | accepted | problem | rejected
                 motivo: null,
-                descripcion: null
+                descripcion: null,
+                inspeccion: null         // { planilla: nombre, resultados: [{desc, valor}], estado: 'accepted|problem|rejected' }
             });
         }
 
@@ -420,10 +495,15 @@
         }
 
         function getActions(eq) {
+            const inspeccionarBtn = `<button class="btn btn-outline-primary btn-sm me-1" onclick="abrirInspeccion(${eq.id})"><i class="bi bi-clipboard2-check"></i> Inspeccionar</button>`;
+
             if (eq.status === 'accepted') {
                 return `
                     <span class="text-success fw-semibold" style="font-size: 13px;"><i class="bi bi-check-circle-fill"></i> Aceptado</span>
-                    <button class="btn btn-outline-secondary btn-sm ms-2" onclick="revertEquipment(${eq.id})">
+                    <button class="btn btn-outline-secondary btn-sm ms-1" onclick="abrirInspeccion(${eq.id})">
+                        <i class="bi bi-eye"></i> Ver inspección
+                    </button>
+                    <button class="btn btn-outline-secondary btn-sm ms-1" onclick="revertEquipment(${eq.id})">
                         <i class="bi bi-arrow-counterclockwise"></i> Revertir
                     </button>
                 `;
@@ -434,11 +514,11 @@
                 if (eq.motivo) detail = ` — ${eq.motivo}`;
                 return `
                     <span class="text-warning fw-semibold" style="font-size: 13px;"><i class="bi bi-exclamation-triangle-fill"></i> Reportado${detail}</span>
-                    <button class="btn btn-outline-secondary btn-sm ms-2" onclick="revertEquipment(${eq.id})">
-                        <i class="bi bi-arrow-counterclockwise"></i> Revertir
+                    <button class="btn btn-outline-secondary btn-sm ms-1" onclick="abrirInspeccion(${eq.id})">
+                        <i class="bi bi-eye"></i> Ver inspección
                     </button>
-                    <button class="btn btn-outline-secondary btn-sm" onclick="toggleReportForm(${eq.id})">
-                        <i class="bi bi-pencil"></i> Editar
+                    <button class="btn btn-outline-secondary btn-sm ms-1" onclick="revertEquipment(${eq.id})">
+                        <i class="bi bi-arrow-counterclockwise"></i> Revertir
                     </button>
                 `;
             }
@@ -448,16 +528,16 @@
                 if (eq.motivo) detail = ` — ${eq.motivo}`;
                 return `
                     <span class="text-danger fw-semibold" style="font-size: 13px;"><i class="bi bi-x-octagon-fill"></i> Rechazado${detail}</span>
-                    <button class="btn btn-outline-secondary btn-sm ms-2" onclick="revertEquipment(${eq.id})">
-                        <i class="bi bi-arrow-counterclockwise"></i> Revertir
+                    <button class="btn btn-outline-secondary btn-sm ms-1" onclick="abrirInspeccion(${eq.id})">
+                        <i class="bi bi-eye"></i> Ver inspección
                     </button>
-                    <button class="btn btn-outline-secondary btn-sm" onclick="toggleRejectForm(${eq.id})">
-                        <i class="bi bi-pencil"></i> Editar
+                    <button class="btn btn-outline-secondary btn-sm ms-1" onclick="revertEquipment(${eq.id})">
+                        <i class="bi bi-arrow-counterclockwise"></i> Revertir
                     </button>
                 `;
             }
 
-            return `
+            return inspeccionarBtn + `
                 <button class="btn btn-success btn-sm" onclick="acceptEquipment(${eq.id})">
                     <i class="bi bi-check-lg"></i> Aceptar
                 </button>
@@ -554,6 +634,7 @@
             eq.status = 'pending';
             eq.motivo = null;
             eq.descripcion = null;
+            eq.inspeccion = null;
 
             // Cerrar formularios si están abiertos
             const formRow = document.querySelector(`tr[data-form-id="${id}"]`);
@@ -586,7 +667,7 @@
                             <button class="btn-close btn-sm" onclick="toggleRejectForm(${id})"></button>
                         </div>
                         <div class="alert alert-danger py-2 mb-2" style="font-size: 12px;">
-                            <i class="bi bi-info-circle"></i> El equipo rechazado queda en estado <strong>Rechazado</strong> y debe ser retirado por el Mandante. No se queda con el distribuidor.
+                            <i class="bi bi-info-circle"></i> El equipo rechazado queda en estado <strong>Rechazado</strong> y debe ser retirado por el Mandante. No se queda con el gestor.
                         </div>
                         <div class="row g-3">
                             <div class="col-md-4">
@@ -841,13 +922,13 @@
             } else if (problem > 0 || rejected > 0) {
                 content += `
                     <div class="alert alert-info mt-3" style="font-size: 13px;">
-                        <i class="bi bi-info-circle"></i> Los ${problem} equipo(s) con problema pasarán a <span class="badge-status badge-pendiente">Pendiente de Revisión</span> y los ${rejected} rechazado(s) quedarán en <span class="badge-status badge-rechazada">Rechazado</span> a la espera de retiro del Mandante; ambos quedan excluidos de la asignación a clientes. Los ${accepted} equipo(s) aceptados pasarán a <span class="badge-status badge-distribuidor">Asignado al Distribuidor</span>.
+                        <i class="bi bi-info-circle"></i> Los ${problem} equipo(s) con problema pasarán a <span class="badge-status badge-pendiente">Pendiente de Revisión</span> y los ${rejected} rechazado(s) quedarán en <span class="badge-status badge-rechazada">Rechazado</span> a la espera de retiro del Mandante; ambos quedan excluidos de la asignación a clientes. Los ${accepted} equipo(s) aceptados pasarán a <span class="badge-status badge-gestor">Asignado al Gestor</span>.
                     </div>
                 `;
             } else {
                 content += `
                     <div class="alert alert-info mt-3" style="font-size: 13px;">
-                        <i class="bi bi-info-circle"></i> Los ${accepted} equipos pasarán a estado <span class="badge-status badge-distribuidor">Asignado al Distribuidor</span> y quedarán disponibles para asignación a clientes.
+                        <i class="bi bi-info-circle"></i> Los ${accepted} equipos pasarán a estado <span class="badge-status badge-gestor">Asignado al Gestor</span> y quedarán disponibles para asignación a clientes.
                     </div>
                 `;
             }
@@ -861,9 +942,132 @@
             window.location.href = 'recepciones.html';
         });
 
+        // ===== Modal de Inspección con Planilla =====
+        let inspeccionTargetId = null;
+
+        window.abrirInspeccion = function(id) {
+            const eq = equipments.find(e => e.id === id);
+            if (!eq) return;
+            inspeccionTargetId = id;
+
+            const planilla = obtenerPlanillaParaEquipo(eq);
+            const isReadOnly = eq.status !== 'pending';
+
+            document.getElementById('modalInspeccionTitle').innerHTML =
+                '<i class="bi bi-clipboard2-check me-2"></i>Inspección — ' + eq.serial + ' (' + eq.brand + ' ' + eq.model + ')';
+
+            let bodyHTML = '<div class="mb-3" style="font-size: 13px; color: var(--gris-medio);">' +
+                '<strong>Tipo:</strong> ' + eq.tipo + ' &nbsp; <strong>Familia:</strong> ' + eq.familia + '</div>';
+
+            if (!planilla) {
+                bodyHTML += '<div class="alert alert-warning"><i class="bi bi-exclamation-triangle"></i> No hay planilla de inspección configurada para este tipo de equipo.</div>';
+            } else {
+                bodyHTML += '<div class="card mb-3">';
+                bodyHTML += '<div class="card-header" style="background: var(--gris-claro);"><strong><i class="bi bi-list-check me-1"></i>' + planilla.nombre + '</strong>';
+                bodyHTML += ' <span class="badge bg-primary ms-2">' + planilla.items.length + ' ítems</span></div>';
+                bodyHTML += '<div class="card-body"><table class="table table-sm"><thead><tr><th style="width:5%;">#</th><th>Verificación</th><th style="width:30%;">Resultado</th></tr></thead><tbody>';
+
+                planilla.items.forEach(function(item, ii) {
+                    const itemId = 'item-' + ii;
+                    const savedValue = eq.inspeccion && eq.inspeccion.resultados ? eq.inspeccion.resultados[ii] : null;
+                    const disabled = isReadOnly ? 'disabled' : '';
+
+                    bodyHTML += '<tr><td class="text-muted">' + (ii + 1) + '</td>';
+                    bodyHTML += '<td>' + item.desc;
+                    if (item.obligatorio) bodyHTML += ' <span class="badge bg-danger">Obligatorio</span>';
+                    bodyHTML += '</td><td>';
+
+                    if (item.tipo === 'checkbox') {
+                        const checked = savedValue === 'Sí' ? 'checked' : '';
+                        bodyHTML += '<div class="form-check form-switch"><input class="form-check-input" type="checkbox" id="' + itemId + '" ' + checked + ' ' + disabled + '><label class="form-check-label" for="' + itemId + '">Sí / No</label></div>';
+                    } else if (item.tipo === 'numero') {
+                        const val = savedValue || '';
+                        bodyHTML += '<input type="number" class="form-control form-control-sm" id="' + itemId + '" value="' + val + '" placeholder="0" ' + disabled + '>';
+                    } else if (item.tipo === 'texto') {
+                        const val = savedValue || '';
+                        bodyHTML += '<input type="text" class="form-control form-control-sm" id="' + itemId + '" value="' + val + '" placeholder="Texto..." ' + disabled + '>';
+                    } else if (item.tipo === 'foto') {
+                        bodyHTML += '<div class="d-flex align-items-center gap-2">';
+                        if (savedValue) {
+                            bodyHTML += '<span class="text-success" style="font-size:13px;"><i class="bi bi-check-circle-fill"></i> Foto cargada</span>';
+                        } else {
+                            bodyHTML += '<button type="button" class="btn btn-outline-secondary btn-sm" onclick="simularFoto(this)" ' + disabled + '><i class="bi bi-camera"></i> Subir foto</button>';
+                        }
+                        bodyHTML += '</div>';
+                    }
+
+                    bodyHTML += '</td></tr>';
+                });
+
+                bodyHTML += '</tbody></table></div></div>';
+            }
+
+            document.getElementById('modalInspeccionBody').innerHTML = bodyHTML;
+
+            const footer = document.getElementById('modalInspeccionFooter');
+            if (isReadOnly) {
+                let estadoLabel = eq.status === 'accepted' ? 'Aceptado' : eq.status === 'problem' ? 'Con Problema' : 'Rechazado';
+                let estadoClass = eq.status === 'accepted' ? 'btn-success' : eq.status === 'problem' ? 'btn-warning' : 'btn-danger';
+                footer.innerHTML = '<span class="me-auto"><strong>Estado: </strong><span class="badge-status badge-' + (eq.status === 'accepted' ? 'activo' : eq.status === 'problem' ? 'sstt' : 'rechazada') + '">' + estadoLabel + '</span></span>' +
+                    '<button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cerrar</button>';
+            } else {
+                footer.innerHTML =
+                    '<button type="button" class="btn btn-success me-auto" onclick="guardarInspeccion(\'accepted\')"><i class="bi bi-check-lg"></i> Aceptar</button>' +
+                    '<button type="button" class="btn btn-warning" onclick="guardarInspeccion(\'problem\')"><i class="bi bi-exclamation-triangle"></i> Problema</button>' +
+                    '<button type="button" class="btn btn-danger" onclick="guardarInspeccion(\'rejected\')"><i class="bi bi-x-octagon"></i> Rechazar</button>' +
+                    '<button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancelar</button>';
+            }
+
+            new bootstrap.Modal(document.getElementById('modalInspeccion')).show();
+        };
+
+        window.simularFoto = function(btn) {
+            btn.outerHTML = '<span class="text-success" style="font-size:13px;"><i class="bi bi-check-circle-fill"></i> Foto cargada</span>';
+        };
+
+        window.guardarInspeccion = function(estado) {
+            const eq = equipments.find(e => e.id === inspeccionTargetId);
+            if (!eq) return;
+            const planilla = obtenerPlanillaParaEquipo(eq);
+
+            const resultados = [];
+            if (planilla) {
+                planilla.items.forEach(function(item, ii) {
+                    const itemId = 'item-' + ii;
+                    const el = document.getElementById(itemId);
+                    if (item.tipo === 'checkbox') {
+                        resultados.push(el && el.checked ? 'Sí' : 'No');
+                    } else if (el) {
+                        resultados.push(el.value || '');
+                    } else {
+                        resultados.push('');
+                    }
+                });
+            }
+
+            eq.inspeccion = { resultados: resultados, estado: estado, fecha: new Date().toLocaleDateString('es-CL') };
+            eq.status = estado;
+
+            if (estado === 'problem') {
+                eq.motivo = 'Detectado en inspección de planilla';
+                eq.descripcion = 'Ver ítems de inspección para detalle';
+            } else if (estado === 'rejected') {
+                eq.motivo = 'Rechazado en inspección de planilla';
+                eq.descripcion = 'Ver ítems de inspección para detalle';
+            } else {
+                eq.motivo = null;
+                eq.descripcion = null;
+            }
+
+            bootstrap.Modal.getInstance(document.getElementById('modalInspeccion')).hide();
+            renderTable();
+            updateSummary();
+        };
+
         // ===== Init =====
         renderTable();
         updateSummary();
     </script>
+    <script src="../js/sidebar-scroll.js"></script>
 </body>
 </html>

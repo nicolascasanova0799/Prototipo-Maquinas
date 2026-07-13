@@ -69,12 +69,6 @@
                 <a href="servicio-tecnico.html" class="nav-link">
                     <i class="bi bi-tools"></i> Servicio Técnico
                 </a>
-                <a href="grupo-maquinas.html" class="nav-link">
-                    <i class="bi bi-layers"></i> Grupo de Máquinas
-                </a>
-                <a href="familia-maquinas.html" class="nav-link">
-                    <i class="bi bi-grid"></i> Familia de Máquinas
-                </a>
                 <a href="ubicaciones-bodegas.html" class="nav-link active">
                     <i class="bi bi-geo"></i> Ubicaciones / Bodegas
                 </a>
@@ -86,12 +80,6 @@
                 </a>
                 <a href="plantillas-inspeccion.html" class="nav-link">
                     <i class="bi bi-clipboard2-check"></i> Plantillas de Inspección
-                </a>
-                <a href="marcas.html" class="nav-link">
-                    <i class="bi bi-tag"></i> Marcas
-                </a>
-                <a href="modelos.html" class="nav-link">
-                    <i class="bi bi-box"></i> Modelos
                 </a>
                 <a href="tipos-incidencias.html" class="nav-link">
                     <i class="bi bi-exclamation-octagon"></i> Tipos de Incidencias / Catálogo de Fallas
@@ -127,9 +115,9 @@
                         <span class="notification-badge">3</span>
                     </div>
                     <div class="user-info">
-                        <div class="user-avatar">SV</div>
+                        <div class="user-avatar" style="overflow:hidden;"><img src="../assets/img/carozzi_logo.jpg" alt="Carozzi" style="width:100%;height:100%;object-fit:cover;"></div>
                         <div>
-                            <div class="user-name">Savory Chile</div>
+                            <div class="user-name">Carozzi Chile</div>
                             <div class="user-role">Mandante</div>
                         </div>
                     </div>
@@ -159,6 +147,7 @@
                                         <thead>
                                             <tr>
                                                 <th>Nombre</th>
+                                                <th>RUT</th>
                                                 <th>Dirección</th>
                                                 <th>Tipo</th>
                                                 <th>Responsable</th>
@@ -167,21 +156,22 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr data-nombre="Bodega Central Savory" data-direccion="Av. Industrial 1000, Santiago" data-tipo="Mandante" data-tipo-value="mandante" data-responsable="Savory Chile" data-estado="Activo" data-estado-value="activo">
+                                            <tr data-nombre="Bodega Central Carozzi" data-rut="76.123.456-7" data-direccion="Av. Industrial 1000, Santiago" data-tipo="Mandante" data-tipo-value="mandante" data-responsable="Carozzi Chile" data-estado="Activo" data-estado-value="activo">
                                                 <td>
                                                     <div class="d-flex align-items-center gap-3">
                                                         <div class="bg-primary-light rounded-circle d-flex align-items-center justify-content-center" style="width: 40px; height: 40px;">
                                                             <i class="bi bi-building text-primary"></i>
                                                         </div>
                                                         <div>
-                                                            <div class="fw-semibold">Bodega Central Savory</div>
+                                                            <div class="fw-semibold">Bodega Central Carozzi</div>
                                                             <div class="text-muted" style="font-size: 12px;">Bodega principal del mandante</div>
                                                         </div>
                                                     </div>
                                                 </td>
+                                                <td>76.123.456-7</td>
                                                 <td>Av. Industrial 1000, Santiago</td>
                                                 <td><span class="badge bg-primary">Mandante</span></td>
-                                                <td>Savory Chile</td>
+                                                <td>Carozzi Chile</td>
                                                 <td><span class="badge-status badge-activo">Activo</span></td>
                                                 <td class="text-end">
                                                     <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modalEditarUbicacion">
@@ -189,7 +179,7 @@
                                                     </button>
                                                 </td>
                                             </tr>
-                                            <tr data-nombre="Bodega Norte" data-direccion="Av. Angamos 0500, Antofagasta" data-tipo="Mandante" data-tipo-value="mandante" data-responsable="Savory Chile" data-estado="Activo" data-estado-value="activo">
+                                            <tr data-nombre="Bodega Norte" data-rut="76.123.456-7" data-direccion="Av. Angamos 0500, Antofagasta" data-tipo="Mandante" data-tipo-value="mandante" data-responsable="Carozzi Chile" data-estado="Activo" data-estado-value="activo">
                                                 <td>
                                                     <div class="d-flex align-items-center gap-3">
                                                         <div class="bg-primary-light rounded-circle d-flex align-items-center justify-content-center" style="width: 40px; height: 40px;">
@@ -201,9 +191,10 @@
                                                         </div>
                                                     </div>
                                                 </td>
+                                                <td>76.123.456-7</td>
                                                 <td>Av. Angamos 0500, Antofagasta</td>
                                                 <td><span class="badge bg-primary">Mandante</span></td>
-                                                <td>Savory Chile</td>
+                                                <td>Carozzi Chile</td>
                                                 <td><span class="badge-status badge-activo">Activo</span></td>
                                                 <td class="text-end">
                                                     <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modalEditarUbicacion">
@@ -211,7 +202,7 @@
                                                     </button>
                                                 </td>
                                             </tr>
-                                            <tr data-nombre="Bodega IceFree Santiago" data-direccion="Av. del Valle 1234, Santiago" data-tipo="Distribuidor" data-tipo-value="distribuidor" data-responsable="IceFree Chile" data-estado="Activo" data-estado-value="activo">
+                                            <tr data-nombre="Bodega IceFree Santiago" data-rut="77.654.321-8" data-direccion="Av. del Valle 1234, Santiago" data-tipo="Gestor" data-tipo-value="gestor" data-responsable="IceFree Chile" data-estado="Activo" data-estado-value="activo">
                                                 <td>
                                                     <div class="d-flex align-items-center gap-3">
                                                         <div class="bg-primary-light rounded-circle d-flex align-items-center justify-content-center" style="width: 40px; height: 40px;">
@@ -219,12 +210,13 @@
                                                         </div>
                                                         <div>
                                                             <div class="fw-semibold">Bodega IceFree Santiago</div>
-                                                            <div class="text-muted" style="font-size: 12px;">Bodega de distribuidor</div>
+                                                            <div class="text-muted" style="font-size: 12px;">Bodega de gestor</div>
                                                         </div>
                                                     </div>
                                                 </td>
+                                                <td>77.654.321-8</td>
                                                 <td>Av. del Valle 1234, Santiago</td>
-                                                <td><span class="badge bg-info text-dark">Distribuidor</span></td>
+                                                <td><span class="badge bg-info text-dark">Gestor</span></td>
                                                 <td>IceFree Chile</td>
                                                 <td><span class="badge-status badge-activo">Activo</span></td>
                                                 <td class="text-end">
@@ -233,7 +225,7 @@
                                                     </button>
                                                 </td>
                                             </tr>
-                                            <tr data-nombre="Bodega Distribuidora Norte" data-direccion="Calle Los Andes 567, Antofagasta" data-tipo="Distribuidor" data-tipo-value="distribuidor" data-responsable="Distribuidora Norte" data-estado="Activo" data-estado-value="activo">
+                                            <tr data-nombre="Bodega Distribuidora Norte" data-rut="78.987.654-3" data-direccion="Calle Los Andes 567, Antofagasta" data-tipo="Gestor" data-tipo-value="gestor" data-responsable="Distribuidora Norte" data-estado="Activo" data-estado-value="activo">
                                                 <td>
                                                     <div class="d-flex align-items-center gap-3">
                                                         <div class="bg-primary-light rounded-circle d-flex align-items-center justify-content-center" style="width: 40px; height: 40px;">
@@ -241,12 +233,13 @@
                                                         </div>
                                                         <div>
                                                             <div class="fw-semibold">Bodega Distribuidora Norte</div>
-                                                            <div class="text-muted" style="font-size: 12px;">Bodega de distribuidor</div>
+                                                            <div class="text-muted" style="font-size: 12px;">Bodega de gestor</div>
                                                         </div>
                                                     </div>
                                                 </td>
+                                                <td>78.987.654-3</td>
                                                 <td>Calle Los Andes 567, Antofagasta</td>
-                                                <td><span class="badge bg-info text-dark">Distribuidor</span></td>
+                                                <td><span class="badge bg-info text-dark">Gestor</span></td>
                                                 <td>Distribuidora Norte</td>
                                                 <td><span class="badge-status badge-activo">Activo</span></td>
                                                 <td class="text-end">
@@ -255,7 +248,7 @@
                                                     </button>
                                                 </td>
                                             </tr>
-                                            <tr data-nombre="Bodega Sur Distribución" data-direccion="Camino El Manzano 890, Concepción" data-tipo="Distribuidor" data-tipo-value="distribuidor" data-responsable="Sur Distribución" data-estado="Inactivo" data-estado-value="inactivo">
+                                            <tr data-nombre="Bodega Sur Distribución" data-rut="79.456.789-0" data-direccion="Camino El Manzano 890, Concepción" data-tipo="Gestor" data-tipo-value="gestor" data-responsable="Sur Distribución" data-estado="Inactivo" data-estado-value="inactivo">
                                                 <td>
                                                     <div class="d-flex align-items-center gap-3">
                                                         <div class="bg-primary-light rounded-circle d-flex align-items-center justify-content-center" style="width: 40px; height: 40px;">
@@ -263,12 +256,13 @@
                                                         </div>
                                                         <div>
                                                             <div class="fw-semibold">Bodega Sur Distribución</div>
-                                                            <div class="text-muted" style="font-size: 12px;">Bodega de distribuidor</div>
+                                                            <div class="text-muted" style="font-size: 12px;">Bodega de gestor</div>
                                                         </div>
                                                     </div>
                                                 </td>
+                                                <td>79.456.789-0</td>
                                                 <td>Camino El Manzano 890, Concepción</td>
-                                                <td><span class="badge bg-info text-dark">Distribuidor</span></td>
+                                                <td><span class="badge bg-info text-dark">Gestor</span></td>
                                                 <td>Sur Distribución</td>
                                                 <td><span class="badge-status badge-pendiente">Inactivo</span></td>
                                                 <td class="text-end">
@@ -277,7 +271,7 @@
                                                     </button>
                                                 </td>
                                             </tr>
-                                            <tr data-nombre="Bodega FrioService SSTT" data-direccion="Av. Industrial 845, Santiago" data-tipo="Servicio Técnico" data-tipo-value="sstt" data-responsable="FrioService Ltda." data-estado="Activo" data-estado-value="activo">
+                                            <tr data-nombre="Bodega FrioService SSTT" data-rut="80.123.456-1" data-direccion="Av. Industrial 845, Santiago" data-tipo="Servicio Técnico" data-tipo-value="sstt" data-responsable="FrioService Ltda." data-estado="Activo" data-estado-value="activo">
                                                 <td>
                                                     <div class="d-flex align-items-center gap-3">
                                                         <div class="bg-primary-light rounded-circle d-flex align-items-center justify-content-center" style="width: 40px; height: 40px;">
@@ -289,6 +283,7 @@
                                                         </div>
                                                     </div>
                                                 </td>
+                                                <td>80.123.456-1</td>
                                                 <td>Av. Industrial 845, Santiago</td>
                                                 <td><span class="badge bg-warning text-dark">Servicio Técnico</span></td>
                                                 <td>FrioService Ltda.</td>
@@ -344,8 +339,13 @@
                 <div class="modal-body">
                     <form id="formAgregarUbicacion" novalidate>
                         <div class="mb-3">
+                            <label for="rutUbicacion" class="form-label">RUT <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control" id="rutUbicacion" placeholder="Ej: 76.123.456-7" required>
+                            <div class="invalid-feedback">Ingresa el RUT del dueño de la instalación (Mandante o Gestor).</div>
+                        </div>
+                        <div class="mb-3">
                             <label for="nombreUbicacion" class="form-label">Nombre</label>
-                            <input type="text" class="form-control" id="nombreUbicacion" placeholder="Ej: Bodega Central Savory" required>
+                            <input type="text" class="form-control" id="nombreUbicacion" placeholder="Ej: Bodega Central Carozzi" required>
                             <div class="invalid-feedback">
                                 Ingresa el nombre de la ubicación.
                             </div>
@@ -362,7 +362,7 @@
                             <select class="form-select" id="tipoUbicacion" required>
                                 <option value="" selected disabled>Selecciona un tipo</option>
                                 <option value="mandante">Mandante</option>
-                                <option value="distribuidor">Distribuidor</option>
+                                <option value="gestor">Gestor</option>
                                 <option value="sstt">Servicio Técnico</option>
                             </select>
                             <div class="invalid-feedback">
@@ -371,7 +371,7 @@
                         </div>
                         <div class="mb-3">
                             <label for="responsableUbicacion" class="form-label">Responsable</label>
-                            <input type="text" class="form-control" id="responsableUbicacion" placeholder="Ej: Savory Chile">
+                            <input type="text" class="form-control" id="responsableUbicacion" placeholder="Ej: Carozzi Chile">
                         </div>
                         <div class="mb-3 form-check form-switch">
                             <input class="form-check-input" type="checkbox" id="estadoUbicacion" checked>
@@ -398,6 +398,11 @@
                 <div class="modal-body">
                     <form id="formEditarUbicacion" novalidate>
                         <div class="mb-3">
+                            <label for="editarRutUbicacion" class="form-label">RUT <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control" id="editarRutUbicacion" placeholder="Ej: 76.123.456-7" required>
+                            <div class="invalid-feedback">Ingresa el RUT del dueño de la instalación (Mandante o Gestor).</div>
+                        </div>
+                        <div class="mb-3">
                             <label for="editarNombreUbicacion" class="form-label">Nombre</label>
                             <input type="text" class="form-control" id="editarNombreUbicacion" required>
                             <div class="invalid-feedback">
@@ -415,7 +420,7 @@
                             <label for="editarTipoUbicacion" class="form-label">Tipo</label>
                             <select class="form-select" id="editarTipoUbicacion" required>
                                 <option value="mandante">Mandante</option>
-                                <option value="distribuidor">Distribuidor</option>
+                                <option value="gestor">Gestor</option>
                                 <option value="sstt">Servicio Técnico</option>
                             </select>
                             <div class="invalid-feedback">
@@ -470,6 +475,7 @@
             const data = filaEditando.dataset;
 
             document.getElementById('editarNombreUbicacion').value = data.nombre;
+            document.getElementById('editarRutUbicacion').value = data.rut;
             document.getElementById('editarDireccionUbicacion').value = data.direccion;
             document.getElementById('editarTipoUbicacion').value = data.tipoValue;
             document.getElementById('editarResponsableUbicacion').value = data.responsable;
@@ -488,6 +494,7 @@
             if (form.checkValidity()) {
                 if (filaEditando) {
                     filaEditando.dataset.nombre = document.getElementById('editarNombreUbicacion').value;
+                    filaEditando.dataset.rut = document.getElementById('editarRutUbicacion').value;
                     filaEditando.dataset.direccion = document.getElementById('editarDireccionUbicacion').value;
                     filaEditando.dataset.responsable = document.getElementById('editarResponsableUbicacion').value;
 
@@ -502,8 +509,9 @@
                     filaEditando.dataset.estado = estadoText;
                     filaEditando.dataset.estadoValue = estadoValue;
 
-                    filaEditando.cells[1].textContent = filaEditando.dataset.direccion;
-                    filaEditando.cells[3].textContent = filaEditando.dataset.responsable;
+                    filaEditando.cells[1].textContent = filaEditando.dataset.rut;
+                    filaEditando.cells[2].textContent = filaEditando.dataset.direccion;
+                    filaEditando.cells[4].textContent = filaEditando.dataset.responsable;
                     const badge = filaEditando.querySelector('.badge-status');
                     badge.textContent = estadoText;
                     badge.className = 'badge-status ' + estadoBadge;
@@ -519,5 +527,6 @@
             }
         });
     </script>
+    <script src="../js/sidebar-scroll.js"></script>
 </body>
 </html>

@@ -287,12 +287,6 @@
                 <a href="servicio-tecnico.html" class="nav-link">
                     <i class="bi bi-tools"></i> Servicio Técnico
                 </a>
-                <a href="grupo-maquinas.html" class="nav-link">
-                    <i class="bi bi-layers"></i> Grupo de Máquinas
-                </a>
-                <a href="familia-maquinas.html" class="nav-link">
-                    <i class="bi bi-grid"></i> Familia de Máquinas
-                </a>
                 <a href="ubicaciones-bodegas.html" class="nav-link">
                     <i class="bi bi-geo"></i> Ubicaciones / Bodegas
                 </a>
@@ -304,12 +298,6 @@
                 </a>
                 <a href="plantillas-inspeccion.html" class="nav-link">
                     <i class="bi bi-clipboard2-check"></i> Plantillas de Inspección
-                </a>
-                <a href="marcas.html" class="nav-link">
-                    <i class="bi bi-tag"></i> Marcas
-                </a>
-                <a href="modelos.html" class="nav-link">
-                    <i class="bi bi-box"></i> Modelos
                 </a>
                 <a href="tipos-incidencias.html" class="nav-link">
                     <i class="bi bi-exclamation-octagon"></i> Tipos de Incidencias / Catálogo de Fallas
@@ -337,17 +325,14 @@
                     <h2 class="page-title">Autorización de Movimientos</h2>
                 </div>
                 <div class="navbar-right">
-                    <a href="asignacion-equipos.html?mode=new" class="btn btn-primary btn-sm me-3">
-                        <i class="bi bi-plus-circle me-1"></i>Nueva asignación
-                    </a>
                     <div class="notification-icon">
                         <i class="bi bi-bell"></i>
                         <span class="notification-badge">12</span>
                     </div>
                     <div class="user-info">
-                        <div class="user-avatar">SV</div>
+                        <div class="user-avatar" style="overflow:hidden;"><img src="../assets/img/carozzi_logo.jpg" alt="Carozzi" style="width:100%;height:100%;object-fit:cover;"></div>
                         <div>
-                            <div class="user-name">Savory Chile</div>
+                            <div class="user-name">Carozzi Chile</div>
                             <div class="user-role">Mandante</div>
                         </div>
                     </div>
@@ -370,7 +355,7 @@
                         </select>
                         <div class="text-muted ms-auto" style="font-size: 13px;">
                             <i class="bi bi-info-circle me-1"></i>
-                            El distribuidor no puede aprobar sus propias solicitudes; toda aprobación/rechazo la realiza el Mandante.
+                            El gestor no puede aprobar sus propias solicitudes; toda aprobación/rechazo la realiza el Mandante.
                         </div>
                     </div>
                 </div>
@@ -385,7 +370,7 @@
                                         <thead>
                                             <tr>
                                                 <th style="width: 12%;">Equipo</th>
-                                                <th style="width: 18%;">Distribuidor</th>
+                                                <th style="width: 18%;">Gestor</th>
                                                 <th style="width: 12%;">Tipo solicitud</th>
                                                 <th style="width: 20%;">Motivo</th>
                                                 <th style="width: 10%;">Fecha</th>
@@ -398,7 +383,7 @@
                                             <tr data-estado="pendiente"
                                                 data-equipo="FR-1023"
                                                 data-marca="Foster" data-modelo="FVR-300"
-                                                data-distribuidor="IceFree Chile"
+                                                data-gestor="IceFree Chile"
                                                 data-tipo="Baja definitiva"
                                                 data-motivo="Equipo con falla estructural irreparable. Motor quemado tras 3 reparaciones."
                                                 data-fecha="04/07/2026"
@@ -433,7 +418,7 @@
                                             <tr data-estado="pendiente"
                                                 data-equipo="BV-2051"
                                                 data-marca="Bosch" data-modelo="KSV-36V"
-                                                data-distribuidor="Distribuidora Norte"
+                                                data-gestor="Distribuidora Norte"
                                                 data-tipo="Envío a SSTT"
                                                 data-motivo="No enfría correctamente. Temperatura interna sobre 10°C. Requiere revisión técnica urgente."
                                                 data-fecha="03/07/2026"
@@ -468,7 +453,7 @@
                                             <tr data-estado="pendiente"
                                                 data-equipo="HL-3340"
                                                 data-marca="Hussmann" data-modelo="ELC-2D"
-                                                data-distribuidor="IceFree Chile"
+                                                data-gestor="IceFree Chile"
                                                 data-tipo="Cambio de equipo"
                                                 data-motivo="Cliente solicita equipo de mayor capacidad por incremento de ventas estacionales."
                                                 data-fecha="02/07/2026"
@@ -503,7 +488,7 @@
                                             <tr data-estado="aprobada"
                                                 data-equipo="FR-0987"
                                                 data-marca="Foster" data-modelo="FVR-200"
-                                                data-distribuidor="SurFrio Ltda."
+                                                data-gestor="SurFrio Ltda."
                                                 data-tipo="Baja definitiva"
                                                 data-motivo="Equipo robado en punto de venta. Acta de carabinera adjunta."
                                                 data-fecha="28/06/2026"
@@ -538,7 +523,7 @@
                                             <tr data-estado="rechazada"
                                                 data-equipo="BV-1188"
                                                 data-marca="Bosch" data-modelo="KSV-24V"
-                                                data-distribuidor="Distribuidora Norte"
+                                                data-gestor="Distribuidora Norte"
                                                 data-tipo="Cambio de equipo"
                                                 data-motivo="Cliente quiere equipo nuevo por estética. Sin falla técnica reportada."
                                                 data-fecha="26/06/2026"
@@ -573,7 +558,7 @@
                                             <tr data-estado="pendiente"
                                                 data-equipo="HL-2200"
                                                 data-marca="Hussmann" data-modelo="ELC-1D"
-                                                data-distribuidor="SurFrio Ltda."
+                                                data-gestor="SurFrio Ltda."
                                                 data-tipo="Envío a SSTT"
                                                 data-motivo="Puerta de vidrio quebrada por accidente. Requiere reemplazo de vidrio templado."
                                                 data-fecha="01/07/2026"
@@ -608,7 +593,7 @@
                                             <tr data-estado="aprobada"
                                                 data-equipo="FR-3456"
                                                 data-marca="Foster" data-modelo="FVR-450"
-                                                data-distribuidor="IceFree Chile"
+                                                data-gestor="IceFree Chile"
                                                 data-tipo="Envío a SSTT"
                                                 data-motivo="Compresor con ruido anormal y pérdida de refrigerante. Diagnosticado por técnico autorizado."
                                                 data-fecha="20/06/2026"
@@ -643,9 +628,9 @@
                                             <tr data-estado="rechazada"
                                                 data-equipo="BV-7700"
                                                 data-marca="Bosch" data-modelo="KSV-48V"
-                                                data-distribuidor="SurFrio Ltda."
+                                                data-gestor="SurFrio Ltda."
                                                 data-tipo="Baja definitiva"
-                                                data-motivo="Equipo antiguo. Distribuidor solicita baja para reemplazo por modelo nuevo."
+                                                data-motivo="Equipo antiguo. Gestor solicita baja para reemplazo por modelo nuevo."
                                                 data-fecha="15/06/2026"
                                                 data-solicitante="Pedro Fuentes"
                                                 data-cliente="Restaurant La Olla"
@@ -656,7 +641,7 @@
                                                 </td>
                                                 <td>SurFrio Ltda.</td>
                                                 <td><span class="badge-tipo">Baja definitiva</span></td>
-                                                <td class="text-truncate" style="max-width: 200px;" title="Equipo antiguo. Distribuidor solicita baja para reemplazo por modelo nuevo.">Equipo antiguo. Distribuidor solicita baja para reemplazo por modelo nuevo.</td>
+                                                <td class="text-truncate" style="max-width: 200px;" title="Equipo antiguo. Gestor solicita baja para reemplazo por modelo nuevo.">Equipo antiguo. Gestor solicita baja para reemplazo por modelo nuevo.</td>
                                                 <td>15/06/2026</td>
                                                 <td><span class="badge-status badge-rechazada">Rechazada</span></td>
                                                 <td class="text-end">
@@ -678,7 +663,7 @@
                                             <tr data-estado="pendiente"
                                                 data-equipo="HL-5510"
                                                 data-marca="Hussmann" data-modelo="ELC-3D"
-                                                data-distribuidor="Distribuidora Norte"
+                                                data-gestor="Distribuidora Norte"
                                                 data-tipo="Cambio de equipo"
                                                 data-motivo="Equipo con condensador dañado por mal uso del cliente. Se solicita cambio y envío del actual a SSTT."
                                                 data-fecha="04/07/2026"
@@ -713,7 +698,7 @@
                                             <tr data-estado="pendiente"
                                                 data-equipo="FR-6620"
                                                 data-marca="Foster" data-modelo="FVR-300"
-                                                data-distribuidor="SurFrio Ltda."
+                                                data-gestor="SurFrio Ltda."
                                                 data-tipo="Baja definitiva"
                                                 data-motivo="Equipo destruido por incendio en punto de venta. Acta de bomberos adjunta."
                                                 data-fecha="30/06/2026"
@@ -803,8 +788,8 @@
                             <div class="value" id="detalleMarcaModelo">—</div>
                         </div>
                         <div class="detail-info-item">
-                            <div class="label">Distribuidor</div>
-                            <div class="value" id="detalleDistribuidor">—</div>
+                            <div class="label">Gestor</div>
+                            <div class="value" id="detalleGestor">—</div>
                         </div>
                         <div class="detail-info-item">
                             <div class="label">Tipo de Solicitud</div>
@@ -845,43 +830,43 @@
                             <div class="timeline-dot dot-navy"></div>
                             <div class="timeline-date">15/01/2025</div>
                             <div class="timeline-title">Registrado en Maestro</div>
-                            <div class="timeline-desc">Equipo ingresado al sistema por el Mandante (Savory Chile).</div>
-                            <div class="timeline-actor">Actor: Savory Chile (Mandante)</div>
+                            <div class="timeline-desc">Equipo ingresado al sistema por el Mandante (Carozzi Chile).</div>
+                            <div class="timeline-actor">Actor: Carozzi Chile (Mandante)</div>
                         </li>
                         <li class="timeline-item">
                             <div class="timeline-dot dot-blue"></div>
                             <div class="timeline-date">22/01/2025</div>
-                            <div class="timeline-title">Asignado a Distribuidor</div>
-                            <div class="timeline-desc">Equipo asignado al distribuidor. Guía de Despacho N° GD-2025-0145 adjunta.</div>
-                            <div class="timeline-actor">Actor: Savory Chile (Mandante)</div>
+                            <div class="timeline-title">Asignado a Gestor</div>
+                            <div class="timeline-desc">Equipo asignado al gestor. Guía de Despacho N° GD-2025-0145 adjunta.</div>
+                            <div class="timeline-actor">Actor: Carozzi Chile (Mandante)</div>
                         </li>
                         <li class="timeline-item">
                             <div class="timeline-dot dot-green"></div>
                             <div class="timeline-date">25/01/2025</div>
                             <div class="timeline-title">Recibido y Aceptado</div>
-                            <div class="timeline-desc">Distribuidor confirma recepción e inspección visual. Equipo en estado "Asignado al Distribuidor".</div>
-                            <div class="timeline-actor">Actor: Distribuidor</div>
+                            <div class="timeline-desc">Gestor confirma recepción e inspección visual. Equipo en estado "Asignado al Gestor".</div>
+                            <div class="timeline-actor">Actor: Gestor</div>
                         </li>
                         <li class="timeline-item">
                             <div class="timeline-dot dot-blue"></div>
                             <div class="timeline-date">10/02/2025</div>
                             <div class="timeline-title">Asignado a Cliente Final</div>
                             <div class="timeline-desc">Equipo asignado a punto de venta. Guía de Despacho generada.</div>
-                            <div class="timeline-actor">Actor: Distribuidor</div>
+                            <div class="timeline-actor">Actor: Gestor</div>
                         </li>
                         <li class="timeline-item">
                             <div class="timeline-dot dot-orange"></div>
                             <div class="timeline-date" id="timelineFechaSolicitud">—</div>
                             <div class="timeline-title">Solicitud de Movimiento Creada</div>
                             <div class="timeline-desc" id="timelineMotivo">—</div>
-                            <div class="timeline-actor">Actor: Distribuidor (Solicitante)</div>
+                            <div class="timeline-actor">Actor: Gestor (Solicitante)</div>
                         </li>
                         <li class="timeline-item" id="timelineResolucion" style="display: none;">
                             <div class="timeline-dot dot-green" id="timelineDotResolucion"></div>
                             <div class="timeline-date" id="timelineFechaResolucion">—</div>
                             <div class="timeline-title" id="timelineTituloResolucion">—</div>
                             <div class="timeline-desc" id="timelineDescResolucion">—</div>
-                            <div class="timeline-actor">Actor: Savory Chile (Mandante)</div>
+                            <div class="timeline-actor">Actor: Carozzi Chile (Mandante)</div>
                         </li>
                     </ul>
 
@@ -1090,7 +1075,7 @@
 
             document.getElementById('detalleEquipo').textContent = d.equipo;
             document.getElementById('detalleMarcaModelo').textContent = d.marca + ' ' + d.modelo;
-            document.getElementById('detalleDistribuidor').textContent = d.distribuidor;
+            document.getElementById('detalleGestor').textContent = d.gestor;
             document.getElementById('detalleTipo').textContent = d.tipo;
             document.getElementById('detalleCliente').textContent = d.cliente;
             document.getElementById('detalleUbicacion').textContent = d.ubicacion;
@@ -1139,5 +1124,6 @@
             document.getElementById('comentarioRechazo').classList.remove('is-invalid');
         });
     </script>
+    <script src="../js/sidebar-scroll.js"></script>
 </body>
 </html>

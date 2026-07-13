@@ -33,14 +33,10 @@
                 <a href="maestro-equipos.html" class="nav-link"><i class="bi bi-hdd-stack"></i> Equipos</a>
                 <a href="gestores.html" class="nav-link"><i class="bi bi-people"></i> Gestores</a>
                 <a href="servicio-tecnico.html" class="nav-link"><i class="bi bi-tools"></i> Servicio Técnico</a>
-                <a href="grupo-maquinas.html" class="nav-link"><i class="bi bi-layers"></i> Grupo de Máquinas</a>
-                <a href="familia-maquinas.html" class="nav-link"><i class="bi bi-grid"></i> Familia de Máquinas</a>
                 <a href="ubicaciones-bodegas.html" class="nav-link"><i class="bi bi-geo"></i> Ubicaciones / Bodegas</a>
                 <a href="motivos-movimiento.html" class="nav-link active"><i class="bi bi-list-ul"></i> Motivos de Movimiento</a>
                 <a href="tipos-solicitud.html" class="nav-link"><i class="bi bi-file-earmark-text"></i> Tipos de Solicitud</a>
                 <a href="plantillas-inspeccion.html" class="nav-link"><i class="bi bi-clipboard2-check"></i> Plantillas de Inspección</a>
-                <a href="marcas.html" class="nav-link"><i class="bi bi-tag"></i> Marcas</a>
-                <a href="modelos.html" class="nav-link"><i class="bi bi-box"></i> Modelos</a>
                 <a href="tipos-incidencias.html" class="nav-link"><i class="bi bi-exclamation-octagon"></i> Tipos de Incidencias / Catálogo de Fallas</a>
                 <div class="nav-section">Configuración</div>
                 <a href="usuarios.html" class="nav-link"><i class="bi bi-people-fill"></i> Usuarios</a>
@@ -58,8 +54,8 @@
                     </a>
                     <div class="notification-icon"><i class="bi bi-bell"></i><span class="notification-badge">3</span></div>
                     <div class="user-info">
-                        <div class="user-avatar">SV</div>
-                        <div><div class="user-name">Savory Chile</div><div class="user-role">Mandante</div></div>
+                        <div class="user-avatar" style="overflow:hidden;"><img src="../assets/img/carozzi_logo.jpg" alt="Carozzi" style="width:100%;height:100%;object-fit:cover;"></div>
+                        <div><div class="user-name">Carozzi Chile</div><div class="user-role">Mandante</div></div>
                     </div>
                 </div>
             </nav>
@@ -83,63 +79,77 @@
                                     <table class="table table-hover align-middle">
                                         <thead>
                                             <tr>
-                                                <th>Código</th><th>Nombre</th><th>Descripción</th><th>Requiere aprobación</th><th>Estado</th><th class="text-end">Acciones</th>
+                                                <th>Código</th><th>Nombre</th><th>Descripción</th><th>Requiere aprobación</th><th>Rol aprobador</th><th>Vinculante</th><th>Estado</th><th class="text-end">Acciones</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr data-codigo="ASIGNACION_DISTRIBUIDOR" data-nombre="Asignación a Distribuidor" data-descripcion="Asignación de equipos desde el mandante a un distribuidor" data-aprobacion="no" data-estado="Activo" data-estado-value="activo">
+                                            <tr data-codigo="ASIGNACION_DISTRIBUIDOR" data-nombre="Asignación a Gestor" data-descripcion="Asignación de equipos desde el mandante a un gestor" data-aprobacion="no" data-rol="" data-vinculante="no" data-estado="Activo" data-estado-value="activo">
                                                 <td><span class="fw-semibold">ASIGNACION_DISTRIBUIDOR</span></td>
-                                                <td>Asignación a Distribuidor</td>
-                                                <td class="text-muted">Asignación de equipos desde el mandante a un distribuidor</td>
+                                                <td>Asignación a Gestor</td>
+                                                <td class="text-muted">Asignación de equipos desde el mandante a un gestor</td>
                                                 <td><span class="badge bg-secondary">No</span></td>
+                                                <td class="text-muted">—</td>
+                                                <td class="text-muted">—</td>
                                                 <td><span class="badge-status badge-activo">Activo</span></td>
                                                 <td class="text-end"><button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modalEditarMotivo"><i class="bi bi-pencil me-1"></i>Editar</button></td>
                                             </tr>
-                                            <tr data-codigo="ASIGNACION_CLIENTE" data-nombre="Asignación a Cliente" data-descripcion="Asignación de equipos desde el distribuidor a un cliente final" data-aprobacion="no" data-estado="Activo" data-estado-value="activo">
+                                            <tr data-codigo="ASIGNACION_CLIENTE" data-nombre="Asignación a Cliente" data-descripcion="Asignación de equipos desde el gestor a un cliente final" data-aprobacion="no" data-rol="" data-vinculante="no" data-estado="Activo" data-estado-value="activo">
                                                 <td><span class="fw-semibold">ASIGNACION_CLIENTE</span></td>
                                                 <td>Asignación a Cliente</td>
-                                                <td class="text-muted">Asignación de equipos desde el distribuidor a un cliente final</td>
+                                                <td class="text-muted">Asignación de equipos desde el gestor a un cliente final</td>
                                                 <td><span class="badge bg-secondary">No</span></td>
+                                                <td class="text-muted">—</td>
+                                                <td class="text-muted">—</td>
                                                 <td><span class="badge-status badge-activo">Activo</span></td>
                                                 <td class="text-end"><button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modalEditarMotivo"><i class="bi bi-pencil me-1"></i>Editar</button></td>
                                             </tr>
-                                            <tr data-codigo="ENVIO_SSTT" data-nombre="Envío a Servicio Técnico" data-descripcion="Envío de equipo a servicio técnico para reparación" data-aprobacion="si" data-estado="Activo" data-estado-value="activo">
+                                            <tr data-codigo="ENVIO_SSTT" data-nombre="Envío a Servicio Técnico" data-descripcion="Envío de equipo a servicio técnico para reparación" data-aprobacion="si" data-rol="Administrador" data-vinculante="no" data-estado="Activo" data-estado-value="activo">
                                                 <td><span class="fw-semibold">ENVIO_SSTT</span></td>
                                                 <td>Envío a Servicio Técnico</td>
                                                 <td class="text-muted">Envío de equipo a servicio técnico para reparación</td>
                                                 <td><span class="badge bg-warning text-dark">Sí</span></td>
+                                                <td><span class="badge bg-info text-dark">Administrador</span></td>
+                                                <td><span class="badge bg-secondary">No</span></td>
                                                 <td><span class="badge-status badge-activo">Activo</span></td>
                                                 <td class="text-end"><button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modalEditarMotivo"><i class="bi bi-pencil me-1"></i>Editar</button></td>
                                             </tr>
-                                            <tr data-codigo="RETORNO_SSTT" data-nombre="Retorno de Servicio Técnico" data-descripcion="Retorno de equipo reparado desde servicio técnico" data-aprobacion="si" data-estado="Activo" data-estado-value="activo">
+                                            <tr data-codigo="RETORNO_SSTT" data-nombre="Retorno de Servicio Técnico" data-descripcion="Retorno de equipo reparado desde servicio técnico" data-aprobacion="si" data-rol="Administrador" data-vinculante="no" data-estado="Activo" data-estado-value="activo">
                                                 <td><span class="fw-semibold">RETORNO_SSTT</span></td>
                                                 <td>Retorno de Servicio Técnico</td>
                                                 <td class="text-muted">Retorno de equipo reparado desde servicio técnico</td>
                                                 <td><span class="badge bg-warning text-dark">Sí</span></td>
+                                                <td><span class="badge bg-info text-dark">Administrador</span></td>
+                                                <td><span class="badge bg-secondary">No</span></td>
                                                 <td><span class="badge-status badge-activo">Activo</span></td>
                                                 <td class="text-end"><button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modalEditarMotivo"><i class="bi bi-pencil me-1"></i>Editar</button></td>
                                             </tr>
-                                            <tr data-codigo="RETORNO_MANDANTE" data-nombre="Retorno al Mandante" data-descripcion="Retorno de equipo desde distribuidor al mandante" data-aprobacion="si" data-estado="Activo" data-estado-value="activo">
+                                            <tr data-codigo="RETORNO_MANDANTE" data-nombre="Retorno al Mandante" data-descripcion="Retorno de equipo desde gestor al mandante" data-aprobacion="si" data-rol="Administrador,Super Usuario" data-vinculante="si" data-estado="Activo" data-estado-value="activo">
                                                 <td><span class="fw-semibold">RETORNO_MANDANTE</span></td>
                                                 <td>Retorno al Mandante</td>
-                                                <td class="text-muted">Retorno de equipo desde distribuidor al mandante</td>
+                                                <td class="text-muted">Retorno de equipo desde gestor al mandante</td>
+                                                <td><span class="badge bg-warning text-dark">Sí</span></td>
+                                                <td><span class="badge bg-info text-dark">Administrador, Super Usuario</span></td>
                                                 <td><span class="badge bg-warning text-dark">Sí</span></td>
                                                 <td><span class="badge-status badge-activo">Activo</span></td>
                                                 <td class="text-end"><button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modalEditarMotivo"><i class="bi bi-pencil me-1"></i>Editar</button></td>
                                             </tr>
-                                            <tr data-codigo="BAJA" data-nombre="Baja Definitiva" data-descripcion="Baja definitiva del equipo (requiere aprobación del mandante)" data-aprobacion="si" data-estado="Activo" data-estado-value="activo">
+                                            <tr data-codigo="BAJA" data-nombre="Baja Definitiva" data-descripcion="Baja definitiva del equipo (requiere aprobación del mandante)" data-aprobacion="si" data-rol="Administrador,Super Usuario" data-vinculante="si" data-estado="Activo" data-estado-value="activo">
                                                 <td><span class="fw-semibold">BAJA</span></td>
                                                 <td>Baja Definitiva</td>
                                                 <td class="text-muted">Baja definitiva del equipo (requiere aprobación del mandante)</td>
                                                 <td><span class="badge bg-warning text-dark">Sí</span></td>
+                                                <td><span class="badge bg-info text-dark">Administrador, Super Usuario</span></td>
+                                                <td><span class="badge bg-warning text-dark">Sí</span></td>
                                                 <td><span class="badge-status badge-activo">Activo</span></td>
                                                 <td class="text-end"><button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modalEditarMotivo"><i class="bi bi-pencil me-1"></i>Editar</button></td>
                                             </tr>
-                                            <tr data-codigo="CAMBIO" data-nombre="Cambio de Equipo" data-descripcion="Reemplazo de un equipo por otro en el mismo punto de venta" data-aprobacion="si" data-estado="Activo" data-estado-value="activo">
+                                            <tr data-codigo="CAMBIO" data-nombre="Cambio de Equipo" data-descripcion="Reemplazo de un equipo por otro en el mismo punto de venta" data-aprobacion="si" data-rol="Administrador" data-vinculante="no" data-estado="Activo" data-estado-value="activo">
                                                 <td><span class="fw-semibold">CAMBIO</span></td>
                                                 <td>Cambio de Equipo</td>
                                                 <td class="text-muted">Reemplazo de un equipo por otro en el mismo punto de venta</td>
                                                 <td><span class="badge bg-warning text-dark">Sí</span></td>
+                                                <td><span class="badge bg-info text-dark">Administrador</span></td>
+                                                <td><span class="badge bg-secondary">No</span></td>
                                                 <td><span class="badge-status badge-activo">Activo</span></td>
                                                 <td class="text-end"><button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modalEditarMotivo"><i class="bi bi-pencil me-1"></i>Editar</button></td>
                                             </tr>
@@ -170,6 +180,18 @@
                 <div class="mb-3"><label for="nombreMotivo" class="form-label">Nombre</label><input type="text" class="form-control" id="nombreMotivo" placeholder="Ej: Envío a Servicio Técnico" required><div class="invalid-feedback">Ingresa el nombre del motivo.</div></div>
                 <div class="mb-3"><label for="descripcionMotivo" class="form-label">Descripción</label><textarea class="form-control" id="descripcionMotivo" rows="3" placeholder="Descripción del motivo de movimiento"></textarea></div>
                 <div class="mb-3 form-check form-switch"><input class="form-check-input" type="checkbox" id="aprobacionMotivo"><label class="form-check-label" for="aprobacionMotivo">Requiere aprobación del mandante</label></div>
+                <div id="camposAprobacion" style="display:none;">
+                    <div class="mb-3">
+                        <label for="rolAprobador" class="form-label">Requiere aprobación de (Rol)</label>
+                        <select class="form-select" id="rolAprobador" multiple size="3">
+                            <option value="Administrador">Administrador</option>
+                            <option value="Super Usuario">Super Usuario</option>
+                            <option value="Supervisor">Supervisor</option>
+                        </select>
+                        <div class="form-text">Mantén Ctrl (Cmd en Mac) para seleccionar múltiples roles.</div>
+                    </div>
+                    <div class="mb-3 form-check form-switch"><input class="form-check-input" type="checkbox" id="vinculanteMotivo"><label class="form-check-label" for="vinculanteMotivo">Es vinculante (todos los roles deben aprobar)</label></div>
+                </div>
                 <div class="mb-3 form-check form-switch"><input class="form-check-input" type="checkbox" id="estadoMotivo" checked><label class="form-check-label" for="estadoMotivo">Activo</label></div>
             </form></div>
             <div class="modal-footer"><button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancelar</button><button type="button" class="btn btn-primary" id="btnGuardarMotivo">Guardar</button></div>
@@ -184,6 +206,18 @@
                 <div class="mb-3"><label for="editarNombreMotivo" class="form-label">Nombre</label><input type="text" class="form-control" id="editarNombreMotivo" required><div class="invalid-feedback">Ingresa el nombre del motivo.</div></div>
                 <div class="mb-3"><label for="editarDescripcionMotivo" class="form-label">Descripción</label><textarea class="form-control" id="editarDescripcionMotivo" rows="3"></textarea></div>
                 <div class="mb-3 form-check form-switch"><input class="form-check-input" type="checkbox" id="editarAprobacionMotivo"><label class="form-check-label" for="editarAprobacionMotivo">Requiere aprobación del mandante</label></div>
+                <div id="editarCamposAprobacion" style="display:none;">
+                    <div class="mb-3">
+                        <label for="editarRolAprobador" class="form-label">Requiere aprobación de (Rol)</label>
+                        <select class="form-select" id="editarRolAprobador" multiple size="3">
+                            <option value="Administrador">Administrador</option>
+                            <option value="Super Usuario">Super Usuario</option>
+                            <option value="Supervisor">Supervisor</option>
+                        </select>
+                        <div class="form-text">Mantén Ctrl (Cmd en Mac) para seleccionar múltiples roles.</div>
+                    </div>
+                    <div class="mb-3 form-check form-switch"><input class="form-check-input" type="checkbox" id="editarVinculanteMotivo"><label class="form-check-label" for="editarVinculanteMotivo">Es vinculante (todos los roles deben aprobar)</label></div>
+                </div>
                 <div class="mb-3 form-check form-switch"><input class="form-check-input" type="checkbox" id="editarEstadoMotivo"><label class="form-check-label" for="editarEstadoMotivo">Activo</label></div>
             </form></div>
             <div class="modal-footer"><button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancelar</button><button type="button" class="btn btn-primary" id="btnActualizarMotivo">Guardar cambios</button></div>
@@ -193,6 +227,35 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
         let filaEditando = null;
+
+        function toggleCamposAprobacion(checkbox, camposId) {
+            document.getElementById(camposId).style.display = checkbox.checked ? 'block' : 'none';
+        }
+        document.getElementById('aprobacionMotivo').addEventListener('change', function() {
+            toggleCamposAprobacion(this, 'camposAprobacion');
+        });
+        document.getElementById('editarAprobacionMotivo').addEventListener('change', function() {
+            toggleCamposAprobacion(this, 'editarCamposAprobacion');
+        });
+
+        function getSelectedRoles(selectId) {
+            return Array.from(document.getElementById(selectId).selectedOptions).map(function(o) { return o.value; }).join(',');
+        }
+        function setSelectedRoles(selectId, rolesStr) {
+            var roles = rolesStr ? rolesStr.split(',') : [];
+            Array.from(document.getElementById(selectId).options).forEach(function(opt) {
+                opt.selected = roles.indexOf(opt.value) !== -1;
+            });
+        }
+        function formatRolesDisplay(rolesStr) {
+            if (!rolesStr) return '<span class="text-muted">—</span>';
+            return '<span class="badge bg-info text-dark">' + rolesStr.split(',').join(', ') + '</span>';
+        }
+        function formatVinculanteDisplay(vinculante) {
+            if (vinculante === 'si') return '<span class="badge bg-warning text-dark">Sí</span>';
+            return '<span class="badge bg-secondary">No</span>';
+        }
+
         document.getElementById('btnGuardarMotivo').addEventListener('click', function() {
             const form = document.getElementById('formAgregarMotivo');
             if (form.checkValidity()) {
@@ -212,6 +275,9 @@
             document.getElementById('editarNombreMotivo').value = d.nombre;
             document.getElementById('editarDescripcionMotivo').value = d.descripcion;
             document.getElementById('editarAprobacionMotivo').checked = d.aprobacion === 'si';
+            toggleCamposAprobacion(document.getElementById('editarAprobacionMotivo'), 'editarCamposAprobacion');
+            setSelectedRoles('editarRolAprobador', d.rol || '');
+            document.getElementById('editarVinculanteMotivo').checked = d.vinculante === 'si';
             document.getElementById('editarEstadoMotivo').checked = d.estadoValue === 'activo';
         });
         document.getElementById('modalEditarMotivo').addEventListener('hidden.bs.modal', function() {
@@ -227,12 +293,18 @@
                     filaEditando.dataset.descripcion = document.getElementById('editarDescripcionMotivo').value;
                     const aprob = document.getElementById('editarAprobacionMotivo').checked;
                     filaEditando.dataset.aprobacion = aprob ? 'si' : 'no';
+                    var rolesStr = aprob ? getSelectedRoles('editarRolAprobador') : '';
+                    var vinculante = aprob && document.getElementById('editarVinculanteMotivo').checked ? 'si' : 'no';
+                    filaEditando.dataset.rol = rolesStr;
+                    filaEditando.dataset.vinculante = vinculante;
                     filaEditando.cells[0].querySelector('.fw-semibold').textContent = filaEditando.dataset.codigo;
                     filaEditando.cells[1].textContent = filaEditando.dataset.nombre;
                     filaEditando.cells[2].textContent = filaEditando.dataset.descripcion;
                     const aprobBadge = filaEditando.cells[3].querySelector('.badge');
                     aprobBadge.textContent = aprob ? 'Sí' : 'No';
                     aprobBadge.className = aprob ? 'badge bg-warning text-dark' : 'badge bg-secondary';
+                    filaEditando.cells[4].innerHTML = aprob ? formatRolesDisplay(rolesStr) : '<span class="text-muted">—</span>';
+                    filaEditando.cells[5].innerHTML = aprob ? formatVinculanteDisplay(vinculante) : '<span class="text-muted">—</span>';
                     const activo = document.getElementById('editarEstadoMotivo').checked;
                     filaEditando.dataset.estado = activo ? 'Activo' : 'Inactivo';
                     filaEditando.dataset.estadoValue = activo ? 'activo' : 'inactivo';
@@ -245,5 +317,6 @@
             } else { form.classList.add('was-validated'); }
         });
     </script>
+    <script src="../js/sidebar-scroll.js"></script>
 </body>
 </html>

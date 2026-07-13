@@ -12,51 +12,57 @@
 
 # 2. Contexto de la reunión
 
-Se revisó la maqueta navegable de la plataforma web ISSTEC desde la perspectiva del perfil **Mandante** (dueño de los equipos) y del perfil **Distribuidor/Gestor**. El proyecto se encuentra en fase de validación de diseño de interfaz (UI/UX) y de flujos de navegación básicos.
+Se revisó la maqueta navegable de la plataforma web ISSTEC desde la perspectiva del perfil **Mandante** (dueño de los equipos) y del perfil **Gestor**. El proyecto se encuentra en fase de validación de diseño de interfaz (UI/UX) y de flujos de navegación básicos.
 
 ---
 
 # 3. Desarrollo de la reunión
 
-### 3.1. Identidad Visual y Datos del Dashboard
+### 3.1. Identidad Visual y Datos del Dashboard ✅
 * **Resumen de lo discutido:** Se solicitó cambiar el cliente de referencia y corregir inconsistencias en las métricas numéricas presentadas.
 * **Observaciones:** 
   * Reemplazar la marca "Sabori" por "Carozzi" (incluyendo el logotipo).
   * Los números del panel de control no cuadran (la suma de equipos activos, en servicio técnico y solicitudes pendientes no coincide con el total de equipos mostrado).
 * **Decisiones tomadas:** Modificar el texto y logo de "Sabori" por "Carozzi" y recalcular las cifras del Dashboard para que guarden consistencia matemática.
+* **Implementación (12/07/2026):** Se modificó el texto y logo de "Sabori" por "Carozzi" y se recalcularon las cifras del Dashboard para que guarden consistencia matemática.
 
-### 3.2. Terminología y Flujos de Asignación de Equipos
+### 3.2. Terminología y Flujos de Asignación de Equipos ✅
 * **Resumen de lo discutido:** Se evaluó el lenguaje del menú de navegación y la lógica de asignación.
 * **Observaciones:**
-  * Reemplazar el término "Distribuidor" por "Gestor" en los títulos de asignación de equipos.
-  * El botón "Nueva asignación" dentro del menú de "Autorización de Movimientos" genera confusión de flujo y debe corregirse.
-* **Decisiones tomadas:** Cambiar la etiqueta "Distribuidor" por "Gestor" en las pantallas indicadas y reubicar o corregir el botón de "Nueva asignación" en el módulo correspondiente.
+  * Reemplazar el término "Distribuidor" por "Gestor" en los títulos de asignación de equipos. ✅ *Aplicado 12/07/2026.*
+  * El botón "Nueva asignación" dentro del menú de "Autorización de Movimientos" genera confusión de flujo y debe corregirse. ✅ *Aplicado 12/07/2026: botón eliminado de autorizacion-movimientos.html.*
+* **Decisiones tomadas:** Cambiar la etiqueta "Distribuidor" por "Gestor" en las pantallas indicadas y reubicar o corregir el botón de "Nueva asignación" en el módulo correspondiente. ✅ *Completado 12/07/2026.*
+* **Implementación (12/07/2026):** Se cambiaron la etiqueta "Distribuidor" por "Gestor" en las pantallas indicadas y se reubicó o corrigió el botón de "Nueva asignación" en el módulo correspondiente.
 
-### 3.3. Búsqueda y Trazabilidad de Activos
+### 3.3. Búsqueda y Trazabilidad de Activos ✅
 * **Resumen de lo discutido:** Revisión del comportamiento del buscador de equipos en el módulo de trazabilidad.
 * **Observaciones:** El buscador actual exige ingresar el número de serie exacto.
 * **Propuestas de mejora:** Implementar un buscador predictivo e integral que permita buscar por modelo, marca o tipo de máquina, desplegando opciones sugeridas para selección.
 * **Decisiones tomadas:** Diseñar el buscador con comportamiento predictivo/asistido para la versión final.
+* **Implementación (12/07/2026):** Se implementó el buscador predictivo/asistido para la versión final.
 
-### 3.4. Integración de Guías de Despacho
+### 3.4. Integración de Guías de Despacho ✅
 * **Resumen de lo discutido:** Definición del funcionamiento técnico detrás de la generación de guías de despacho de equipos.
 * **Observaciones:** El sistema debe consumir un servicio web (API) del sistema de facturación del Mandante para emitir la guía de despacho real, esperar la respuesta y adjuntar automáticamente el PDF generado.
 * **Decisiones tomadas:** Definir esta integración como un requisito funcional crítico para la fase de desarrollo.
+* **Implementación (13/07/2026):** Al confirmar el envío, el modal ofrece 3 opciones: **Generar vía API** (simulación 3 pasos: solicitud, procesamiento, respuesta con N° y PDF), **Subir PDF** (carga manual de documento externo) o **Hacer más tarde** (confirmar sin GD y gestionar posteriormente desde Asignaciones o Guías de Despacho). Si se pospone, los botones de generación/subida quedan disponibles en las tablas respectivas.
 
-### 3.5. Depuración de Menús de Configuración (Maestros)
+### 3.5. Depuración de Menús de Configuración (Maestros) ✅
 * **Resumen de lo discutido:** Simplificación de las tablas maestras de administración del Mandante.
 * **Observaciones:**
   * **Creación manual de equipos:** El Mandante no creará equipos uno por uno. El botón "Nuevo equipo" debe eliminarse, manteniendo únicamente la opción de "Carga masiva" mediante planilla Excel.
   * **Clasificaciones:** Los menús de "Grupo de Máquinas", "Familia de Máquinas", "Marcas" y "Modelos" deben ser eliminados de la navegación, ya que estas categorías vendrán especificadas directamente dentro de la planilla de carga masiva de equipos.
-  * **Gestores (Distribuidores):** Un gestor puede tener múltiples sucursales o bodegas de destino. El formulario de creación/edición de gestores debe permitir asociar más de una dirección física.
-  * **Clientes y Vendedores:** Los distribuidores no deben poder crear o editar clientes o vendedores en este sistema, ya que dicha información proviene exclusivamente del ERP sincronizado. Esas pantallas en el perfil del distribuidor deben ser de solo lectura.
+  * **Gestores:** Un gestor puede tener múltiples sucursales o bodegas de destino. El formulario de creación/edición de gestores debe permitir asociar más de una dirección física.
+  * **Clientes y Vendedores:** Los gestores no deben poder crear o editar clientes o vendedores en este sistema, ya que dicha información proviene exclusivamente del ERP sincronizado. Esas pantallas en el perfil del gestor deben ser de solo lectura.
   * **Ubicaciones y Bodegas:** Cada bodega o ubicación registrada debe contar con un campo obligatorio de "RUT" para identificar claramente al dueño (Mandante o Gestor) de la instalación.
 * **Decisiones tomadas:** Eliminar los menús y botones redundantes indicados, agregar la funcionalidad de direcciones múltiples a gestores y el campo RUT a bodegas.
+* **Implementación (12/07/2026):** Se eliminaron los menús y botones redundantes, se agregó la funcionalidad de direcciones múltiples a gestores y el campo RUT a bodegas.
 
-### 3.6. Lógica de Aprobación de Movimientos
-* **Resumen de lo discutido:** Definición de la matriz de autorización para solicitudes enviadas por el distribuidor.
+### 3.6. Lógica de Aprobación de Movimientos ✅
+* **Resumen de lo discutido:** Definición de la matriz de autorización para solicitudes enviadas por el gestor.
 * **Observaciones:** El sistema debe permitir configurar si una solicitud (ej. de baja o traslado de equipo) requiere aprobación de uno o varios roles específicos (ej. Administrador y Super Usuario) y si estas aprobaciones son vinculantes (todos deben aprobar) o no vinculantes (basta con la aprobación de uno).
 * **Decisiones tomadas:** Incorporar los parámetros de "Rol aprobador" y "Voto vinculante" en el maestro de motivos de movimiento para automatizar el flujo de notificaciones y firmas por correo electrónico.
+* **Implementación (13/07/2026):** Se agregaron columnas "Rol aprobador" y "Vinculante" en la tabla de motivos, campos multi-select de roles y checkbox vinculante en modales Agregar/Editar con display condicional según requiere aprobación.
 
 ### 3.7. Módulo de Planillas de Inspección / Verificación de Equipos
 
@@ -66,27 +72,31 @@ Se revisó la maqueta navegable de la plataforma web ISSTEC desde la perspectiva
   * Tipos de Verificación por Ítem: Cada ítem de la lista admite distintas dinámicas de respuesta, tales como casillas de selección (Checkboxes), campos de texto o captura obligatoria de fotografías (como evidencia del estado de la pintura, sellos herméticos o temperatura interna).
   * Flujo de Recepción Asociado: Cuando el Gestor registre la llegada de un lote de equipos, el sistema le exigirá completar la planilla de inspección correspondiente para cada máquina antes de permitir el cambio de estado a "Recibido".
 * **Dudas y temas pendientes:**
-  * Queda pendiente resolver la integración visual de estas planillas dentro del flujo de recepción del distribuidor, definiendo si la encuesta se desplegará de forma obligatoria pantalla por pantalla o si se permitirá una aprobación masiva en caso de que los equipos no presenten observaciones.
+  * Queda pendiente resolver la integración visual de estas planillas dentro del flujo de recepción del gestor, definiendo si la encuesta se desplegará de forma obligatoria pantalla por pantalla o si se permitirá una aprobación masiva en caso de que los equipos no presenten observaciones.
 
-### 3.8. Direcciones Múltiples en Gestores (Distribuidores)
+### 3.8. Direcciones Múltiples en Gestores (Gestores) ✅
 * **Resumen de lo discutido**: Se analizó la necesidad de que el perfil de cada Gestor soporte múltiples direcciones físicas de entrega.
-* **Detalle de la observación**: Distribuidores de gran envergadura operan con más de una sucursal o centro de distribución local. El prototipo debe permitir registrar de forma dinámica múltiples direcciones para un mismo Gestor.
+* **Detalle de la observación**: Gestores de gran envergadura operan con más de una sucursal o centro de distribución local. El prototipo debe permitir registrar de forma dinámica múltiples direcciones para un mismo Gestor.
 * **Justificación operativa**: Al momento de generar una guía de despacho desde el Mandante, el usuario requiere seleccionar obligatoriamente la sucursal de destino específica a la que se envían físicamente los equipos refrigerados.
+* **Implementación (13/07/2026):** Se agregó el botón "Agregar dirección" en el formulario de creación/edición de gestores, permitiendo registrar múltiples direcciones con campos RUT, Dirección, Comuna y Región.
 
-### 3.9. Atribución de RUT en Ubicaciones y Bodegas
+### 3.9. Atribución de RUT en Ubicaciones y Bodegas ✅
 * **Resumen de lo discutido**: Se evaluó el formulario de registro de la sección de Ubicaciones y Bodegas de almacenamiento.
 * **Detalle de la observación**: Dado que cada espacio de almacenamiento o bodega física pertenece a una entidad jurídica en particular, el formulario de creación y edición debe incorporar obligatoriamente el campo de RUT del responsable.
 * **Justificación operativa**: Este dato permite al sistema identificar inequívocamente la propiedad del espacio (si la bodega pertenece al Mandante o a un Gestor específico) para efectos de control de inventario y responsabilidades sobre los activos allí alojados.
+* **Implementación (13/07/2026):** Se agregó el campo RUT obligatorio en el formulario de creación/edición de bodegas/ubicaciones, con validación de formato chileno.
 
-### 3.10 Integración de Guías de Despacho con APIs de ERP / Facturación
+### 3.10 Integración de Guías de Despacho con APIs de ERP / Facturación ✅
 * **Resumen de lo discutido:** Se definió la estrategia para la emisión de guías de despacho, estableciendo que el proceso no debe ser manual, sino automatizado mediante integraciones directas con los sistemas de facturación o ERP de cada actor.
 * **Detalle de la observación:** Cada vez que ocurra un movimiento de entrega o despacho (tanto en el perfil de Mandante al enviar equipos al Gestor, como en el perfil de Gestor al distribuir equipos a los clientes finales), el sistema debe respaldar legalmente el traslado.
 * **Flujo y funcionamiento de la integración:**
-  * El usuario selecciona los equipos y presiona la acción de envío (ej. "Enviar al Distribuidor" o "Asignar a Cliente").
+  * El usuario selecciona los equipos y confirma el envío (ej. "Enviar al Gestor" o "Asignar a Cliente").
+  * **Una vez confirmado el envío**, el usuario gestiona la Guía de Despacho desde la tabla de Asignaciones o el módulo de Guías de Despacho.
   * La plataforma ISSTEC consume de manera inmediata una API expuesta por el sistema de facturación o ERP correspondiente (del Mandante o Gestor, según el caso).
   * Se transmiten los datos requeridos para la emisión del documento tributario.
   * El ERP procesa la solicitud, genera la guía de despacho y devuelve el documento en formato PDF a la plataforma.
   * El sistema ISSTEC asocia y almacena automáticamente este archivo PDF en la transacción del despacho correspondiente para su consulta o descarga.
+* **Implementación (13/07/2026):** Prototipo implementado con modal de 3 opciones al confirmar: Generar vía API (simulación 3 pasos: solicitud, procesamiento, respuesta), Subir PDF (carga manual), o Hacer más tarde (gestionar posteriormente). Aplica tanto para Mandante→Gestor como para Gestor→Cliente Final.
 
 ---
 
@@ -96,47 +106,47 @@ Se revisó la maqueta navegable de la plataforma web ISSTEC desde la perspectiva
 | :--- | :--- | :--- | :--- | :--- |
 | **Encabezado / Login** | Uso de marca "Sabori Chile" | Cambio de cliente objetivo | Cambiar textos y logos por "Carozzi" | Alta |
 | **Métricas Dashboard** | Sumatoria inconsistente | Los números de equipos no cuadran | Ajustar datos fijos de la maqueta | Media |
-| **Navegación / Textos** | Uso de palabra "Distribuidor" | Inconsistencia de terminología | Reemplazar por "Gestor" | Media |
+| **Navegación / Textos** | Uso de palabra "Gestor" | Inconsistencia de terminología | Reemplazar por "Gestor" | Media |
 | **Autorización de Movimientos** | Botón "Nueva asignación" mal ubicado | Ruido en el flujo de usuario | Reubicar o corregir acción del botón | Media |
 | **Buscador (Trazabilidad)** | Búsqueda rígida por serie | Dificultad para localizar equipos | Convertir en buscador predictivo (por marca, modelo, etc.) | Alta |
 | **Maestro de Equipos** | Botón "Nuevo equipo" habilitado | Riesgo de ingreso manual erróneo | Eliminar creación unitaria. Mantener solo carga masiva Excel | Alta |
 | **Maestro de Gestores** | Dirección única por gestor | Gestores operan en varias sucursales | Permitir agregar múltiples direcciones/sucursales | Alta |
 | **Módulo Maestros (Navegación)**| Menús redundantes ("Familia", "Grupo", "Marca", "Modelo") | Información implícita en la carga masiva | Eliminar estos submenús del menú lateral | Alta |
 | **Ubicaciones y Bodegas** | Falta campo "RUT" en formulario | Imposibilidad de identificar propiedad | Agregar campo RUT obligatorio asociado a la bodega | Alta |
-| **Clientes y Vendedores (Distribuidor)**| Formulario de edición/creación activo | Información de clientes pertenece al ERP | Deshabilitar edición. Configurar como vista de solo lectura | Alta |
-| **Maestro Motivos de Movimiento** | Flujo de aprobación rígido | Falta flexibilidad en autorizaciones | Agregar campo para definir Roles Aprobadores y si es vinculante | Media |
+| **Clientes y Vendedores (Gestor)**| Formulario de edición/creación activo | Información de clientes pertenece al ERP | Deshabilitar edición. Configurar como vista de solo lectura | Alta |
+| **Maestro Motivos de Movimiento** | Flujo de aprobación rígido | Falta flexibilidad en autorizaciones | Agregar campo para definir Roles Aprobadores y si es vinculante | Media | ✅ Aplicado 13/07/2026 |
 
 ---
 
 # 5. Cambios solicitados
 
-* [ ] Reemplazar todos los logotipos y menciones de "Sabori Chile" por "Carozzi".
-* [ ] Modificar los contadores del Dashboard para que el desglose de equipos sume con precisión el "Total de equipos".
-* [ ] Cambiar el término "Distribuidor" por "Gestor" en todos las menciones en el prototipo tanto en modo Mandante como Gestor.
-* [ ] Resolver el comportamiento y destino del botón "Nueva asignación" en la pantalla de Autorización de Movimientos.
-* [ ] Eliminar el botón "Nuevo equipo" en el maestro de equipos; mantener exclusivamente el botón de "Carga masiva".
-* [ ] Ocultar/eliminar del menú lateral los submenús: Grupo de Máquinas, Familia de Máquinas, Marcas y Modelos.
-* [ ] Modificar el formulario de registro de Gestores para permitir la entrada de múltiples direcciones/sucursales de entrega.
-* [ ] Agregar el campo obligatorio "RUT" en el formulario de creación/edición de Ubicaciones y Bodegas.
-* [ ] Bloquear la edición y creación de Clientes y Vendedores en el perfil del Distribuidor (convertir en pantallas de solo lectura).
-* [ ] Actualizar el modal de "Agregar motivo de movimiento" para incluir los campos "Requiere aprobación de (Rol)" y la casilla de verificación "Es vinculante".
-* [ ] Resolver la integración visual de las planillas de inspección dentro del flujo de recepción del distribuidor.
-* [ ] Resolver para agregar direcciones multiples a entidades (Gestores, Ubicaciones y Bodegas).
-* [ ] Agregar el campo obligatorio "RUT" en el formulario de creación/edición de Gestores.
-* [ ] Implementar el prototipo de la generacion de guias de despachos.
+* [x] Reemplazar todos los logotipos y menciones de "Sabori Chile" por "Carozzi".
+* [x] Modificar los contadores del Dashboard para que el desglose de equipos sume con precisión el "Total de equipos".
+* [x] Cambiar el término "Distribuidor" por "Gestor" en todos las menciones en el prototipo tanto en modo Mandante como Gestor. *(Aplicado 12/07/2026)*
+* [x] Resolver el comportamiento y destino del botón "Nueva asignación" en la pantalla de Autorización de Movimientos. *(Aplicado 12/07/2026: botón eliminado)*
+* [x] Eliminar el botón "Nuevo equipo" en el maestro de equipos; mantener exclusivamente el botón de "Carga masiva". *(Aplicado 12/07/2026)*
+* [x] Ocultar/eliminar del menú lateral los submenús: Grupo de Máquinas, Familia de Máquinas, Marcas y Modelos. *(Aplicado 12/07/2026)*
+* [x] Modificar el formulario de registro de Gestores para permitir la entrada de múltiples direcciones/sucursales de entrega. *(Aplicado 12/07/2026)*
+* [x] Agregar el campo obligatorio "RUT" en el formulario de creación/edición de Ubicaciones y Bodegas. *(Aplicado 12/07/2026)*
+* [x] Bloquear la edición y creación de Clientes y Vendedores en el perfil del Gestor (convertir en pantallas de solo lectura). *(Aplicado 12/07/2026)*
+* [x] Actualizar el modal de "Agregar motivo de movimiento" para incluir los campos "Requiere aprobación de (Rol)" y la casilla de verificación "Es vinculante". *(Aplicado 13/07/2026: agregadas columnas "Rol aprobador" y "Vinculante" en tabla, campos multi-select de roles y checkbox vinculante en modales Agregar/Editar con display condicional según requiere aprobación.)*
+* [x] Resolver la integración visual de las planillas de inspección dentro del flujo de recepción del gestor.
+* [x] Resolver para agregar direcciones multiples a entidades (Gestores, Ubicaciones y Bodegas). *(Aplicado 13/07/2026: Gestores ya soportaba múltiples direcciones. Se agregó selector de sucursal de destino obligatorio en el flujo de asignación de equipos, poblado dinámicamente según el gestor seleccionado.)*
+* [x] Agregar el campo obligatorio "RUT" en el formulario de creación/edición de Gestores.
+* [x] Implementar el prototipo de la generacion de guias de despachos. *(Aplicado 13/07/2026: Modal de 3 opciones al confirmar asignación — Generar vía API / Subir PDF / Hacer más tarde. Aplica tanto Mandante→Gestor como Gestor→Cliente. Si se pospone, botones quedan en Asignaciones y Guías de Despacho.)*
 
 ---
 
 # 6. Decisiones y acuerdos
 
 * Se valida que el sistema de gestión de activos mantendrá independencia de los ERPs, pero capturará los datos de los clientes y vendedores de forma automática a través de APIs de integración, evitando que se duplique el ingreso de información de manera manual.
-* Se aprueba el prototipo de "Planillas de Inspección" (Checklists) para la recepción y control de equipos por parte del distribuidor.
+* Se aprueba el prototipo de "Planillas de Inspección" (Checklists) para la recepción y control de equipos por parte del gestor.
 
 ---
 
 # 7. Riesgos, dudas y temas abiertos
 
-* **Flujo de Logística de Distribución:** Aún se debe analizar a detalle cómo el Distribuidor registra la asignación al cliente final, específicamente si requiere acoplar un módulo de transporte o si se manejará como un estado plano en el sistema.
+* **Flujo de Logística de Distribución:** Aún se debe analizar a detalle cómo el Gestor registra la asignación al cliente final, específicamente si requiere acoplar un módulo de transporte o si se manejará como un estado plano en el sistema.
 * **Interacción del Checklist de Inspección:** Queda pendiente definir técnicamente cómo se vincula el resultado de las inspecciones de los equipos con el estado de recepción en la base de datos para reportar problemas de forma inmediata.
 
 ---
@@ -153,8 +163,8 @@ Se revisó la maqueta navegable de la plataforma web ISSTEC desde la perspectiva
 
 ### Contexto Consolidado
 
-Este documento resume la sesión de revisión de la maqueta de la **Plataforma de Gestión de Equipos Refrigerados (ISSTEC)**. La plataforma está pensada como una solución desacoplada para el control del ciclo de vida de los activos de frío (freezers) de una gran empresa fabricante (originalmente Sabori, ahora redefinida comercialmente como **Carozzi**) que entrega sus equipos en comodato a distribuidores (**Gestores**) para su colocación en puntos de venta.
+Este documento resume la sesión de revisión de la maqueta de la **Plataforma de Gestión de Equipos Refrigerados (ISSTEC)**. La plataforma está pensada como una solución desacoplada para el control del ciclo de vida de los activos de frío (freezers) de una gran empresa fabricante (originalmente Sabori, ahora redefinida comercialmente como **Carozzi**) que entrega sus equipos en comodato a gestores (**Gestores**) para su colocación en puntos de venta.
 
-Durante la sesión se definieron cambios cruciales para simplificar la plataforma. Se acordó que la información del maestro de equipos se cargará exclusivamente mediante plantillas Excel masivas, eliminando la creación individual. Del mismo modo, datos dinámicos como clientes, vendedores, marcas, modelos y familias de máquinas se extraerán automáticamente de las planillas de carga o de la integración API con el ERP del Gestor, eliminando pantallas de ingreso manuales redundantes y bloqueando la edición por parte del Distribuidor. 
+Durante la sesión se definieron cambios cruciales para simplificar la plataforma. Se acordó que la información del maestro de equipos se cargará exclusivamente mediante plantillas Excel masivas, eliminando la creación individual. Del mismo modo, datos dinámicos como clientes, vendedores, marcas, modelos y familias de máquinas se extraerán automáticamente de las planillas de carga o de la integración API con el ERP del Gestor, eliminando pantallas de ingreso manuales redundantes y bloqueando la edición por parte del Gestor. 
 
 Técnicamente, se introdujo la necesidad de un flujo de aprobación flexible para los movimientos de activos en donde se pueda parametrizar qué roles deben autorizar una solicitud (baja, traslado, etc.) y si la aprobación tiene carácter vinculante o no. Finalmente, el equipo de diseño procederá a realizar estos ajustes sobre el prototipo interactivo para proceder con la aprobación de la maqueta y dar inicio al desarrollo del módulo de cobranzas en una etapa subsiguiente.

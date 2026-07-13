@@ -219,6 +219,38 @@
             font-weight: 600;
         }
         .doc-link:hover { text-decoration: underline; }
+        .action-btn-generate {
+            background: rgba(0, 102, 204, 0.1);
+            color: var(--azul-primario);
+        }
+        .action-btn-generate:hover {
+            background: var(--azul-primario);
+            color: #FFFFFF;
+        }
+        .gd-gen-progress {
+            text-align: center;
+            padding: 24px;
+        }
+        .gd-gen-progress .spinner-border {
+            color: var(--azul-primario);
+            margin-bottom: 12px;
+        }
+        .gd-gen-success {
+            text-align: center;
+            padding: 20px;
+        }
+        .gd-gen-success i {
+            font-size: 48px;
+            color: var(--verde-exito);
+            margin-bottom: 12px;
+        }
+        .gd-gen-success .gd-number {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--verde-exito);
+            letter-spacing: 0.5px;
+            margin-top: 8px;
+        }
     </style>
 </head>
 <body>
@@ -263,12 +295,6 @@
                 <a href="servicio-tecnico.html" class="nav-link">
                     <i class="bi bi-tools"></i> Servicio Técnico
                 </a>
-                <a href="grupo-maquinas.html" class="nav-link">
-                    <i class="bi bi-layers"></i> Grupo de Máquinas
-                </a>
-                <a href="familia-maquinas.html" class="nav-link">
-                    <i class="bi bi-grid"></i> Familia de Máquinas
-                </a>
                 <a href="ubicaciones-bodegas.html" class="nav-link">
                     <i class="bi bi-geo"></i> Ubicaciones / Bodegas
                 </a>
@@ -280,12 +306,6 @@
                 </a>
                 <a href="plantillas-inspeccion.html" class="nav-link">
                     <i class="bi bi-clipboard2-check"></i> Plantillas de Inspección
-                </a>
-                <a href="marcas.html" class="nav-link">
-                    <i class="bi bi-tag"></i> Marcas
-                </a>
-                <a href="modelos.html" class="nav-link">
-                    <i class="bi bi-box"></i> Modelos
                 </a>
                 <a href="tipos-incidencias.html" class="nav-link">
                     <i class="bi bi-exclamation-octagon"></i> Tipos de Incidencias / Catálogo de Fallas
@@ -321,9 +341,9 @@
                         <span class="notification-badge">3</span>
                     </div>
                     <div class="user-info">
-                        <div class="user-avatar">SV</div>
+                        <div class="user-avatar" style="overflow:hidden;"><img src="../assets/img/carozzi_logo.jpg" alt="Carozzi" style="width:100%;height:100%;object-fit:cover;"></div>
                         <div>
-                            <div class="user-name">Savory Chile</div>
+                            <div class="user-name">Carozzi Chile</div>
                             <div class="user-role">Mandante</div>
                         </div>
                     </div>
@@ -335,7 +355,7 @@
                 <!-- ===== Nota RN-16 =====
                 <div class="rn-note mb-4">
                     <strong><i class="bi bi-info-circle me-1"></i>Nota de negocio (RN-16):</strong>
-                    Como Mandante, Savory siempre adjunta el PDF de la Guía de Despacho manualmente al asignar equipos a un distribuidor (§2.4). La generación automática solo aplica a distribuidores con sistema Isstec para los despachos a cliente final. Esta pantalla consolida todas las guías del flujo: las de recepción (Mandante → Distribuidor, adjuntadas por Savory) y las de despacho (Distribuidor → Cliente, generadas o adjuntadas por cada distribuidor).
+                    Como Mandante, Carozzi siempre adjunta el PDF de la Guía de Despacho manualmente al asignar equipos a un gestor (§2.4). La generación automática solo aplica a gestores con sistema Isstec para los despachos a cliente final. Esta pantalla consolida todas las guías del flujo: las de recepción (Mandante → Gestor, adjuntadas por Carozzi) y las de despacho (Gestor → Cliente, generadas o adjuntadas por cada gestor).
                 </div>
                 -->
 
@@ -369,7 +389,7 @@
                                 <i class="bi bi-file-earmark-check"></i>
                             </div>
                             <div>
-                                <div class="kpi-label">Generadas por distribuidores</div>
+                                <div class="kpi-label">Generadas por gestores</div>
                                 <div class="kpi-value" style="color: var(--verde-exito);">7</div>
                             </div>
                         </div>
@@ -393,19 +413,19 @@
                         <div class="filter-bar">
                             <div class="flex-grow-1" style="min-width: 200px;">
                                 <label class="form-label">Buscar</label>
-                                <input type="text" class="form-control" id="buscarGD" placeholder="N° GD, N° asignación, cliente o distribuidor…">
+                                <input type="text" class="form-control" id="buscarGD" placeholder="N° GD, N° asignación, cliente o gestor…">
                             </div>
                             <div>
                                 <label class="form-label">Tipo</label>
                                 <select class="form-select" id="filtroTipo">
                                     <option value="">Todos</option>
-                                    <option value="recepcion">Recepción (Mandante → Distribuidor)</option>
-                                    <option value="despacho">Despacho (Distribuidor → Cliente)</option>
+                                    <option value="recepcion">Recepción (Mandante → Gestor)</option>
+                                    <option value="despacho">Despacho (Gestor → Cliente)</option>
                                 </select>
                             </div>
                             <div>
-                                <label class="form-label">Distribuidor</label>
-                                <select class="form-select" id="filtroDistribuidor">
+                                <label class="form-label">Gestor</label>
+                                <select class="form-select" id="filtroGestor">
                                     <option value="">Todos</option>
                                     <option value="icefree">IceFree Chile</option>
                                     <option value="friosur">FríoSur</option>
@@ -447,7 +467,7 @@
                                     <tr>
                                         <th style="width: 130px;">N° GD</th>
                                         <th style="width: 170px;">Tipo</th>
-                                        <th>Distribuidor</th>
+                                        <th>Gestor</th>
                                         <th>Origen</th>
                                         <th>Destino</th>
                                         <th class="text-center" style="width: 70px;">Equipos</th>
@@ -458,11 +478,11 @@
                                 </thead>
                                 <tbody id="tbodyGuias">
                                     <!-- Recepción IceFree — PDF adjunto -->
-                                    <tr data-tipo="recepcion" data-estado="pdf" data-distribuidor="icefree" data-fecha="2026-07-02" data-buscar="GD-REC-0042 REC-0042 savory icefree chile">
+                                    <tr data-tipo="recepcion" data-estado="pdf" data-gestor="icefree" data-fecha="2026-07-02" data-buscar="GD-REC-0042 REC-0042 carozzi icefree chile">
                                         <td class="fw-semibold">GD-REC-0042</td>
-                                        <td><span class="tipo-recepcion"><i class="bi bi-box-arrow-in-down"></i> Recepción Mandante→Distribuidor</span></td>
+                                        <td><span class="tipo-recepcion"><i class="bi bi-box-arrow-in-down"></i> Recepción Mandante→Gestor</span></td>
                                         <td>IceFree Chile</td>
-                                        <td>Savory (Mandante)</td>
+                                        <td>Carozzi (Mandante)</td>
                                         <td>IceFree Chile</td>
                                         <td class="text-center">50</td>
                                         <td>02/07/2026</td>
@@ -479,11 +499,11 @@
                                         </td>
                                     </tr>
                                     <!-- Recepción FríoSur — PDF adjunto -->
-                                    <tr data-tipo="recepcion" data-estado="pdf" data-distribuidor="friosur" data-fecha="2026-06-28" data-buscar="GD-REC-0041 REC-0041 savory friosur">
+                                    <tr data-tipo="recepcion" data-estado="pdf" data-gestor="friosur" data-fecha="2026-06-28" data-buscar="GD-REC-0041 REC-0041 carozzi friosur">
                                         <td class="fw-semibold">GD-REC-0041</td>
-                                        <td><span class="tipo-recepcion"><i class="bi bi-box-arrow-in-down"></i> Recepción Mandante→Distribuidor</span></td>
+                                        <td><span class="tipo-recepcion"><i class="bi bi-box-arrow-in-down"></i> Recepción Mandante→Gestor</span></td>
                                         <td>FríoSur</td>
-                                        <td>Savory (Mandante)</td>
+                                        <td>Carozzi (Mandante)</td>
                                         <td>FríoSur</td>
                                         <td class="text-center">30</td>
                                         <td>28/06/2026</td>
@@ -499,12 +519,12 @@
                                             </div>
                                         </td>
                                     </tr>
-                                    <!-- Recepción ColdTech — Pendiente (Savory debe adjuntar PDF) -->
-                                    <tr data-tipo="recepcion" data-estado="pendiente" data-distribuidor="coldtech" data-fecha="2026-07-05" data-buscar="ASG-M-0088 coldtech savory pendiente">
+                                    <!-- Recepción ColdTech — Pendiente (Carozzi debe adjuntar PDF) -->
+                                    <tr data-tipo="recepcion" data-estado="pendiente" data-gestor="coldtech" data-fecha="2026-07-05" data-buscar="ASG-M-0088 coldtech carozzi pendiente">
                                         <td class="fw-semibold text-muted">—</td>
-                                        <td><span class="tipo-recepcion"><i class="bi bi-box-arrow-in-down"></i> Recepción Mandante→Distribuidor</span></td>
+                                        <td><span class="tipo-recepcion"><i class="bi bi-box-arrow-in-down"></i> Recepción Mandante→Gestor</span></td>
                                         <td>ColdTech</td>
-                                        <td>Savory (Mandante)</td>
+                                        <td>Carozzi (Mandante)</td>
                                         <td>ColdTech</td>
                                         <td class="text-center">20</td>
                                         <td>05/07/2026</td>
@@ -514,6 +534,9 @@
                                                 <a href="#" class="action-btn action-btn-view" data-bs-toggle="modal" data-bs-target="#modalDetalle" data-id="ASG-M-0088">
                                                     <i class="bi bi-eye"></i> Ver
                                                 </a>
+                                                <a href="#" class="action-btn action-btn-generate" data-bs-toggle="modal" data-bs-target="#modalGenerarGD" data-id="ASG-M-0088" data-gestor="ColdTech" data-equipos="20">
+                                                    <i class="bi bi-file-earmark-plus"></i> Generar GD
+                                                </a>
                                                 <a href="#" class="action-btn action-btn-upload" data-bs-toggle="modal" data-bs-target="#modalSubirPDF" data-id="ASG-M-0088" data-cliente="ColdTech" data-tipo="recepcion">
                                                     <i class="bi bi-upload"></i> Subir PDF
                                                 </a>
@@ -521,11 +544,11 @@
                                         </td>
                                     </tr>
                                     <!-- Recepción IceFree — Pendiente -->
-                                    <tr data-tipo="recepcion" data-estado="pendiente" data-distribuidor="icefree" data-fecha="2026-07-04" data-buscar="ASG-M-0089 icefree savory pendiente">
+                                    <tr data-tipo="recepcion" data-estado="pendiente" data-gestor="icefree" data-fecha="2026-07-04" data-buscar="ASG-M-0089 icefree carozzi pendiente">
                                         <td class="fw-semibold text-muted">—</td>
-                                        <td><span class="tipo-recepcion"><i class="bi bi-box-arrow-in-down"></i> Recepción Mandante→Distribuidor</span></td>
+                                        <td><span class="tipo-recepcion"><i class="bi bi-box-arrow-in-down"></i> Recepción Mandante→Gestor</span></td>
                                         <td>IceFree Chile</td>
-                                        <td>Savory (Mandante)</td>
+                                        <td>Carozzi (Mandante)</td>
                                         <td>IceFree Chile</td>
                                         <td class="text-center">15</td>
                                         <td>04/07/2026</td>
@@ -535,6 +558,9 @@
                                                 <a href="#" class="action-btn action-btn-view" data-bs-toggle="modal" data-bs-target="#modalDetalle" data-id="ASG-M-0089">
                                                     <i class="bi bi-eye"></i> Ver
                                                 </a>
+                                                <a href="#" class="action-btn action-btn-generate" data-bs-toggle="modal" data-bs-target="#modalGenerarGD" data-id="ASG-M-0089" data-gestor="IceFree Chile" data-equipos="15">
+                                                    <i class="bi bi-file-earmark-plus"></i> Generar GD
+                                                </a>
                                                 <a href="#" class="action-btn action-btn-upload" data-bs-toggle="modal" data-bs-target="#modalSubirPDF" data-id="ASG-M-0089" data-cliente="IceFree Chile" data-tipo="recepcion">
                                                     <i class="bi bi-upload"></i> Subir PDF
                                                 </a>
@@ -542,11 +568,11 @@
                                         </td>
                                     </tr>
                                     <!-- Recepción ColdTech — PDF adjunto -->
-                                    <tr data-tipo="recepcion" data-estado="pdf" data-distribuidor="coldtech" data-fecha="2026-05-10" data-buscar="GD-REC-0040 REC-0040 savory coldtech">
+                                    <tr data-tipo="recepcion" data-estado="pdf" data-gestor="coldtech" data-fecha="2026-05-10" data-buscar="GD-REC-0040 REC-0040 carozzi coldtech">
                                         <td class="fw-semibold">GD-REC-0040</td>
-                                        <td><span class="tipo-recepcion"><i class="bi bi-box-arrow-in-down"></i> Recepción Mandante→Distribuidor</span></td>
+                                        <td><span class="tipo-recepcion"><i class="bi bi-box-arrow-in-down"></i> Recepción Mandante→Gestor</span></td>
                                         <td>ColdTech</td>
-                                        <td>Savory (Mandante)</td>
+                                        <td>Carozzi (Mandante)</td>
                                         <td>ColdTech</td>
                                         <td class="text-center">25</td>
                                         <td>10/05/2026</td>
@@ -562,10 +588,10 @@
                                             </div>
                                         </td>
                                     </tr>
-                                    <!-- Despacho IceFree — Pendiente (gestionado por el distribuidor) -->
-                                    <tr data-tipo="despacho" data-estado="pendiente" data-distribuidor="icefree" data-fecha="2026-07-04" data-buscar="ASG-C-0156 icefree minimarket don eduardo">
+                                    <!-- Despacho IceFree — Pendiente (gestionado por el gestor) -->
+                                    <tr data-tipo="despacho" data-estado="pendiente" data-gestor="icefree" data-fecha="2026-07-04" data-buscar="ASG-C-0156 icefree minimarket don eduardo">
                                         <td class="fw-semibold text-muted">—</td>
-                                        <td><span class="tipo-despacho"><i class="bi bi-box-arrow-up-right"></i> Despacho Distribuidor→Cliente</span></td>
+                                        <td><span class="tipo-despacho"><i class="bi bi-box-arrow-up-right"></i> Despacho Gestor→Cliente</span></td>
                                         <td>IceFree Chile</td>
                                         <td>IceFree Chile</td>
                                         <td>Minimarket Don Eduardo</td>
@@ -581,9 +607,9 @@
                                         </td>
                                     </tr>
                                     <!-- Despacho IceFree — Pendiente 2 -->
-                                    <tr data-tipo="despacho" data-estado="pendiente" data-distribuidor="icefree" data-fecha="2026-07-03" data-buscar="ASG-C-0155 icefree almacen estrella">
+                                    <tr data-tipo="despacho" data-estado="pendiente" data-gestor="icefree" data-fecha="2026-07-03" data-buscar="ASG-C-0155 icefree almacen estrella">
                                         <td class="fw-semibold text-muted">—</td>
-                                        <td><span class="tipo-despacho"><i class="bi bi-box-arrow-up-right"></i> Despacho Distribuidor→Cliente</span></td>
+                                        <td><span class="tipo-despacho"><i class="bi bi-box-arrow-up-right"></i> Despacho Gestor→Cliente</span></td>
                                         <td>IceFree Chile</td>
                                         <td>IceFree Chile</td>
                                         <td>Almacén Estrella</td>
@@ -599,9 +625,9 @@
                                         </td>
                                     </tr>
                                     <!-- Despacho IceFree — Auto 1 -->
-                                    <tr data-tipo="despacho" data-estado="auto" data-distribuidor="icefree" data-fecha="2026-06-28" data-buscar="GD-2026-0044 ASG-C-0153 icefree botilleria la esquina">
+                                    <tr data-tipo="despacho" data-estado="auto" data-gestor="icefree" data-fecha="2026-06-28" data-buscar="GD-2026-0044 ASG-C-0153 icefree botilleria la esquina">
                                         <td class="fw-semibold">GD-2026-0044</td>
-                                        <td><span class="tipo-despacho"><i class="bi bi-box-arrow-up-right"></i> Despacho Distribuidor→Cliente</span></td>
+                                        <td><span class="tipo-despacho"><i class="bi bi-box-arrow-up-right"></i> Despacho Gestor→Cliente</span></td>
                                         <td>IceFree Chile</td>
                                         <td>IceFree Chile</td>
                                         <td>Botillería La Esquina</td>
@@ -620,9 +646,9 @@
                                         </td>
                                     </tr>
                                     <!-- Despacho IceFree — Auto 2 -->
-                                    <tr data-tipo="despacho" data-estado="auto" data-distribuidor="icefree" data-fecha="2026-06-25" data-buscar="GD-2026-0041 ASG-C-0152 icefree minimarket las acacias">
+                                    <tr data-tipo="despacho" data-estado="auto" data-gestor="icefree" data-fecha="2026-06-25" data-buscar="GD-2026-0041 ASG-C-0152 icefree minimarket las acacias">
                                         <td class="fw-semibold">GD-2026-0041</td>
-                                        <td><span class="tipo-despacho"><i class="bi bi-box-arrow-up-right"></i> Despacho Distribuidor→Cliente</span></td>
+                                        <td><span class="tipo-despacho"><i class="bi bi-box-arrow-up-right"></i> Despacho Gestor→Cliente</span></td>
                                         <td>IceFree Chile</td>
                                         <td>IceFree Chile</td>
                                         <td>Minimarket Las Acacias</td>
@@ -641,9 +667,9 @@
                                         </td>
                                     </tr>
                                     <!-- Despacho IceFree — PDF adjunto 1 -->
-                                    <tr data-tipo="despacho" data-estado="pdf" data-distribuidor="icefree" data-fecha="2026-06-22" data-buscar="PDF-EXT-0038 ASG-C-0151 icefree almacen san jorge">
+                                    <tr data-tipo="despacho" data-estado="pdf" data-gestor="icefree" data-fecha="2026-06-22" data-buscar="PDF-EXT-0038 ASG-C-0151 icefree almacen san jorge">
                                         <td class="fw-semibold">PDF-EXT-0038</td>
-                                        <td><span class="tipo-despacho"><i class="bi bi-box-arrow-up-right"></i> Despacho Distribuidor→Cliente</span></td>
+                                        <td><span class="tipo-despacho"><i class="bi bi-box-arrow-up-right"></i> Despacho Gestor→Cliente</span></td>
                                         <td>IceFree Chile</td>
                                         <td>IceFree Chile</td>
                                         <td>Almacén San Jorge</td>
@@ -662,9 +688,9 @@
                                         </td>
                                     </tr>
                                     <!-- Despacho FríoSur — Auto 1 -->
-                                    <tr data-tipo="despacho" data-estado="auto" data-distribuidor="friosur" data-fecha="2026-06-20" data-buscar="GD-2026-0038 ASG-C-0210 friosur supermercado el rocio">
+                                    <tr data-tipo="despacho" data-estado="auto" data-gestor="friosur" data-fecha="2026-06-20" data-buscar="GD-2026-0038 ASG-C-0210 friosur supermercado el rocio">
                                         <td class="fw-semibold">GD-2026-0038</td>
-                                        <td><span class="tipo-despacho"><i class="bi bi-box-arrow-up-right"></i> Despacho Distribuidor→Cliente</span></td>
+                                        <td><span class="tipo-despacho"><i class="bi bi-box-arrow-up-right"></i> Despacho Gestor→Cliente</span></td>
                                         <td>FríoSur</td>
                                         <td>FríoSur</td>
                                         <td>Supermercado El Rocío</td>
@@ -683,9 +709,9 @@
                                         </td>
                                     </tr>
                                     <!-- Despacho IceFree — PDF adjunto 2 -->
-                                    <tr data-tipo="despacho" data-estado="pdf" data-distribuidor="icefree" data-fecha="2026-06-18" data-buscar="PDF-EXT-0037 ASG-C-0150 icefree comercial el sol">
+                                    <tr data-tipo="despacho" data-estado="pdf" data-gestor="icefree" data-fecha="2026-06-18" data-buscar="PDF-EXT-0037 ASG-C-0150 icefree comercial el sol">
                                         <td class="fw-semibold">PDF-EXT-0037</td>
-                                        <td><span class="tipo-despacho"><i class="bi bi-box-arrow-up-right"></i> Despacho Distribuidor→Cliente</span></td>
+                                        <td><span class="tipo-despacho"><i class="bi bi-box-arrow-up-right"></i> Despacho Gestor→Cliente</span></td>
                                         <td>IceFree Chile</td>
                                         <td>IceFree Chile</td>
                                         <td>Comercial El Sol</td>
@@ -704,9 +730,9 @@
                                         </td>
                                     </tr>
                                     <!-- Despacho IceFree — Auto 3 -->
-                                    <tr data-tipo="despacho" data-estado="auto" data-distribuidor="icefree" data-fecha="2026-06-10" data-buscar="GD-2026-0032 ASG-C-0149 icefree minimarket la amistad">
+                                    <tr data-tipo="despacho" data-estado="auto" data-gestor="icefree" data-fecha="2026-06-10" data-buscar="GD-2026-0032 ASG-C-0149 icefree minimarket la amistad">
                                         <td class="fw-semibold">GD-2026-0032</td>
-                                        <td><span class="tipo-despacho"><i class="bi bi-box-arrow-up-right"></i> Despacho Distribuidor→Cliente</span></td>
+                                        <td><span class="tipo-despacho"><i class="bi bi-box-arrow-up-right"></i> Despacho Gestor→Cliente</span></td>
                                         <td>IceFree Chile</td>
                                         <td>IceFree Chile</td>
                                         <td>Minimarket La Amistad</td>
@@ -725,9 +751,9 @@
                                         </td>
                                     </tr>
                                     <!-- Despacho FríoSur — PDF adjunto -->
-                                    <tr data-tipo="despacho" data-estado="pdf" data-distribuidor="friosur" data-fecha="2026-06-08" data-buscar="PDF-EXT-0035 ASG-C-0208 friosur almacen el paraiso">
+                                    <tr data-tipo="despacho" data-estado="pdf" data-gestor="friosur" data-fecha="2026-06-08" data-buscar="PDF-EXT-0035 ASG-C-0208 friosur almacen el paraiso">
                                         <td class="fw-semibold">PDF-EXT-0035</td>
-                                        <td><span class="tipo-despacho"><i class="bi bi-box-arrow-up-right"></i> Despacho Distribuidor→Cliente</span></td>
+                                        <td><span class="tipo-despacho"><i class="bi bi-box-arrow-up-right"></i> Despacho Gestor→Cliente</span></td>
                                         <td>FríoSur</td>
                                         <td>FríoSur</td>
                                         <td>Almacén El Paraíso</td>
@@ -746,9 +772,9 @@
                                         </td>
                                     </tr>
                                     <!-- Despacho IceFree — PDF adjunto 3 -->
-                                    <tr data-tipo="despacho" data-estado="pdf" data-distribuidor="icefree" data-fecha="2026-06-05" data-buscar="PDF-EXT-0029 ASG-C-0148 icefree almacen el puente">
+                                    <tr data-tipo="despacho" data-estado="pdf" data-gestor="icefree" data-fecha="2026-06-05" data-buscar="PDF-EXT-0029 ASG-C-0148 icefree almacen el puente">
                                         <td class="fw-semibold">PDF-EXT-0029</td>
-                                        <td><span class="tipo-despacho"><i class="bi bi-box-arrow-up-right"></i> Despacho Distribuidor→Cliente</span></td>
+                                        <td><span class="tipo-despacho"><i class="bi bi-box-arrow-up-right"></i> Despacho Gestor→Cliente</span></td>
                                         <td>IceFree Chile</td>
                                         <td>IceFree Chile</td>
                                         <td>Almacén El Puente</td>
@@ -767,9 +793,9 @@
                                         </td>
                                     </tr>
                                     <!-- Despacho IceFree — Auto 4 -->
-                                    <tr data-tipo="despacho" data-estado="auto" data-distribuidor="icefree" data-fecha="2026-05-28" data-buscar="GD-2026-0025 ASG-C-0147 icefree supermercado mi tierra">
+                                    <tr data-tipo="despacho" data-estado="auto" data-gestor="icefree" data-fecha="2026-05-28" data-buscar="GD-2026-0025 ASG-C-0147 icefree supermercado mi tierra">
                                         <td class="fw-semibold">GD-2026-0025</td>
-                                        <td><span class="tipo-despacho"><i class="bi bi-box-arrow-up-right"></i> Despacho Distribuidor→Cliente</span></td>
+                                        <td><span class="tipo-despacho"><i class="bi bi-box-arrow-up-right"></i> Despacho Gestor→Cliente</span></td>
                                         <td>IceFree Chile</td>
                                         <td>IceFree Chile</td>
                                         <td>Supermercado Mi Tierra</td>
@@ -788,9 +814,9 @@
                                         </td>
                                     </tr>
                                     <!-- Despacho IceFree — Auto 5 -->
-                                    <tr data-tipo="despacho" data-estado="auto" data-distribuidor="icefree" data-fecha="2026-05-20" data-buscar="GD-2026-0021 ASG-C-0146 icefree minimarket buenos aires">
+                                    <tr data-tipo="despacho" data-estado="auto" data-gestor="icefree" data-fecha="2026-05-20" data-buscar="GD-2026-0021 ASG-C-0146 icefree minimarket buenos aires">
                                         <td class="fw-semibold">GD-2026-0021</td>
-                                        <td><span class="tipo-despacho"><i class="bi bi-box-arrow-up-right"></i> Despacho Distribuidor→Cliente</span></td>
+                                        <td><span class="tipo-despacho"><i class="bi bi-box-arrow-up-right"></i> Despacho Gestor→Cliente</span></td>
                                         <td>IceFree Chile</td>
                                         <td>IceFree Chile</td>
                                         <td>Minimarket Buenos Aires</td>
@@ -809,9 +835,9 @@
                                         </td>
                                     </tr>
                                     <!-- Despacho ColdTech — PDF adjunto -->
-                                    <tr data-tipo="despacho" data-estado="pdf" data-distribuidor="coldtech" data-fecha="2026-05-15" data-buscar="PDF-EXT-0018 ASG-C-0305 coldtech distribuidora norte">
+                                    <tr data-tipo="despacho" data-estado="pdf" data-gestor="coldtech" data-fecha="2026-05-15" data-buscar="PDF-EXT-0018 ASG-C-0305 coldtech distribuidora norte">
                                         <td class="fw-semibold">PDF-EXT-0018</td>
-                                        <td><span class="tipo-despacho"><i class="bi bi-box-arrow-up-right"></i> Despacho Distribuidor→Cliente</span></td>
+                                        <td><span class="tipo-despacho"><i class="bi bi-box-arrow-up-right"></i> Despacho Gestor→Cliente</span></td>
                                         <td>ColdTech</td>
                                         <td>ColdTech</td>
                                         <td>Distribuidora Norte</td>
@@ -830,9 +856,9 @@
                                         </td>
                                     </tr>
                                     <!-- Despacho IceFree — PDF adjunto 4 -->
-                                    <tr data-tipo="despacho" data-estado="pdf" data-distribuidor="icefree" data-fecha="2026-05-15" data-buscar="PDF-EXT-0017 ASG-C-0145 icefree almacen la esperanza">
+                                    <tr data-tipo="despacho" data-estado="pdf" data-gestor="icefree" data-fecha="2026-05-15" data-buscar="PDF-EXT-0017 ASG-C-0145 icefree almacen la esperanza">
                                         <td class="fw-semibold">PDF-EXT-0017</td>
-                                        <td><span class="tipo-despacho"><i class="bi bi-box-arrow-up-right"></i> Despacho Distribuidor→Cliente</span></td>
+                                        <td><span class="tipo-despacho"><i class="bi bi-box-arrow-up-right"></i> Despacho Gestor→Cliente</span></td>
                                         <td>IceFree Chile</td>
                                         <td>IceFree Chile</td>
                                         <td>Almacén La Esperanza</td>
@@ -913,8 +939,8 @@
                             <p class="mb-0" id="detalleTipo">—</p>
                         </div>
                         <div class="col-md-6">
-                            <label class="form-label">Distribuidor</label>
-                            <p class="fw-semibold mb-0" id="detalleDistribuidor">—</p>
+                            <label class="form-label">Gestor</label>
+                            <p class="fw-semibold mb-0" id="detalleGestor">—</p>
                         </div>
                         <div class="col-md-6">
                             <label class="form-label">Origen</label>
@@ -969,6 +995,64 @@
         </div>
     </div>
 
+    <!-- ===== Modal: Generar Guía de Despacho (simulación API — 3 pasos) ===== -->
+    <div class="modal fade" id="modalGenerarGD" tabindex="-1" aria-labelledby="modalGenerarGDLabel" aria-hidden="true" data-bs-backdrop="static">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header" id="genGDHeader">
+                    <h5 class="modal-title" id="modalGenerarGDLabel">
+                        <i class="bi bi-file-earmark-plus me-2"></i>Generar Guía de Despacho
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar" id="genGDCloseBtn"></button>
+                </div>
+                <div class="modal-body" id="genGDBody">
+                    <div id="genGDStep1">
+                        <div class="rn-note mb-3">
+                            <strong><i class="bi bi-info-circle me-1"></i>Generación vía API</strong><br>
+                            El sistema conectará con el sistema de facturación para generar la Guía de Despacho de forma automática.
+                        </div>
+                        <div class="summary-row mb-3">
+                            <div class="summary-item">
+                                <span class="summary-label">N° Asignación</span>
+                                <span class="summary-value" id="genGDId">—</span>
+                            </div>
+                            <div class="summary-item">
+                                <span class="summary-label">Gestor destino</span>
+                                <span class="summary-value" id="genGDGestor">—</span>
+                            </div>
+                            <div class="summary-item">
+                                <span class="summary-label">Equipos a despachar</span>
+                                <span class="summary-value" id="genGDEquipos">—</span>
+                            </div>
+                        </div>
+                        <p class="text-muted mb-0" style="font-size: 13px;">¿Desea generar la Guía de Despacho para esta asignación?</p>
+                    </div>
+                    <div id="genGDStep2" style="display: none;">
+                        <div class="gd-gen-progress">
+                            <div class="spinner-border" role="status"></div>
+                            <p class="fw-semibold mb-1">Conectando con sistema de facturación…</p>
+                            <p class="text-muted mb-0" style="font-size: 13px;" id="genGDProgressText">Generando Guía de Despacho…</p>
+                        </div>
+                    </div>
+                    <div id="genGDStep3" style="display: none;">
+                        <div class="gd-gen-success">
+                            <i class="bi bi-check-circle-fill d-block"></i>
+                            <p class="fw-semibold mb-0">Guía de Despacho generada correctamente</p>
+                            <div class="gd-number" id="genGDNumber">GD-REC-0000</div>
+                            <p class="text-muted mt-2 mb-0" style="font-size: 13px;">El PDF se ha adjuntado automáticamente a la asignación.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer" id="genGDFooter">
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal" id="genGDCancelBtn">Cancelar</button>
+                    <button type="button" class="btn btn-primary" id="btnIniciarGeneracionGD">
+                        <i class="bi bi-lightning-charge me-2"></i>Generar vía API
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- ===== Modal: Subir PDF de Guía de Despacho (carga manual — RN-16 Mandante) ===== -->
     <div class="modal fade" id="modalSubirPDF" tabindex="-1" aria-labelledby="modalSubirPDFLabel" aria-hidden="true">
         <div class="modal-dialog">
@@ -983,7 +1067,7 @@
                     <form id="formSubirPDF" novalidate>
                         <div class="rn-note mb-3">
                             <strong><i class="bi bi-info-circle me-1"></i>RN-16 — Mandante</strong><br>
-                            Como Mandante, Savory adjunta el PDF de la Guía de Despacho generado externamente como respaldo del movimiento de equipos hacia el distribuidor.
+                            Como Mandante, Carozzi adjunta el PDF de la Guía de Despacho generado externamente como respaldo del movimiento de equipos hacia el gestor.
                         </div>
                         <div class="summary-row mb-3">
                             <div class="summary-item">
@@ -991,7 +1075,7 @@
                                 <span class="summary-value" id="pdfUploadId">—</span>
                             </div>
                             <div class="summary-item">
-                                <span class="summary-label">Distribuidor destino</span>
+                                <span class="summary-label">Gestor destino</span>
                                 <span class="summary-value" id="pdfUploadCliente">—</span>
                             </div>
                         </div>
@@ -1045,8 +1129,8 @@
                             <span class="summary-value" id="descTipo">—</span>
                         </div>
                         <div class="summary-item">
-                            <span class="summary-label">Distribuidor</span>
-                            <span class="summary-value" id="descDistribuidor">—</span>
+                            <span class="summary-label">Gestor</span>
+                            <span class="summary-value" id="descGestor">—</span>
                         </div>
                         <div class="summary-item">
                             <span class="summary-label">Destino</span>
@@ -1074,17 +1158,17 @@
     <script>
         // ===== Datos simulados de equipos para modal detalle =====
         const equiposData = [
-            { serie: 'FR-1023', marca: 'Savory', modelo: 'SF-200', familia: 'Congelados' },
-            { serie: 'FR-1024', marca: 'Savory', modelo: 'SF-200', familia: 'Congelados' },
+            { serie: 'FR-1023', marca: 'Carozzi', modelo: 'SF-200', familia: 'Congelados' },
+            { serie: 'FR-1024', marca: 'Carozzi', modelo: 'SF-200', familia: 'Congelados' },
             { serie: 'FS-2201', marca: 'Foster', modelo: 'F-350', familia: 'Vitrina' },
             { serie: 'TR-3301', marca: 'True', modelo: 'T-500', familia: 'Vertical' },
-            { serie: 'FR-1025', marca: 'Savory', modelo: 'SF-150', familia: 'Congelados' },
+            { serie: 'FR-1025', marca: 'Carozzi', modelo: 'SF-150', familia: 'Congelados' },
         ];
 
         // ===== Filtrado de tabla =====
         const buscarGD = document.getElementById('buscarGD');
         const filtroTipo = document.getElementById('filtroTipo');
-        const filtroDistribuidor = document.getElementById('filtroDistribuidor');
+        const filtroGestor = document.getElementById('filtroGestor');
         const filtroEstado = document.getElementById('filtroEstado');
         const filtroFechaDesde = document.getElementById('filtroFechaDesde');
         const filtroFechaHasta = document.getElementById('filtroFechaHasta');
@@ -1096,7 +1180,7 @@
         function filtrar() {
             const texto = buscarGD.value.toLowerCase().trim();
             const tipo = filtroTipo.value;
-            const distribuidor = filtroDistribuidor.value;
+            const gestor = filtroGestor.value;
             const estado = filtroEstado.value;
             const fechaDesde = filtroFechaDesde.value;
             const fechaHasta = filtroFechaHasta.value;
@@ -1107,7 +1191,7 @@
             filas.forEach(fila => {
                 const buscarText = (fila.dataset.buscar || '').toLowerCase();
                 const filaTipo = fila.dataset.tipo;
-                const filaDistribuidor = fila.dataset.distribuidor;
+                const filaGestor = fila.dataset.gestor;
                 const filaEstado = fila.dataset.estado;
                 const filaFecha = fila.dataset.fecha;
 
@@ -1119,7 +1203,7 @@
                 if (tipo && filaTipo !== tipo) {
                     mostrar = false;
                 }
-                if (distribuidor && filaDistribuidor !== distribuidor) {
+                if (gestor && filaGestor !== gestor) {
                     mostrar = false;
                 }
                 if (estado && filaEstado !== estado) {
@@ -1149,7 +1233,7 @@
 
         buscarGD.addEventListener('input', filtrar);
         filtroTipo.addEventListener('change', filtrar);
-        filtroDistribuidor.addEventListener('change', filtrar);
+        filtroGestor.addEventListener('change', filtrar);
         filtroEstado.addEventListener('change', filtrar);
         filtroFechaDesde.addEventListener('change', filtrar);
         filtroFechaHasta.addEventListener('change', filtrar);
@@ -1168,7 +1252,7 @@
             const tds = fila.querySelectorAll('td');
             const numGD = tds[0].textContent.trim();
             const tipoText = tds[1].textContent.trim();
-            const distribuidor = tds[2].textContent.trim();
+            const gestor = tds[2].textContent.trim();
             const origen = tds[3].textContent.trim();
             const destino = tds[4].textContent.trim();
             const equiposCount = parseInt(tds[5].textContent) || 1;
@@ -1180,7 +1264,7 @@
             document.getElementById('detalleNumGD').textContent = numGD === '—' ? 'Pendiente de generación' : numGD;
             document.getElementById('detalleFecha').textContent = fecha;
             document.getElementById('detalleTipo').textContent = tipoText;
-            document.getElementById('detalleDistribuidor').textContent = distribuidor;
+            document.getElementById('detalleGestor').textContent = gestor;
             document.getElementById('detalleOrigen').textContent = origen;
             document.getElementById('detalleDestino').textContent = destino;
             document.getElementById('detalleEstado').innerHTML = estadoHTML;
@@ -1193,18 +1277,18 @@
             // Origen del documento
             let origenDoc = '—';
             if (filaEstado === 'auto') {
-                origenDoc = '<span style="color: var(--verde-exito); font-weight: 600;"><i class="bi bi-file-earmark-check me-1"></i>Generada automáticamente por el distribuidor (Isstec)</span>';
+                origenDoc = '<span style="color: var(--verde-exito); font-weight: 600;"><i class="bi bi-file-earmark-check me-1"></i>Generada automáticamente por el gestor (Isstec)</span>';
             } else if (filaEstado === 'pdf') {
                 if (filaTipo === 'recepcion') {
-                    origenDoc = '<span style="color: var(--naranja-coral); font-weight: 600;"><i class="bi bi-file-earmark-pdf me-1"></i>PDF adjuntado por el Mandante (Savory)</span>';
+                    origenDoc = '<span style="color: var(--naranja-coral); font-weight: 600;"><i class="bi bi-file-earmark-pdf me-1"></i>PDF adjuntado por el Mandante (Carozzi)</span>';
                 } else {
-                    origenDoc = '<span style="color: var(--naranja-coral); font-weight: 600;"><i class="bi bi-file-earmark-pdf me-1"></i>PDF adjuntado por el distribuidor</span>';
+                    origenDoc = '<span style="color: var(--naranja-coral); font-weight: 600;"><i class="bi bi-file-earmark-pdf me-1"></i>PDF adjuntado por el gestor</span>';
                 }
             } else {
                 if (filaTipo === 'recepcion') {
                     origenDoc = '<span style="color: var(--gris-medio); font-weight: 600;"><i class="bi bi-clock me-1"></i>Pendiente — el Mandante debe adjuntar el PDF</span>';
                 } else {
-                    origenDoc = '<span style="color: var(--gris-medio); font-weight: 600;"><i class="bi bi-clock me-1"></i>Pendiente — el distribuidor debe generar o adjuntar la GD</span>';
+                    origenDoc = '<span style="color: var(--gris-medio); font-weight: 600;"><i class="bi bi-clock me-1"></i>Pendiente — el gestor debe generar o adjuntar la GD</span>';
                 }
             }
             document.getElementById('detalleOrigenDoc').innerHTML = origenDoc;
@@ -1228,9 +1312,9 @@
                 btnDescDetalle.style.display = '';
             } else {
                 if (filaTipo === 'recepcion') {
-                    docDiv.innerHTML = '<p class="text-muted mb-0"><i class="bi bi-clock me-1"></i>Esta guía no tiene documento adjunto. Utilice la acción "Subir PDF" para adjuntar el respaldo del envío al distribuidor.</p>';
+                    docDiv.innerHTML = '<p class="text-muted mb-0"><i class="bi bi-clock me-1"></i>Esta guía no tiene documento adjunto. Utilice la acción "Subir PDF" para adjuntar el respaldo del envío al gestor.</p>';
                 } else {
-                    docDiv.innerHTML = '<p class="text-muted mb-0"><i class="bi bi-clock me-1"></i>Esta guía está pendiente de gestión por parte del distribuidor.</p>';
+                    docDiv.innerHTML = '<p class="text-muted mb-0"><i class="bi bi-clock me-1"></i>Esta guía está pendiente de gestión por parte del gestor.</p>';
                 }
                 btnDescDetalle.style.display = 'none';
             }
@@ -1365,15 +1449,108 @@
             const tds = fila.querySelectorAll('td');
             const numGD = tds[0].textContent.trim();
             const tipoText = tds[1].textContent.trim();
-            const distribuidor = tds[2].textContent.trim();
+            const gestor = tds[2].textContent.trim();
             const destino = tds[4].textContent.trim();
 
             document.getElementById('descNumGD').textContent = numGD;
             document.getElementById('descTipo').textContent = tipoText;
-            document.getElementById('descDistribuidor').textContent = distribuidor;
+            document.getElementById('descGestor').textContent = gestor;
             document.getElementById('descDestino').textContent = destino;
             document.getElementById('descFileName').textContent = numGD + '.pdf';
         });
+
+        // ===== Modal: Generar Guía de Despacho (3 pasos — simulación API) =====
+        const modalGenerarGD = document.getElementById('modalGenerarGD');
+        const genGDStep1 = document.getElementById('genGDStep1');
+        const genGDStep2 = document.getElementById('genGDStep2');
+        const genGDStep3 = document.getElementById('genGDStep3');
+        const genGDFooter = document.getElementById('genGDFooter');
+        const genGDCloseBtn = document.getElementById('genGDCloseBtn');
+        const genGDCancelBtn = document.getElementById('genGDCancelBtn');
+        const btnIniciarGeneracionGD = document.getElementById('btnIniciarGeneracionGD');
+        let currentGenGDId = '';
+        let currentGenGDRow = null;
+
+        function resetGenGDModal() {
+            genGDStep1.style.display = '';
+            genGDStep2.style.display = 'none';
+            genGDStep3.style.display = 'none';
+            genGDFooter.style.display = '';
+            genGDCloseBtn.style.display = '';
+            btnIniciarGeneracionGD.style.display = '';
+            genGDCancelBtn.textContent = 'Cancelar';
+        }
+
+        modalGenerarGD.addEventListener('show.bs.modal', function(event) {
+            const trigger = event.relatedTarget;
+            currentGenGDId = trigger.dataset.id;
+            const gestor = trigger.dataset.gestor;
+            const equipos = trigger.dataset.equipos;
+
+            document.getElementById('genGDId').textContent = currentGenGDId;
+            document.getElementById('genGDGestor').textContent = gestor;
+            document.getElementById('genGDEquipos').textContent = equipos;
+
+            currentGenGDRow = Array.from(tbody.querySelectorAll('tr')).find(tr =>
+                (tr.dataset.buscar || '').toLowerCase().includes(currentGenGDId.toLowerCase())
+            );
+
+            resetGenGDModal();
+        });
+
+        modalGenerarGD.addEventListener('hidden.bs.modal', function() {
+            resetGenGDModal();
+        });
+
+        btnIniciarGeneracionGD.addEventListener('click', function() {
+            genGDStep1.style.display = 'none';
+            genGDStep2.style.display = '';
+            genGDFooter.style.display = 'none';
+            genGDCloseBtn.style.display = 'none';
+
+            const progressText = document.getElementById('genGDProgressText');
+            setTimeout(() => {
+                progressText.textContent = 'Obteniendo respuesta del sistema de facturación…';
+            }, 1200);
+
+            setTimeout(() => {
+                const gdNum = 'GD-REC-' + String(Math.floor(Math.random() * 9000) + 1000);
+
+                genGDStep2.style.display = 'none';
+                genGDStep3.style.display = '';
+                document.getElementById('genGDNumber').textContent = gdNum;
+
+                genGDFooter.style.display = '';
+                btnIniciarGeneracionGD.style.display = 'none';
+                genGDCancelBtn.textContent = 'Cerrar';
+                genGDCloseBtn.style.display = '';
+
+                if (currentGenGDRow) {
+                    const tds = currentGenGDRow.querySelectorAll('td');
+                    tds[0].innerHTML = '<span class="fw-semibold">' + gdNum + '</span>';
+                    tds[7].innerHTML = '<span class="badge-status badge-gd-auto">Generada automáticamente</span>';
+
+                    currentGenGDRow.dataset.estado = 'auto';
+                    currentGenGDRow.dataset.buscar = (currentGenGDRow.dataset.buscar || '') + ' ' + gdNum.toLowerCase();
+
+                    const actionsCell = tds[8];
+                    const generateBtn = actionsCell.querySelector('.action-btn-generate');
+                    const uploadBtn = actionsCell.querySelector('.action-btn-upload');
+                    if (generateBtn) generateBtn.remove();
+                    if (uploadBtn) uploadBtn.remove();
+
+                    const downloadBtn = document.createElement('a');
+                    downloadBtn.href = '#';
+                    downloadBtn.className = 'action-btn action-btn-download';
+                    downloadBtn.setAttribute('data-bs-toggle', 'modal');
+                    downloadBtn.setAttribute('data-bs-target', '#modalDescargar');
+                    downloadBtn.setAttribute('data-id', gdNum);
+                    downloadBtn.innerHTML = '<i class="bi bi-download"></i> Descargar';
+                    actionsCell.querySelector('.action-btns-group').appendChild(downloadBtn);
+                }
+            }, 2800);
+        });
     </script>
+    <script src="../js/sidebar-scroll.js"></script>
 </body>
 </html>

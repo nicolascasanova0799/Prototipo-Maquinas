@@ -81,7 +81,7 @@ state-in-distributor:
   background: #E3F2FD
   text: $color-primary-navy
   label: "Asignado al Gestor"
-  note: "Unificado 06/07/2026: absorbe el antiguo 'En Distribuidor' (mismo estado físico que state-in-transit)."
+  note: "Unificado 06/07/2026: absorbe el antiguo 'En Gestor' (mismo estado físico que state-in-transit)."
 
 state-in-sstt:
   background: $color-accent-orange
@@ -773,7 +773,7 @@ screen Login:
           - value: mandante
             icon: "bi-building"
             label: "Mandante"
-          - value: distribuidor
+          - value: gestor
             icon: "bi-truck"
             label: "Gestor"
         selected-style:
@@ -820,9 +820,9 @@ screen DashboardMandante:
           color: $color-primary-blue
 
         - title: "Equipos Activos"
-          value: "1.118"
+          value: "1.032"
           icon: "✓"
-          change: "+2.4%"
+          change: "82,9%"
           color: $color-success-green
 
         - title: "En Servicio Técnico"
@@ -831,10 +831,10 @@ screen DashboardMandante:
           change: "-0.5%"
           color: $color-accent-orange
 
-        - title: "Pendientes de Revisión"
-          value: "12"
-          icon: "⏳"
-          color: $color-accent-orange
+        - title: "Equipos Inactivos"
+          value: "98"
+          icon: "✕"
+          color: $color-gray-medium
 
     maps-section:
       extends: TwoColumnLayout
@@ -1583,7 +1583,7 @@ background: works on $color-primary-navy and $color-white
 
 ```
 Equipment = Máquina / Equipo (asset being managed)
-Manager = Gestor (reseller/operator; "Distribuidor" only remains in legacy filenames)
+Manager = Gestor (reseller/operator; "Gestor" only remains in legacy filenames)
 Mandante = Mandante (asset owner)
 Client = Cliente / Punto de venta (retail location)
 Request = Solicitud (formal request for action)

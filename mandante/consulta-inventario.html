@@ -239,12 +239,6 @@
                 <a href="servicio-tecnico.html" class="nav-link">
                     <i class="bi bi-tools"></i> Servicio Técnico
                 </a>
-                <a href="grupo-maquinas.html" class="nav-link">
-                    <i class="bi bi-layers"></i> Grupo de Máquinas
-                </a>
-                <a href="familia-maquinas.html" class="nav-link">
-                    <i class="bi bi-grid"></i> Familia de Máquinas
-                </a>
                 <a href="ubicaciones-bodegas.html" class="nav-link">
                     <i class="bi bi-geo"></i> Ubicaciones / Bodegas
                 </a>
@@ -256,12 +250,6 @@
                 </a>
                 <a href="plantillas-inspeccion.html" class="nav-link">
                     <i class="bi bi-clipboard2-check"></i> Plantillas de Inspección
-                </a>
-                <a href="marcas.html" class="nav-link">
-                    <i class="bi bi-tag"></i> Marcas
-                </a>
-                <a href="modelos.html" class="nav-link">
-                    <i class="bi bi-box"></i> Modelos
                 </a>
                 <a href="tipos-incidencias.html" class="nav-link">
                     <i class="bi bi-exclamation-octagon"></i> Tipos de Incidencias / Catálogo de Fallas
@@ -297,9 +285,9 @@
                         <span class="notification-badge">12</span>
                     </div>
                     <div class="user-info">
-                        <div class="user-avatar">SV</div>
+                        <div class="user-avatar" style="overflow:hidden;"><img src="../assets/img/carozzi_logo.jpg" alt="Carozzi" style="width:100%;height:100%;object-fit:cover;"></div>
                         <div>
-                            <div class="user-name">Savory Chile</div>
+                            <div class="user-name">Carozzi Chile</div>
                             <div class="user-role">Mandante</div>
                         </div>
                     </div>
@@ -312,7 +300,7 @@
                 <div class="info-banner">
                     <i class="bi bi-info-circle"></i>
                     <div>
-                        <strong>Solo lectura:</strong> esta pantalla muestra el resultado de los inventarios que gestiona el Distribuidor (DIS-5 a DIS-7).
+                        <strong>Solo lectura:</strong> esta pantalla muestra el resultado de los inventarios que gestiona el Gestor (DIS-5 a DIS-7).
                         La toma física en terreno (lectura QR, GPS, evidencia fotográfica) corresponde a la app móvil de terreno, fuera de alcance de esta fase (GEN-5).
                     </div>
                 </div>
@@ -322,10 +310,10 @@
                 <div class="filter-bar">
                     <div class="d-flex gap-3 flex-wrap">
                         <div class="flex-grow-1" style="min-width: 180px;">
-                            <label class="form-label" for="filtroDistribuidor">
-                                <i class="bi bi-people me-1"></i>Distribuidor
+                            <label class="form-label" for="filtroGestor">
+                                <i class="bi bi-people me-1"></i>Gestor
                             </label>
-                            <select class="form-select" id="filtroDistribuidor" onchange="aplicarFiltros()">
+                            <select class="form-select" id="filtroGestor" onchange="aplicarFiltros()">
                                 <option value="todos">Todos</option>
                                 <option value="IceFree Chile">IceFree Chile</option>
                                 <option value="Distribuidora Norte">Distribuidora Norte</option>
@@ -366,7 +354,7 @@
                                     <table class="table table-hover align-middle" id="tablaInventarios">
                                         <thead>
                                             <tr>
-                                                <th style="width: 16%;">Distribuidor</th>
+                                                <th style="width: 16%;">Gestor</th>
                                                 <th style="width: 12%;">Fecha</th>
                                                 <th style="width: 22%;">Vendedor(es) / Comuna</th>
                                                 <th style="width: 11%;">Estado</th>
@@ -377,7 +365,7 @@
                                         </thead>
                                         <tbody>
                                             <!-- Fila 1 -->
-                                            <tr data-distribuidor="IceFree Chile"
+                                            <tr data-gestor="IceFree Chile"
                                                 data-estado="finalizado"
                                                 data-fecha="2026-07-01"
                                                 data-vendedores="Carlos Muñoz"
@@ -407,7 +395,7 @@
                                             </tr>
 
                                             <!-- Fila 2 -->
-                                            <tr data-distribuidor="Distribuidora Norte"
+                                            <tr data-gestor="Distribuidora Norte"
                                                 data-estado="curso"
                                                 data-fecha="2026-07-03"
                                                 data-vendedores="María Soto|Pedro Fuentes"
@@ -438,7 +426,7 @@
                                             </tr>
 
                                             <!-- Fila 3 -->
-                                            <tr data-distribuidor="SurFrio Ltda."
+                                            <tr data-gestor="SurFrio Ltda."
                                                 data-estado="finalizado"
                                                 data-fecha="2026-06-28"
                                                 data-vendedores="Pedro Fuentes"
@@ -468,7 +456,7 @@
                                             </tr>
 
                                             <!-- Fila 4 -->
-                                            <tr data-distribuidor="IceFree Chile"
+                                            <tr data-gestor="IceFree Chile"
                                                 data-estado="finalizado"
                                                 data-fecha="2026-06-20"
                                                 data-vendedores="Carlos Muñoz|Ana Rivas"
@@ -499,7 +487,7 @@
                                             </tr>
 
                                             <!-- Fila 5 -->
-                                            <tr data-distribuidor="Distribuidora Norte"
+                                            <tr data-gestor="Distribuidora Norte"
                                                 data-estado="finalizado"
                                                 data-fecha="2026-06-15"
                                                 data-vendedores="María Soto"
@@ -529,7 +517,7 @@
                                             </tr>
 
                                             <!-- Fila 6 -->
-                                            <tr data-distribuidor="SurFrio Ltda."
+                                            <tr data-gestor="SurFrio Ltda."
                                                 data-estado="curso"
                                                 data-fecha="2026-07-04"
                                                 data-vendedores="Pedro Fuentes|Ana Rivas"
@@ -560,7 +548,7 @@
                                             </tr>
 
                                             <!-- Fila 7 -->
-                                            <tr data-distribuidor="IceFree Chile"
+                                            <tr data-gestor="IceFree Chile"
                                                 data-estado="finalizado"
                                                 data-fecha="2026-06-10"
                                                 data-vendedores="Carlos Muñoz"
@@ -590,7 +578,7 @@
                                             </tr>
 
                                             <!-- Fila 8 -->
-                                            <tr data-distribuidor="Distribuidora Norte"
+                                            <tr data-gestor="Distribuidora Norte"
                                                 data-estado="finalizado"
                                                 data-fecha="2026-05-28"
                                                 data-vendedores="María Soto|Pedro Fuentes"
@@ -673,8 +661,8 @@
                             <div class="value" id="detalleId">—</div>
                         </div>
                         <div class="detail-info-item">
-                            <div class="label">Distribuidor</div>
-                            <div class="value" id="detalleDistribuidor">—</div>
+                            <div class="label">Gestor</div>
+                            <div class="value" id="detalleGestor">—</div>
                         </div>
                         <div class="detail-info-item">
                             <div class="label">Fecha</div>
@@ -767,7 +755,7 @@
 
         // ===== Aplicar filtros =====
         function aplicarFiltros() {
-            var filtroDist = document.getElementById('filtroDistribuidor').value;
+            var filtroDist = document.getElementById('filtroGestor').value;
             var filtroEst = document.getElementById('filtroEstado').value;
             var fechaDesde = document.getElementById('fechaDesde').value;
             var fechaHasta = document.getElementById('fechaHasta').value;
@@ -778,7 +766,7 @@
             filas.forEach(function(fila) {
                 var mostrar = true;
 
-                if (filtroDist !== 'todos' && fila.dataset.distribuidor !== filtroDist) {
+                if (filtroDist !== 'todos' && fila.dataset.gestor !== filtroDist) {
                     mostrar = false;
                 }
                 if (filtroEst !== 'todos' && fila.dataset.estado !== filtroEst) {
@@ -805,7 +793,7 @@
             var d = fila.dataset;
 
             document.getElementById('detalleId').textContent = d.id;
-            document.getElementById('detalleDistribuidor').textContent = d.distribuidor;
+            document.getElementById('detalleGestor').textContent = d.gestor;
             document.getElementById('detalleFecha').textContent = formatearFecha(d.fecha);
             document.getElementById('detalleEstado').innerHTML = d.estado === 'finalizado'
                 ? '<span class="badge-status badge-finalizado">Finalizado</span>'
@@ -853,5 +841,6 @@
             return partes[2] + '/' + partes[1] + '/' + partes[0];
         }
     </script>
+    <script src="../js/sidebar-scroll.js"></script>
 </body>
 </html>

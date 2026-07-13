@@ -1,6 +1,7 @@
 # Table of contents
 
 * [Prototipo de la Plataforma de Gestión de Equipos Refrigereados](https://prototipo-maquinas.vercel.app/)
+* [Registro de cambios](<.gitbook/docs/changelog-obs.md>)
 * [Propuesta de Plataforma para la Gestión de Equipos Refrigerados](README.md)
 * [Documentación Inicial](<.gitbook/docs/documentacion-inicial.md>)
 * [Documentación Funcional](<.gitbook/docs/README.md>)

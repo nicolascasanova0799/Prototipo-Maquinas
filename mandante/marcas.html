@@ -33,14 +33,10 @@
                 <a href="maestro-equipos.html" class="nav-link"><i class="bi bi-hdd-stack"></i> Equipos</a>
                 <a href="gestores.html" class="nav-link"><i class="bi bi-people"></i> Gestores</a>
                 <a href="servicio-tecnico.html" class="nav-link"><i class="bi bi-tools"></i> Servicio Técnico</a>
-                <a href="grupo-maquinas.html" class="nav-link"><i class="bi bi-layers"></i> Grupo de Máquinas</a>
-                <a href="familia-maquinas.html" class="nav-link"><i class="bi bi-grid"></i> Familia de Máquinas</a>
                 <a href="ubicaciones-bodegas.html" class="nav-link"><i class="bi bi-geo"></i> Ubicaciones / Bodegas</a>
                 <a href="motivos-movimiento.html" class="nav-link"><i class="bi bi-list-ul"></i> Motivos de Movimiento</a>
                 <a href="tipos-solicitud.html" class="nav-link"><i class="bi bi-file-earmark-text"></i> Tipos de Solicitud</a>
                 <a href="plantillas-inspeccion.html" class="nav-link"><i class="bi bi-clipboard2-check"></i> Plantillas de Inspección</a>
-                <a href="marcas.html" class="nav-link active"><i class="bi bi-tag"></i> Marcas</a>
-                <a href="modelos.html" class="nav-link"><i class="bi bi-box"></i> Modelos</a>
                 <a href="tipos-incidencias.html" class="nav-link"><i class="bi bi-exclamation-octagon"></i> Tipos de Incidencias / Catálogo de Fallas</a>
                 <div class="nav-section">Configuración</div>
                 <a href="usuarios.html" class="nav-link"><i class="bi bi-people-fill"></i> Usuarios</a>
@@ -58,8 +54,8 @@
                     </a>
                     <div class="notification-icon"><i class="bi bi-bell"></i><span class="notification-badge">3</span></div>
                     <div class="user-info">
-                        <div class="user-avatar">SV</div>
-                        <div><div class="user-name">Savory Chile</div><div class="user-role">Mandante</div></div>
+                        <div class="user-avatar" style="overflow:hidden;"><img src="../assets/img/carozzi_logo.jpg" alt="Carozzi" style="width:100%;height:100%;object-fit:cover;"></div>
+                        <div><div class="user-name">Carozzi Chile</div><div class="user-role">Mandante</div></div>
                     </div>
                 </div>
             </nav>
@@ -87,9 +83,9 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr data-codigo="SAVORY" data-nombre="Savory" data-descripcion="Marca principal de equipos refrigerados del mandante" data-equipos="1.248" data-estado="Activo" data-estado-value="activo">
-                                                <td><span class="fw-semibold">SAVORY</span></td>
-                                                <td>Savory</td>
+                                            <tr data-codigo="CAROZZI" data-nombre="Carozzi" data-descripcion="Marca principal de equipos refrigerados del mandante" data-equipos="1.248" data-estado="Activo" data-estado-value="activo">
+                                                <td><span class="fw-semibold">CAROZZI</span></td>
+                                                <td>Carozzi</td>
                                                 <td class="text-muted">Marca principal de equipos refrigerados del mandante</td>
                                                 <td><span class="badge bg-primary">1.248</span></td>
                                                 <td><span class="badge-status badge-activo">Activo</span></td>
@@ -158,8 +154,8 @@
         <div class="modal-dialog"><div class="modal-content">
             <div class="modal-header"><h5 class="modal-title" id="modalAgregarMarcaLabel">Agregar marca</h5><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button></div>
             <div class="modal-body"><form id="formAgregarMarca" novalidate>
-                <div class="mb-3"><label for="codigoMarca" class="form-label">Código</label><input type="text" class="form-control" id="codigoMarca" placeholder="Ej: SAVORY" required><div class="invalid-feedback">Ingresa el código de la marca.</div></div>
-                <div class="mb-3"><label for="nombreMarca" class="form-label">Nombre</label><input type="text" class="form-control" id="nombreMarca" placeholder="Ej: Savory" required><div class="invalid-feedback">Ingresa el nombre de la marca.</div></div>
+                <div class="mb-3"><label for="codigoMarca" class="form-label">Código</label><input type="text" class="form-control" id="codigoMarca" placeholder="Ej: CAROZZI" required><div class="invalid-feedback">Ingresa el código de la marca.</div></div>
+                <div class="mb-3"><label for="nombreMarca" class="form-label">Nombre</label><input type="text" class="form-control" id="nombreMarca" placeholder="Ej: Carozzi" required><div class="invalid-feedback">Ingresa el nombre de la marca.</div></div>
                 <div class="mb-3"><label for="descripcionMarca" class="form-label">Descripción</label><textarea class="form-control" id="descripcionMarca" rows="3" placeholder="Descripción de la marca"></textarea></div>
                 <div class="mb-3 form-check form-switch"><input class="form-check-input" type="checkbox" id="estadoMarca" checked><label class="form-check-label" for="estadoMarca">Activo</label></div>
             </form></div>
@@ -229,5 +225,6 @@
             } else { form.classList.add('was-validated'); }
         });
     </script>
+    <script src="../js/sidebar-scroll.js"></script>
 </body>
 </html>

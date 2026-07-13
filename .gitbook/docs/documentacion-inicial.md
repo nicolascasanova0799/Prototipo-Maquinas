@@ -2,7 +2,7 @@
 
 ## Resumen ejecutivo
 
-Este proyecto propone el diseño de una **plataforma independiente** para el control y trazabilidad del ciclo de vida de activos fríos (freezers y conservadoras de helados) que un **Mandante** (dueño de los equipos, ej. Carozzi) entrega en comodato a **Gestores** (antes denominados Distribuidores, ej. IceFree/Dimer) para su colocación en puntos de venta.
+Este proyecto propone el diseño de una **plataforma independiente** para el control y trazabilidad del ciclo de vida de activos fríos (freezers y conservadoras de helados) que un **Mandante** (dueño de los equipos, ej. Carozzi) entrega en comodato a **Gestores** (antes denominados Gestores, ej. IceFree/Dimer) para su colocación en puntos de venta.
 
 Hoy el Mandante pierde visibilidad y control sobre sus activos una vez que salen de su poder: no sabe con certeza dónde están, en qué estado se encuentran, ni si están siendo usados correctamente. El control se realiza manualmente vía planillas Excel, lo que genera errores, pérdidas por robo o daño, y uso indebido de los equipos (por ejemplo, almacenar productos ajenos al negocio).
 

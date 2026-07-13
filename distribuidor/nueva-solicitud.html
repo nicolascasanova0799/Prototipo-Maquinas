@@ -234,12 +234,6 @@
                     <i class="bi bi-bar-chart"></i> Reportes
                 </a>
                 <div class="nav-section">Maestros</div>
-                <a href="clientes.html" class="nav-link">
-                    <i class="bi bi-shop"></i> Clientes
-                </a>
-                <a href="vendedores.html" class="nav-link">
-                    <i class="bi bi-person-badge"></i> Vendedores
-                </a>
                 <a href="ubicaciones-bodegas.html" class="nav-link">
                     <i class="bi bi-geo"></i> Ubicaciones / Bodegas
                 </a>
@@ -277,7 +271,7 @@
                         <div class="user-avatar">ICL</div>
                         <div>
                             <div class="user-name">IceFree Chile</div>
-                            <div class="user-role">Distribuidor</div>
+                            <div class="user-role">Gestor</div>
                         </div>
                     </div>
                 </div>
@@ -435,7 +429,7 @@
                     </div>
                     <div class="alert alert-info" style="font-size: 13px; margin-bottom: 0;">
                         <i class="bi bi-info-circle me-1"></i>
-                        <span id="confirmInfo">La solicitud será enviada al Mandante (Savory Chile) para su revisión y aprobación. No podrá modificarla una vez enviada.</span>
+                        <span id="confirmInfo">La solicitud será enviada al Mandante (Carozzi Chile) para su revisión y aprobación. No podrá modificarla una vez enviada.</span>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -472,7 +466,7 @@
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        var equiposDistribuidor = [
+        var equiposGestor = [
             { serial: 'FR-1023', marca: 'Foster', modelo: 'FVR-300', cliente: 'Supermercado El Sol', ubicacion: 'Av. Vicuña Mackenna 1200, Santiago', estado: 'Asignado a Cliente' },
             { serial: 'HL-3340', marca: 'Hussmann', modelo: 'ELC-2D', cliente: 'Supermercado El Sol', ubicacion: 'Av. Vicuña Mackenna 1200, Santiago', estado: 'Asignado a Cliente' },
             { serial: 'FR-3456', marca: 'Foster', modelo: 'FVR-450', cliente: 'Supermercado Mayorista 10', ubicacion: 'Av. Américo Vespucio 1500, Huechuraba', estado: 'Asignado a Cliente' },
@@ -494,7 +488,7 @@
                 results.classList.remove('show');
                 return;
             }
-            var matches = equiposDistribuidor.filter(function(eq) {
+            var matches = equiposGestor.filter(function(eq) {
                 return eq.serial.toLowerCase().indexOf(query.toLowerCase()) >= 0 ||
                        eq.marca.toLowerCase().indexOf(query.toLowerCase()) >= 0 ||
                        eq.modelo.toLowerCase().indexOf(query.toLowerCase()) >= 0;
@@ -514,7 +508,7 @@
         }
 
         function seleccionarEquipo(serial) {
-            var eq = equiposDistribuidor.find(function(e) { return e.serial === serial; });
+            var eq = equiposGestor.find(function(e) { return e.serial === serial; });
             if (!eq) return;
             equipoSeleccionado = eq;
             document.getElementById('inputEquipo').value = eq.serial;
@@ -614,7 +608,7 @@
             document.getElementById('confirmEquipo').textContent = equipoSeleccionado.serial + ' (' + equipoSeleccionado.marca + ' ' + equipoSeleccionado.modelo + ')';
             document.getElementById('confirmTipo').textContent = tipo;
             var info = document.getElementById('confirmInfo');
-            info.textContent = 'La solicitud será enviada al Mandante (Savory Chile) para su revisión y aprobación. No podrá modificarla una vez enviada.';
+            info.textContent = 'La solicitud será enviada al Mandante (Carozzi Chile) para su revisión y aprobación. No podrá modificarla una vez enviada.';
             var modal = new bootstrap.Modal(document.getElementById('modalConfirmar'));
             modal.show();
         });
@@ -638,5 +632,6 @@
             onTipoChange({ value: '' });
         }
     </script>
+    <script src="../js/sidebar-scroll.js"></script>
 </body>
 </html>

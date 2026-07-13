@@ -33,14 +33,10 @@
                 <a href="maestro-equipos.html" class="nav-link"><i class="bi bi-hdd-stack"></i> Equipos</a>
                 <a href="gestores.html" class="nav-link"><i class="bi bi-people"></i> Gestores</a>
                 <a href="servicio-tecnico.html" class="nav-link"><i class="bi bi-tools"></i> Servicio Técnico</a>
-                <a href="grupo-maquinas.html" class="nav-link"><i class="bi bi-layers"></i> Grupo de Máquinas</a>
-                <a href="familia-maquinas.html" class="nav-link"><i class="bi bi-grid"></i> Familia de Máquinas</a>
                 <a href="ubicaciones-bodegas.html" class="nav-link"><i class="bi bi-geo"></i> Ubicaciones / Bodegas</a>
                 <a href="motivos-movimiento.html" class="nav-link"><i class="bi bi-list-ul"></i> Motivos de Movimiento</a>
                 <a href="tipos-solicitud.html" class="nav-link active"><i class="bi bi-file-earmark-text"></i> Tipos de Solicitud</a>
                 <a href="plantillas-inspeccion.html" class="nav-link"><i class="bi bi-clipboard2-check"></i> Plantillas de Inspección</a>
-                <a href="marcas.html" class="nav-link"><i class="bi bi-tag"></i> Marcas</a>
-                <a href="modelos.html" class="nav-link"><i class="bi bi-box"></i> Modelos</a>
                 <a href="tipos-incidencias.html" class="nav-link"><i class="bi bi-exclamation-octagon"></i> Tipos de Incidencias / Catálogo de Fallas</a>
                 <div class="nav-section">Configuración</div>
                 <a href="usuarios.html" class="nav-link"><i class="bi bi-people-fill"></i> Usuarios</a>
@@ -58,8 +54,8 @@
                     </a>
                     <div class="notification-icon"><i class="bi bi-bell"></i><span class="notification-badge">3</span></div>
                     <div class="user-info">
-                        <div class="user-avatar">SV</div>
-                        <div><div class="user-name">Savory Chile</div><div class="user-role">Mandante</div></div>
+                        <div class="user-avatar" style="overflow:hidden;"><img src="../assets/img/carozzi_logo.jpg" alt="Carozzi" style="width:100%;height:100%;object-fit:cover;"></div>
+                        <div><div class="user-name">Carozzi Chile</div><div class="user-role">Mandante</div></div>
                     </div>
                 </div>
             </nav>
@@ -87,46 +83,46 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr data-codigo="BAJA_DEFINITIVA" data-nombre="Baja definitiva" data-descripcion="El distribuidor solicita la baja definitiva de un equipo (robo, daño irreparable, obsolescencia)." data-motivo="BAJA" data-aprobacion="si" data-estado="Activo" data-estado-value="activo">
+                                            <tr data-codigo="BAJA_DEFINITIVA" data-nombre="Baja definitiva" data-descripcion="El gestor solicita la baja definitiva de un equipo (robo, daño irreparable, obsolescencia)." data-motivo="BAJA" data-aprobacion="si" data-estado="Activo" data-estado-value="activo">
                                                 <td><span class="fw-semibold">BAJA_DEFINITIVA</span></td>
                                                 <td>Baja definitiva</td>
-                                                <td class="text-muted">El distribuidor solicita la baja definitiva de un equipo (robo, daño irreparable, obsolescencia).</td>
+                                                <td class="text-muted">El gestor solicita la baja definitiva de un equipo (robo, daño irreparable, obsolescencia).</td>
                                                 <td><span class="badge bg-info text-dark">BAJA</span></td>
                                                 <td><span class="badge bg-warning text-dark">Sí</span></td>
                                                 <td><span class="badge-status badge-activo">Activo</span></td>
                                                 <td class="text-end"><button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modalEditarTipo"><i class="bi bi-pencil me-1"></i>Editar</button></td>
                                             </tr>
-                                            <tr data-codigo="ENVIO_SSTT" data-nombre="Envío a SSTT" data-descripcion="El distribuidor solicita el envío de un equipo a servicio técnico por falla o reparación." data-motivo="ENVIO_SSTT" data-aprobacion="si" data-estado="Activo" data-estado-value="activo">
+                                            <tr data-codigo="ENVIO_SSTT" data-nombre="Envío a SSTT" data-descripcion="El gestor solicita el envío de un equipo a servicio técnico por falla o reparación." data-motivo="ENVIO_SSTT" data-aprobacion="si" data-estado="Activo" data-estado-value="activo">
                                                 <td><span class="fw-semibold">ENVIO_SSTT</span></td>
                                                 <td>Envío a SSTT</td>
-                                                <td class="text-muted">El distribuidor solicita el envío de un equipo a servicio técnico por falla o reparación.</td>
+                                                <td class="text-muted">El gestor solicita el envío de un equipo a servicio técnico por falla o reparación.</td>
                                                 <td><span class="badge bg-info text-dark">ENVIO_SSTT</span></td>
                                                 <td><span class="badge bg-warning text-dark">Sí</span></td>
                                                 <td><span class="badge-status badge-activo">Activo</span></td>
                                                 <td class="text-end"><button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modalEditarTipo"><i class="bi bi-pencil me-1"></i>Editar</button></td>
                                             </tr>
-                                            <tr data-codigo="CAMBIO_EQUIPO" data-nombre="Cambio de equipo" data-descripcion="El distribuidor solicita reemplazar un equipo por otro en el mismo punto de venta." data-motivo="CAMBIO" data-aprobacion="si" data-estado="Activo" data-estado-value="activo">
+                                            <tr data-codigo="CAMBIO_EQUIPO" data-nombre="Cambio de equipo" data-descripcion="El gestor solicita reemplazar un equipo por otro en el mismo punto de venta." data-motivo="CAMBIO" data-aprobacion="si" data-estado="Activo" data-estado-value="activo">
                                                 <td><span class="fw-semibold">CAMBIO_EQUIPO</span></td>
                                                 <td>Cambio de equipo</td>
-                                                <td class="text-muted">El distribuidor solicita reemplazar un equipo por otro en el mismo punto de venta.</td>
+                                                <td class="text-muted">El gestor solicita reemplazar un equipo por otro en el mismo punto de venta.</td>
                                                 <td><span class="badge bg-info text-dark">CAMBIO</span></td>
                                                 <td><span class="badge bg-warning text-dark">Sí</span></td>
                                                 <td><span class="badge-status badge-activo">Activo</span></td>
                                                 <td class="text-end"><button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modalEditarTipo"><i class="bi bi-pencil me-1"></i>Editar</button></td>
                                             </tr>
-                                            <tr data-codigo="RETORNO_MANDANTE" data-nombre="Retorno al Mandante" data-descripcion="El distribuidor solicita devolver un equipo al Mandante (fin de comodato, retiro del punto de venta)." data-motivo="RETORNO_MANDANTE" data-aprobacion="si" data-estado="Activo" data-estado-value="activo">
+                                            <tr data-codigo="RETORNO_MANDANTE" data-nombre="Retorno al Mandante" data-descripcion="El gestor solicita devolver un equipo al Mandante (fin de comodato, retiro del punto de venta)." data-motivo="RETORNO_MANDANTE" data-aprobacion="si" data-estado="Activo" data-estado-value="activo">
                                                 <td><span class="fw-semibold">RETORNO_MANDANTE</span></td>
                                                 <td>Retorno al Mandante</td>
-                                                <td class="text-muted">El distribuidor solicita devolver un equipo al Mandante (fin de comodato, retiro del punto de venta).</td>
+                                                <td class="text-muted">El gestor solicita devolver un equipo al Mandante (fin de comodato, retiro del punto de venta).</td>
                                                 <td><span class="badge bg-info text-dark">RETORNO_MANDANTE</span></td>
                                                 <td><span class="badge bg-warning text-dark">Sí</span></td>
                                                 <td><span class="badge-status badge-activo">Activo</span></td>
                                                 <td class="text-end"><button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modalEditarTipo"><i class="bi bi-pencil me-1"></i>Editar</button></td>
                                             </tr>
-                                            <tr data-codigo="SOLICITUD_INVENTARIO" data-nombre="Solicitud de Inventario" data-descripcion="El distribuidor solicita realizar una toma de inventario físico de sus equipos asignados. El tipo es estandarizado por el Mandante para todos los distribuidores." data-motivo="N/A" data-aprobacion="no" data-estado="Activo" data-estado-value="activo">
+                                            <tr data-codigo="SOLICITUD_INVENTARIO" data-nombre="Solicitud de Inventario" data-descripcion="El gestor solicita realizar una toma de inventario físico de sus equipos asignados. El tipo es estandarizado por el Mandante para todos los gestores." data-motivo="N/A" data-aprobacion="no" data-estado="Activo" data-estado-value="activo">
                                                 <td><span class="fw-semibold">SOLICITUD_INVENTARIO</span></td>
                                                 <td>Solicitud de Inventario</td>
-                                                <td class="text-muted">El distribuidor solicita realizar una toma de inventario físico de sus equipos asignados. El tipo es estandarizado por el Mandante para todos los distribuidores.</td>
+                                                <td class="text-muted">El gestor solicita realizar una toma de inventario físico de sus equipos asignados. El tipo es estandarizado por el Mandante para todos los gestores.</td>
                                                 <td><span class="badge bg-light text-muted">N/A</span></td>
                                                 <td><span class="badge bg-secondary">No</span></td>
                                                 <td><span class="badge-status badge-activo">Activo</span></td>
@@ -253,5 +249,6 @@
             } else { form.classList.add('was-validated'); }
         });
     </script>
+    <script src="../js/sidebar-scroll.js"></script>
 </body>
 </html>

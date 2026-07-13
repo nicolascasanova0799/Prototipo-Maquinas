@@ -124,6 +124,163 @@
             color: var(--gris-medio);
             margin-top: 2px;
         }
+        .gd-badge-auto {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            font-size: 11px;
+            color: var(--verde-exito);
+            font-weight: 600;
+        }
+        .gd-badge-manual {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            font-size: 11px;
+            color: var(--naranja-coral);
+            font-weight: 600;
+        }
+        .gd-badge-pending {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            font-size: 11px;
+            color: var(--gris-medio);
+            font-weight: 600;
+        }
+        .gd-link {
+            font-size: 12px;
+            color: var(--azul-primario);
+            text-decoration: none;
+            font-weight: 600;
+        }
+        .gd-link:hover { text-decoration: underline; }
+        .action-btn-generate {
+            background: rgba(0, 102, 204, 0.1);
+            color: var(--azul-primario);
+        }
+        .action-btn-generate:hover {
+            background: var(--azul-primario);
+            color: #FFFFFF;
+        }
+        .action-btn-upload {
+            background: rgba(255, 107, 53, 0.1);
+            color: var(--naranja-coral);
+        }
+        .action-btn-upload:hover {
+            background: var(--naranja-coral);
+            color: #FFFFFF;
+        }
+        .action-btns-group {
+            display: flex;
+            gap: 4px;
+            flex-wrap: wrap;
+        }
+        .rn-note {
+            background: rgba(0, 102, 204, 0.06);
+            border-left: 3px solid var(--azul-primario);
+            border-radius: 0 6px 6px 0;
+            padding: 12px 16px;
+            font-size: 13px;
+            color: var(--gris-oscuro);
+            line-height: 1.5;
+        }
+        .rn-note strong {
+            color: var(--azul-marino);
+        }
+        .file-upload-area {
+            border: 2px dashed #DEE2E6;
+            border-radius: 8px;
+            padding: 28px 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: border-color 0.15s, background 0.15s;
+        }
+        .file-upload-area:hover {
+            border-color: var(--azul-primario);
+            background: rgba(0, 102, 204, 0.03);
+        }
+        .file-upload-area i {
+            font-size: 36px;
+            color: var(--gris-medio);
+            margin-bottom: 8px;
+        }
+        .file-upload-area .upload-text {
+            font-size: 14px;
+            color: var(--gris-oscuro);
+            font-weight: 600;
+        }
+        .file-upload-area .upload-hint {
+            font-size: 12px;
+            color: var(--gris-medio);
+            margin-top: 4px;
+        }
+        .file-upload-area.has-file {
+            border-color: var(--verde-exito);
+            background: rgba(40, 167, 69, 0.04);
+        }
+        .file-upload-area.has-file i {
+            color: var(--verde-exito);
+        }
+        .file-name {
+            font-size: 13px;
+            color: var(--gris-oscuro);
+            font-weight: 600;
+            margin-top: 8px;
+            word-break: break-all;
+        }
+        .gd-gen-progress {
+            text-align: center;
+            padding: 24px;
+        }
+        .gd-gen-progress .spinner-border {
+            color: var(--azul-primario);
+            margin-bottom: 12px;
+        }
+        .gd-gen-success {
+            text-align: center;
+            padding: 20px;
+        }
+        .gd-gen-success i {
+            font-size: 48px;
+            color: var(--verde-exito);
+            margin-bottom: 12px;
+        }
+        .gd-gen-success .gd-number {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--verde-exito);
+            letter-spacing: 0.5px;
+            margin-top: 8px;
+        }
+        .summary-row {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        .summary-row .summary-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            padding: 10px 0;
+            border-bottom: 1px solid #EEF0F2;
+        }
+        .summary-row .summary-item:last-child {
+            border-bottom: none;
+        }
+        .summary-row .summary-label {
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--gris-medio);
+            font-weight: 600;
+        }
+        .summary-row .summary-value {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--azul-marino);
+            text-align: right;
+        }
     </style>
 </head>
 <body>
@@ -168,12 +325,6 @@
                 <a href="servicio-tecnico.html" class="nav-link">
                     <i class="bi bi-tools"></i> Servicio Técnico
                 </a>
-                <a href="grupo-maquinas.html" class="nav-link">
-                    <i class="bi bi-layers"></i> Grupo de Máquinas
-                </a>
-                <a href="familia-maquinas.html" class="nav-link">
-                    <i class="bi bi-grid"></i> Familia de Máquinas
-                </a>
                 <a href="ubicaciones-bodegas.html" class="nav-link">
                     <i class="bi bi-geo"></i> Ubicaciones / Bodegas
                 </a>
@@ -185,12 +336,6 @@
                 </a>
                 <a href="plantillas-inspeccion.html" class="nav-link">
                     <i class="bi bi-clipboard2-check"></i> Plantillas de Inspección
-                </a>
-                <a href="marcas.html" class="nav-link">
-                    <i class="bi bi-tag"></i> Marcas
-                </a>
-                <a href="modelos.html" class="nav-link">
-                    <i class="bi bi-box"></i> Modelos
                 </a>
                 <a href="tipos-incidencias.html" class="nav-link">
                     <i class="bi bi-exclamation-octagon"></i> Tipos de Incidencias / Catálogo de Fallas
@@ -218,7 +363,7 @@
                     <a href="dashboard.html" class="btn-back">
                         <i class="bi bi-arrow-left"></i> Volver
                     </a>
-                    <h2 class="page-title">Asignación de Equipos a Distribuidor</h2>
+                    <h2 class="page-title">Asignación de Equipos a Gestor</h2>
                 </div>
                 <div class="navbar-right">
                     <!-- <a href="asignacion-equipos.html?mode=new" class="btn btn-primary btn-sm me-3">
@@ -229,9 +374,9 @@
                         <span class="notification-badge">3</span>
                     </div>
                     <div class="user-info">
-                        <div class="user-avatar">SV</div>
+                        <div class="user-avatar" style="overflow:hidden;"><img src="../assets/img/carozzi_logo.jpg" alt="Carozzi" style="width:100%;height:100%;object-fit:cover;"></div>
                         <div>
-                            <div class="user-name">Savory Chile</div>
+                            <div class="user-name">Carozzi Chile</div>
                             <div class="user-role">Mandante</div>
                         </div>
                     </div>
@@ -271,7 +416,7 @@
                             </div>
                             <div>
                                 <div class="kpi-label">Completadas</div>
-                                <div class="kpi-value" id="kpiDistribuidor">6</div>
+                                <div class="kpi-value" id="kpiGestor">6</div>
                             </div>
                         </div>
                     </div>
@@ -294,7 +439,7 @@
                         <div class="filter-bar">
                             <div class="flex-grow-1" style="min-width: 200px;">
                                 <label class="form-label">Buscar</label>
-                                <input type="text" class="form-control" id="buscarAsignacion" placeholder="N° asignación o distribuidor…">
+                                <input type="text" class="form-control" id="buscarAsignacion" placeholder="N° asignación o gestor…">
                             </div>
                             <div>
                                 <label class="form-label">Estado</label>
@@ -306,8 +451,8 @@
                                 </select>
                             </div>
                             <div>
-                                <label class="form-label">Distribuidor</label>
-                                <select class="form-select" id="filtroDistribuidor">
+                                <label class="form-label">Gestor</label>
+                                <select class="form-select" id="filtroGestor">
                                     <option value="">Todos</option>
                                     <option value="icefree">IceFree Chile</option>
                                     <option value="norte">Distribuidora Norte</option>
@@ -343,16 +488,17 @@
                                 <thead>
                                     <tr>
                                         <th style="width: 110px;">N° Asign.</th>
-                                        <th>Distribuidor destino</th>
+                                        <th>Gestor destino</th>
                                         <th class="text-center" style="width: 80px;">Equipos</th>
                                         <th style="width: 130px;">Fecha creación</th>
                                         <th style="width: 120px;">Estado</th>
-                                        <th style="width: 180px;">Acciones</th>
+                                        <th style="width: 130px;">Guía de Despacho</th>
+                                        <th style="width: 280px;">Acciones</th>
                                     </tr>
                                 </thead>
                                 <tbody id="tbodyAsignaciones">
                                     <!-- Borrador 1 -->
-                                    <tr data-estado="borrador" data-distribuidor="icefree" data-fecha="2026-07-03">
+                                    <tr data-estado="borrador" data-gestor="icefree" data-fecha="2026-07-03">
                                         <td class="fw-semibold">ASG-0042</td>
                                         <td>IceFree Chile</td>
                                         <td class="text-center">3</td>
@@ -363,6 +509,7 @@
                                                 <i class="bi bi-clock"></i> Sin enviar
                                             </div>
                                         </td>
+                                        <td class="text-center text-muted">—</td>
                                         <td>
                                             <a href="asignacion-equipos.html?mode=edit&id=ASG-0042" class="action-btn action-btn-edit">
                                                 <i class="bi bi-pencil"></i> Editar
@@ -373,7 +520,7 @@
                                         </td>
                                     </tr>
                                     <!-- Borrador 2 -->
-                                    <tr data-estado="borrador" data-distribuidor="norte" data-fecha="2026-07-02">
+                                    <tr data-estado="borrador" data-gestor="norte" data-fecha="2026-07-02">
                                         <td class="fw-semibold">ASG-0041</td>
                                         <td>Distribuidora Norte</td>
                                         <td class="text-center">0</td>
@@ -384,6 +531,7 @@
                                                 <i class="bi bi-exclamation-circle"></i> Sin equipos
                                             </div>
                                         </td>
+                                        <td class="text-center text-muted">—</td>
                                         <td>
                                             <a href="asignacion-equipos.html?mode=edit&id=ASG-0041" class="action-btn action-btn-edit">
                                                 <i class="bi bi-pencil"></i> Editar
@@ -394,7 +542,7 @@
                                         </td>
                                     </tr>
                                     <!-- Enviada -->
-                                    <tr data-estado="enviada" data-distribuidor="sur" data-fecha="2026-07-01">
+                                    <tr data-estado="enviada" data-gestor="sur" data-fecha="2026-07-01">
                                         <td class="fw-semibold">ASG-0040</td>
                                         <td>Sur Distribución</td>
                                         <td class="text-center">12</td>
@@ -403,13 +551,24 @@
                                             <span class="badge-status badge-transito">Enviada</span>
                                         </td>
                                         <td>
-                                            <a href="asignacion-equipos.html?mode=view&id=ASG-0040" class="action-btn action-btn-view">
-                                                <i class="bi bi-eye"></i> Ver detalle
-                                            </a>
+                                            <span class="gd-badge-pending"><i class="bi bi-clock"></i> Pendiente</span>
+                                        </td>
+                                        <td>
+                                            <div class="action-btns-group">
+                                                <a href="asignacion-equipos.html?mode=view&id=ASG-0040" class="action-btn action-btn-view">
+                                                    <i class="bi bi-eye"></i> Ver detalle
+                                                </a>
+                                                <a href="#" class="action-btn action-btn-generate" data-bs-toggle="modal" data-bs-target="#modalGenerarGD" data-id="ASG-0040" data-gestor="Sur Distribución" data-equipos="12">
+                                                    <i class="bi bi-file-earmark-plus"></i> Generar GD
+                                                </a>
+                                                <a href="#" class="action-btn action-btn-upload" data-bs-toggle="modal" data-bs-target="#modalSubirPDF" data-id="ASG-0040" data-gestor="Sur Distribución">
+                                                    <i class="bi bi-upload"></i> Subir PDF
+                                                </a>
+                                            </div>
                                         </td>
                                     </tr>
                                     <!-- Enviada 1 -->
-                                    <tr data-estado="enviada" data-distribuidor="icefree" data-fecha="2026-06-28">
+                                    <tr data-estado="enviada" data-gestor="icefree" data-fecha="2026-06-28">
                                         <td class="fw-semibold">ASG-0039</td>
                                         <td>IceFree Chile</td>
                                         <td class="text-center">8</td>
@@ -418,13 +577,24 @@
                                             <span class="badge-status badge-transito">Enviada</span>
                                         </td>
                                         <td>
-                                            <a href="asignacion-equipos.html?mode=view&id=ASG-0039" class="action-btn action-btn-view">
-                                                <i class="bi bi-eye"></i> Ver detalle
-                                            </a>
+                                            <span class="gd-badge-pending"><i class="bi bi-clock"></i> Pendiente</span>
+                                        </td>
+                                        <td>
+                                            <div class="action-btns-group">
+                                                <a href="asignacion-equipos.html?mode=view&id=ASG-0039" class="action-btn action-btn-view">
+                                                    <i class="bi bi-eye"></i> Ver detalle
+                                                </a>
+                                                <a href="#" class="action-btn action-btn-generate" data-bs-toggle="modal" data-bs-target="#modalGenerarGD" data-id="ASG-0039" data-gestor="IceFree Chile" data-equipos="8">
+                                                    <i class="bi bi-file-earmark-plus"></i> Generar GD
+                                                </a>
+                                                <a href="#" class="action-btn action-btn-upload" data-bs-toggle="modal" data-bs-target="#modalSubirPDF" data-id="ASG-0039" data-gestor="IceFree Chile">
+                                                    <i class="bi bi-upload"></i> Subir PDF
+                                                </a>
+                                            </div>
                                         </td>
                                     </tr>
                                     <!-- Enviada 2 -->
-                                    <tr data-estado="enviada" data-distribuidor="frioaustral" data-fecha="2026-06-25">
+                                    <tr data-estado="enviada" data-gestor="frioaustral" data-fecha="2026-06-25">
                                         <td class="fw-semibold">ASG-0038</td>
                                         <td>Frío Austral</td>
                                         <td class="text-center">15</td>
@@ -433,13 +603,24 @@
                                             <span class="badge-status badge-transito">Enviada</span>
                                         </td>
                                         <td>
-                                            <a href="asignacion-equipos.html?mode=view&id=ASG-0038" class="action-btn action-btn-view">
-                                                <i class="bi bi-eye"></i> Ver detalle
-                                            </a>
+                                            <span class="gd-badge-pending"><i class="bi bi-clock"></i> Pendiente</span>
+                                        </td>
+                                        <td>
+                                            <div class="action-btns-group">
+                                                <a href="asignacion-equipos.html?mode=view&id=ASG-0038" class="action-btn action-btn-view">
+                                                    <i class="bi bi-eye"></i> Ver detalle
+                                                </a>
+                                                <a href="#" class="action-btn action-btn-generate" data-bs-toggle="modal" data-bs-target="#modalGenerarGD" data-id="ASG-0038" data-gestor="Frío Austral" data-equipos="15">
+                                                    <i class="bi bi-file-earmark-plus"></i> Generar GD
+                                                </a>
+                                                <a href="#" class="action-btn action-btn-upload" data-bs-toggle="modal" data-bs-target="#modalSubirPDF" data-id="ASG-0038" data-gestor="Frío Austral">
+                                                    <i class="bi bi-upload"></i> Subir PDF
+                                                </a>
+                                            </div>
                                         </td>
                                     </tr>
                                     <!-- Enviada 3 -->
-                                    <tr data-estado="enviada" data-distribuidor="norte" data-fecha="2026-06-22">
+                                    <tr data-estado="enviada" data-gestor="norte" data-fecha="2026-06-22">
                                         <td class="fw-semibold">ASG-0037</td>
                                         <td>Distribuidora Norte</td>
                                         <td class="text-center">6</td>
@@ -448,20 +629,35 @@
                                             <span class="badge-status badge-transito">Enviada</span>
                                         </td>
                                         <td>
-                                            <a href="asignacion-equipos.html?mode=view&id=ASG-0037" class="action-btn action-btn-view">
-                                                <i class="bi bi-eye"></i> Ver detalle
-                                            </a>
+                                            <span class="gd-badge-pending"><i class="bi bi-clock"></i> Pendiente</span>
+                                        </td>
+                                        <td>
+                                            <div class="action-btns-group">
+                                                <a href="asignacion-equipos.html?mode=view&id=ASG-0037" class="action-btn action-btn-view">
+                                                    <i class="bi bi-eye"></i> Ver detalle
+                                                </a>
+                                                <a href="#" class="action-btn action-btn-generate" data-bs-toggle="modal" data-bs-target="#modalGenerarGD" data-id="ASG-0037" data-gestor="Distribuidora Norte" data-equipos="6">
+                                                    <i class="bi bi-file-earmark-plus"></i> Generar GD
+                                                </a>
+                                                <a href="#" class="action-btn action-btn-upload" data-bs-toggle="modal" data-bs-target="#modalSubirPDF" data-id="ASG-0037" data-gestor="Distribuidora Norte">
+                                                    <i class="bi bi-upload"></i> Subir PDF
+                                                </a>
+                                            </div>
                                         </td>
                                     </tr>
                                     <!-- Completada 1 -->
-                                    <tr data-estado="completada" data-distribuidor="icefree" data-fecha="2026-06-15">
+                                    <tr data-estado="completada" data-gestor="icefree" data-fecha="2026-06-15">
                                         <td class="fw-semibold">ASG-0036</td>
                                         <td>IceFree Chile</td>
                                         <td class="text-center">20</td>
                                         <td>15/06/2026</td>
                                         <td>
                                             <span class="badge-status badge-aprobada">Completada</span>
-                                            <div class="draft-indicator">20 asignado al distribuidor</div>
+                                            <div class="draft-indicator">20 asignado al gestor</div>
+                                        </td>
+                                        <td>
+                                            <span class="gd-badge-manual"><i class="bi bi-file-earmark-pdf"></i> PDF adjunto</span><br>
+                                            <a href="#" class="gd-link">GD-REC-0039</a>
                                         </td>
                                         <td>
                                             <a href="asignacion-equipos.html?mode=view&id=ASG-0036" class="action-btn action-btn-view">
@@ -470,14 +666,18 @@
                                         </td>
                                     </tr>
                                     <!-- Completada 2 -->
-                                    <tr data-estado="completada" data-distribuidor="sur" data-fecha="2026-06-10">
+                                    <tr data-estado="completada" data-gestor="sur" data-fecha="2026-06-10">
                                         <td class="fw-semibold">ASG-0035</td>
                                         <td>Sur Distribución</td>
                                         <td class="text-center">10</td>
                                         <td>10/06/2026</td>
                                         <td>
                                             <span class="badge-status badge-aprobada">Completada</span>
-                                            <div class="draft-indicator">10 asignado al distribuidor</div>
+                                            <div class="draft-indicator">10 asignado al gestor</div>
+                                        </td>
+                                        <td>
+                                            <span class="gd-badge-manual"><i class="bi bi-file-earmark-pdf"></i> PDF adjunto</span><br>
+                                            <a href="#" class="gd-link">GD-REC-0038</a>
                                         </td>
                                         <td>
                                             <a href="asignacion-equipos.html?mode=view&id=ASG-0035" class="action-btn action-btn-view">
@@ -486,14 +686,18 @@
                                         </td>
                                     </tr>
                                     <!-- Completada 3 -->
-                                    <tr data-estado="completada" data-distribuidor="frioaustral" data-fecha="2026-06-05">
+                                    <tr data-estado="completada" data-gestor="frioaustral" data-fecha="2026-06-05">
                                         <td class="fw-semibold">ASG-0034</td>
                                         <td>Frío Austral</td>
                                         <td class="text-center">5</td>
                                         <td>05/06/2026</td>
                                         <td>
                                             <span class="badge-status badge-aprobada">Completada</span>
-                                            <div class="draft-indicator">5 asignado al distribuidor</div>
+                                            <div class="draft-indicator">5 asignado al gestor</div>
+                                        </td>
+                                        <td>
+                                            <span class="gd-badge-manual"><i class="bi bi-file-earmark-pdf"></i> PDF adjunto</span><br>
+                                            <a href="#" class="gd-link">GD-REC-0037</a>
                                         </td>
                                         <td>
                                             <a href="asignacion-equipos.html?mode=view&id=ASG-0034" class="action-btn action-btn-view">
@@ -502,14 +706,18 @@
                                         </td>
                                     </tr>
                                     <!-- Completada (con equipos pendientes de revisión) -->
-                                    <tr data-estado="completada" data-distribuidor="norte" data-fecha="2026-06-01">
+                                    <tr data-estado="completada" data-gestor="norte" data-fecha="2026-06-01">
                                         <td class="fw-semibold">ASG-0033</td>
                                         <td>Distribuidora Norte</td>
                                         <td class="text-center">4</td>
                                         <td>01/06/2026</td>
                                         <td>
                                             <span class="badge-status badge-aprobada">Completada</span>
-                                            <div class="draft-indicator" style="color: var(--gris-medio);">3 asignado al distribuidor · 1 pendiente de revisión</div>
+                                            <div class="draft-indicator" style="color: var(--gris-medio);">3 asignado al gestor · 1 pendiente de revisión</div>
+                                        </td>
+                                        <td>
+                                            <span class="gd-badge-manual"><i class="bi bi-file-earmark-pdf"></i> PDF adjunto</span><br>
+                                            <a href="#" class="gd-link">GD-REC-0036</a>
                                         </td>
                                         <td>
                                             <a href="asignacion-equipos.html?mode=view&id=ASG-0033" class="action-btn action-btn-view">
@@ -518,14 +726,18 @@
                                         </td>
                                     </tr>
                                     <!-- Completada 4 -->
-                                    <tr data-estado="completada" data-distribuidor="icefree" data-fecha="2026-05-28">
+                                    <tr data-estado="completada" data-gestor="icefree" data-fecha="2026-05-28">
                                         <td class="fw-semibold">ASG-0032</td>
                                         <td>IceFree Chile</td>
                                         <td class="text-center">18</td>
                                         <td>28/05/2026</td>
                                         <td>
                                             <span class="badge-status badge-aprobada">Completada</span>
-                                            <div class="draft-indicator">18 asignado al distribuidor</div>
+                                            <div class="draft-indicator">18 asignado al gestor</div>
+                                        </td>
+                                        <td>
+                                            <span class="gd-badge-manual"><i class="bi bi-file-earmark-pdf"></i> PDF adjunto</span><br>
+                                            <a href="#" class="gd-link">GD-REC-0035</a>
                                         </td>
                                         <td>
                                             <a href="asignacion-equipos.html?mode=view&id=ASG-0032" class="action-btn action-btn-view">
@@ -534,14 +746,18 @@
                                         </td>
                                     </tr>
                                     <!-- Completada 5 -->
-                                    <tr data-estado="completada" data-distribuidor="sur" data-fecha="2026-05-20">
+                                    <tr data-estado="completada" data-gestor="sur" data-fecha="2026-05-20">
                                         <td class="fw-semibold">ASG-0031</td>
                                         <td>Sur Distribución</td>
                                         <td class="text-center">7</td>
                                         <td>20/05/2026</td>
                                         <td>
                                             <span class="badge-status badge-aprobada">Completada</span>
-                                            <div class="draft-indicator">7 asignado al distribuidor</div>
+                                            <div class="draft-indicator">7 asignado al gestor</div>
+                                        </td>
+                                        <td>
+                                            <span class="gd-badge-manual"><i class="bi bi-file-earmark-pdf"></i> PDF adjunto</span><br>
+                                            <a href="#" class="gd-link">GD-REC-0034</a>
                                         </td>
                                         <td>
                                             <a href="asignacion-equipos.html?mode=view&id=ASG-0031" class="action-btn action-btn-view">
@@ -611,12 +827,130 @@
         </div>
     </div>
 
+    <!-- ===== Modal: Generar Guía de Despacho (simulación API — 3 pasos) ===== -->
+    <div class="modal fade" id="modalGenerarGD" tabindex="-1" aria-labelledby="modalGenerarGDLabel" aria-hidden="true" data-bs-backdrop="static">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header" id="genGDHeader">
+                    <h5 class="modal-title" id="modalGenerarGDLabel">
+                        <i class="bi bi-file-earmark-plus me-2"></i>Generar Guía de Despacho
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar" id="genGDCloseBtn"></button>
+                </div>
+                <div class="modal-body" id="genGDBody">
+                    <!-- Paso 1: Confirmación -->
+                    <div id="genGDStep1">
+                        <div class="rn-note mb-3">
+                            <strong><i class="bi bi-info-circle me-1"></i>Generación vía API</strong><br>
+                            El sistema conectará con el sistema de facturación para generar la Guía de Despacho de forma automática.
+                        </div>
+                        <div class="summary-row mb-3">
+                            <div class="summary-item">
+                                <span class="summary-label">N° Asignación</span>
+                                <span class="summary-value" id="genGDId">—</span>
+                            </div>
+                            <div class="summary-item">
+                                <span class="summary-label">Gestor destino</span>
+                                <span class="summary-value" id="genGDGestor">—</span>
+                            </div>
+                            <div class="summary-item">
+                                <span class="summary-label">Equipos a despachar</span>
+                                <span class="summary-value" id="genGDEquipos">—</span>
+                            </div>
+                        </div>
+                        <p class="text-muted mb-0" style="font-size: 13px;">¿Desea generar la Guía de Despacho para esta asignación?</p>
+                    </div>
+
+                    <!-- Paso 2: Procesando -->
+                    <div id="genGDStep2" style="display: none;">
+                        <div class="gd-gen-progress">
+                            <div class="spinner-border" role="status"></div>
+                            <p class="fw-semibold mb-1">Conectando con sistema de facturación…</p>
+                            <p class="text-muted mb-0" style="font-size: 13px;" id="genGDProgressText">Generando Guía de Despacho…</p>
+                        </div>
+                    </div>
+
+                    <!-- Paso 3: Éxito -->
+                    <div id="genGDStep3" style="display: none;">
+                        <div class="gd-gen-success">
+                            <i class="bi bi-check-circle-fill d-block"></i>
+                            <p class="fw-semibold mb-0">Guía de Despacho generada correctamente</p>
+                            <div class="gd-number" id="genGDNumber">GD-REC-0000</div>
+                            <p class="text-muted mt-2 mb-0" style="font-size: 13px;">El PDF se ha adjuntado automáticamente a la asignación.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer" id="genGDFooter">
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal" id="genGDCancelBtn">Cancelar</button>
+                    <button type="button" class="btn btn-primary" id="btnIniciarGeneracionGD">
+                        <i class="bi bi-lightning-charge me-2"></i>Generar vía API
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== Modal: Subir PDF de Guía de Despacho (carga manual) ===== -->
+    <div class="modal fade" id="modalSubirPDF" tabindex="-1" aria-labelledby="modalSubirPDFLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalSubirPDFLabel">
+                        <i class="bi bi-upload me-2"></i>Subir Guía de Despacho (PDF)
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="formSubirPDF" novalidate>
+                        <div class="rn-note mb-3">
+                            <strong><i class="bi bi-info-circle me-1"></i>Carga manual</strong><br>
+                            Adjunte el PDF de la Guía de Despacho generado externamente como respaldo del envío al gestor.
+                        </div>
+                        <div class="summary-row mb-3">
+                            <div class="summary-item">
+                                <span class="summary-label">N° Asignación</span>
+                                <span class="summary-value" id="pdfUploadId">—</span>
+                            </div>
+                            <div class="summary-item">
+                                <span class="summary-label">Gestor destino</span>
+                                <span class="summary-value" id="pdfUploadGestor">—</span>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Archivo PDF <span class="text-danger">*</span></label>
+                            <div class="file-upload-area" id="uploadAreaPDF">
+                                <i class="bi bi-cloud-arrow-up d-block"></i>
+                                <div class="upload-text">Haz clic o arrastra el archivo aquí</div>
+                                <div class="upload-hint">Formato PDF · Máx. 10 MB</div>
+                                <input type="file" id="inputFilePDF" accept=".pdf,application/pdf" style="display: none;" required>
+                            </div>
+                            <div class="file-name" id="fileNamePDF" style="display: none;"></div>
+                            <div class="invalid-feedback" id="errorFilePDF">
+                                Debes adjuntar el PDF de la Guía de Despacho.
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="numDocumentoPDF" class="form-label">N° de documento <span class="text-muted">(opcional)</span></label>
+                            <input type="text" class="form-control" id="numDocumentoPDF" placeholder="Ej: GD-2026-00123">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary" id="btnConfirmarSubirPDF">
+                        <i class="bi bi-save me-2"></i>Guardar PDF
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
         const buscarAsignacion = document.getElementById('buscarAsignacion');
         const filtroEstado = document.getElementById('filtroEstado');
-        const filtroDistribuidor = document.getElementById('filtroDistribuidor');
+        const filtroGestor = document.getElementById('filtroGestor');
         const filtroFechaDesde = document.getElementById('filtroFechaDesde');
         const filtroFechaHasta = document.getElementById('filtroFechaHasta');
         const tbody = document.getElementById('tbodyAsignaciones');
@@ -627,7 +961,7 @@
         function filtrar() {
             const texto = buscarAsignacion.value.toLowerCase().trim();
             const estado = filtroEstado.value;
-            const distribuidor = filtroDistribuidor.value;
+            const gestor = filtroGestor.value;
             const fechaDesde = filtroFechaDesde.value;
             const fechaHasta = filtroFechaHasta.value;
 
@@ -638,7 +972,7 @@
                 const numAsign = fila.querySelector('td:nth-child(1)').textContent.toLowerCase();
                 const distNombre = fila.querySelector('td:nth-child(2)').textContent.toLowerCase();
                 const filaEstado = fila.dataset.estado;
-                const filaDist = fila.dataset.distribuidor;
+                const filaDist = fila.dataset.gestor;
                 const filaFecha = fila.dataset.fecha;
 
                 let mostrar = true;
@@ -649,7 +983,7 @@
                 if (estado && filaEstado !== estado) {
                     mostrar = false;
                 }
-                if (distribuidor && filaDist !== distribuidor) {
+                if (gestor && filaDist !== gestor) {
                     mostrar = false;
                 }
                 if (fechaDesde && filaFecha < fechaDesde) {
@@ -676,7 +1010,7 @@
 
         buscarAsignacion.addEventListener('input', filtrar);
         filtroEstado.addEventListener('change', filtrar);
-        filtroDistribuidor.addEventListener('change', filtrar);
+        filtroGestor.addEventListener('change', filtrar);
         filtroFechaDesde.addEventListener('change', filtrar);
         filtroFechaHasta.addEventListener('change', filtrar);
 
@@ -700,6 +1034,181 @@
             }
             bootstrap.Modal.getInstance(modalEliminar).hide();
         });
+
+        // ===== Modal: Generar Guía de Despacho (3 pasos — simulación API) =====
+        const modalGenerarGD = document.getElementById('modalGenerarGD');
+        const genGDStep1 = document.getElementById('genGDStep1');
+        const genGDStep2 = document.getElementById('genGDStep2');
+        const genGDStep3 = document.getElementById('genGDStep3');
+        const genGDFooter = document.getElementById('genGDFooter');
+        const genGDCloseBtn = document.getElementById('genGDCloseBtn');
+        const genGDCancelBtn = document.getElementById('genGDCancelBtn');
+        const btnIniciarGeneracionGD = document.getElementById('btnIniciarGeneracionGD');
+        let currentGenGDId = '';
+        let currentGenGDRow = null;
+
+        function resetGenGDModal() {
+            genGDStep1.style.display = '';
+            genGDStep2.style.display = 'none';
+            genGDStep3.style.display = 'none';
+            genGDFooter.style.display = '';
+            genGDCloseBtn.style.display = '';
+            btnIniciarGeneracionGD.style.display = '';
+        }
+
+        modalGenerarGD.addEventListener('show.bs.modal', function(event) {
+            const trigger = event.relatedTarget;
+            currentGenGDId = trigger.dataset.id;
+            const gestor = trigger.dataset.gestor;
+            const equipos = trigger.dataset.equipos;
+
+            document.getElementById('genGDId').textContent = currentGenGDId;
+            document.getElementById('genGDGestor').textContent = gestor;
+            document.getElementById('genGDEquipos').textContent = equipos;
+
+            currentGenGDRow = Array.from(tbody.querySelectorAll('tr')).find(tr =>
+                tr.querySelector('.fw-semibold')?.textContent === currentGenGDId
+            );
+
+            resetGenGDModal();
+        });
+
+        modalGenerarGD.addEventListener('hidden.bs.modal', function() {
+            resetGenGDModal();
+        });
+
+        btnIniciarGeneracionGD.addEventListener('click', function() {
+            genGDStep1.style.display = 'none';
+            genGDStep2.style.display = '';
+            genGDFooter.style.display = 'none';
+            genGDCloseBtn.style.display = 'none';
+
+            const progressText = document.getElementById('genGDProgressText');
+            setTimeout(() => {
+                progressText.textContent = 'Obteniendo respuesta del sistema de facturación…';
+            }, 1200);
+
+            setTimeout(() => {
+                const gdNum = 'GD-REC-' + String(Math.floor(Math.random() * 9000) + 1000);
+
+                genGDStep2.style.display = 'none';
+                genGDStep3.style.display = '';
+                document.getElementById('genGDNumber').textContent = gdNum;
+
+                genGDFooter.style.display = '';
+                btnIniciarGeneracionGD.style.display = 'none';
+                genGDCancelBtn.textContent = 'Cerrar';
+                genGDCloseBtn.style.display = '';
+
+                if (currentGenGDRow) {
+                    const tds = currentGenGDRow.querySelectorAll('td');
+                    tds[5].innerHTML = '<span class="gd-badge-auto"><i class="bi bi-file-earmark-check"></i> Generada</span><br><a href="#" class="gd-link">' + gdNum + '</a>';
+
+                    const actionsCell = tds[6];
+                    const generateBtn = actionsCell.querySelector('.action-btn-generate');
+                    const uploadBtn = actionsCell.querySelector('.action-btn-upload');
+                    if (generateBtn) generateBtn.remove();
+                    if (uploadBtn) uploadBtn.remove();
+                }
+            }, 2800);
+        });
+
+        // ===== Modal: Subir PDF de Guía de Despacho =====
+        const modalSubirPDF = document.getElementById('modalSubirPDF');
+        const uploadAreaPDF = document.getElementById('uploadAreaPDF');
+        const inputFilePDF = document.getElementById('inputFilePDF');
+        const fileNamePDF = document.getElementById('fileNamePDF');
+        const formSubirPDF = document.getElementById('formSubirPDF');
+        const btnConfirmarSubirPDF = document.getElementById('btnConfirmarSubirPDF');
+        let currentPDFRow = null;
+
+        modalSubirPDF.addEventListener('show.bs.modal', function(event) {
+            const trigger = event.relatedTarget;
+            const id = trigger.dataset.id;
+            const gestor = trigger.dataset.gestor;
+
+            document.getElementById('pdfUploadId').textContent = id;
+            document.getElementById('pdfUploadGestor').textContent = gestor;
+
+            currentPDFRow = Array.from(tbody.querySelectorAll('tr')).find(tr =>
+                tr.querySelector('.fw-semibold')?.textContent === id
+            );
+
+            formSubirPDF.classList.remove('was-validated');
+            uploadAreaPDF.classList.remove('has-file');
+            fileNamePDF.style.display = 'none';
+            inputFilePDF.value = '';
+            document.getElementById('numDocumentoPDF').value = '';
+            uploadAreaPDF.querySelector('.upload-text').textContent = 'Haz clic o arrastra el archivo aquí';
+            uploadAreaPDF.querySelector('.upload-hint').textContent = 'Formato PDF · Máx. 10 MB';
+        });
+
+        uploadAreaPDF.addEventListener('click', function() {
+            inputFilePDF.click();
+        });
+
+        inputFilePDF.addEventListener('change', function() {
+            if (this.files && this.files[0]) {
+                const file = this.files[0];
+                if (file.type === 'application/pdf' || file.name.toLowerCase().endsWith('.pdf')) {
+                    fileNamePDF.textContent = file.name;
+                    fileNamePDF.style.display = 'block';
+                    uploadAreaPDF.classList.add('has-file');
+                    uploadAreaPDF.querySelector('.upload-text').textContent = 'Archivo cargado — clic para cambiar';
+                    uploadAreaPDF.querySelector('.upload-hint').textContent = file.name;
+                } else {
+                    alert('Solo se permiten archivos PDF.');
+                    this.value = '';
+                }
+            }
+        });
+
+        uploadAreaPDF.addEventListener('dragover', function(e) {
+            e.preventDefault();
+            this.style.borderColor = 'var(--azul-primario)';
+            this.style.background = 'rgba(0, 102, 204, 0.06)';
+        });
+
+        uploadAreaPDF.addEventListener('dragleave', function(e) {
+            e.preventDefault();
+            this.style.borderColor = '';
+            this.style.background = '';
+        });
+
+        uploadAreaPDF.addEventListener('drop', function(e) {
+            e.preventDefault();
+            this.style.borderColor = '';
+            this.style.background = '';
+            if (e.dataTransfer.files && e.dataTransfer.files[0]) {
+                inputFilePDF.files = e.dataTransfer.files;
+                inputFilePDF.dispatchEvent(new Event('change'));
+            }
+        });
+
+        btnConfirmarSubirPDF.addEventListener('click', function() {
+            if (!inputFilePDF.files || !inputFilePDF.files[0]) {
+                formSubirPDF.classList.add('was-validated');
+                uploadAreaPDF.style.borderColor = 'var(--rojo-error)';
+                return;
+            }
+
+            const numDoc = document.getElementById('numDocumentoPDF').value.trim();
+            const gdNum = numDoc || ('GD-REC-' + String(Math.floor(Math.random() * 9000) + 1000));
+
+            if (currentPDFRow) {
+                const tds = currentPDFRow.querySelectorAll('td');
+                tds[5].innerHTML = '<span class="gd-badge-manual"><i class="bi bi-file-earmark-pdf"></i> PDF adjunto</span><br><a href="#" class="gd-link">' + gdNum + '</a>';
+
+                const actionsCell = tds[6];
+                const generateBtn = actionsCell.querySelector('.action-btn-generate');
+                const uploadBtn = actionsCell.querySelector('.action-btn-upload');
+                if (generateBtn) generateBtn.remove();
+                if (uploadBtn) uploadBtn.remove();
+            }
+
+            bootstrap.Modal.getInstance(modalSubirPDF).hide();
+        });
     </script>
+    <script src="../js/sidebar-scroll.js"></script>
 </body>
 </html>

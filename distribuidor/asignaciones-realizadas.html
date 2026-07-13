@@ -266,12 +266,6 @@
                     <i class="bi bi-bar-chart"></i> Reportes
                 </a>
                 <div class="nav-section">Maestros</div>
-                <a href="clientes.html" class="nav-link">
-                    <i class="bi bi-shop"></i> Clientes
-                </a>
-                <a href="vendedores.html" class="nav-link">
-                    <i class="bi bi-person-badge"></i> Vendedores
-                </a>
                 <a href="ubicaciones-bodegas.html" class="nav-link">
                     <i class="bi bi-geo"></i> Ubicaciones / Bodegas
                 </a>
@@ -309,7 +303,7 @@
                         <div class="user-avatar">ICL</div>
                         <div>
                             <div class="user-name">IceFree Chile</div>
-                            <div class="user-role">Distribuidor</div>
+                            <div class="user-role">Gestor</div>
                         </div>
                     </div>
                 </div>
@@ -548,7 +542,7 @@
                                             </div>
                                         </td>
                                     </tr>
-                                    <!-- Activo 7 (GD manual pendiente de gestionar por el distribuidor, pero el equipo ya está operativo con el cliente) -->
+                                    <!-- Activo 7 (GD manual pendiente de gestionar por el gestor, pero el equipo ya está operativo con el cliente) -->
                                     <tr data-estado="activo" data-comuna="florida" data-fecha="2026-06-22">
                                         <td class="fw-semibold">ASG-C-0151</td>
                                         <td>Almacén San Jorge</td>
@@ -811,7 +805,7 @@
                     <div id="gdGenPaso1">
                         <div class="rn-note mb-3">
                             <strong><i class="bi bi-info-circle me-1"></i>RN-16 — Generación automática</strong><br>
-                            Esta opción genera la Guía de Despacho automáticamente a través del sistema Isstec. Aplica para distribuidores que operan con el ERP Isstec.
+                            Esta opción genera la Guía de Despacho automáticamente a través del sistema Isstec. Aplica para gestores que operan con el ERP Isstec.
                         </div>
                         <div class="summary-row mb-3">
                             <div class="summary-item">
@@ -880,7 +874,7 @@
                     <form id="formSubirPDF" novalidate>
                         <div class="rn-note mb-3">
                             <strong><i class="bi bi-info-circle me-1"></i>Aviso</strong><br>
-                            Para distribuidores que no operan con el sistema Isstec (SAP, Odoo, Otro) o para Savory (Mandante), adjunte el PDF de la Guía de Despacho generada externamente como respaldo del movimiento.
+                            Para gestores que no operan con el sistema Isstec (SAP, Odoo, Otro) o para Carozzi (Mandante), adjunte el PDF de la Guía de Despacho generada externamente como respaldo del movimiento.
                         </div>
                         <div class="summary-row mb-3">
                             <div class="summary-item">
@@ -1023,8 +1017,8 @@
             // Equipos simulados
             const count = parseInt(tds[3].textContent) || 1;
             const equiposData = [
-                { serie: 'FR-1023', marca: 'Savory', modelo: 'SF-200', familia: 'Congelados' },
-                { serie: 'FR-1024', marca: 'Savory', modelo: 'SF-200', familia: 'Congelados' },
+                { serie: 'FR-1023', marca: 'Carozzi', modelo: 'SF-200', familia: 'Congelados' },
+                { serie: 'FR-1024', marca: 'Carozzi', modelo: 'SF-200', familia: 'Congelados' },
                 { serie: 'FS-2201', marca: 'Foster', modelo: 'F-350', familia: 'Vitrina' },
                 { serie: 'TR-3301', marca: 'True', modelo: 'T-500', familia: 'Vertical' },
             ];
@@ -1196,5 +1190,6 @@
             modal.hide();
         });
     </script>
+    <script src="../js/sidebar-scroll.js"></script>
 </body>
 </html>

@@ -84,6 +84,7 @@ movimiento (
   tipo_movimiento_id FK,
   origen_tipo ENUM(MANDANTE, GESTOR, CLIENTE, SSTT), origen_id NULLABLE,
   destino_tipo ENUM(MANDANTE, GESTOR, CLIENTE, SSTT), destino_id NULLABLE,
+  gestor_direccion_id FK NULLABLE,                   -- sucursal de destino específica del gestor (RN-23), aplica en ASIGNACION_GESTOR
   fecha_movimiento,
   gestor_solicitante_id FK NULLABLE,            -- quien origina la solicitud (si aplica: BAJA, CAMBIO, ENVIO_SSTT)
   estado_aprobacion ENUM(NO_APLICA, PENDIENTE, APROBADA, RECHAZADA), -- NO_APLICA para movimientos automáticos (asignación, recepción)

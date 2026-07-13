@@ -98,7 +98,7 @@ La iniciativa surge a partir de las necesidades detectadas en la operación de m
 ## 6. Entidades y conceptos clave
 
 * **Mandante:** Empresa propietaria y proveedora de los equipos fríos (ej. Carozzi).
-* **Gestor:** Empresa encargada de la logística de distribución y colocación de los activos en los puntos de venta. Antes se denominaba Distribuidor en algunos documentos/rutas heredadas.
+* **Gestor:** Empresa encargada de la logística de distribución y colocación de los activos en los puntos de venta. Antes se denominaba Gestor en algunos documentos/rutas heredadas.
 * **Cliente Final:** Punto de venta comercial (minimarket, almacén) donde se instala físicamente la máquina para la venta al público.
 * **Activo (Equipo Refrigerado):** Unidad física (congeladora, conservadora) identificada de forma única por su número de serie.
 * **SLA (Service Level Agreement):** Acuerdo de nivel de servicio que define los tiempos máximos permitidos para la reparación de un equipo por parte de los servicios técnicos autorizados.

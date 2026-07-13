@@ -48,10 +48,12 @@ flowchart LR
 
 ```mermaid
 flowchart TD
-    A["Carozzi genera planilla con máquinas para un Gestor específico"] --> B["Mandante selecciona Gestor y lote de equipos"]
-    B --> B2["Sistema solicita Guía de Despacho a API de facturación del Mandante"]
-    B2 --> B3["API devuelve N° de guía y PDF; sistema adjunta el documento al despacho"]
-    B3 --> C["Se genera notificación al Gestor"]
+    A["Carozzi genera planilla con máquinas para un Gestor específico"] --> B["Mandante selecciona Gestor, sucursal de destino y lote de equipos"]
+    B --> B2["Mandante confirma y envía la asignación al Gestor"]
+    B2 --> B3["Modal ofrece: Generar GD vía API / Subir PDF / Hacer más tarde"]
+    B3 --> B4["Sistema registra equipos en estado 'Asignado al Gestor' y notifica al Gestor"]
+    B4 --> B5["Si se pospuso, GD se gestiona desde Asignaciones o Guías de Despacho (RN-16)"]
+    B5 --> C["Se genera notificación al Gestor"]
     C --> D["Gestor recibe notificación y debe recibir máquinas"]
     D --> D2["Gestor registra llegada del lote (botón Registrar llegada en recepciones.html)"]
     D2 --> E["Gestor realiza inspección visual/checklist de las máquinas"]
@@ -114,7 +116,7 @@ RESPONDIDA 03/07/2026: no aplica en esta fase, no se gestionan máquinas propias
 
 <summary>Preguntas del diagrama fuente — Estado final: Nuevo</summary>
 
-el flujo ahora incluye la emisión de **Guía de Despacho** vía API de facturación del Mandante al momento de la asignación Mandante → Gestor (RN-16).
+el flujo ahora incluye la emisión de **Guía de Despacho** vía API de facturación del Mandante, que se puede gestionar **durante o después** de confirmada la asignación (RN-16). Al confirmar el envío, el modal ofrece 3 opciones: Generar vía API, Subir PDF, o Hacer más tarde. Si se pospone, los botones quedan disponibles en Asignaciones y Guías de Despacho.
 
 </details>
 
@@ -208,21 +210,30 @@ sequenceDiagram
     participant F as API Facturación Mandante
     actor D as Gestor
 
-    M->>S: Selecciona Gestor + lote de equipos
-    S->>F: Solicita emisión de GD Mandante→Gestor
-    F-->>S: Devuelve N° de GD + PDF
-    S->>S: Adjunta PDF de GD recibido al despacho
+    M->>S: Selecciona Gestor + sucursal de destino + lote de equipos
     S->>S: Registra equipos en estado "Asignado al Gestor"
     S->>D: Notificación - Debe recibir/cargar equipos
+    Note over M,S: Al confirmar el envío, modal ofrece 3 opciones:
+    alt Generar vía API
+        S->>F: Solicita emisión de GD Mandante→Gestor
+        F-->>S: Devuelve N° de GD + PDF
+        S->>S: Adjunta PDF de GD recibido al despacho
+    else Subir PDF
+        M->>S: Adjunta PDF de GD generado externamente
+    else Hacer más tarde
+        M->>S: Confirma sin GD — botones quedan en Asignaciones/GD
+    end
     D->>S: Inicia inspección visual
+    Note over D,S: Por equipo individual: modal con planilla aplicable según tipo de máquina (RN-24/RN-25)
     alt Equipos OK
-        D->>S: Acepta equipos
+        D->>S: Acepta equipos (resultado de inspección)
         S->>S: Mantiene estado "Asignado al Gestor"
         D->>S: Asigna equipos a clientes finales
     else Equipos con problema
-        D->>S: Reporta equipos con problema
+        D->>S: Reporta equipos con problema (resultado de inspección)
         S->>S: Actualiza estado a "Pendiente de Revisión"
         S->>M: Notificación de Recepción / Reparo
+        M->>S: Consulta resultados de inspección en detalle de asignación
         M->>S: Evalúa y decide (reparo / baja)
         alt Requiere reparo
             S->>S: Estado "En SSTT"
@@ -248,6 +259,7 @@ erDiagram
     EQUIPO }o--|| ESTADO : tiene
     EQUIPO ||--o{ MOVIMIENTO : genera
     MOVIMIENTO }o--|| GESTOR : solicitado_por
+    MOVIMIENTO }o--o| GESTOR_DIRECCION : destino_sucursal
     MOVIMIENTO }o--|| MANDANTE : aprobado_por
     EQUIPO }o--o{ SERVICIO_TECNICO : reparado_por
     GESTOR ||--o{ INVENTARIO : realiza
@@ -382,7 +394,7 @@ erDiagram
 >
 > Actualizado 04/07/2026 (proceso de Inventario): se agregó "Consulta de Inventario" (solo lectura, MAN-7) al panel del Mandante — pantalla implementada en el prototipo. La toma física en terreno (GPS/fotos) queda fuera de este diagrama por depender de la app móvil futura (GEN-5). Ver `maestros.md` §3.3.
 >
-> Actualizado 10/07/2026: alineado con la minuta de revisión de maqueta. "Distribuidor" se usa como nombre técnico heredado en rutas, pero la terminología funcional visible es **Gestor**. Se eliminan del sidebar Mandante los submenús Grupo de Máquinas, Familia de Máquinas, Marcas y Modelos; esas clasificaciones provienen de la carga masiva de equipos. Clientes y Vendedores del Gestor quedan como vistas de solo lectura sincronizadas por ERP.
+> Actualizado 10/07/2026: alineado con la minuta de revisión de maqueta. "Gestor" se usa como nombre técnico heredado en rutas, pero la terminología funcional visible es **Gestor**. Se eliminan del sidebar Mandante los submenús Grupo de Máquinas, Familia de Máquinas, Marcas y Modelos; esas clasificaciones provienen de la carga masiva de equipos. Clientes y Vendedores del Gestor quedan como vistas de solo lectura sincronizadas por ERP.
 >
 > Actualizado 07/07/2026: se eliminaron los nodos D7 ("Sincronización de Clientes vía API") y D8 ("Notificación de Ventas vía API") — su funcionalidad se documenta como definiciones técnicas de API en `reglas-de-negocio.md` §4, no como pantallas del prototipo. "Guías de Despacho" (D11) y "Reportes" (D6) ya estaban en el sidebar y ahora tienen prompts individuales en `stitch_prompts.md` (3.6 y 3.7 respectivamente). Se agregó M10 ("Guías de Despacho") al panel Mandante (Operación) y D0c ("Vendedores") al panel Gestor (Maestros), alineado al prototipo implementado.
 
@@ -430,7 +442,7 @@ flowchart TD
     DashM --> MaestrosM
     DashM --> ConfigM
 
-    M3 --> M3b[Emite GD vía API facturación Mandante — RN-16]
+    M3 --> M3b[GD: 3 opciones al confirmar — Generar API / Subir PDF / Hacer más tarde]
 
     subgraph PrincipalD["Principal — Gestor"]
         D0d[Dashboard]
@@ -476,5 +488,5 @@ flowchart TD
     D5a --> D5c
     D5c --> D5b
 
-    D1 --> D2[Inspección: Aceptar / Rechazar]
+    D1 --> D2[Inspección: modal con planilla por equipo — Aceptar / Con Problema / Rechazar (RN-25)]
 ```

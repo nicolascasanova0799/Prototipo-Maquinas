@@ -217,12 +217,6 @@
                     <i class="bi bi-bar-chart"></i> Reportes
                 </a>
                 <div class="nav-section">Maestros</div>
-                <a href="clientes.html" class="nav-link">
-                    <i class="bi bi-shop"></i> Clientes
-                </a>
-                <a href="vendedores.html" class="nav-link">
-                    <i class="bi bi-person-badge"></i> Vendedores
-                </a>
                 <a href="ubicaciones-bodegas.html" class="nav-link">
                     <i class="bi bi-geo"></i> Ubicaciones / Bodegas
                 </a>
@@ -263,7 +257,7 @@
                         <div class="user-avatar">ICL</div>
                         <div>
                             <div class="user-name">IceFree Chile</div>
-                            <div class="user-role">Distribuidor</div>
+                            <div class="user-role">Gestor</div>
                         </div>
                     </div>
                 </div>
@@ -353,7 +347,7 @@
                                 <label class="form-label">Origen (Mandante)</label>
                                 <select class="form-select" id="filtroOrigen">
                                     <option value="">Todos</option>
-                                    <option value="savory">Savory</option>
+                                    <option value="carozzi">Carozzi</option>
                                 </select>
                             </div>
                             <div>
@@ -392,10 +386,10 @@
                                 </thead>
                                 <tbody id="tbodyRecepciones">
                                     <!-- En Tránsito 1 -->
-                                    <tr data-estado="transito" data-origen="savory" data-fecha="2026-07-08">
+                                    <tr data-estado="transito" data-origen="carozzi" data-fecha="2026-07-08">
                                         <td class="fw-semibold">REC-0013</td>
                                         <td>ASG-0042</td>
-                                        <td>Savory</td>
+                                        <td>Carozzi</td>
                                         <td class="text-center">50</td>
                                         <td>08/07/2026</td>
                                         <td><span class="badge-status badge-transito">En Tránsito</span></td>
@@ -414,10 +408,10 @@
                                         </td>
                                     </tr>
                                     <!-- En Tránsito 2 -->
-                                    <tr data-estado="transito" data-origen="savory" data-fecha="2026-07-06">
+                                    <tr data-estado="transito" data-origen="carozzi" data-fecha="2026-07-06">
                                         <td class="fw-semibold">REC-0012</td>
                                         <td>ASG-0039</td>
-                                        <td>Savory</td>
+                                        <td>Carozzi</td>
                                         <td class="text-center">8</td>
                                         <td>06/07/2026</td>
                                         <td><span class="badge-status badge-transito">En Tránsito</span></td>
@@ -437,10 +431,10 @@
                                         </td>
                                     </tr>
                                     <!-- Pendiente de Inspección -->
-                                    <tr data-estado="pendiente" data-origen="savory" data-fecha="2026-07-04">
+                                    <tr data-estado="pendiente" data-origen="carozzi" data-fecha="2026-07-04">
                                         <td class="fw-semibold">REC-0011</td>
                                         <td>ASG-0038</td>
-                                        <td>Savory</td>
+                                        <td>Carozzi</td>
                                         <td class="text-center">15</td>
                                         <td>04/07/2026</td>
                                         <td><span class="badge-status badge-pendiente">Pendiente de Inspección</span></td>
@@ -460,10 +454,10 @@
                                         </td>
                                     </tr>
                                     <!-- En Inspección -->
-                                    <tr data-estado="inspeccion" data-origen="savory" data-fecha="2026-07-03">
+                                    <tr data-estado="inspeccion" data-origen="carozzi" data-fecha="2026-07-03">
                                         <td class="fw-semibold">REC-0010</td>
                                         <td>ASG-0037</td>
-                                        <td>Savory</td>
+                                        <td>Carozzi</td>
                                         <td class="text-center">6</td>
                                         <td>03/07/2026</td>
                                         <td>
@@ -489,10 +483,10 @@
                                         </td>
                                     </tr>
                                     <!-- Recibido 1 -->
-                                    <tr data-estado="recibido" data-origen="savory" data-fecha="2026-06-20">
+                                    <tr data-estado="recibido" data-origen="carozzi" data-fecha="2026-06-20">
                                         <td class="fw-semibold">REC-0009</td>
                                         <td>ASG-0036</td>
-                                        <td>Savory</td>
+                                        <td>Carozzi</td>
                                         <td class="text-center">20</td>
                                         <td>20/06/2026</td>
                                         <td><span class="badge-status badge-activo">Recibido</span></td>
@@ -509,10 +503,10 @@
                                         </td>
                                     </tr>
                                     <!-- Recibido 2 -->
-                                    <tr data-estado="recibido" data-origen="savory" data-fecha="2026-06-05">
+                                    <tr data-estado="recibido" data-origen="carozzi" data-fecha="2026-06-05">
                                         <td class="fw-semibold">REC-0008</td>
                                         <td>ASG-0032</td>
-                                        <td>Savory</td>
+                                        <td>Carozzi</td>
                                         <td class="text-center">18</td>
                                         <td>05/06/2026</td>
                                         <td><span class="badge-status badge-activo">Recibido</span></td>
@@ -529,10 +523,10 @@
                                         </td>
                                     </tr>
                                     <!-- Recibido con problemas (parcial) -->
-                                    <tr data-estado="recibido" data-origen="savory" data-fecha="2026-05-25">
+                                    <tr data-estado="recibido" data-origen="carozzi" data-fecha="2026-05-25">
                                         <td class="fw-semibold">REC-0007</td>
                                         <td>ASG-0031</td>
-                                        <td>Savory</td>
+                                        <td>Carozzi</td>
                                         <td class="text-center">7</td>
                                         <td>25/05/2026</td>
                                         <td>
@@ -554,10 +548,10 @@
                                         </td>
                                     </tr>
                                     <!-- Recibido 3 -->
-                                    <tr data-estado="recibido" data-origen="savory" data-fecha="2026-05-10">
+                                    <tr data-estado="recibido" data-origen="carozzi" data-fecha="2026-05-10">
                                         <td class="fw-semibold">REC-0006</td>
                                         <td>ASG-0028</td>
-                                        <td>Savory</td>
+                                        <td>Carozzi</td>
                                         <td class="text-center">12</td>
                                         <td>10/05/2026</td>
                                         <td><span class="badge-status badge-activo">Recibido</span></td>
@@ -574,10 +568,10 @@
                                         </td>
                                     </tr>
                                     <!-- Rechazado (lote completo — RN-9) -->
-                                    <tr data-estado="rechazado" data-origen="savory" data-fecha="2026-04-28">
+                                    <tr data-estado="rechazado" data-origen="carozzi" data-fecha="2026-04-28">
                                         <td class="fw-semibold">REC-0005</td>
                                         <td>ASG-0025</td>
-                                        <td>Savory</td>
+                                        <td>Carozzi</td>
                                         <td class="text-center">5</td>
                                         <td>28/04/2026</td>
                                         <td><span class="badge-status badge-rechazada">Rechazado</span></td>
@@ -594,10 +588,10 @@
                                         </td>
                                     </tr>
                                     <!-- Recibido 4 -->
-                                    <tr data-estado="recibido" data-origen="savory" data-fecha="2026-04-15">
+                                    <tr data-estado="recibido" data-origen="carozzi" data-fecha="2026-04-15">
                                         <td class="fw-semibold">REC-0004</td>
                                         <td>ASG-0022</td>
-                                        <td>Savory</td>
+                                        <td>Carozzi</td>
                                         <td class="text-center">10</td>
                                         <td>15/04/2026</td>
                                         <td><span class="badge-status badge-activo">Recibido</span></td>
@@ -614,10 +608,10 @@
                                         </td>
                                     </tr>
                                     <!-- Recibido 5 -->
-                                    <tr data-estado="recibido" data-origen="savory" data-fecha="2026-03-28">
+                                    <tr data-estado="recibido" data-origen="carozzi" data-fecha="2026-03-28">
                                         <td class="fw-semibold">REC-0003</td>
                                         <td>ASG-0019</td>
-                                        <td>Savory</td>
+                                        <td>Carozzi</td>
                                         <td class="text-center">25</td>
                                         <td>28/03/2026</td>
                                         <td><span class="badge-status badge-activo">Recibido</span></td>
@@ -634,10 +628,10 @@
                                         </td>
                                     </tr>
                                     <!-- Recibido 6 -->
-                                    <tr data-estado="recibido" data-origen="savory" data-fecha="2026-03-10">
+                                    <tr data-estado="recibido" data-origen="carozzi" data-fecha="2026-03-10">
                                         <td class="fw-semibold">REC-0002</td>
                                         <td>ASG-0015</td>
-                                        <td>Savory</td>
+                                        <td>Carozzi</td>
                                         <td class="text-center">30</td>
                                         <td>10/03/2026</td>
                                         <td><span class="badge-status badge-activo">Recibido</span></td>
@@ -1030,7 +1024,7 @@
             }
 
             // Equipos simulados del lote
-            const brands = ['Savory', 'Tecfrigo', 'Foster', 'Indel B', 'Vitrifrigo'];
+            const brands = ['Carozzi', 'Tecfrigo', 'Foster', 'Indel B', 'Vitrifrigo'];
             const models = ['VRX-200', 'Chest 400L', 'Countertop 150', 'Upright 700', 'Island 1200'];
             const motivosProblema = ['No enfría', 'Falla de termostato', 'Goteo / Humedad excesiva', 'Abolladura / Daño estético'];
             const motivosRechazo = ['No enciende', 'No enfría', 'Fuga de gas refrigerante'];
@@ -1067,5 +1061,6 @@
             document.getElementById('detalleEquipos').innerHTML = equiposHTML;
         });
     </script>
+    <script src="../js/sidebar-scroll.js"></script>
 </body>
 </html>

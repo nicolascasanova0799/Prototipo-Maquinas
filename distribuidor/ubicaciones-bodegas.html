@@ -30,8 +30,6 @@
                 <div class="nav-section">Análisis</div>
                 <a href="reportes.html" class="nav-link"><i class="bi bi-bar-chart"></i> Reportes</a>
                 <div class="nav-section">Maestros</div>
-                <a href="clientes.html" class="nav-link"><i class="bi bi-shop"></i> Clientes</a>
-                <a href="vendedores.html" class="nav-link"><i class="bi bi-person-badge"></i> Vendedores</a>
                 <a href="ubicaciones-bodegas.html" class="nav-link active"><i class="bi bi-geo"></i> Ubicaciones / Bodegas</a>
                 <div class="nav-section">Configuración</div>
                 <a href="usuarios.html" class="nav-link"><i class="bi bi-people-fill"></i> Usuarios</a>
@@ -53,7 +51,7 @@
                     <div class="notification-icon"><i class="bi bi-bell"></i><span class="notification-badge">5</span></div>
                     <div class="user-info">
                         <div class="user-avatar">ICL</div>
-                        <div><div class="user-name">IceFree Chile</div><div class="user-role">Distribuidor</div></div>
+                        <div><div class="user-name">IceFree Chile</div><div class="user-role">Gestor</div></div>
                     </div>
                 </div>
             </nav>
@@ -91,6 +89,7 @@
                                         <thead>
                                             <tr>
                                                 <th>Nombre</th>
+                                                <th>RUT</th>
                                                 <th>Dirección</th>
                                                 <th>Tipo</th>
                                                 <th>Responsable</th>
@@ -100,7 +99,7 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr data-nombre="Bodega IceFree Santiago" data-direccion="Av. del Valle 1234, Santiago" data-tipo="Bodega" data-tipo-value="bodega" data-responsable="Sandra López" data-equipos="23" data-estado="Activo" data-estado-value="activo">
+                                            <tr data-nombre="Bodega IceFree Santiago" data-rut="77.654.321-8" data-direccion="Av. del Valle 1234, Santiago" data-tipo="Bodega" data-tipo-value="bodega" data-responsable="Sandra López" data-equipos="23" data-estado="Activo" data-estado-value="activo">
                                                 <td>
                                                     <div class="d-flex align-items-center gap-3">
                                                         <div class="bg-primary-light rounded-circle d-flex align-items-center justify-content-center" style="width: 40px; height: 40px;">
@@ -112,6 +111,7 @@
                                                         </div>
                                                     </div>
                                                 </td>
+                                                <td>77.654.321-8</td>
                                                 <td>Av. del Valle 1234, Santiago</td>
                                                 <td><span class="badge bg-primary">Bodega</span></td>
                                                 <td>Sandra López</td>
@@ -119,7 +119,7 @@
                                                 <td><span class="badge-status badge-activo">Activo</span></td>
                                                 <td class="text-end"><button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modalEditarUbicacion"><i class="bi bi-pencil me-1"></i>Editar</button></td>
                                             </tr>
-                                            <tr data-nombre="Bodega IceFree Norte" data-direccion="Calle Los Andes 567, Antofagasta" data-tipo="Bodega" data-tipo-value="bodega" data-responsable="Pedro Herrera" data-equipos="8" data-estado="Activo" data-estado-value="activo">
+                                            <tr data-nombre="Bodega IceFree Norte" data-rut="77.654.321-8" data-direccion="Calle Los Andes 567, Antofagasta" data-tipo="Bodega" data-tipo-value="bodega" data-responsable="Pedro Herrera" data-equipos="8" data-estado="Activo" data-estado-value="activo">
                                                 <td>
                                                     <div class="d-flex align-items-center gap-3">
                                                         <div class="bg-primary-light rounded-circle d-flex align-items-center justify-content-center" style="width: 40px; height: 40px;">
@@ -131,6 +131,7 @@
                                                         </div>
                                                     </div>
                                                 </td>
+                                                <td>77.654.321-8</td>
                                                 <td>Calle Los Andes 567, Antofagasta</td>
                                                 <td><span class="badge bg-primary">Bodega</span></td>
                                                 <td>Pedro Herrera</td>
@@ -138,7 +139,7 @@
                                                 <td><span class="badge-status badge-activo">Activo</span></td>
                                                 <td class="text-end"><button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modalEditarUbicacion"><i class="bi bi-pencil me-1"></i>Editar</button></td>
                                             </tr>
-                                            <tr data-nombre="Bodega IceFree Sur" data-direccion="Camino El Manzano 890, Concepción" data-tipo="Bodega" data-tipo-value="bodega" data-responsable="Claudia Torres" data-equipos="15" data-estado="Activo" data-estado-value="activo">
+                                            <tr data-nombre="Bodega IceFree Sur" data-rut="77.654.321-8" data-direccion="Camino El Manzano 890, Concepción" data-tipo="Bodega" data-tipo-value="bodega" data-responsable="Claudia Torres" data-equipos="15" data-estado="Activo" data-estado-value="activo">
                                                 <td>
                                                     <div class="d-flex align-items-center gap-3">
                                                         <div class="bg-primary-light rounded-circle d-flex align-items-center justify-content-center" style="width: 40px; height: 40px;">
@@ -150,6 +151,7 @@
                                                         </div>
                                                     </div>
                                                 </td>
+                                                <td>77.654.321-8</td>
                                                 <td>Camino El Manzano 890, Concepción</td>
                                                 <td><span class="badge bg-primary">Bodega</span></td>
                                                 <td>Claudia Torres</td>
@@ -157,7 +159,7 @@
                                                 <td><span class="badge-status badge-activo">Activo</span></td>
                                                 <td class="text-end"><button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modalEditarUbicacion"><i class="bi bi-pencil me-1"></i>Editar</button></td>
                                             </tr>
-                                            <tr data-nombre="Punto de Retiro Centro" data-direccion="Calle Bandera 200, Santiago Centro" data-tipo="Punto de Retiro" data-tipo-value="punto-retiro" data-responsable="Luis Ramírez" data-equipos="0" data-estado="Activo" data-estado-value="activo">
+                                            <tr data-nombre="Punto de Retiro Centro" data-rut="77.654.321-8" data-direccion="Calle Bandera 200, Santiago Centro" data-tipo="Punto de Retiro" data-tipo-value="punto-retiro" data-responsable="Luis Ramírez" data-equipos="0" data-estado="Activo" data-estado-value="activo">
                                                 <td>
                                                     <div class="d-flex align-items-center gap-3">
                                                         <div class="bg-primary-light rounded-circle d-flex align-items-center justify-content-center" style="width: 40px; height: 40px;">
@@ -169,6 +171,7 @@
                                                         </div>
                                                     </div>
                                                 </td>
+                                                <td>77.654.321-8</td>
                                                 <td>Calle Bandera 200, Santiago Centro</td>
                                                 <td><span class="badge bg-info text-dark">Punto de Retiro</span></td>
                                                 <td>Luis Ramírez</td>
@@ -176,7 +179,7 @@
                                                 <td><span class="badge-status badge-activo">Activo</span></td>
                                                 <td class="text-end"><button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modalEditarUbicacion"><i class="bi bi-pencil me-1"></i>Editar</button></td>
                                             </tr>
-                                            <tr data-nombre="Punto de Retiro Norte" data-direccion="Av. Angamos 0500, Antofagasta" data-tipo="Punto de Retiro" data-tipo-value="punto-retiro" data-responsable="Pedro Herrera" data-equipos="0" data-estado="Activo" data-estado-value="activo">
+                                            <tr data-nombre="Punto de Retiro Norte" data-rut="77.654.321-8" data-direccion="Av. Angamos 0500, Antofagasta" data-tipo="Punto de Retiro" data-tipo-value="punto-retiro" data-responsable="Pedro Herrera" data-equipos="0" data-estado="Activo" data-estado-value="activo">
                                                 <td>
                                                     <div class="d-flex align-items-center gap-3">
                                                         <div class="bg-primary-light rounded-circle d-flex align-items-center justify-content-center" style="width: 40px; height: 40px;">
@@ -188,6 +191,7 @@
                                                         </div>
                                                     </div>
                                                 </td>
+                                                <td>77.654.321-8</td>
                                                 <td>Av. Angamos 0500, Antofagasta</td>
                                                 <td><span class="badge bg-info text-dark">Punto de Retiro</span></td>
                                                 <td>Pedro Herrera</td>
@@ -195,7 +199,7 @@
                                                 <td><span class="badge-status badge-activo">Activo</span></td>
                                                 <td class="text-end"><button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modalEditarUbicacion"><i class="bi bi-pencil me-1"></i>Editar</button></td>
                                             </tr>
-                                            <tr data-nombre="Bodega IceFree Viña" data-direccion="Av. Libertad 1500, Viña del Mar" data-tipo="Bodega" data-tipo-value="bodega" data-responsable="Miguel Castro" data-equipos="0" data-estado="Inactivo" data-estado-value="inactivo">
+                                            <tr data-nombre="Bodega IceFree Viña" data-rut="77.654.321-8" data-direccion="Av. Libertad 1500, Viña del Mar" data-tipo="Bodega" data-tipo-value="bodega" data-responsable="Miguel Castro" data-equipos="0" data-estado="Inactivo" data-estado-value="inactivo">
                                                 <td>
                                                     <div class="d-flex align-items-center gap-3">
                                                         <div class="bg-primary-light rounded-circle d-flex align-items-center justify-content-center" style="width: 40px; height: 40px;">
@@ -207,6 +211,7 @@
                                                         </div>
                                                     </div>
                                                 </td>
+                                                <td>77.654.321-8</td>
                                                 <td>Av. Libertad 1500, Viña del Mar</td>
                                                 <td><span class="badge bg-primary">Bodega</span></td>
                                                 <td>Miguel Castro</td>
@@ -237,6 +242,7 @@
         <div class="modal-dialog"><div class="modal-content">
             <div class="modal-header"><h5 class="modal-title" id="modalAgregarUbicacionLabel">Agregar ubicación / bodega</h5><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button></div>
             <div class="modal-body"><form id="formAgregarUbicacion" novalidate>
+                <div class="mb-3"><label for="rutUbicacion" class="form-label">RUT <span class="text-danger">*</span></label><input type="text" class="form-control" id="rutUbicacion" placeholder="Ej: 77.654.321-8" required><div class="invalid-feedback">Ingresa el RUT del dueño de la instalación.</div></div>
                 <div class="mb-3"><label for="nombreUbicacion" class="form-label">Nombre</label><input type="text" class="form-control" id="nombreUbicacion" placeholder="Ej: Bodega IceFree Santiago" required><div class="invalid-feedback">Ingresa el nombre de la ubicación.</div></div>
                 <div class="mb-3"><label for="direccionUbicacion" class="form-label">Dirección</label><textarea class="form-control" id="direccionUbicacion" rows="2" placeholder="Ej: Av. del Valle 1234, Santiago" required></textarea><div class="invalid-feedback">Ingresa la dirección.</div></div>
                 <div class="mb-3"><label for="tipoUbicacion" class="form-label">Tipo</label><select class="form-select" id="tipoUbicacion" required>
@@ -255,6 +261,7 @@
         <div class="modal-dialog"><div class="modal-content">
             <div class="modal-header"><h5 class="modal-title" id="modalEditarUbicacionLabel">Editar ubicación / bodega</h5><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button></div>
             <div class="modal-body"><form id="formEditarUbicacion" novalidate>
+                <div class="mb-3"><label for="editarRutUbicacion" class="form-label">RUT <span class="text-danger">*</span></label><input type="text" class="form-control" id="editarRutUbicacion" placeholder="Ej: 77.654.321-8" required><div class="invalid-feedback">Ingresa el RUT del dueño de la instalación.</div></div>
                 <div class="mb-3"><label for="editarNombreUbicacion" class="form-label">Nombre</label><input type="text" class="form-control" id="editarNombreUbicacion" required><div class="invalid-feedback">Ingresa el nombre de la ubicación.</div></div>
                 <div class="mb-3"><label for="editarDireccionUbicacion" class="form-label">Dirección</label><textarea class="form-control" id="editarDireccionUbicacion" rows="2" required></textarea><div class="invalid-feedback">Ingresa la dirección.</div></div>
                 <div class="mb-3"><label for="editarTipoUbicacion" class="form-label">Tipo</label><select class="form-select" id="editarTipoUbicacion" required>
@@ -287,6 +294,7 @@
             filaEditando = event.relatedTarget.closest('tr');
             const d = filaEditando.dataset;
             document.getElementById('editarNombreUbicacion').value = d.nombre;
+            document.getElementById('editarRutUbicacion').value = d.rut;
             document.getElementById('editarDireccionUbicacion').value = d.direccion;
             document.getElementById('editarTipoUbicacion').value = d.tipoValue;
             document.getElementById('editarResponsableUbicacion').value = d.responsable;
@@ -301,17 +309,20 @@
             if (form.checkValidity()) {
                 if (filaEditando) {
                     filaEditando.dataset.nombre = document.getElementById('editarNombreUbicacion').value;
+                    filaEditando.dataset.rut = document.getElementById('editarRutUbicacion').value;
                     filaEditando.dataset.direccion = document.getElementById('editarDireccionUbicacion').value;
                     filaEditando.dataset.responsable = document.getElementById('editarResponsableUbicacion').value;
+
                     const tipoSelect = document.getElementById('editarTipoUbicacion');
                     filaEditando.dataset.tipoValue = tipoSelect.value;
                     filaEditando.dataset.tipo = tipoSelect.options[tipoSelect.selectedIndex].text;
                     const activo = document.getElementById('editarEstadoUbicacion').checked;
                     filaEditando.dataset.estado = activo ? 'Activo' : 'Inactivo';
                     filaEditando.dataset.estadoValue = activo ? 'activo' : 'inactivo';
-                    filaEditando.cells[1].textContent = filaEditando.dataset.direccion;
-                    filaEditando.cells[3].textContent = filaEditando.dataset.responsable;
-                    const tipoBadge = filaEditando.cells[2].querySelector('.badge');
+                    filaEditando.cells[1].textContent = filaEditando.dataset.rut;
+                    filaEditando.cells[2].textContent = filaEditando.dataset.direccion;
+                    filaEditando.cells[4].textContent = filaEditando.dataset.responsable;
+                    const tipoBadge = filaEditando.cells[3].querySelector('.badge');
                     tipoBadge.textContent = filaEditando.dataset.tipo;
                     if (filaEditando.dataset.tipoValue === 'bodega') {
                         tipoBadge.className = 'badge bg-primary';
@@ -328,5 +339,6 @@
             } else { form.classList.add('was-validated'); }
         });
     </script>
+    <script src="../js/sidebar-scroll.js"></script>
 </body>
 </html>

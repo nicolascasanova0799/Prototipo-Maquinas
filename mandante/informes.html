@@ -51,12 +51,6 @@
                 <a href="servicio-tecnico.html" class="nav-link">
                     <i class="bi bi-tools"></i> Servicio Técnico
                 </a>
-                <a href="grupo-maquinas.html" class="nav-link">
-                    <i class="bi bi-layers"></i> Grupo de Máquinas
-                </a>
-                <a href="familia-maquinas.html" class="nav-link">
-                    <i class="bi bi-grid"></i> Familia de Máquinas
-                </a>
                 <a href="ubicaciones-bodegas.html" class="nav-link">
                     <i class="bi bi-geo"></i> Ubicaciones / Bodegas
                 </a>
@@ -68,12 +62,6 @@
                 </a>
                 <a href="plantillas-inspeccion.html" class="nav-link">
                     <i class="bi bi-clipboard2-check"></i> Plantillas de Inspección
-                </a>
-                <a href="marcas.html" class="nav-link">
-                    <i class="bi bi-tag"></i> Marcas
-                </a>
-                <a href="modelos.html" class="nav-link">
-                    <i class="bi bi-box"></i> Modelos
                 </a>
                 <a href="tipos-incidencias.html" class="nav-link">
                     <i class="bi bi-exclamation-octagon"></i> Tipos de Incidencias / Catálogo de Fallas
@@ -109,9 +97,9 @@
                         <span class="notification-badge">3</span>
                     </div>
                     <div class="user-info">
-                        <div class="user-avatar">SV</div>
+                        <div class="user-avatar" style="overflow:hidden;"><img src="../assets/img/carozzi_logo.jpg" alt="Carozzi" style="width:100%;height:100%;object-fit:cover;"></div>
                         <div>
-                            <div class="user-name">Savory Chile</div>
+                            <div class="user-name">Carozzi Chile</div>
                             <div class="user-role">Mandante</div>
                         </div>
                     </div>
@@ -175,14 +163,14 @@
                                 <label class="form-label">Tipo de máquina</label>
                                 <select class="form-select">
                                     <option selected>Todos</option>
-                                    <option>Freezer Savory 500L</option>
-                                    <option>Freezer Savory 700L</option>
+                                    <option>Freezer Carozzi 500L</option>
+                                    <option>Freezer Carozzi 700L</option>
                                     <option>Conservadora Polar 300L</option>
                                     <option>Conservadora Arctic 200L</option>
                                 </select>
                             </div>
                             <div class="col-md-2">
-                                <label class="form-label">Distribuidor</label>
+                                <label class="form-label">Gestor</label>
                                 <select class="form-select">
                                     <option selected>Todos</option>
                                     <option>IceFree Chile</option>
@@ -271,7 +259,7 @@
                         <!-- Filtros específicos -->
                         <div class="row g-2 mb-3">
                             <div class="col-md-3">
-                                <label class="form-label">Distribuidor</label>
+                                <label class="form-label">Gestor</label>
                                 <select class="form-select">
                                     <option selected>Todos</option>
                                     <option>IceFree Chile</option>
@@ -283,8 +271,8 @@
                                 <label class="form-label">Tipo de máquina</label>
                                 <select class="form-select">
                                     <option selected>Todos</option>
-                                    <option>Freezer Savory 500L</option>
-                                    <option>Freezer Savory 700L</option>
+                                    <option>Freezer Carozzi 500L</option>
+                                    <option>Freezer Carozzi 700L</option>
                                     <option>Conservadora Polar 300L</option>
                                     <option>Conservadora Arctic 200L</option>
                                 </select>
@@ -294,7 +282,7 @@
                                 <select class="form-select">
                                     <option value="equipo" selected>Por equipo (N° serie)</option>
                                     <option value="tipo">Por tipo de máquina</option>
-                                    <option value="distribuidor">Por distribuidor</option>
+                                    <option value="gestor">Por gestor</option>
                                 </select>
                             </div>
                             <div class="col-md-3 d-flex align-items-end">
@@ -327,7 +315,7 @@
                         <!-- Filtros específicos -->
                         <div class="row g-2 mb-3">
                             <div class="col-md-3">
-                                <label class="form-label">Distribuidor</label>
+                                <label class="form-label">Gestor</label>
                                 <select class="form-select">
                                     <option selected>Todos</option>
                                     <option>IceFree Chile</option>
@@ -339,8 +327,8 @@
                                 <label class="form-label">Tipo de máquina</label>
                                 <select class="form-select">
                                     <option selected>Todos</option>
-                                    <option>Freezer Savory 500L</option>
-                                    <option>Freezer Savory 700L</option>
+                                    <option>Freezer Carozzi 500L</option>
+                                    <option>Freezer Carozzi 700L</option>
                                     <option>Conservadora Polar 300L</option>
                                     <option>Conservadora Arctic 200L</option>
                                 </select>
@@ -387,7 +375,7 @@
                                         <thead>
                                             <tr>
                                                 <th>N° Serie / Tipo de Máquina</th>
-                                                <th>Distribuidor</th>
+                                                <th>Gestor</th>
                                                 <th>Punto de venta</th>
                                                 <th class="text-end">Ventas ($)</th>
                                                 <th class="text-end">Equipos asignados</th>
@@ -396,7 +384,7 @@
                                         </thead>
                                         <tbody>
                                             <tr>
-                                                <td><span class="fw-semibold">FR-1023</span><br><small class="text-muted">Freezer Savory 500L</small></td>
+                                                <td><span class="fw-semibold">FR-1023</span><br><small class="text-muted">Freezer Carozzi 500L</small></td>
                                                 <td>IceFree Chile</td>
                                                 <td>Supermercado Centro</td>
                                                 <td class="text-end">$ 2.450.000</td>
@@ -404,7 +392,7 @@
                                                 <td class="text-end">$ 2.450.000</td>
                                             </tr>
                                             <tr>
-                                                <td><span class="fw-semibold">FR-2210</span><br><small class="text-muted">Freezer Savory 700L</small></td>
+                                                <td><span class="fw-semibold">FR-2210</span><br><small class="text-muted">Freezer Carozzi 700L</small></td>
                                                 <td>IceFree Chile</td>
                                                 <td>Minimarket Las Condes</td>
                                                 <td class="text-end">$ 3.120.000</td>
@@ -420,7 +408,7 @@
                                                 <td class="text-end">$ 1.890.000</td>
                                             </tr>
                                             <tr>
-                                                <td><span class="fw-semibold">Freezer Savory 500L</span><br><small class="text-muted">Agrupado por tipo (sin serie)</small></td>
+                                                <td><span class="fw-semibold">Freezer Carozzi 500L</span><br><small class="text-muted">Agrupado por tipo (sin serie)</small></td>
                                                 <td>Sur Distribución</td>
                                                 <td>Varios puntos</td>
                                                 <td class="text-end">$ 5.680.000</td>
@@ -436,7 +424,7 @@
                                                 <td class="text-end">$ 980.000</td>
                                             </tr>
                                             <tr>
-                                                <td><span class="fw-semibold">FR-3056</span><br><small class="text-muted">Freezer Savory 500L</small></td>
+                                                <td><span class="fw-semibold">FR-3056</span><br><small class="text-muted">Freezer Carozzi 500L</small></td>
                                                 <td>Distribuidora Norte</td>
                                                 <td>Supermercado Viña</td>
                                                 <td class="text-end">$ 2.210.000</td>
@@ -457,7 +445,7 @@
                         <!-- Filtros específicos -->
                         <div class="row g-2 mb-3">
                             <div class="col-md-3">
-                                <label class="form-label">Distribuidor</label>
+                                <label class="form-label">Gestor</label>
                                 <select class="form-select">
                                     <option selected>Todos</option>
                                     <option>IceFree Chile</option>
@@ -499,7 +487,7 @@
                                         <thead>
                                             <tr>
                                                 <th>Equipo</th>
-                                                <th>Distribuidor</th>
+                                                <th>Gestor</th>
                                                 <th>Fecha ingreso</th>
                                                 <th>Proveedor SSTT</th>
                                                 <th>SLA (días)</th>
@@ -509,7 +497,7 @@
                                         </thead>
                                         <tbody>
                                             <tr>
-                                                <td><span class="fw-semibold">FR-1023</span><br><small class="text-muted">Freezer Savory 500L</small></td>
+                                                <td><span class="fw-semibold">FR-1023</span><br><small class="text-muted">Freezer Carozzi 500L</small></td>
                                                 <td>IceFree Chile</td>
                                                 <td>20/06/2025</td>
                                                 <td>TecnoFrio Chile</td>
@@ -527,7 +515,7 @@
                                                 <td><span class="badge-status badge-sstt">SLA vencido</span></td>
                                             </tr>
                                             <tr>
-                                                <td><span class="fw-semibold">FR-2210</span><br><small class="text-muted">Freezer Savory 700L</small></td>
+                                                <td><span class="fw-semibold">FR-2210</span><br><small class="text-muted">Freezer Carozzi 700L</small></td>
                                                 <td>IceFree Chile</td>
                                                 <td>28/06/2025</td>
                                                 <td>TecnoFrio Chile</td>
@@ -545,7 +533,7 @@
                                                 <td><span class="badge-status badge-pendiente">En reparación</span></td>
                                             </tr>
                                             <tr>
-                                                <td><span class="fw-semibold">FR-3056</span><br><small class="text-muted">Freezer Savory 500L</small></td>
+                                                <td><span class="fw-semibold">FR-3056</span><br><small class="text-muted">Freezer Carozzi 500L</small></td>
                                                 <td>Distribuidora Norte</td>
                                                 <td>02/07/2025</td>
                                                 <td>Refrigeración Andina</td>
@@ -554,7 +542,7 @@
                                                 <td><span class="badge-status badge-pendiente">En reparación</span></td>
                                             </tr>
                                             <tr>
-                                                <td><span class="fw-semibold">FR-4077</span><br><small class="text-muted">Freezer Savory 700L</small></td>
+                                                <td><span class="fw-semibold">FR-4077</span><br><small class="text-muted">Freezer Carozzi 700L</small></td>
                                                 <td>IceFree Chile</td>
                                                 <td>03/07/2025</td>
                                                 <td>TecnoFrio Chile</td>
@@ -572,7 +560,7 @@
                                                 <td><span class="badge-status badge-sstt">SLA al límite</span></td>
                                             </tr>
                                             <tr>
-                                                <td><span class="fw-semibold">FR-5128</span><br><small class="text-muted">Freezer Savory 500L</small></td>
+                                                <td><span class="fw-semibold">FR-5128</span><br><small class="text-muted">Freezer Carozzi 500L</small></td>
                                                 <td>Distribuidora Norte</td>
                                                 <td>04/07/2025</td>
                                                 <td>Refrigeración Andina</td>
@@ -726,5 +714,6 @@
             }
         });
     </script>
+    <script src="../js/sidebar-scroll.js"></script>
 </body>
 </html>

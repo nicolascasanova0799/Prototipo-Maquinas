@@ -9,24 +9,208 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <link href="../css/styles.css" rel="stylesheet">
     <style>
-        /* ===== Buscador ===== */
-        .search-bar {
+        /* ===== Botón de búsqueda ===== */
+        .search-trigger-bar {
             background: #FFFFFF;
             border-radius: 8px;
             box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
             padding: 20px 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
         }
 
-        .search-bar .input-group {
-            max-width: 500px;
+        .search-trigger-bar .search-info {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
         }
 
-        .search-bar .input-group .form-control {
-            border-right: none;
+        .search-trigger-bar .search-info .label {
+            font-size: 12px;
+            color: var(--gris-medio);
+            text-transform: uppercase;
+            letter-spacing: 0.4px;
+            font-weight: 600;
         }
 
-        .search-bar .input-group .btn {
-            border-radius: 0 6px 6px 0;
+        .search-trigger-bar .search-info .value {
+            font-size: 16px;
+            color: var(--azul-marino);
+            font-weight: 600;
+        }
+
+        .btn-search-modal {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 20px;
+            background: var(--azul-primario);
+            color: #FFFFFF;
+            border: none;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.15s;
+            white-space: nowrap;
+        }
+
+        .btn-search-modal:hover {
+            background: #0052A3;
+        }
+
+        .btn-search-modal i {
+            font-size: 16px;
+        }
+
+        /* ===== Modal de selección de máquina ===== */
+        .modal-select-machine .modal-dialog {
+            max-width: 900px;
+        }
+
+        .modal-select-machine .modal-header {
+            border-bottom: 1px solid #EEF0F2;
+            padding: 20px 24px;
+        }
+
+        .modal-select-machine .modal-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--azul-marino);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .modal-select-machine .modal-title i {
+            color: var(--azul-primario);
+        }
+
+        .modal-select-machine .modal-body {
+            padding: 24px;
+        }
+
+        .modal-select-machine .filter-section {
+            background: #F8F9FA;
+            border: 1px solid #EEF0F2;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .modal-select-machine .filter-section .filter-title {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--gris-medio);
+            text-transform: uppercase;
+            letter-spacing: 0.4px;
+            margin-bottom: 16px;
+        }
+
+        .modal-select-machine .results-section .results-title {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--gris-medio);
+            text-transform: uppercase;
+            letter-spacing: 0.4px;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .modal-select-machine .results-section .results-count {
+            font-size: 12px;
+            color: var(--gris-medio);
+            font-weight: 500;
+            text-transform: none;
+            letter-spacing: 0;
+        }
+
+        .modal-select-machine .table-wrapper {
+            max-height: 360px;
+            overflow-y: auto;
+            border: 1px solid #EEF0F2;
+            border-radius: 8px;
+        }
+
+        .modal-select-machine .table {
+            margin: 0;
+            font-size: 13px;
+        }
+
+        .modal-select-machine .table thead {
+            background: #F0F2F5;
+            position: sticky;
+            top: 0;
+            z-index: 1;
+        }
+
+        .modal-select-machine .table thead th {
+            padding: 10px 14px;
+            font-weight: 600;
+            color: #333;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+            white-space: nowrap;
+        }
+
+        .modal-select-machine .table tbody td {
+            padding: 10px 14px;
+            border-bottom: 1px solid #EEEEEE;
+            color: #333;
+            vertical-align: middle;
+        }
+
+        .modal-select-machine .table tbody tr:hover {
+            background: #F8F9FA;
+            cursor: pointer;
+        }
+
+        .modal-select-machine .table tbody tr.selected-row {
+            background: rgba(0, 102, 204, 0.05);
+        }
+
+        .modal-select-machine .btn-select-equipment {
+            padding: 4px 14px;
+            font-size: 12px;
+            font-weight: 600;
+            background: var(--azul-primario);
+            color: #FFFFFF;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background 0.15s;
+            white-space: nowrap;
+        }
+
+        .modal-select-machine .btn-select-equipment:hover {
+            background: #0052A3;
+        }
+
+        .modal-select-machine .empty-results {
+            text-align: center;
+            padding: 40px 20px;
+            color: var(--gris-medio);
+        }
+
+        .modal-select-machine .empty-results i {
+            font-size: 36px;
+            margin-bottom: 12px;
+            color: #DEE2E6;
+        }
+
+        .modal-select-machine .empty-results p {
+            font-size: 14px;
+            margin: 0;
+        }
+
+        .modal-select-machine .modal-footer {
+            border-top: 1px solid #EEF0F2;
+            padding: 16px 24px;
         }
 
         /* ===== Card de información del equipo ===== */
@@ -348,12 +532,6 @@
                 <a href="servicio-tecnico.html" class="nav-link">
                     <i class="bi bi-tools"></i> Servicio Técnico
                 </a>
-                <a href="grupo-maquinas.html" class="nav-link">
-                    <i class="bi bi-layers"></i> Grupo de Máquinas
-                </a>
-                <a href="familia-maquinas.html" class="nav-link">
-                    <i class="bi bi-grid"></i> Familia de Máquinas
-                </a>
                 <a href="ubicaciones-bodegas.html" class="nav-link">
                     <i class="bi bi-geo"></i> Ubicaciones / Bodegas
                 </a>
@@ -365,12 +543,6 @@
                 </a>
                 <a href="plantillas-inspeccion.html" class="nav-link">
                     <i class="bi bi-clipboard2-check"></i> Plantillas de Inspección
-                </a>
-                <a href="marcas.html" class="nav-link">
-                    <i class="bi bi-tag"></i> Marcas
-                </a>
-                <a href="modelos.html" class="nav-link">
-                    <i class="bi bi-box"></i> Modelos
                 </a>
                 <a href="tipos-incidencias.html" class="nav-link">
                     <i class="bi bi-exclamation-octagon"></i> Tipos de Incidencias / Catálogo de Fallas
@@ -409,9 +581,9 @@
                         <span class="notification-badge">3</span>
                     </div>
                     <div class="user-info">
-                        <div class="user-avatar">SV</div>
+                        <div class="user-avatar" style="overflow:hidden;"><img src="../assets/img/carozzi_logo.jpg" alt="Carozzi" style="width:100%;height:100%;object-fit:cover;"></div>
                         <div>
-                            <div class="user-name">Savory Chile</div>
+                            <div class="user-name">Carozzi Chile</div>
                             <div class="user-role">Mandante</div>
                         </div>
                     </div>
@@ -420,17 +592,126 @@
 
             <!-- Main -->
             <main class="app-main">
-                <!-- ===== Buscador ===== -->
+                <!-- ===== Botón de búsqueda ===== -->
                 <div class="row mb-4">
                     <div class="col-12">
-                        <div class="search-bar">
-                            <label for="buscarSerie" class="form-label">Buscar equipo por N° de serie</label>
-                            <div class="input-group">
-                                <span class="input-group-text"><i class="bi bi-search"></i></span>
-                                <input type="text" class="form-control" id="buscarSerie" placeholder="Ej: FR-1023" value="FR-1023">
-                                <button class="btn btn-primary" type="button" id="btnBuscar">
-                                    <i class="bi bi-arrow-right me-1"></i>Buscar
-                                </button>
+                        <div class="search-trigger-bar">
+                            <div class="search-info">
+                                <span class="label">Equipo seleccionado</span>
+                                <span class="value" id="selectedEquipmentLabel">Ninguno — haga clic en buscar para seleccionar</span>
+                            </div>
+                            <button type="button" class="btn-search-modal" id="btnOpenSearchModal">
+                                <i class="bi bi-search"></i> Buscar equipo
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ===== Modal de selección de máquina ===== -->
+                <div class="modal fade modal-select-machine" id="modalSelectMachine" tabindex="-1" aria-labelledby="modalSelectMachineLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="modalSelectMachineLabel">
+                                    <i class="bi bi-search"></i> Seleccionar Equipo
+                                </h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                            </div>
+                            <div class="modal-body">
+                                <!-- Filtros -->
+                                <div class="filter-section">
+                                    <div class="filter-title">Filtros de búsqueda</div>
+                                    <div class="row g-3">
+                                        <div class="col-lg-4 col-md-6">
+                                            <label for="filterSerie" class="form-label">N° de Serie</label>
+                                            <input type="text" class="form-control" id="filterSerie" placeholder="Ej: FR-1023">
+                                        </div>
+                                        <div class="col-lg-4 col-md-6">
+                                            <label for="filterMarca" class="form-label">Marca</label>
+                                            <select class="form-select" id="filterMarca">
+                                                <option value="">Todas</option>
+                                                <option>Carozzi</option>
+                                                <option>Polar</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-lg-4 col-md-6">
+                                            <label for="filterModelo" class="form-label">Modelo</label>
+                                            <input type="text" class="form-control" id="filterModelo" placeholder="Ej: Freezer 500L">
+                                        </div>
+                                        <div class="col-lg-4 col-md-6">
+                                            <label for="filterTipo" class="form-label">Tipo de Máquina</label>
+                                            <select class="form-select" id="filterTipo">
+                                                <option value="">Todos</option>
+                                                <option>Freezer</option>
+                                                <option>Conservadora</option>
+                                                <option>Vitrina</option>
+                                                <option>Barquillera</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-lg-4 col-md-6">
+                                            <label for="filterEstado" class="form-label">Estado</label>
+                                            <select class="form-select" id="filterEstado">
+                                                <option value="">Todos</option>
+                                                <option>Activo</option>
+                                                <option>Asignado al Gestor</option>
+                                                <option>Asignado a Cliente</option>
+                                                <option>En SSTT</option>
+                                                <option>Pendiente de Revisión</option>
+                                                <option>Rechazado</option>
+                                                <option>Baja</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-lg-4 col-md-6">
+                                            <label for="filterGestor" class="form-label">Gestor</label>
+                                            <select class="form-select" id="filterGestor">
+                                                <option value="">Todos</option>
+                                                <option>IceFree Chile</option>
+                                                <option>Distribuidora Norte</option>
+                                                <option>Sur Distribución</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="mt-3 d-flex justify-content-end gap-2">
+                                        <button type="button" class="btn btn-outline-secondary btn-sm" id="btnClearFilters">
+                                            <i class="bi bi-eraser me-1"></i>Limpiar
+                                        </button>
+                                        <button type="button" class="btn btn-primary btn-sm" id="btnApplyFilters">
+                                            <i class="bi bi-funnel me-1"></i>Filtrar
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <!-- Resultados -->
+                                <div class="results-section">
+                                    <div class="results-title">
+                                        <span>Resultados</span>
+                                        <span class="results-count" id="resultsCount">0 equipos</span>
+                                    </div>
+                                    <div class="table-wrapper">
+                                        <table class="table table-hover">
+                                            <thead>
+                                                <tr>
+                                                    <th>N° Serie</th>
+                                                    <th>Marca</th>
+                                                    <th>Modelo</th>
+                                                    <th>Tipo</th>
+                                                    <th>Estado</th>
+                                                    <th>Gestor</th>
+                                                    <th class="text-center">Acción</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="resultsTableBody">
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div class="empty-results d-none" id="emptyResults">
+                                        <i class="bi bi-inbox"></i>
+                                        <p>No se encontraron equipos con los filtros seleccionados.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
                             </div>
                         </div>
                     </div>
@@ -469,23 +750,31 @@
                                     </div>
                                     <div class="equipment-info-item">
                                         <dt>Marca</dt>
-                                        <dd id="infoMarca">Savory</dd>
+                                        <dd id="infoMarca">Carozzi</dd>
                                     </div>
                                     <div class="equipment-info-item">
                                         <dt>Modelo</dt>
                                         <dd id="infoModelo">Freezer 500L</dd>
                                     </div>
                                     <div class="equipment-info-item">
+                                        <dt>Tipo de Máquina</dt>
+                                        <dd id="infoTipo">Freezer</dd>
+                                    </div>
+                                    <div class="equipment-info-item">
                                         <dt>Estado Actual</dt>
                                         <dd id="infoEstado">Activo</dd>
                                     </div>
                                     <div class="equipment-info-item">
-                                        <dt>Distribuidor</dt>
-                                        <dd id="infoDistribuidor">IceFree Chile</dd>
+                                        <dt>Gestor</dt>
+                                        <dd id="infoGestor">IceFree Chile</dd>
                                     </div>
                                     <div class="equipment-info-item">
                                         <dt>Cliente</dt>
                                         <dd id="infoCliente">Supermercado Plaza Norte</dd>
+                                    </div>
+                                    <div class="equipment-info-item">
+                                        <dt>Ubicación Actual</dt>
+                                        <dd id="infoUbicacion">Supermercado Plaza Norte, Santiago</dd>
                                     </div>
                                 </dl>
                             </div>
@@ -518,7 +807,12 @@
                                                 <div class="timeline-meta-item">
                                                     <i class="bi bi-person"></i>
                                                     <span class="meta-label">Actor:</span>
-                                                    <span class="meta-value">Savory Chile (Mandante)</span>
+                                                    <span class="meta-value">Carozzi Chile (Mandante)</span>
+                                                </div>
+                                                <div class="timeline-meta-item">
+                                                    <i class="bi bi-geo-alt"></i>
+                                                    <span class="meta-label">Ubicación:</span>
+                                                    <span class="meta-value">Bodega Central Savory, Santiago</span>
                                                 </div>
                                             </div>
                                             <div class="timeline-comment">
@@ -527,24 +821,29 @@
                                         </div>
                                     </li>
 
-                                    <!-- Evento 2: Asignado a Distribuidor -->
+                                    <!-- Evento 2: Asignado a Gestor -->
                                     <li class="timeline-item">
                                         <div class="timeline-marker marker-blue"></div>
                                         <div class="timeline-content">
                                             <div class="timeline-date">
                                                 <i class="bi bi-calendar3"></i> 20/03/2022 — 14:30
                                             </div>
-                                            <div class="timeline-event">Asignado a Distribuidor (Guía N° GD-982345)</div>
+                                            <div class="timeline-event">Asignado a Gestor (Guía N° GD-982345)</div>
                                             <div class="timeline-transition">
                                                 <span class="badge-status badge-activo">Activo</span>
                                                 <span class="arrow"><i class="bi bi-arrow-right"></i></span>
-                                                <span class="badge-status badge-distribuidor">Asignado al Distribuidor</span>
+                                                <span class="badge-status badge-gestor">Asignado al Gestor</span>
                                             </div>
                                             <div class="timeline-meta">
                                                 <div class="timeline-meta-item">
                                                     <i class="bi bi-person"></i>
                                                     <span class="meta-label">Actor:</span>
-                                                    <span class="meta-value">Savory Chile (Mandante)</span>
+                                                    <span class="meta-value">Carozzi Chile (Mandante)</span>
+                                                </div>
+                                                <div class="timeline-meta-item">
+                                                    <i class="bi bi-geo-alt"></i>
+                                                    <span class="meta-label">Ubicación:</span>
+                                                    <span class="meta-value">Bodega IceFree Chile, Quilicura</span>
                                                 </div>
                                             </div>
                                             <div class="timeline-comment">
@@ -562,17 +861,22 @@
                                             </div>
                                             <div class="timeline-event">Recibido y aceptado</div>
                                             <div class="timeline-transition">
-                                                <span class="badge-status badge-distribuidor">Asignado al Distribuidor</span>
+                                                <span class="badge-status badge-gestor">Asignado al Gestor</span>
                                             </div>
                                             <div class="timeline-meta">
                                                 <div class="timeline-meta-item">
                                                     <i class="bi bi-person"></i>
                                                     <span class="meta-label">Actor:</span>
-                                                    <span class="meta-value">IceFree Chile (Distribuidor)</span>
+                                                    <span class="meta-value">IceFree Chile (Gestor)</span>
+                                                </div>
+                                                <div class="timeline-meta-item">
+                                                    <i class="bi bi-geo-alt"></i>
+                                                    <span class="meta-label">Ubicación:</span>
+                                                    <span class="meta-value">Bodega IceFree Chile, Quilicura</span>
                                                 </div>
                                             </div>
                                             <div class="timeline-comment">
-                                                <i class="bi bi-chat-dots"></i>Equipo inspeccionado en bodega. Sin daños visibles. Recepción del lote confirmada (el estado del equipo no cambia; ya estaba “Asignado al Distribuidor” desde el despacho).
+                                                <i class="bi bi-chat-dots"></i>Equipo inspeccionado en bodega. Sin daños visibles. Recepción del lote confirmada (el estado del equipo no cambia; ya estaba “Asignado al Gestor” desde el despacho).
                                             </div>
                                         </div>
                                     </li>
@@ -586,7 +890,7 @@
                                             </div>
                                             <div class="timeline-event">Asignado a Cliente Final (Guía N° GD-982401)</div>
                                             <div class="timeline-transition">
-                                                <span class="badge-status badge-distribuidor">Asignado al Distribuidor</span>
+                                                <span class="badge-status badge-gestor">Asignado al Gestor</span>
                                                 <span class="arrow"><i class="bi bi-arrow-right"></i></span>
                                                 <span class="badge-status badge-activo">Asignado a Cliente</span>
                                             </div>
@@ -594,7 +898,12 @@
                                                 <div class="timeline-meta-item">
                                                     <i class="bi bi-person"></i>
                                                     <span class="meta-label">Actor:</span>
-                                                    <span class="meta-value">IceFree Chile (Distribuidor)</span>
+                                                    <span class="meta-value">IceFree Chile (Gestor)</span>
+                                                </div>
+                                                <div class="timeline-meta-item">
+                                                    <i class="bi bi-geo-alt"></i>
+                                                    <span class="meta-label">Ubicación:</span>
+                                                    <span class="meta-value">Supermercado Plaza Norte, Huechuraba</span>
                                                 </div>
                                             </div>
                                             <div class="timeline-comment">
@@ -620,7 +929,12 @@
                                                 <div class="timeline-meta-item">
                                                     <i class="bi bi-person"></i>
                                                     <span class="meta-label">Actor:</span>
-                                                    <span class="meta-value">IceFree Chile (Distribuidor)</span>
+                                                    <span class="meta-value">IceFree Chile (Gestor)</span>
+                                                </div>
+                                                <div class="timeline-meta-item">
+                                                    <i class="bi bi-geo-alt"></i>
+                                                    <span class="meta-label">Ubicación:</span>
+                                                    <span class="meta-value">Servicio Técnico CoolFix, Maipú</span>
                                                 </div>
                                             </div>
                                             <div class="timeline-comment">
@@ -648,6 +962,11 @@
                                                     <span class="meta-label">Actor:</span>
                                                     <span class="meta-value">Servicio Técnico CoolFix</span>
                                                 </div>
+                                                <div class="timeline-meta-item">
+                                                    <i class="bi bi-geo-alt"></i>
+                                                    <span class="meta-label">Ubicación:</span>
+                                                    <span class="meta-value">Supermercado Plaza Norte, Huechuraba</span>
+                                                </div>
                                             </div>
                                             <div class="timeline-comment">
                                                 <i class="bi bi-chat-dots"></i>Compresor reemplazado. Equipo reinstalado en Supermercado Plaza Norte. SLA cumplido (13 días).
@@ -674,6 +993,11 @@
                                                     <span class="meta-label">Actor:</span>
                                                     <span class="meta-value">Vendedor IceFree Chile</span>
                                                 </div>
+                                                <div class="timeline-meta-item">
+                                                    <i class="bi bi-geo-alt"></i>
+                                                    <span class="meta-label">Ubicación:</span>
+                                                    <span class="meta-value">Supermercado Plaza Norte, Huechuraba</span>
+                                                </div>
                                             </div>
                                             <div class="timeline-comment">
                                                 <i class="bi bi-chat-dots"></i>Verificación física en terreno. Equipo presente y operativo. Sin productos no autorizados en su interior.
@@ -692,61 +1016,66 @@
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        // Datos de ejemplo de equipos
         const equiposDB = {
             'FR-1023': {
-                serie: 'FR-1023',
-                marca: 'Savory',
-                modelo: 'Freezer 500L',
-                estado: 'Activo',
-                estadoClass: 'badge-activo',
-                distribuidor: 'IceFree Chile',
-                cliente: 'Supermercado Plaza Norte'
+                serie: 'FR-1023', marca: 'Carozzi', modelo: 'Freezer 500L', tipo: 'Freezer',
+                estado: 'Activo', estadoClass: 'badge-activo',
+                gestor: 'IceFree Chile', cliente: 'Supermercado Plaza Norte',
+                ubicacion: 'Supermercado Plaza Norte, Huechuraba'
             },
             'CZ-0845': {
-                serie: 'CZ-0845',
-                marca: 'Polar',
-                modelo: 'Conservadora 300L',
-                estado: 'Asignado al Distribuidor',
-                estadoClass: 'badge-distribuidor',
-                distribuidor: 'Distribuidora Norte',
-                cliente: '—'
+                serie: 'CZ-0845', marca: 'Polar', modelo: 'Conservadora 300L', tipo: 'Conservadora',
+                estado: 'Asignado al Gestor', estadoClass: 'badge-gestor',
+                gestor: 'Distribuidora Norte', cliente: '—',
+                ubicacion: 'Bodega Distribuidora Norte, Renca'
             },
             'FR-2210': {
-                serie: 'FR-2210',
-                marca: 'Savory',
-                modelo: 'Freezer 700L',
-                estado: 'En SSTT',
-                estadoClass: 'badge-sstt',
-                distribuidor: 'IceFree Chile',
-                cliente: 'Servicio Técnico CoolFix'
+                serie: 'FR-2210', marca: 'Carozzi', modelo: 'Freezer 700L', tipo: 'Freezer',
+                estado: 'En SSTT', estadoClass: 'badge-sstt',
+                gestor: 'IceFree Chile', cliente: 'Servicio Técnico CoolFix',
+                ubicacion: 'Servicio Técnico CoolFix, Maipú'
             },
             'VT-4501': {
-                serie: 'VT-4501',
-                marca: 'Savory',
-                modelo: 'Vitrina 250L',
-                estado: 'Pendiente de Revisión',
-                estadoClass: 'badge-pendiente',
-                distribuidor: 'Sur Distribución',
-                cliente: 'Bodega central Sur Distribución'
+                serie: 'VT-4501', marca: 'Carozzi', modelo: 'Vitrina 250L', tipo: 'Vitrina',
+                estado: 'Pendiente de Revisión', estadoClass: 'badge-pendiente',
+                gestor: 'Sur Distribución', cliente: 'Bodega central Sur Distribución',
+                ubicacion: 'Bodega Sur Distribución, San Bernardo'
             },
             'FR-3056': {
-                serie: 'FR-3056',
-                marca: 'Savory',
-                modelo: 'Freezer 500L',
-                estado: 'Baja',
-                estadoClass: 'badge-baja',
-                distribuidor: 'Distribuidora Norte',
-                cliente: '—'
+                serie: 'FR-3056', marca: 'Carozzi', modelo: 'Freezer 500L', tipo: 'Freezer',
+                estado: 'Baja', estadoClass: 'badge-baja',
+                gestor: 'Distribuidora Norte', cliente: '—',
+                ubicacion: 'Bodega Central Savory, Santiago'
             },
             'BQ-7712': {
-                serie: 'BQ-7712',
-                marca: 'Savory',
-                modelo: 'Barquillera 150L',
-                estado: 'Asignado al Distribuidor',
-                estadoClass: 'badge-distribuidor',
-                distribuidor: 'IceFree Chile',
-                cliente: 'Bodega IceFree Santiago'
+                serie: 'BQ-7712', marca: 'Carozzi', modelo: 'Barquillera 150L', tipo: 'Barquillera',
+                estado: 'Asignado al Gestor', estadoClass: 'badge-gestor',
+                gestor: 'IceFree Chile', cliente: 'Bodega IceFree Santiago',
+                ubicacion: 'Bodega IceFree Chile, Quilicura'
+            },
+            'CZ-1208': {
+                serie: 'CZ-1208', marca: 'Polar', modelo: 'Conservadora 450L', tipo: 'Conservadora',
+                estado: 'Asignado a Cliente', estadoClass: 'badge-activo',
+                gestor: 'Sur Distribución', cliente: 'Minimarket El Sol',
+                ubicacion: 'Minimarket El Sol, La Florida'
+            },
+            'VT-3309': {
+                serie: 'VT-3309', marca: 'Carozzi', modelo: 'Vitrina 180L', tipo: 'Vitrina',
+                estado: 'Activo', estadoClass: 'badge-activo',
+                gestor: 'IceFree Chile', cliente: '—',
+                ubicacion: 'Bodega Central Savory, Santiago'
+            },
+            'FR-4087': {
+                serie: 'FR-4087', marca: 'Polar', modelo: 'Freezer 600L', tipo: 'Freezer',
+                estado: 'Rechazado', estadoClass: 'badge-rechazado',
+                gestor: 'Distribuidora Norte', cliente: '—',
+                ubicacion: 'Bodega Distribuidora Norte, Renca'
+            },
+            'BQ-5530': {
+                serie: 'BQ-5530', marca: 'Carozzi', modelo: 'Barquillera 200L', tipo: 'Barquillera',
+                estado: 'Asignado a Cliente', estadoClass: 'badge-activo',
+                gestor: 'IceFree Chile', cliente: 'Almacén Doña Rosa',
+                ubicacion: 'Almacén Doña Rosa, Puente Alto'
             }
         };
 
@@ -754,18 +1083,23 @@
             const equipo = equiposDB[serie.toUpperCase()];
             const emptyState = document.getElementById('emptyState');
             const result = document.getElementById('trazabilidadResult');
+            const selectedLabel = document.getElementById('selectedEquipmentLabel');
 
             if (equipo) {
                 document.getElementById('infoSerie').textContent = equipo.serie;
                 document.getElementById('infoMarca').textContent = equipo.marca;
                 document.getElementById('infoModelo').textContent = equipo.modelo;
+                document.getElementById('infoTipo').textContent = equipo.tipo;
                 document.getElementById('infoEstado').textContent = equipo.estado;
-                document.getElementById('infoDistribuidor').textContent = equipo.distribuidor;
+                document.getElementById('infoGestor').textContent = equipo.gestor;
                 document.getElementById('infoCliente').textContent = equipo.cliente;
+                document.getElementById('infoUbicacion').textContent = equipo.ubicacion;
 
                 const estadoBadge = document.getElementById('equipoEstadoBadge');
                 estadoBadge.textContent = equipo.estado;
                 estadoBadge.className = 'badge-status ' + equipo.estadoClass;
+
+                selectedLabel.textContent = equipo.serie + ' — ' + equipo.marca + ' ' + equipo.modelo;
 
                 emptyState.style.display = 'none';
                 result.style.display = 'block';
@@ -780,33 +1114,106 @@
             }
         }
 
-        document.addEventListener('DOMContentLoaded', function() {
-            const input = document.getElementById('buscarSerie');
-            const btn = document.getElementById('btnBuscar');
+        function filtrarEquipos() {
+            const fSerie = document.getElementById('filterSerie').value.trim().toLowerCase();
+            const fMarca = document.getElementById('filterMarca').value;
+            const fModelo = document.getElementById('filterModelo').value.trim().toLowerCase();
+            const fTipo = document.getElementById('filterTipo').value;
+            const fEstado = document.getElementById('filterEstado').value;
+            const fGestor = document.getElementById('filterGestor').value;
 
-            btn.addEventListener('click', function() {
-                const serie = input.value.trim();
-                if (serie) {
+            const resultados = Object.values(equiposDB).filter(eq => {
+                if (fSerie && !eq.serie.toLowerCase().includes(fSerie)) return false;
+                if (fMarca && eq.marca !== fMarca) return false;
+                if (fModelo && !eq.modelo.toLowerCase().includes(fModelo)) return false;
+                if (fTipo && eq.tipo !== fTipo) return false;
+                if (fEstado && eq.estado !== fEstado) return false;
+                if (fGestor && eq.gestor !== fGestor) return false;
+                return true;
+            });
+
+            renderResultados(resultados);
+        }
+
+        function renderResultados(lista) {
+            const tbody = document.getElementById('resultsTableBody');
+            const emptyResults = document.getElementById('emptyResults');
+            const countLabel = document.getElementById('resultsCount');
+
+            tbody.innerHTML = '';
+            countLabel.textContent = lista.length + (lista.length === 1 ? ' equipo' : ' equipos');
+
+            if (lista.length === 0) {
+                emptyResults.classList.remove('d-none');
+                return;
+            }
+            emptyResults.classList.add('d-none');
+
+            lista.forEach(eq => {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td><strong>${eq.serie}</strong></td>
+                    <td>${eq.marca}</td>
+                    <td>${eq.modelo}</td>
+                    <td>${eq.tipo}</td>
+                    <td><span class="badge-status ${eq.estadoClass}">${eq.estado}</span></td>
+                    <td>${eq.gestor}</td>
+                    <td class="text-center">
+                        <button class="btn-select-equipment" data-serie="${eq.serie}">Seleccionar</button>
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+
+            tbody.querySelectorAll('.btn-select-equipment').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const serie = this.dataset.serie;
+                    const modal = bootstrap.Modal.getInstance(document.getElementById('modalSelectMachine'));
+                    modal.hide();
                     mostrarTrazabilidad(serie);
-                }
+                });
+            });
+        }
+
+        function limpiarFiltros() {
+            document.getElementById('filterSerie').value = '';
+            document.getElementById('filterMarca').value = '';
+            document.getElementById('filterModelo').value = '';
+            document.getElementById('filterTipo').value = '';
+            document.getElementById('filterEstado').value = '';
+            document.getElementById('filterGestor').value = '';
+            filtrarEquipos();
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const modalEl = document.getElementById('modalSelectMachine');
+            const modal = new bootstrap.Modal(modalEl);
+
+            document.getElementById('btnOpenSearchModal').addEventListener('click', function() {
+                filtrarEquipos();
+                modal.show();
             });
 
-            input.addEventListener('keydown', function(e) {
-                if (e.key === 'Enter') {
-                    const serie = input.value.trim();
-                    if (serie) {
-                        mostrarTrazabilidad(serie);
-                    }
-                }
-            });
+            document.getElementById('btnApplyFilters').addEventListener('click', filtrarEquipos);
+            document.getElementById('btnClearFilters').addEventListener('click', limpiarFiltros);
 
-            // Si viene con ?serie= en la URL, usar esa; si no, cargar FR-1023 por defecto
+            document.getElementById('filterSerie').addEventListener('input', filtrarEquipos);
+            document.getElementById('filterModelo').addEventListener('input', filtrarEquipos);
+            document.getElementById('filterMarca').addEventListener('change', filtrarEquipos);
+            document.getElementById('filterTipo').addEventListener('change', filtrarEquipos);
+            document.getElementById('filterEstado').addEventListener('change', filtrarEquipos);
+            document.getElementById('filterGestor').addEventListener('change', filtrarEquipos);
+
             const params = new URLSearchParams(window.location.search);
             const serieParam = params.get('serie');
-            const serieInicial = serieParam || 'FR-1023';
-            input.value = serieInicial;
-            mostrarTrazabilidad(serieInicial);
+            if (serieParam && equiposDB[serieParam.toUpperCase()]) {
+                mostrarTrazabilidad(serieParam);
+            } else {
+                document.getElementById('emptyState').style.display = 'block';
+                document.getElementById('trazabilidadResult').style.display = 'none';
+            }
         });
     </script>
+    <script src="../js/sidebar-scroll.js"></script>
 </body>
 </html>

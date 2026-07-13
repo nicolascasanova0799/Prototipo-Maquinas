@@ -17,7 +17,9 @@
 >
 > **Actualizado 07/07/2026 (ronda 6)** con la alineación documentación ↔ prototipo: se corrigió §2.2 (tabla sin columna "Condición", modal sin campo "Coordenadas GPS" — el prototipo no los implementa), se agregó el prompt **2.9 Guías de Despacho** para el panel Mandante (`guias-despacho.html` ya existía en el prototipo pero no tenía prompt), se agregó el prompt **3.4b Nueva Solicitud de Movimiento** (`nueva-solicitud.html`, sub-vista de creación de §3.4), y se actualizó el sidebar para incluir "Guías de Despacho" (Mandante, Operación) y "Vendedores" (Gestor, Maestros).
 >
-> **Actualizado 10/07/2026 (ronda 7)** con la minuta de revisión de maqueta: marca de referencia **Carozzi**, terminología visible **Gestor**, Dashboard con cifras consistentes, Maestro de Equipos solo con **Carga masiva**, eliminación de submenús Grupo/Familia/Marcas/Modelos, Gestores con múltiples direcciones, Ubicaciones/Bodegas con RUT obligatorio, Clientes/Vendedores de Gestor como solo lectura ERP, Motivos de Movimiento con roles aprobadores y voto vinculante, buscador predictivo en Trazabilidad y GD Mandante→Gestor vía API de facturación.
+> **Actualizado 10/07/2026 (ronda 7)** con la minuta de revisión de maqueta: marca de referencia **Carozzi**, terminología visible **Gestor**, Dashboard con cifras consistentes, Maestro de Equipos solo con **Carga masiva**, eliminación de submenús Grupo/Familia/Marcas/Modelos, Gestores con múltiples direcciones, Ubicaciones/Bodegas con RUT obligatorio, Clientes/Vendedores de Gestor como solo lectura ERP, Motivos de Movimiento con roles aprobadores y voto vinculante, modal de selección de equipo en Trazabilidad y GD Mandante→Gestor vía API de facturación.
+>
+> **Actualizado 13/07/2026 (ronda 9)** con el rediseño del módulo de inspección: plantillas categorizadas por atributos de máquina (RN-24), inspección por equipo con modal y planilla aplicable (RN-25), resultados visibles para el Mandante en el detalle de asignación.
 
 ## 0. Instrucción base para Google Stitch
 
@@ -59,7 +61,7 @@ Componentes: Input, Button, RoleToggle (ver DESIGN.md)
 Dashboard principal del Mandante.
 
 Contenido:
-- KPIs (4 tarjetas con cifras consistentes): Total de Equipos (1.248) | Equipos Activos (1.118, +2.4%) | En Servicio Técnico (118, -0.5%) | Pendientes de Revisión (12)
+- KPIs (4 tarjetas con cifras consistentes): Total de Equipos (1.248) | Equipos Activos (1.032, 82,9%) | En Servicio Técnico (118, 9,5%) | Equipos Inactivos (98, 7,6%)
 - Distribución geográfica: mapa con pines de ubicación de equipos
 - Estado de equipos: gráfica de dona — Operativos 82,9% | En SSTT 9,5% | Inactivos 7,6%
 - Tabla "Solicitudes pendientes": Equipo | Gestor | Tipo | Motivo | Fecha | Acciones (Aprobar / Rechazar)
@@ -111,14 +113,18 @@ Pantalla de asignación de lotes de equipos a un gestor.
 
 Contenido:
 - Selector: "Gestor destino" (dropdown)
-- Tabla de equipos disponibles (sin asignar): checkbox | N° Serie | Marca | Modelo | Estado
-- Panel resumen: "Equipos seleccionados: X" | Gestor destino | Botón "Confirmar asignación" (deshabilitado hasta seleccionar al menos 1 equipo) | Botón "Limpiar selección"
-- Al confirmar: modal "Emitir Guía de Despacho" que consume la API de facturación del Mandante. Flujo de 3 pasos: confirmación con resumen → spinner "Solicitando GD al sistema de facturación" → éxito con N° de GD y PDF adjunto automáticamente.
+- Selector: "Sucursal de destino" (dropdown obligatorio, se llena dinámicamente con las direcciones/sucursales del gestor seleccionado — deshabilitado hasta seleccionar gestor)
+- Tabla de equipos disponibles (sin asignar): checkbox | N° Serie | Marca | Modelo | Tipo | Estado
+- Panel resumen: "Equipos seleccionados: X" | Gestor destino | Sucursal de destino | **Planillas de inspección aplicables** (sección dinámica que muestra las planillas según los tipos de máquina seleccionados — RN-24) | Botón "Enviar al gestor" (deshabilitado hasta seleccionar al menos 1 equipo, gestor Y sucursal) | Botón "Guardar borrador" | Botón "Limpiar selección"
+- Al confirmar: modal "Confirmar envío al gestor" con resumen de equipos, gestor y sucursal de destino. La GD se gestiona después, no en este paso.
 - Tras confirmar: los equipos pasan a estado visible "Asignado al Gestor"
+- En modo view (detalle de asignación): card "Resultados de Inspección del Gestor" con KPIs (Aceptados, Con Problema, Rechazados, Pendientes), tabla por equipo con estado y planilla aplicada, y botón "Ver inspección" que abre modal con los ítems y valores ingresados por el gestor (RN-25)
 
-Nota de negocio (RN-16): la Guía de Despacho Mandante→Gestor se emite vía API de facturación del Mandante y el PDF de respuesta queda adjunto automáticamente. Pendiente validar contrato técnico y manejo de errores de la API.
+Nota de negocio (RN-23): la sucursal de destino es obligatoria para garantizar que la Guía de Despacho posterior pueda emitirse con el destino físico correcto.
+Nota de negocio (RN-16): la Guía de Despacho Mandante→Gestor se gestiona después de confirmada la asignación, no durante el paso de confirmación.
+Nota de negocio (RN-24): las planillas aplicables se calculan automáticamente según los tipos de máquina de los equipos seleccionados.
 
-Componentes: Input, Table, Card, Button, Checkbox, FileUpload, Modal (ver DESIGN.md)
+Componentes: Input, Table, Card, Button, Checkbox, Modal (ver DESIGN.md)
 Layout: TwoColumnLayout
 ```
 
@@ -144,12 +150,13 @@ Layout: MainLayout
 Pantalla de historial de un equipo específico.
 
 Contenido:
-- Buscador predictivo: "Buscar por N° de serie, modelo, marca o tipo de máquina", con sugerencias desplegables para seleccionar el equipo.
-- Card de información del equipo: N° Serie | Marca | Modelo | Estado actual | Gestor | Cliente
-- Timeline vertical con historial cronológico: Fecha | Evento | Estado anterior → Estado nuevo | Actor | Comentario
+- Botón de búsqueda (icono lupa) que abre un modal de selección de equipo.
+- Modal de selección: filtros por N° de serie, marca, modelo, tipo de máquina, estado y gestor. Tabla de resultados con scroll, contador de equipos y botón "Seleccionar" por fila. Al seleccionar, cierra el modal y carga la trazabilidad.
+- Card de información del equipo: N° Serie | Marca | Modelo | Tipo de Máquina | Estado actual | Gestor | Cliente | Ubicación Actual
+- Timeline vertical con historial cronológico: Fecha | Evento | Estado anterior → Estado nuevo | Actor | Ubicación | Comentario
   Ejemplos de eventos: "Registrado en Maestro", "Asignado a Gestor (Guía N° X)", "Recibido y aceptado", "Asignado a Cliente Final (Guía N° Y)", "Enviado a SSTT", "Baja aprobada"
 
-Componentes: Input, Card, Timeline (ver DESIGN.md)
+Componentes: Button, Modal, Input, Select, Table, Card, Timeline (ver DESIGN.md)
 Layout: MainLayout
 ```
 
@@ -270,17 +277,23 @@ Pantalla de inspección de un lote específico de equipos enviado por el Mandant
 
 Contenido:
 - Encabezado: "Recepción de Lote - Carozzi" | Guía de Despacho (N° X o enlace "Ver PDF adjunto", emitida vía API de facturación del Mandante — RN-16) | 50 equipos | Llegada: hoy 10:00 AM
-- Tabla: N° Serie | Marca | Modelo | Checklist | Acciones ("Aceptar" / "Reportar Problema")
-- Botones de acción en lote: "Aceptar Todo" y "Reportar Todo" — al hacer clic muestran un modal de confirmación advirtiendo que se omitirá la inspección individual; el usuario debe confirmar explícitamente
-- Al inspeccionar: desplegar checklist según plantilla aplicable al tipo de activo (checkbox, texto o foto obligatoria por ítem). Al reportar problema: formulario inline con Motivo (dropdown alimentado desde el maestro **Tipos de Incidencias** del Mandante) y Descripción
+- Tabla: N° Serie | Marca | Modelo | Tipo | Estado | Acciones ("Inspeccionar" / "Aceptar" / "Reportar Problema" / "Rechazar")
+- Botón "Inspeccionar" por equipo: abre modal con la planilla aplicable según el tipo de máquina (RN-25). El modal muestra:
+  * Encabezado con N° de serie, marca, modelo, tipo y familia del equipo
+  * Una card por cada planilla aplicable con tabla de ítems (# | Verificación | Resultado)
+  * Ítems pueden ser: checkbox (switch Sí/No), número (input), texto (input) o foto (botón subir)
+  * Ítems obligatorios marcados con badge "Obligatorio"
+  * Footer con botones: "Aceptar" (verde), "Con Problema" (naranjo), "Rechazar" (rojo), "Cancelar"
+- Al guardar inspección: el equipo cambia de estado según el botón presionado (Aceptado, Con Problema, Rechazado) y se almacenan los resultados
+- Equipos ya inspeccionados: botón "Ver inspección" abre el modal en modo lectura (inputs deshabilitados, muestra estado actual)
 - Resumen: X aceptados | Y con problema | Z pendientes de revisar, con barra de progreso
 - Botón "Confirmar recepción" — deshabilitado hasta revisar todos los equipos
 
 Reglas de negocio a respetar en el flujo:
-- La inspección individual por equipo/checklist es el flujo base. La aprobación masiva sin observaciones queda pendiente de validación; si se prototipa, debe mostrarse como opción condicionada y claramente marcada como pendiente de confirmar.
+- La inspección individual por equipo con planilla es el flujo base (RN-25). La planilla se selecciona automáticamente según el tipo de máquina del equipo (RN-24).
 - Si TODOS los equipos del lote resultan con problema, el lote completo queda en estado "Rechazado", a la espera de que el Mandante lo retire — mismo mecanismo que un equipo individual rechazado, sin flujo especial adicional
 
-Componentes: Card, Table, Button, Badge, ProgressBar (ver DESIGN.md)
+Componentes: Card, Table, Button, Badge, ProgressBar, Modal (ver DESIGN.md)
 Layout: MainLayout
 ```
 
@@ -502,7 +515,7 @@ Todo el estilo visual (colores, tipografía, componentes, layouts, breakpoints) 
 
 ### Datos de ejemplo
 - Todos los datos mostrados son **ficticios** — el prototipo es una maqueta no funcional
-- Ejemplos: "Freezer FR-1023", "Gestor IceFree", "Carozzi", estados como "Operativo (1.118)", "En SSTT (118)"
+- Ejemplos: "Freezer FR-1023", "Gestor IceFree", "Carozzi", estados como "Operativo (1.032)", "En SSTT (118)"
 - No incluir datos reales sensibles
 
 ### Orden de prioridad de pantallas

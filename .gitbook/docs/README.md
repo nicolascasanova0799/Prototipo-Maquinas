@@ -1,4 +1,4 @@
-﻿# Documentación Funcional
+# Documentación Funcional
 
 > Documentación funcional del prototipo navegable (no funcional) de la **Plataforma de Gestión de Equipos Refrigerados** de Isstec. Cubre exclusivamente **qué hace cada vista, para quién y por qué existe** — no describe estilos visuales ni código (ver `css/styles.css` y `md/DESIGN.md` para el sistema de diseño).
 >
@@ -6,7 +6,7 @@
 
 ## 1. Contexto del proyecto
 
-La plataforma resuelve la pérdida de visibilidad y control que sufre un **Mandante** (dueño de equipos de frío, ej. Carozzi) sobre los activos que entrega en comodato a **Gestores** (antes denominados Distribuidores, ej. IceFree, Dimer) para instalarlos en puntos de venta de **Clientes finales**. Hoy ese control se lleva en planillas Excel, lo que genera pérdidas, uso indebido de los equipos y falta de trazabilidad. La plataforma reemplaza ese control manual con dos paneles web (Mandante y Gestor) que administran el ciclo de vida completo del equipo: carga masiva, asignación, recepción, asignación a cliente final, inventario, movimientos/bajas e informes. Ver [documentacion-inicial.md](documentacion-inicial.md "mention") §1-§7 para el detalle completo del problema y la solución de negocio.
+La plataforma resuelve la pérdida de visibilidad y control que sufre un **Mandante** (dueño de equipos de frío, ej. Carozzi) sobre los activos que entrega en comodato a **Gestores** (antes denominados Gestores, ej. IceFree, Dimer) para instalarlos en puntos de venta de **Clientes finales**. Hoy ese control se lleva en planillas Excel, lo que genera pérdidas, uso indebido de los equipos y falta de trazabilidad. La plataforma reemplaza ese control manual con dos paneles web (Mandante y Gestor) que administran el ciclo de vida completo del equipo: carga masiva, asignación, recepción, asignación a cliente final, inventario, movimientos/bajas e informes. Ver [documentacion-inicial.md](documentacion-inicial.md "mention") §1-§7 para el detalle completo del problema y la solución de negocio.
 
 **Alcance de este prototipo**: es una maqueta HTML estática (Bootstrap 5), sin backend ni lógica real, pensada para validar el flujo de usuario y presentar la solución comercialmente.
 
@@ -48,7 +48,7 @@ Ambos paneles usan un sidebar fijo agrupado en secciones **Principal · Operaci�
 * **Nombre de la vista**: Dashboard Mandante
 * **Objetivo / problema que resuelve**: dar al Mandante una visión general e inmediata del estado de su flota de equipos y de las solicitudes que requieren su atención, sin tener que revisar planillas.
 * **Motivo por el que fue creada**: es la pantalla de aterrizaje tras el login; resume en un vistazo los indicadores clave del negocio (objetivo 1 de [documentacion-inicial.md](documentacion-inicial.md "mention")).
-* **Funcionalidad principal**: 4 KPIs consistentes entre sí (Total de Equipos, Activos, En Servicio Técnico, Pendientes de Revisión), mapa con pines de ubicación de equipos, gráfico de dona con distribución de estados y tabla de "Solicitudes Pendientes" con acciones rápidas Aprobar/Rechazar. La maqueta debe usar cifras de ejemplo donde el desglose de estados de equipos cuadre matemáticamente con el total.
+* **Funcionalidad principal**: 4 KPIs consistentes entre sí (Total de Equipos, Activos, En Servicio Técnico, Inactivos), mapa con pines de ubicación de equipos, gráfico de dona con distribución de estados y tabla de "Solicitudes Pendientes" con acciones rápidas Aprobar/Rechazar. La maqueta debe usar cifras de ejemplo donde el desglose de estados de equipos cuadre matemáticamente con el total.
 * **Flujo de usuario**: el Mandante llega aquí tras el login → visualiza KPIs y mapa → revisa la tabla de solicitudes pendientes → puede aprobar/rechazar directamente o hacer clic en "Ver todas" para ir al detalle completo.
 * **Relación con otras vistas**: enlaza al formulario de autorizacion de movimientos ("Ver todas" solicitudes); es el punto de partida de la navegación hacia todo el sidebar Mandante.
 
@@ -211,7 +211,7 @@ Ambos paneles usan un sidebar fijo agrupado en secciones **Principal · Operaci�
 
 ## 8. Panel del Gestor
 
-> **Nota de verificación (07/07/2026)**: se confirmó directamente contra el código fuente que las 18 vistas del panel Gestor están implementadas (no solo el Dashboard). Cada enlace del sidebar de `distribuidor/dashboard.html` resuelve a un archivo HTML real y funcional. Los nombres de archivo conservan `distribuidor` por compatibilidad técnica del prototipo, aunque la terminología funcional visible es **Gestor**.
+> **Nota de verificación (07/07/2026)**: se confirmó directamente contra el código fuente que las 18 vistas del panel Gestor están implementadas (no solo el Dashboard). Cada enlace del sidebar de `distribuidor/dashboard.html` resuelve a un archivo HTML real y funcional. Los nombres de archivo conservan `gestor` por compatibilidad técnica del prototipo, aunque la terminología funcional visible es **Gestor**.
 
 ### 8.1 Dashboard Gestor
 

@@ -151,6 +151,59 @@
         .file-upload-area.has-file i {
             color: var(--verde-exito);
         }
+        .gd-gen-progress {
+            text-align: center;
+            padding: 24px;
+        }
+        .gd-gen-progress .spinner-border {
+            color: var(--azul-primario);
+            margin-bottom: 12px;
+        }
+        .gd-gen-success {
+            text-align: center;
+            padding: 20px;
+        }
+        .gd-gen-success i {
+            font-size: 48px;
+            color: var(--verde-exito);
+            margin-bottom: 12px;
+        }
+        .gd-gen-success .gd-number {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--verde-exito);
+            letter-spacing: 0.5px;
+            margin-top: 8px;
+        }
+        .gd-option-btn {
+            text-align: left;
+            padding: 14px 16px;
+            border: 1px solid #DEE2E6;
+            border-radius: 8px;
+            background: #FFFFFF;
+            color: var(--gris-oscuro);
+            font-weight: 600;
+            transition: all 0.15s;
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            width: 100%;
+        }
+        .gd-option-btn:hover {
+            border-color: var(--azul-primario);
+            background: rgba(0, 102, 204, 0.04);
+        }
+        .gd-option-btn i {
+            font-size: 20px;
+            margin-top: 2px;
+        }
+        .gd-option-btn .gd-option-desc {
+            font-size: 12px;
+            font-weight: 400;
+            color: var(--gris-medio);
+            display: block;
+            margin-top: 2px;
+        }
 
         .file-name {
             font-size: 13px;
@@ -261,12 +314,6 @@
                 <a href="servicio-tecnico.html" class="nav-link">
                     <i class="bi bi-tools"></i> Servicio Técnico
                 </a>
-                <a href="grupo-maquinas.html" class="nav-link">
-                    <i class="bi bi-layers"></i> Grupo de Máquinas
-                </a>
-                <a href="familia-maquinas.html" class="nav-link">
-                    <i class="bi bi-grid"></i> Familia de Máquinas
-                </a>
                 <a href="ubicaciones-bodegas.html" class="nav-link">
                     <i class="bi bi-geo"></i> Ubicaciones / Bodegas
                 </a>
@@ -278,12 +325,6 @@
                 </a>
                 <a href="plantillas-inspeccion.html" class="nav-link">
                     <i class="bi bi-clipboard2-check"></i> Plantillas de Inspección
-                </a>
-                <a href="marcas.html" class="nav-link">
-                    <i class="bi bi-tag"></i> Marcas
-                </a>
-                <a href="modelos.html" class="nav-link">
-                    <i class="bi bi-box"></i> Modelos
                 </a>
                 <a href="tipos-incidencias.html" class="nav-link">
                     <i class="bi bi-exclamation-octagon"></i> Tipos de Incidencias / Catálogo de Fallas
@@ -320,9 +361,9 @@
                         <span class="notification-badge">3</span>
                     </div>
                     <div class="user-info">
-                        <div class="user-avatar">SV</div>
+                        <div class="user-avatar" style="overflow:hidden;"><img src="../assets/img/carozzi_logo.jpg" alt="Carozzi" style="width:100%;height:100%;object-fit:cover;"></div>
                         <div>
-                            <div class="user-name">Savory Chile</div>
+                            <div class="user-name">Carozzi Chile</div>
                             <div class="user-role">Mandante</div>
                         </div>
                     </div>
@@ -334,7 +375,7 @@
                 <!-- ===== Alerta de éxito (oculta por defecto) ===== -->
                 <div id="alertaExito" class="alert-success-custom mb-4" style="display: none;">
                     <i class="bi bi-check-circle-fill text-success"></i>
-                    <span id="alertaExitoTexto">Asignación confirmada. Los equipos han pasado a estado "Asignado al Distribuidor".</span>
+                    <span id="alertaExitoTexto">Asignación confirmada. Los equipos han pasado a estado "Asignado al Gestor".</span>
                 </div>
 
                 <!-- ===== Alerta de borrador guardado (oculta por defecto) ===== -->
@@ -346,7 +387,7 @@
                 <!-- ===== Nota de negocio RN-16 ===== -->
                 <!--
                 <div class="rn-note mb-4">
-                    <strong>Nota de negocio (RN-16):</strong> La generación automática de Guía de Despacho solo aplica a distribuidores que operan con sistema Isstec al recibir el equipo (ver pantallas 3.2/3.3). Savory como Mandante y distribuidores sin ERP Isstec deben adjuntar el PDF manualmente en este flujo. Los distribuidores con ERP Isstec también pueden usar esta vía manual.
+                    <strong>Nota de negocio (RN-16):</strong> La generación automática de Guía de Despacho solo aplica a gestores que operan con sistema Isstec al recibir el equipo (ver pantallas 3.2/3.3). Carozzi como Mandante y gestores sin ERP Isstec deben adjuntar el PDF manualmente en este flujo. Los gestores con ERP Isstec también pueden usar esta vía manual.
                 </div>
                 -->
 
@@ -354,18 +395,24 @@
                 <div class="two-col-layout">
                     <!-- ===== Columna principal: Tabla de equipos ===== -->
                     <div>
-                        <!-- Selector distribuidor + filtros -->
+                        <!-- Selector gestor + filtros -->
                         <div class="card mb-4">
                             <div class="card-body">
                                 <div class="filter-bar">
                                     <div class="flex-grow-1" style="min-width: 220px;">
-                                        <label class="form-label">Distribuidor destino</label>
-                                        <select class="form-select" id="selectDistribuidor">
-                                            <option value="">Seleccionar distribuidor…</option>
+                                        <label class="form-label">Gestor destino</label>
+                                        <select class="form-select" id="selectGestor">
+                                            <option value="">Seleccionar gestor…</option>
                                             <option value="icefree">IceFree Chile</option>
                                             <option value="norte">Distribuidora Norte</option>
                                             <option value="sur">Sur Distribución</option>
                                             <option value="frioaustral">Frío Austral</option>
+                                        </select>
+                                    </div>
+                                    <div style="min-width: 200px;">
+                                        <label class="form-label">Sucursal de destino <span class="text-danger">*</span></label>
+                                        <select class="form-select" id="selectSucursal" disabled>
+                                            <option value="">Seleccionar sucursal…</option>
                                         </select>
                                     </div>
                                     <div>
@@ -376,7 +423,7 @@
                                         <label class="form-label">Marca</label>
                                         <select class="form-select" id="filtroMarca">
                                             <option value="">Todas</option>
-                                            <option value="savory">Savory</option>
+                                            <option value="carozzi">Carozzi</option>
                                             <option value="foster">Foster</option>
                                             <option value="true">True</option>
                                             <option value="bonnet">Bonnet</option>
@@ -405,65 +452,83 @@
                                                 <th>N° Serie</th>
                                                 <th>Marca</th>
                                                 <th>Modelo</th>
+                                                <th>Tipo</th>
                                                 <th>Estado</th>
+                                                <th class="th-inspeccion" style="display: none;">Inspección</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr data-serie="FR-1023" data-marca="Savory" data-modelo="SF-200">
+                                            <tr data-serie="FR-1023" data-marca="Carozzi" data-modelo="SF-200" data-tipo="Vertical" data-familia="Congelación">
                                                 <td><input type="checkbox" class="check-equipo" aria-label="Seleccionar FR-1023"></td>
                                                 <td class="fw-semibold">FR-1023</td>
-                                                <td>Savory</td>
+                                                <td>Carozzi</td>
                                                 <td>SF-200</td>
+                                                <td>Vertical</td>
                                                 <td><span class="badge-status badge-activo">Activo</span></td>
+                                                <td class="td-inspeccion" style="display: none;"></td>
                                             </tr>
-                                            <tr data-serie="FR-1024" data-marca="Savory" data-modelo="SF-200">
+                                            <tr data-serie="FR-1024" data-marca="Carozzi" data-modelo="SF-200" data-tipo="Vertical" data-familia="Congelación">
                                                 <td><input type="checkbox" class="check-equipo" aria-label="Seleccionar FR-1024"></td>
                                                 <td class="fw-semibold">FR-1024</td>
-                                                <td>Savory</td>
+                                                <td>Carozzi</td>
                                                 <td>SF-200</td>
+                                                <td>Vertical</td>
                                                 <td><span class="badge-status badge-activo">Activo</span></td>
+                                                <td class="td-inspeccion" style="display: none;"></td>
                                             </tr>
-                                            <tr data-serie="FR-1025" data-marca="Savory" data-modelo="SF-450">
+                                            <tr data-serie="FR-1025" data-marca="Carozzi" data-modelo="SF-450" data-tipo="Congelados" data-familia="Congelación">
                                                 <td><input type="checkbox" class="check-equipo" aria-label="Seleccionar FR-1025"></td>
                                                 <td class="fw-semibold">FR-1025</td>
-                                                <td>Savory</td>
+                                                <td>Carozzi</td>
                                                 <td>SF-450</td>
+                                                <td>Congelados</td>
                                                 <td><span class="badge-status badge-activo">Activo</span></td>
+                                                <td class="td-inspeccion" style="display: none;"></td>
                                             </tr>
-                                            <tr data-serie="FS-2201" data-marca="Foster" data-modelo="F-350">
+                                            <tr data-serie="FS-2201" data-marca="Foster" data-modelo="F-350" data-tipo="Exhibidor" data-familia="Refrigeración">
                                                 <td><input type="checkbox" class="check-equipo" aria-label="Seleccionar FS-2201"></td>
                                                 <td class="fw-semibold">FS-2201</td>
                                                 <td>Foster</td>
                                                 <td>F-350</td>
+                                                <td>Exhibidor</td>
                                                 <td><span class="badge-status badge-activo">Activo</span></td>
+                                                <td class="td-inspeccion" style="display: none;"></td>
                                             </tr>
-                                            <tr data-serie="FS-2202" data-marca="Foster" data-modelo="F-350">
+                                            <tr data-serie="FS-2202" data-marca="Foster" data-modelo="F-350" data-tipo="Exhibidor" data-familia="Refrigeración">
                                                 <td><input type="checkbox" class="check-equipo" aria-label="Seleccionar FS-2202"></td>
                                                 <td class="fw-semibold">FS-2202</td>
                                                 <td>Foster</td>
                                                 <td>F-350</td>
+                                                <td>Exhibidor</td>
                                                 <td><span class="badge-status badge-activo">Activo</span></td>
+                                                <td class="td-inspeccion" style="display: none;"></td>
                                             </tr>
-                                            <tr data-serie="TR-3301" data-marca="True" data-modelo="T-500">
+                                            <tr data-serie="TR-3301" data-marca="True" data-modelo="T-500" data-tipo="Vitrina" data-familia="Refrigeración">
                                                 <td><input type="checkbox" class="check-equipo" aria-label="Seleccionar TR-3301"></td>
                                                 <td class="fw-semibold">TR-3301</td>
                                                 <td>True</td>
                                                 <td>T-500</td>
+                                                <td>Vitrina</td>
                                                 <td><span class="badge-status badge-activo">Activo</span></td>
+                                                <td class="td-inspeccion" style="display: none;"></td>
                                             </tr>
-                                            <tr data-serie="TR-3302" data-marca="True" data-modelo="T-500">
+                                            <tr data-serie="TR-3302" data-marca="True" data-modelo="T-500" data-tipo="Vitrina" data-familia="Refrigeración">
                                                 <td><input type="checkbox" class="check-equipo" aria-label="Seleccionar TR-3302"></td>
                                                 <td class="fw-semibold">TR-3302</td>
                                                 <td>True</td>
                                                 <td>T-500</td>
+                                                <td>Vitrina</td>
                                                 <td><span class="badge-status badge-activo">Activo</span></td>
+                                                <td class="td-inspeccion" style="display: none;"></td>
                                             </tr>
-                                            <tr data-serie="BN-4401" data-marca="Bonnet" data-modelo="B-700">
+                                            <tr data-serie="BN-4401" data-marca="Bonnet" data-modelo="B-700" data-tipo="Barquillera" data-familia="Expendedoras">
                                                 <td><input type="checkbox" class="check-equipo" aria-label="Seleccionar BN-4401"></td>
                                                 <td class="fw-semibold">BN-4401</td>
                                                 <td>Bonnet</td>
                                                 <td>B-700</td>
+                                                <td>Barquillera</td>
                                                 <td><span class="badge-status badge-activo">Activo</span></td>
+                                                <td class="td-inspeccion" style="display: none;"></td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -510,16 +575,28 @@
                                     <div class="stat-label">Equipos seleccionados</div>
                                 </div>
 
-                                <!-- Distribuidor destino -->
+                                <!-- Gestor destino -->
                                 <div class="summary-distributor">
-                                    <div class="dist-label">Distribuidor destino</div>
+                                    <div class="dist-label">Gestor destino</div>
                                     <div class="dist-value placeholder" id="distDestinoDisplay">Sin seleccionar</div>
+                                </div>
+
+                                <!-- Sucursal de destino -->
+                                <div class="summary-distributor">
+                                    <div class="dist-label">Sucursal de destino</div>
+                                    <div class="dist-value placeholder" id="sucursalDestinoDisplay">Sin seleccionar</div>
+                                </div>
+
+                                <!-- Planillas de inspección aplicables -->
+                                <div class="summary-distributor" id="planillasSection" style="display: none;">
+                                    <div class="dist-label">Planillas de inspección aplicables</div>
+                                    <div id="planillasList" style="font-size: 13px;"></div>
                                 </div>
 
                                 <!-- Botones de acción -->
                                 <div class="d-flex flex-column gap-2 mt-3">
                                     <button type="button" class="btn btn-primary btn-lg" id="btnConfirmar" disabled>
-                                        <i class="bi bi-send me-2"></i>Enviar al distribuidor
+                                        <i class="bi bi-send me-2"></i>Enviar al gestor
                                     </button>
                                     <button type="button" class="btn btn-outline-warning" id="btnGuardarBorrador" disabled>
                                         <i class="bi bi-save me-2"></i>Guardar borrador
@@ -532,61 +609,137 @@
                         </div>
                     </div>
                 </div>
+
+                <!-- ===== Resultados de Inspección (solo modo view) ===== -->
+                <div class="card mb-4" id="cardResultadosInspeccion" style="display: none;">
+                    <div class="card-body">
+                        <h5 class="card-title mb-3"><i class="bi bi-clipboard2-check me-2"></i>Resultados de Inspección del Gestor</h5>
+
+                        <!-- Resumen agregado -->
+                        <div class="row g-3 mb-3">
+                            <div class="col-6 col-lg-3">
+                                <div class="summary-row"><div class="summary-item">
+                                    <span class="summary-label">Aceptados</span>
+                                    <span class="summary-value" id="resAceptados" style="color: var(--verde-exito);">—</span>
+                                </div></div>
+                            </div>
+                            <div class="col-6 col-lg-3">
+                                <div class="summary-row"><div class="summary-item">
+                                    <span class="summary-label">Con Problema</span>
+                                    <span class="summary-value" id="resProblema" style="color: var(--naranja-coral);">—</span>
+                                </div></div>
+                            </div>
+                            <div class="col-6 col-lg-3">
+                                <div class="summary-row"><div class="summary-item">
+                                    <span class="summary-label">Rechazados</span>
+                                    <span class="summary-value" id="resRechazados" style="color: var(--rojo-error);">—</span>
+                                </div></div>
+                            </div>
+                            <div class="col-6 col-lg-3">
+                                <div class="summary-row"><div class="summary-item">
+                                    <span class="summary-label">Pendientes</span>
+                                    <span class="summary-value" id="resPendientes" style="color: var(--gris-medio);">—</span>
+                                </div></div>
+                            </div>
+                        </div>
+                        <p class="text-muted mb-0" style="font-size:13px;">Los resultados detallados por equipo se muestran en la columna <strong>Inspección</strong> de la tabla superior.</p>
+                    </div>
+                </div>
             </main>
         </div>
     </div>
 
-    <!-- ===== Modal: Adjuntar Guía de Despacho ===== -->
-    <div class="modal fade" id="modalGuiaDespacho" tabindex="-1" aria-labelledby="modalGuiaDespachoLabel" aria-hidden="true">
+    <!-- ===== Modal: Confirmar envío al gestor ===== -->
+    <div class="modal fade" id="modalGuiaDespacho" tabindex="-1" aria-labelledby="modalGuiaDespachoLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="modalGuiaDespachoLabel">
-                        <i class="bi bi-file-earmark-pdf me-2"></i>Adjuntar Guía de Despacho
+                        <i class="bi bi-send-check me-2"></i>Confirmar envío al gestor
                     </h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar" id="gdModalClose"></button>
                 </div>
                 <div class="modal-body">
-                    <form id="formGuiaDespacho" novalidate>
-                        <!-- Resumen de la asignación -->
-                        <div class="rn-note mb-3">
-                            <strong id="resumenAsignacion">Se asignarán 0 equipos al distribuidor.</strong>
-                        </div>
+                    <div class="rn-note mb-3">
+                        <strong id="resumenAsignacion">Se asignarán 0 equipos al gestor.</strong>
+                        <div id="resumenSucursal" class="mt-1" style="font-weight: 400;"></div>
+                    </div>
 
-                        <!-- Carga de archivo PDF -->
+                    <!-- Step 1: GD Choice -->
+                    <div id="gdChoiceSection">
+                        <p class="fw-semibold mb-1">Guía de Despacho</p>
+                        <p class="text-muted mb-3" style="font-size: 13px;">¿Cómo desea gestionar la Guía de Despacho para esta asignación?</p>
+                        <div class="d-flex flex-column gap-2">
+                            <button type="button" class="gd-option-btn" id="btnGenerarGDApi">
+                                <i class="bi bi-lightning-charge"></i>
+                                <div>Generar vía API<span class="gd-option-desc">Conectar con sistema de facturación del Mandante</span></div>
+                            </button>
+                            <button type="button" class="gd-option-btn" id="btnSubirPDFChoice">
+                                <i class="bi bi-upload"></i>
+                                <div>Subir PDF<span class="gd-option-desc">Adjuntar Guía de Despacho generada externamente</span></div>
+                            </button>
+                            <button type="button" class="gd-option-btn" id="btnHacerMasTarde">
+                                <i class="bi bi-clock"></i>
+                                <div>Hacer más tarde<span class="gd-option-desc">Gestionar desde Asignaciones o Guías de Despacho</span></div>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Step 2a: Generation Progress -->
+                    <div id="gdGenSection" style="display: none;">
+                        <div class="gd-gen-progress">
+                            <div class="spinner-border" role="status"></div>
+                            <p class="fw-semibold mb-1">Conectando con sistema de facturación…</p>
+                            <p class="text-muted mb-0" style="font-size: 13px;" id="gdProgressText">Generando Guía de Despacho…</p>
+                        </div>
+                    </div>
+
+                    <!-- Step 2b: Upload PDF -->
+                    <div id="gdUploadSection" style="display: none;">
                         <div class="mb-3">
-                            <label class="form-label">Guía de Despacho (PDF) <span class="text-danger">*</span></label>
-                            <div class="file-upload-area" id="uploadArea">
+                            <label class="form-label">Archivo PDF <span class="text-danger">*</span></label>
+                            <div class="file-upload-area" id="uploadAreaGD">
                                 <i class="bi bi-cloud-arrow-up d-block"></i>
                                 <div class="upload-text">Haz clic o arrastra el archivo aquí</div>
                                 <div class="upload-hint">Formato PDF · Máx. 10 MB</div>
-                                <input type="file" id="inputFileGuia" accept=".pdf,application/pdf" style="display: none;" required>
+                                <input type="file" id="inputFileGD" accept=".pdf,application/pdf" style="display: none;" required>
                             </div>
-                            <div class="file-name" id="fileName" style="display: none;"></div>
-                            <div class="invalid-feedback" id="errorFile">
-                                Debes adjuntar el PDF de la Guía de Despacho.
-                            </div>
+                            <div class="text-danger" id="errorFileGD" style="display: none; font-size: 13px; margin-top: 4px;">Debes adjuntar el PDF de la Guía de Despacho.</div>
                         </div>
-
-                        <!-- N° de documento (opcional) -->
                         <div class="mb-3">
-                            <label for="numDocumento" class="form-label">N° de documento <span class="text-muted">(opcional)</span></label>
-                            <input type="text" class="form-control" id="numDocumento" placeholder="Ej: GD-2026-00123">
+                            <label for="numDocumentoGD" class="form-label">N° de documento <span class="text-muted">(opcional)</span></label>
+                            <input type="text" class="form-control" id="numDocumentoGD" placeholder="Ej: GD-2026-00123">
                         </div>
+                    </div>
 
-                        <!-- Nota RN-16 -->
-                        <!--
-                        <div class="rn-note">
-                            <strong>RN-16:</strong> Savory como Mandante siempre adjunta el PDF de la Guía de Despacho manualmente. La generación automática solo aplica a distribuidores con sistema Isstec al recibir el equipo (pantallas 3.2/3.3).
+                    <!-- Step 3: Success -->
+                    <div id="gdSuccessSection" style="display: none;">
+                        <div class="gd-gen-success">
+                            <i class="bi bi-check-circle-fill d-block"></i>
+                            <p class="fw-semibold mb-0" id="gdSuccessText">Asignación confirmada y Guía de Despacho generada</p>
+                            <div class="gd-number" id="gdSuccessNumber">GD-REC-0000</div>
+                            <p class="text-muted mt-2 mb-0" style="font-size: 13px;" id="gdSuccessHint">El PDF se ha adjuntado automáticamente a la asignación.</p>
                         </div>
-                        -->
-                    </form>
+                    </div>
                 </div>
-                <div class="modal-footer">
+                <div class="modal-footer" id="gdFooter">
                     <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancelar</button>
-                    <button type="button" class="btn btn-primary" id="btnConfirmarAsignacion">
-                        <i class="bi bi-check2-circle me-2"></i>Confirmar y asignar
-                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== Modal: Resultado de Inspección por equipo ===== -->
+    <div class="modal fade" id="modalResultadoInspeccion" tabindex="-1">
+        <div class="modal-dialog modal-lg modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalResultadoTitle" style="color: var(--azul-marino); font-weight: 600;"></h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body" id="modalResultadoBody"></div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cerrar</button>
                 </div>
             </div>
         </div>
@@ -595,25 +748,323 @@
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        const selectDistribuidor = document.getElementById('selectDistribuidor');
+        const selectGestor = document.getElementById('selectGestor');
+        const selectSucursal = document.getElementById('selectSucursal');
         const distDestinoDisplay = document.getElementById('distDestinoDisplay');
+        const sucursalDestinoDisplay = document.getElementById('sucursalDestinoDisplay');
         const btnConfirmar = document.getElementById('btnConfirmar');
         const btnLimpiar = document.getElementById('btnLimpiar');
-        const btnConfirmarAsignacion = document.getElementById('btnConfirmarAsignacion');
+        const modalGuiaDespachoEl = document.getElementById('modalGuiaDespacho');
+        const gdChoiceSection = document.getElementById('gdChoiceSection');
+        const gdGenSection = document.getElementById('gdGenSection');
+        const gdUploadSection = document.getElementById('gdUploadSection');
+        const gdSuccessSection = document.getElementById('gdSuccessSection');
+        const gdFooter = document.getElementById('gdFooter');
+        const gdModalClose = document.getElementById('gdModalClose');
+        const btnGenerarGDApi = document.getElementById('btnGenerarGDApi');
+        const btnSubirPDFChoice = document.getElementById('btnSubirPDFChoice');
+        const btnHacerMasTarde = document.getElementById('btnHacerMasTarde');
+        const uploadAreaGD = document.getElementById('uploadAreaGD');
+        const inputFileGD = document.getElementById('inputFileGD');
+        let gdAssignmentConfirmed = false;
         const contadorSeleccionados = document.getElementById('contadorSeleccionados');
         const checkAll = document.getElementById('checkAll');
         const checkboxes = document.querySelectorAll('.check-equipo');
         const tablaEquipos = document.getElementById('tablaEquipos');
-        const uploadArea = document.getElementById('uploadArea');
-        const inputFileGuia = document.getElementById('inputFileGuia');
-        const fileName = document.getElementById('fileName');
-        const formGuiaDespacho = document.getElementById('formGuiaDespacho');
         const resumenAsignacion = document.getElementById('resumenAsignacion');
+        const resumenSucursal = document.getElementById('resumenSucursal');
         const alertaExito = document.getElementById('alertaExito');
         const alertaBorrador = document.getElementById('alertaBorrador');
         const btnGuardarBorrador = document.getElementById('btnGuardarBorrador');
         const pageTitle = document.getElementById('pageTitle');
         const headerEstado = document.getElementById('headerEstado');
+
+        // ===== Data de sucursales por gestor (simulación) =====
+        const sucursalesPorGestor = {
+            icefree: [
+                { value: 'icefree-matriz', label: 'Casa Matriz — Av. del Valle 1234, Santiago' },
+                { value: 'icefree-norte', label: 'Sucursal Norte — Av. Las Condes 456, Santiago' }
+            ],
+            norte: [
+                { value: 'norte-matriz', label: 'Casa Matriz — Calle Los Andes 567, Antofagasta' }
+            ],
+            sur: [
+                { value: 'sur-matriz', label: 'Casa Matriz — Camino El Manzano 890, Concepción' },
+                { value: 'sur-sur', label: 'Sucursal Sur — Av. Pedro Montt 200, Concepción' },
+                { value: 'sur-talca', label: 'Bodega Talca — Camino Internacional 123, Talca' }
+            ],
+            frioaustral: [
+                { value: 'frioaustral-matriz', label: 'Casa Matriz — Av. Alemania 1450, Temuco' },
+                { value: 'frioaustral-valdivia', label: 'Sucursal Valdivia — Av. Picarte 800, Valdivia' }
+            ]
+        };
+
+        function poblarSucursales(gestorId) {
+            selectSucursal.innerHTML = '<option value="">Seleccionar sucursal…</option>';
+            if (gestorId && sucursalesPorGestor[gestorId]) {
+                sucursalesPorGestor[gestorId].forEach(function(s) {
+                    const opt = document.createElement('option');
+                    opt.value = s.value;
+                    opt.textContent = s.label;
+                    selectSucursal.appendChild(opt);
+                });
+                selectSucursal.disabled = false;
+            } else {
+                selectSucursal.disabled = true;
+            }
+            selectSucursal.value = '';
+        }
+
+        // ===== Resultados de Inspección del Gestor (modo view) =====
+        const planillasInspeccionMandante = [
+            { nombre: 'Inspección de Recepción Estándar', categoria: 'tipo', valor: 'Todos', items: [
+                { desc: 'Verificar que el equipo encienda correctamente', tipo: 'checkbox', obligatorio: true },
+                { desc: 'Comprobar estado de la pintura y estructura exterior', tipo: 'checkbox', obligatorio: true },
+                { desc: 'Verificar temperatura interna de operación', tipo: 'numero', obligatorio: true },
+                { desc: 'Revisar estado de las ruedas y patines', tipo: 'checkbox', obligatorio: false },
+                { desc: 'Comprobar cierre hermético de puerta/tapa', tipo: 'checkbox', obligatorio: true },
+                { desc: 'Verificar iluminación interior', tipo: 'checkbox', obligatorio: false },
+                { desc: 'Revisar estado de bandejas y estantes', tipo: 'checkbox', obligatorio: false },
+                { desc: 'Fotografía del equipo recibido', tipo: 'foto', obligatorio: true }
+            ]},
+            { nombre: 'Inspección Vitrinas Refrigeradas', categoria: 'tipo', valor: 'Vitrina, Exhibidor', items: [
+                { desc: 'Verificar encendido y display de control', tipo: 'checkbox', obligatorio: true },
+                { desc: 'Temperatura interna (°C)', tipo: 'numero', obligatorio: true },
+                { desc: 'Estado de empaques de puerta', tipo: 'checkbox', obligatorio: true },
+                { desc: 'Cierre automático de puerta', tipo: 'checkbox', obligatorio: true },
+                { desc: 'Iluminación interior LED', tipo: 'checkbox', obligatorio: false },
+                { desc: 'Estado de estantes y bandejas', tipo: 'checkbox', obligatorio: false },
+                { desc: 'Ruidos anormales del compresor', tipo: 'checkbox', obligatorio: true },
+                { desc: 'Sello de goma en buen estado', tipo: 'checkbox', obligatorio: true },
+                { desc: 'Nivel de frío en zona superior', tipo: 'numero', obligatorio: false },
+                { desc: 'Nivel de frío en zona inferior', tipo: 'numero', obligatorio: false },
+                { desc: 'Limpieza interior', tipo: 'checkbox', obligatorio: false },
+                { desc: 'Fotografía de la vitrina', tipo: 'foto', obligatorio: true }
+            ]},
+            { nombre: 'Inspección Congeladores', categoria: 'tipo', valor: 'Congelados, Vertical', items: [
+                { desc: 'Verificar encendido', tipo: 'checkbox', obligatorio: true },
+                { desc: 'Temperatura de congelación (°C)', tipo: 'numero', obligatorio: true },
+                { desc: 'Estado de la tapa/visor', tipo: 'checkbox', obligatorio: true },
+                { desc: 'Cierre hermético', tipo: 'checkbox', obligatorio: true },
+                { desc: 'Formación de escarcha excesiva', tipo: 'checkbox', obligatorio: true },
+                { desc: 'Ruidos del motor', tipo: 'checkbox', obligatorio: false },
+                { desc: 'Estado de ruedas', tipo: 'checkbox', obligatorio: false },
+                { desc: 'Drenaje despejado', tipo: 'checkbox', obligatorio: false },
+                { desc: 'Limpieza interior', tipo: 'checkbox', obligatorio: false },
+                { desc: 'Fotografía del congelador', tipo: 'foto', obligatorio: true }
+            ]},
+            { nombre: 'Inspección Barquilleras', categoria: 'tipo', valor: 'Barquillera', items: [
+                { desc: 'Verificar encendido', tipo: 'checkbox', obligatorio: true },
+                { desc: 'Temperatura de conservación (°C)', tipo: 'numero', obligatorio: true },
+                { desc: 'Estado del mecanismo expendedor', tipo: 'checkbox', obligatorio: true },
+                { desc: 'Limpieza del área de contacto con alimentos', tipo: 'checkbox', obligatorio: true },
+                { desc: 'Estado de la estructura exterior', tipo: 'checkbox', obligatorio: false },
+                { desc: 'Fotografía de la barquillera', tipo: 'foto', obligatorio: true }
+            ]}
+        ];
+
+        function obtenerPlanillaParaTipo(tipo) {
+            // Buscar primero una plantilla específica (que no sea "Todos")
+            const especifica = planillasInspeccionMandante.find(function(p) {
+                const valores = p.valor.split(',').map(v => v.trim());
+                return valores.includes(tipo);
+            });
+            if (especifica) return especifica;
+            // Fallback: plantilla general "Todos"
+            return planillasInspeccionMandante.find(p => p.valor === 'Todos');
+        }
+
+        const equiposSimulados = {
+            'ASG-0040': [
+                { estado: 'accepted', resultados: ['Sí','Sí','-18','Sí','Sí','No','Sí','Foto'] },
+                { estado: 'accepted', resultados: ['Sí','Sí','-20','Sí','Sí','Sí','Sí','Foto'] },
+                { estado: 'accepted', resultados: ['Sí','-22','Sí','Sí','No','No','Sí','Sí','Sí','Foto'] },
+                { estado: 'problem', resultados: ['Sí','Sí','5','No','Sí','Sí','No','Sí','3','2','Sí','Foto'], motivo: 'Puerta no cierra herméticamente' },
+                { estado: 'accepted', resultados: ['Sí','5','Sí','Sí','Sí','Sí','No','Sí','4','3','Sí','Foto'] },
+                { estado: 'accepted', resultados: ['Sí','4','Sí','Sí','Sí','Sí','No','Sí','3','3','Sí','Foto'] },
+                { estado: 'rejected', resultados: ['No','—','—','—','—','—','Sí','—','—','—','—','—'], motivo: 'No enciende' },
+                { estado: 'pending', resultados: null }
+            ],
+            'ASG-0039': [
+                { estado: 'accepted', resultados: ['Sí','Sí','-18','Sí','Sí','No','Sí','Foto'] },
+                { estado: 'accepted', resultados: ['Sí','Sí','-19','Sí','Sí','Sí','Sí','Foto'] },
+                { estado: 'accepted', resultados: ['Sí','-21','Sí','Sí','No','No','Sí','Sí','Sí','Foto'] },
+                { estado: 'accepted', resultados: ['Sí','4','Sí','Sí','Sí','Sí','No','Sí','3','3','Sí','Foto'] },
+                { estado: 'accepted', resultados: ['Sí','5','Sí','Sí','Sí','Sí','No','Sí','4','3','Sí','Foto'] },
+                { estado: 'accepted', resultados: ['Sí','3','Sí','Sí','Sí','Sí','No','Sí','2','3','Sí','Foto'] },
+                { estado: 'accepted', resultados: ['Sí','4','Sí','Sí','Sí','Sí','No','Sí','3','3','Sí','Foto'] },
+                { estado: 'problem', resultados: ['Sí','-2','No','Sí','No','Foto'], motivo: 'Mecanismo expendedor con falla' }
+            ],
+            'ASG-0038': [
+                { estado: 'accepted', resultados: ['Sí','Sí','-19','Sí','Sí','Sí','Sí','Foto'] },
+                { estado: 'accepted', resultados: ['Sí','Sí','-20','Sí','Sí','No','Sí','Foto'] },
+                { estado: 'accepted', resultados: ['Sí','-20','Sí','Sí','No','No','Sí','Sí','No','Foto'] },
+                { estado: 'accepted', resultados: ['Sí','5','Sí','Sí','Sí','Sí','No','Sí','4','3','Sí','Foto'] },
+                { estado: 'accepted', resultados: ['Sí','4','Sí','Sí','Sí','Sí','No','Sí','3','3','Sí','Foto'] },
+                { estado: 'accepted', resultados: ['Sí','4','Sí','Sí','Sí','Sí','No','Sí','3','3','Sí','Foto'] },
+                { estado: 'accepted', resultados: ['Sí','3','Sí','Sí','Sí','Sí','No','Sí','2','3','Sí','Foto'] },
+                { estado: 'accepted', resultados: ['Sí','0','Sí','Sí','Sí','Foto'] }
+            ],
+            'ASG-0037': [
+                { estado: 'accepted', resultados: ['Sí','Sí','-18','Sí','Sí','No','Sí','Foto'] },
+                { estado: 'accepted', resultados: ['Sí','Sí','-19','Sí','Sí','Sí','Sí','Foto'] },
+                { estado: 'accepted', resultados: ['Sí','-21','Sí','Sí','No','No','Sí','Sí','Sí','Foto'] },
+                { estado: 'accepted', resultados: ['Sí','4','Sí','Sí','Sí','Sí','No','Sí','3','3','Sí','Foto'] },
+                { estado: 'accepted', resultados: ['Sí','5','Sí','Sí','Sí','Sí','No','Sí','4','3','Sí','Foto'] },
+                { estado: 'accepted', resultados: ['Sí','3','Sí','Sí','Sí','Sí','No','Sí','2','3','Sí','Foto'] },
+                { estado: 'pending', resultados: null },
+                { estado: 'accepted', resultados: ['Sí','0','Sí','Sí','Sí','Foto'] }
+            ],
+            'ASG-0036': [
+                { estado: 'accepted', resultados: ['Sí','Sí','-18','Sí','Sí','No','Sí','Foto'] },
+                { estado: 'accepted', resultados: ['Sí','Sí','-20','Sí','Sí','Sí','Sí','Foto'] },
+                { estado: 'accepted', resultados: ['Sí','-19','Sí','Sí','No','No','Sí','Sí','No','Foto'] },
+                { estado: 'problem', resultados: ['Sí','7','Sí','No','Sí','Sí','Sí','Sí','4','5','Sí','Foto'], motivo: 'Cierre automático de puerta falla' },
+                { estado: 'accepted', resultados: ['Sí','4','Sí','Sí','Sí','Sí','No','Sí','3','3','Sí','Foto'] },
+                { estado: 'accepted', resultados: ['Sí','3','Sí','Sí','Sí','Sí','No','Sí','2','3','Sí','Foto'] },
+                { estado: 'accepted', resultados: ['Sí','4','Sí','Sí','Sí','Sí','No','Sí','3','3','Sí','Foto'] },
+                { estado: 'accepted', resultados: ['Sí','0','Sí','Sí','Sí','Foto'] }
+            ],
+            'ASG-0033': [
+                { estado: 'accepted', resultados: ['Sí','Sí','-20','Sí','Sí','Sí','Sí','Foto'] },
+                { estado: 'accepted', resultados: ['Sí','Sí','-18','Sí','Sí','No','Sí','Foto'] },
+                { estado: 'accepted', resultados: ['Sí','-21','Sí','Sí','No','No','Sí','Sí','Sí','Foto'] },
+                { estado: 'accepted', resultados: ['Sí','5','Sí','Sí','Sí','Sí','No','Sí','3','4','Sí','Foto'] },
+                { estado: 'accepted', resultados: ['Sí','4','Sí','Sí','Sí','Sí','No','Sí','3','3','Sí','Foto'] },
+                { estado: 'accepted', resultados: ['Sí','3','Sí','Sí','Sí','Sí','No','Sí','2','3','Sí','Foto'] },
+                { estado: 'pending', resultados: null },
+                { estado: 'accepted', resultados: ['Sí','0','Sí','Sí','Sí','Foto'] }
+            ],
+            'ASG-0034': [
+                { estado: 'accepted', resultados: ['Sí','Sí','-19','Sí','Sí','No','Sí','Foto'] },
+                { estado: 'accepted', resultados: ['Sí','Sí','-18','Sí','Sí','Sí','Sí','Foto'] },
+                { estado: 'accepted', resultados: ['Sí','-20','Sí','Sí','No','No','Sí','Sí','No','Foto'] },
+                { estado: 'accepted', resultados: ['Sí','4','Sí','Sí','Sí','Sí','No','Sí','3','3','Sí','Foto'] },
+                { estado: 'accepted', resultados: ['Sí','5','Sí','Sí','Sí','Sí','No','Sí','4','3','Sí','Foto'] },
+                { estado: 'accepted', resultados: ['Sí','3','Sí','Sí','Sí','Sí','No','Sí','2','3','Sí','Foto'] },
+                { estado: 'accepted', resultados: ['Sí','4','Sí','Sí','Sí','Sí','No','Sí','3','3','Sí','Foto'] },
+                { estado: 'accepted', resultados: ['Sí','0','Sí','Sí','Sí','Foto'] }
+            ],
+            'ASG-0035': [
+                { estado: 'accepted', resultados: ['Sí','Sí','-18','Sí','Sí','No','Sí','Foto'] },
+                { estado: 'accepted', resultados: ['Sí','Sí','-20','Sí','Sí','Sí','Sí','Foto'] },
+                { estado: 'accepted', resultados: ['Sí','-21','Sí','Sí','No','No','Sí','Sí','Sí','Foto'] },
+                { estado: 'problem', resultados: ['Sí','8','Sí','No','Sí','Sí','Sí','Sí','5','6','Sí','Foto'], motivo: 'Temperatura interna fuera de rango' },
+                { estado: 'accepted', resultados: ['Sí','4','Sí','Sí','Sí','Sí','No','Sí','3','3','Sí','Foto'] },
+                { estado: 'accepted', resultados: ['Sí','4','Sí','Sí','Sí','Sí','No','Sí','3','3','Sí','Foto'] },
+                { estado: 'accepted', resultados: ['Sí','3','Sí','Sí','Sí','Sí','No','Sí','2','3','Sí','Foto'] },
+                { estado: 'accepted', resultados: ['Sí','0','Sí','Sí','Sí','Foto'] }
+            ],
+            'ASG-0032': [
+                { estado: 'accepted', resultados: ['Sí','Sí','-18','Sí','Sí','Sí','Sí','Foto'] },
+                { estado: 'accepted', resultados: ['Sí','Sí','-19','Sí','Sí','No','Sí','Foto'] },
+                { estado: 'accepted', resultados: ['Sí','-20','Sí','Sí','No','No','Sí','Sí','No','Foto'] },
+                { estado: 'accepted', resultados: ['Sí','4','Sí','Sí','Sí','Sí','No','Sí','3','3','Sí','Foto'] },
+                { estado: 'accepted', resultados: ['Sí','5','Sí','Sí','Sí','Sí','No','Sí','4','3','Sí','Foto'] },
+                { estado: 'accepted', resultados: ['Sí','3','Sí','Sí','Sí','Sí','No','Sí','2','3','Sí','Foto'] },
+                { estado: 'accepted', resultados: ['Sí','4','Sí','Sí','Sí','Sí','No','Sí','3','3','Sí','Foto'] },
+                { estado: 'accepted', resultados: ['Sí','0','Sí','Sí','Sí','Foto'] }
+            ],
+            'ASG-0031': [
+                { estado: 'accepted', resultados: ['Sí','3','Sí','Sí','Sí','Sí','No','Sí','2','3','Sí','Foto'] },
+                { estado: 'accepted', resultados: ['Sí','Sí','-19','Sí','Sí','No','Sí','Foto'] },
+                { estado: 'accepted', resultados: ['Sí','-20','Sí','Sí','No','No','Sí','Sí','No','Foto'] },
+                { estado: 'accepted', resultados: ['Sí','4','Sí','Sí','Sí','Sí','No','Sí','3','3','Sí','Foto'] },
+                { estado: 'accepted', resultados: ['Sí','5','Sí','Sí','Sí','Sí','No','Sí','4','3','Sí','Foto'] },
+                { estado: 'accepted', resultados: ['Sí','3','Sí','Sí','Sí','Sí','No','Sí','2','3','Sí','Foto'] },
+                { estado: 'accepted', resultados: ['Sí','4','Sí','Sí','Sí','Sí','No','Sí','3','3','Sí','Foto'] },
+                { estado: 'accepted', resultados: ['Sí','0','Sí','Sí','Sí','Foto'] }
+            ]
+        };
+
+        function getEstadoBadge(estado) {
+            switch (estado) {
+                case 'accepted': return '<span class="badge-status badge-activo">Aceptado</span>';
+                case 'problem': return '<span class="badge-status badge-sstt">Con Problema</span>';
+                case 'rejected': return '<span class="badge-status badge-rechazada">Rechazado</span>';
+                default: return '<span class="badge-status badge-pendiente">Pendiente</span>';
+            }
+        }
+
+        function renderResultadosInspeccion(asignId) {
+            const equipos = equiposSimulados[asignId] || [];
+            const card = document.getElementById('cardResultadosInspeccion');
+
+            if (equipos.length === 0) {
+                card.style.display = 'none';
+                return;
+            }
+
+            card.style.display = 'block';
+
+            const aceptados = equipos.filter(e => e.estado === 'accepted').length;
+            const problema = equipos.filter(e => e.estado === 'problem').length;
+            const rechazados = equipos.filter(e => e.estado === 'rejected').length;
+            const pendientes = equipos.filter(e => e.estado === 'pending').length;
+
+            document.getElementById('resAceptados').textContent = aceptados;
+            document.getElementById('resProblema').textContent = problema;
+            document.getElementById('resRechazados').textContent = rechazados;
+            document.getElementById('resPendientes').textContent = pendientes;
+
+            // Mostrar columna Inspección y poblar celdas de la tabla principal
+            document.querySelectorAll('.th-inspeccion').forEach(th => th.style.display = '');
+            const filas = document.querySelectorAll('#tablaEquipos tbody tr');
+            filas.forEach(function(row, idx) {
+                const cell = row.querySelector('.td-inspeccion');
+                if (!cell) return;
+                cell.style.display = '';
+                const eq = equipos[idx];
+                if (!eq) {
+                    cell.innerHTML = '<span class="text-muted" style="font-size:12px;">—</span>';
+                    return;
+                }
+                const badge = getEstadoBadge(eq.estado);
+                const tipo = row.dataset.tipo;
+                const planilla = obtenerPlanillaParaTipo(tipo);
+                const planillaNombre = planilla ? planilla.nombre : '—';
+                if (eq.estado === 'pending') {
+                    cell.innerHTML = badge + '<div style="font-size:11px;color:var(--gris-medio);margin-top:2px;">' + planillaNombre + '</div><span class="text-muted" style="font-size:11px;">Sin inspeccionar</span>';
+                } else {
+                    cell.innerHTML = badge + '<div style="font-size:11px;color:var(--gris-medio);margin-top:2px;">' + planillaNombre + '</div><button class="btn btn-outline-primary btn-sm mt-1" onclick="verDetalleInspeccion(\'' + asignId + '\',' + idx + ')"><i class="bi bi-eye"></i> Ver</button>';
+                }
+            });
+        }
+
+        window.verDetalleInspeccion = function(asignId, idx) {
+            const equipos = equiposSimulados[asignId] || [];
+            const eq = equipos[idx];
+            const filas = document.querySelectorAll('#tablaEquipos tbody tr');
+            const row = filas[idx];
+            const serial = row.dataset.serie;
+            const brand = row.dataset.marca;
+            const model = row.dataset.modelo;
+            const tipo = row.dataset.tipo;
+            const planilla = obtenerPlanillaParaTipo(tipo);
+
+            document.getElementById('modalResultadoTitle').innerHTML =
+                '<i class="bi bi-clipboard2-check me-2"></i>Inspección — ' + serial + ' (' + brand + ' ' + model + ')';
+
+            let bodyHTML = '<div class="mb-3" style="font-size:13px;color:var(--gris-medio);">' +
+                '<strong>Tipo:</strong> ' + tipo + ' &nbsp; <strong>Estado:</strong> ' + getEstadoBadge(eq.estado);
+            if (eq.motivo) bodyHTML += ' &nbsp; <strong>Motivo:</strong> ' + eq.motivo;
+            bodyHTML += '</div>';
+
+            if (planilla) {
+                bodyHTML += '<div class="card mb-3"><div class="card-header" style="background:var(--gris-claro);"><strong><i class="bi bi-list-check me-1"></i>' + planilla.nombre + '</strong></div>';
+                bodyHTML += '<div class="card-body"><table class="table table-sm"><thead><tr><th style="width:5%;">#</th><th>Verificación</th><th style="width:25%;">Resultado</th></tr></thead><tbody>';
+                planilla.items.forEach(function(item, ii) {
+                    const val = eq.resultados ? (eq.resultados[ii] || '—') : '—';
+                    bodyHTML += '<tr><td class="text-muted">' + (ii + 1) + '</td><td>' + item.desc;
+                    if (item.obligatorio) bodyHTML += ' <span class="badge bg-danger">Obligatorio</span>';
+                    bodyHTML += '</td><td><strong>' + val + '</strong></td></tr>';
+                });
+                bodyHTML += '</tbody></table></div></div>';
+            }
+
+            document.getElementById('modalResultadoBody').innerHTML = bodyHTML;
+            new bootstrap.Modal(document.getElementById('modalResultadoInspeccion')).show();
+        };
 
         // ===== Modo de operación según URL =====
         const params = new URLSearchParams(window.location.search);
@@ -629,7 +1080,9 @@
 
             // Simular precarga de borrador ASG-0042 (IceFree, 3 equipos)
             if (assignId === 'ASG-0042') {
-                selectDistribuidor.value = 'icefree';
+                selectGestor.value = 'icefree';
+                poblarSucursales('icefree');
+                selectSucursal.value = 'icefree-matriz';
                 // Marcar primeros 3 equipos
                 checkboxes.forEach((cb, i) => {
                     if (i < 3) {
@@ -638,7 +1091,9 @@
                     }
                 });
             } else if (assignId === 'ASG-0041') {
-                selectDistribuidor.value = 'norte';
+                selectGestor.value = 'norte';
+                poblarSucursales('norte');
+                selectSucursal.value = 'norte-matriz';
             }
         } else if (mode === 'view' && assignId) {
             isReadOnly = true;
@@ -662,8 +1117,29 @@
             headerEstado.className = `badge-status ${info.clase} ms-2`;
             headerEstado.textContent = info.texto;
 
+            // Precargar gestor y sucursal según asignación
+            const asignacionesData = {
+                'ASG-0040': { gestor: 'sur', sucursal: 'sur-matriz' },
+                'ASG-0039': { gestor: 'icefree', sucursal: 'icefree-matriz' },
+                'ASG-0038': { gestor: 'frioaustral', sucursal: 'frioaustral-matriz' },
+                'ASG-0037': { gestor: 'norte', sucursal: 'norte-matriz' },
+                'ASG-0036': { gestor: 'sur', sucursal: 'sur-matriz' },
+                'ASG-0035': { gestor: 'icefree', sucursal: 'icefree-matriz' },
+                'ASG-0034': { gestor: 'norte', sucursal: 'norte-matriz' },
+                'ASG-0033': { gestor: 'frioaustral', sucursal: 'frioaustral-matriz' },
+                'ASG-0032': { gestor: 'sur', sucursal: 'sur-sur' },
+                'ASG-0031': { gestor: 'icefree', sucursal: 'icefree-norte' }
+            };
+            const datosAsig = asignacionesData[assignId];
+            if (datosAsig) {
+                selectGestor.value = datosAsig.gestor;
+                poblarSucursales(datosAsig.gestor);
+                selectSucursal.value = datosAsig.sucursal;
+            }
+
             // Modo solo lectura: deshabilitar controles
-            selectDistribuidor.disabled = true;
+            selectGestor.disabled = true;
+            selectSucursal.disabled = true;
             document.getElementById('buscarSerie').disabled = true;
             document.getElementById('filtroMarca').disabled = true;
             checkboxes.forEach(cb => cb.disabled = true);
@@ -673,7 +1149,7 @@
             btnLimpiar.style.display = 'none';
 
             // Simular estado de cada equipo dentro de la asignación (Eje 1)
-            // Enviada o Completada -> equipos quedan "Asignado al Distribuidor"; ASG-0033 deja el último equipo "Pendiente de Revisión" (RN-5)
+            // Enviada o Completada -> equipos quedan "Asignado al Gestor"; ASG-0033 deja el último equipo "Pendiente de Revisión" (RN-5)
             checkboxes.forEach((cb, i) => {
                 const row = cb.closest('tr');
                 const badge = row.querySelector('.badge-status');
@@ -681,32 +1157,55 @@
                     badge.className = 'badge-status badge-pendiente';
                     badge.textContent = 'Pendiente de Revisión';
                 } else {
-                    badge.className = 'badge-status badge-distribuidor';
-                    badge.textContent = 'Asignado al Distribuidor';
+                    badge.className = 'badge-status badge-gestor';
+                    badge.textContent = 'Asignado al Gestor';
                 }
             });
+
+            // Cambiar título de la tabla y ocultar checkboxes en modo view
+            const cardTitleEquipos = document.querySelector('#tablaEquipos').closest('.card').querySelector('.card-title');
+            cardTitleEquipos.innerHTML = '<i class="bi bi-box-seam me-2"></i>Equipos de la asignación';
+            document.getElementById('contadorDisponibles').textContent = checkboxes.length + ' equipos';
+            // Ocultar columna de checkboxes
+            checkAll.closest('th').style.display = 'none';
+            checkboxes.forEach(cb => {
+                cb.closest('td').style.display = 'none';
+            });
+
+            // Mostrar resultados de inspección del gestor
+            renderResultadosInspeccion(assignId);
         }
 
         // Actualizar estado de botones
         function actualizarEstado() {
             const seleccionados = document.querySelectorAll('.check-equipo:checked');
             const count = seleccionados.length;
-            const distSeleccionado = selectDistribuidor.value !== '';
+            const distSeleccionado = selectGestor.value !== '';
+            const sucursalSeleccionada = selectSucursal.value !== '';
 
             contadorSeleccionados.textContent = count;
 
-            // Actualizar distribuidor display
-            if (selectDistribuidor.value) {
-                distDestinoDisplay.textContent = selectDistribuidor.options[selectDistribuidor.selectedIndex].text;
+            // Actualizar gestor display
+            if (selectGestor.value) {
+                distDestinoDisplay.textContent = selectGestor.options[selectGestor.selectedIndex].text;
                 distDestinoDisplay.classList.remove('placeholder');
             } else {
                 distDestinoDisplay.textContent = 'Sin seleccionar';
                 distDestinoDisplay.classList.add('placeholder');
             }
 
+            // Actualizar sucursal display
+            if (selectSucursal.value) {
+                sucursalDestinoDisplay.textContent = selectSucursal.options[selectSucursal.selectedIndex].text;
+                sucursalDestinoDisplay.classList.remove('placeholder');
+            } else {
+                sucursalDestinoDisplay.textContent = 'Sin seleccionar';
+                sucursalDestinoDisplay.classList.add('placeholder');
+            }
+
             // Habilitar/deshabilitar botones (no aplicar en modo lectura)
             if (!isReadOnly) {
-                btnConfirmar.disabled = !(count >= 1 && distSeleccionado);
+                btnConfirmar.disabled = !(count >= 1 && distSeleccionado && sucursalSeleccionada);
                 btnGuardarBorrador.disabled = !(count >= 1 || distSeleccionado);
                 btnLimpiar.disabled = count === 0;
             }
@@ -730,6 +1229,7 @@
         checkboxes.forEach(cb => {
             cb.addEventListener('change', function() {
                 toggleRowStyle(this);
+                actualizarPlanillas();
                 actualizarEstado();
             });
         });
@@ -740,11 +1240,19 @@
                 cb.checked = this.checked;
                 toggleRowStyle(cb);
             });
+            actualizarPlanillas();
             actualizarEstado();
         });
 
-        // Select distribuidor
-        selectDistribuidor.addEventListener('change', actualizarEstado);
+        // Select gestor
+        selectGestor.addEventListener('change', function() {
+            poblarSucursales(selectGestor.value);
+            actualizarPlanillas();
+            actualizarEstado();
+        });
+
+        // Select sucursal
+        selectSucursal.addEventListener('change', actualizarEstado);
 
         // Limpiar selección
         btnLimpiar.addEventListener('click', function() {
@@ -753,79 +1261,34 @@
                 toggleRowStyle(cb);
             });
             checkAll.checked = false;
+            actualizarPlanillas();
             actualizarEstado();
         });
 
         // Abrir modal al confirmar
         btnConfirmar.addEventListener('click', function() {
             const count = document.querySelectorAll('.check-equipo:checked').length;
-            const distName = selectDistribuidor.options[selectDistribuidor.selectedIndex].text;
-            resumenAsignacion.textContent = `Se asignarán ${count} equipo${count !== 1 ? 's' : ''} al distribuidor "${distName}". Los equipos pasarán a estado "Asignado al Distribuidor".`;
-
-            // Reset form
-            formGuiaDespacho.classList.remove('was-validated');
-            uploadArea.classList.remove('has-file');
-            fileName.style.display = 'none';
-            inputFileGuia.value = '';
-            document.getElementById('numDocumento').value = '';
+            const distName = selectGestor.options[selectGestor.selectedIndex].text;
+            const sucursalName = selectSucursal.options[selectSucursal.selectedIndex].text;
+            resumenAsignacion.textContent = `Se asignarán ${count} equipo${count !== 1 ? 's' : ''} al gestor "${distName}". Los equipos pasarán a estado "Asignado al Gestor".`;
+            resumenSucursal.textContent = 'Sucursal de destino: ' + sucursalName;
 
             const modal = new bootstrap.Modal(document.getElementById('modalGuiaDespacho'));
             modal.show();
         });
 
-        // Área de carga de archivo
-        uploadArea.addEventListener('click', function() {
-            inputFileGuia.click();
-        });
-
-        inputFileGuia.addEventListener('change', function() {
-            if (this.files && this.files[0]) {
-                const file = this.files[0];
-                if (file.type === 'application/pdf' || file.name.toLowerCase().endsWith('.pdf')) {
-                    fileName.textContent = file.name;
-                    fileName.style.display = 'block';
-                    uploadArea.classList.add('has-file');
-                    uploadArea.querySelector('.upload-text').textContent = 'Archivo cargado — clic para cambiar';
-                    uploadArea.querySelector('.upload-hint').textContent = file.name;
-                } else {
-                    alert('Solo se permiten archivos PDF.');
-                    this.value = '';
-                }
-            }
-        });
-
-        // Drag & drop
-        uploadArea.addEventListener('dragover', function(e) {
-            e.preventDefault();
-            this.style.borderColor = 'var(--azul-primario)';
-            this.style.background = 'rgba(0, 102, 204, 0.06)';
-        });
-
-        uploadArea.addEventListener('dragleave', function(e) {
-            e.preventDefault();
-            this.style.borderColor = '';
-            this.style.background = '';
-        });
-
-        uploadArea.addEventListener('drop', function(e) {
-            e.preventDefault();
-            this.style.borderColor = '';
-            this.style.background = '';
-            if (e.dataTransfer.files && e.dataTransfer.files[0]) {
-                inputFileGuia.files = e.dataTransfer.files;
-                inputFileGuia.dispatchEvent(new Event('change'));
-            }
-        });
-
         // Guardar borrador
         btnGuardarBorrador.addEventListener('click', function() {
             const count = document.querySelectorAll('.check-equipo:checked').length;
-            const distName = selectDistribuidor.value
-                ? selectDistribuidor.options[selectDistribuidor.selectedIndex].text
-                : 'Sin distribuidor';
+            const distName = selectGestor.value
+                ? selectGestor.options[selectGestor.selectedIndex].text
+                : 'Sin gestor';
+            const sucursalName = selectSucursal.value
+                ? selectSucursal.options[selectSucursal.selectedIndex].text
+                : 'Sin sucursal';
 
             alertaBorrador.querySelector('#alertaBorradorTexto').textContent =
-                `Borrador guardado: ${count} equipo${count !== 1 ? 's' : ''} seleccionado${count !== 1 ? 's' : ''}, distribuidor "${distName}". Puedes editarlo cuando quieras desde la lista de asignaciones.`;
+                `Borrador guardado: ${count} equipo${count !== 1 ? 's' : ''} seleccionado${count !== 1 ? 's' : ''}, gestor "${distName}", sucursal "${sucursalName}". Puedes editarlo cuando quieras desde la lista de asignaciones.`;
             alertaBorrador.style.display = 'flex';
             window.scrollTo({ top: 0, behavior: 'smooth' });
             setTimeout(() => {
@@ -833,55 +1296,211 @@
             }, 6000);
         });
 
-        // Confirmar asignación final
-        btnConfirmarAsignacion.addEventListener('click', function() {
-            if (!inputFileGuia.files || !inputFileGuia.files[0]) {
-                formGuiaDespacho.classList.add('was-validated');
-                uploadArea.style.borderColor = 'var(--rojo-error)';
-                return;
-            }
+        // ===== GD Multi-step modal logic =====
+        function resetGDModal() {
+            gdChoiceSection.style.display = '';
+            gdGenSection.style.display = 'none';
+            gdUploadSection.style.display = 'none';
+            gdSuccessSection.style.display = 'none';
+            gdFooter.innerHTML = '<button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancelar</button>';
+            gdModalClose.style.display = '';
+            inputFileGD.value = '';
+            document.getElementById('numDocumentoGD').value = '';
+            uploadAreaGD.classList.remove('has-file');
+            uploadAreaGD.querySelector('.upload-text').textContent = 'Haz clic o arrastra el archivo aquí';
+            uploadAreaGD.querySelector('.upload-hint').textContent = 'Formato PDF · Máx. 10 MB';
+            document.getElementById('errorFileGD').style.display = 'none';
+            gdAssignmentConfirmed = false;
+        }
 
-            // Simular confirmación: equipos pasan a "Asignado al Distribuidor"
+        function confirmarAsignacion(gdInfo) {
+            if (gdAssignmentConfirmed) return;
+            gdAssignmentConfirmed = true;
             const seleccionados = document.querySelectorAll('.check-equipo:checked');
             seleccionados.forEach(cb => {
                 const row = cb.closest('tr');
                 const badge = row.querySelector('.badge-status');
-                badge.className = 'badge-status badge-distribuidor';
-                badge.textContent = 'Asignado al Distribuidor';
+                badge.className = 'badge-status badge-gestor';
+                badge.textContent = 'Asignado al Gestor';
                 cb.checked = false;
                 row.classList.remove('row-selected');
-                // Deshabilitar checkbox para equipos ya asignados
                 cb.disabled = true;
             });
-
-            // Limpiar selector
-            selectDistribuidor.value = '';
+            selectGestor.value = '';
+            poblarSucursales('');
             checkAll.checked = false;
-
-            // Mostrar alerta de éxito
             const count = seleccionados.length;
-            alertaExito.querySelector('#alertaExitoTexto').textContent =
-                `Asignación enviada. ${count} equipo${count !== 1 ? 's' : ''} ha${count !== 1 ? 'n' : ''} pasado a estado "Asignado al Distribuidor".`;
+            let msg = `Asignación enviada. ${count} equipo${count !== 1 ? 's' : ''} ha${count !== 1 ? 'n' : ''} pasado a estado "Asignado al Gestor".`;
+            if (gdInfo) {
+                msg += ` Guía de Despacho ${gdInfo.number} ${gdInfo.type === 'auto' ? 'generada vía API' : 'adjuntada'}.`;
+            } else {
+                msg += ' La Guía de Despacho puede gestionarse desde Asignaciones o Guías de Despacho.';
+            }
+            alertaExito.querySelector('#alertaExitoTexto').textContent = msg;
             alertaExito.style.display = 'flex';
-
-            // Cerrar modal
-            const modal = bootstrap.Modal.getInstance(document.getElementById('modalGuiaDespacho'));
-            modal.hide();
-
-            // Actualizar estado
+            actualizarPlanillas();
             actualizarEstado();
-
-            // Scroll arriba para mostrar alerta
             window.scrollTo({ top: 0, behavior: 'smooth' });
+            setTimeout(() => { alertaExito.style.display = 'none'; }, 6000);
+        }
 
-            // Ocultar alerta después de 6 segundos
+        modalGuiaDespachoEl.addEventListener('show.bs.modal', resetGDModal);
+
+        // Option 1: Generar vía API
+        btnGenerarGDApi.addEventListener('click', function() {
+            gdChoiceSection.style.display = 'none';
+            gdGenSection.style.display = '';
+            gdFooter.innerHTML = '';
+            gdModalClose.style.display = 'none';
+            const progressText = document.getElementById('gdProgressText');
+            setTimeout(() => { progressText.textContent = 'Obteniendo respuesta del sistema de facturación…'; }, 1200);
             setTimeout(() => {
-                alertaExito.style.display = 'none';
-            }, 6000);
+                const gdNum = 'GD-REC-' + String(Math.floor(Math.random() * 9000) + 1000);
+                gdGenSection.style.display = 'none';
+                gdSuccessSection.style.display = '';
+                document.getElementById('gdSuccessText').textContent = 'Asignación confirmada y Guía de Despacho generada';
+                document.getElementById('gdSuccessNumber').textContent = gdNum;
+                document.getElementById('gdSuccessHint').textContent = 'El PDF se ha adjuntado automáticamente a la asignación.';
+                gdFooter.innerHTML = '<button type="button" class="btn btn-primary" id="btnCerrarSuccess">Cerrar</button>';
+                gdModalClose.style.display = '';
+                document.getElementById('btnCerrarSuccess').addEventListener('click', function() {
+                    confirmarAsignacion({ number: gdNum, type: 'auto' });
+                    bootstrap.Modal.getInstance(modalGuiaDespachoEl).hide();
+                });
+            }, 2800);
         });
 
+        // Option 2: Subir PDF
+        btnSubirPDFChoice.addEventListener('click', function() {
+            gdChoiceSection.style.display = 'none';
+            gdUploadSection.style.display = '';
+            gdFooter.innerHTML = '<button type="button" class="btn btn-outline-secondary" id="btnBackToChoice">Volver</button><button type="button" class="btn btn-primary" id="btnConfirmarUpload"><i class="bi bi-save me-2"></i>Guardar y confirmar</button>';
+            document.getElementById('btnBackToChoice').addEventListener('click', function() {
+                gdUploadSection.style.display = 'none';
+                gdChoiceSection.style.display = '';
+                gdFooter.innerHTML = '<button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancelar</button>';
+            });
+            document.getElementById('btnConfirmarUpload').addEventListener('click', function() {
+                if (!inputFileGD.files || !inputFileGD.files[0]) {
+                    document.getElementById('errorFileGD').style.display = 'block';
+                    return;
+                }
+                const numDoc = document.getElementById('numDocumentoGD').value.trim();
+                const gdNum = numDoc || ('GD-REC-' + String(Math.floor(Math.random() * 9000) + 1000));
+                gdUploadSection.style.display = 'none';
+                gdSuccessSection.style.display = '';
+                document.getElementById('gdSuccessText').textContent = 'Asignación confirmada y PDF adjuntado';
+                document.getElementById('gdSuccessNumber').textContent = gdNum;
+                document.getElementById('gdSuccessHint').textContent = 'El PDF se ha adjuntado a la asignación.';
+                gdFooter.innerHTML = '<button type="button" class="btn btn-primary" id="btnCerrarSuccess">Cerrar</button>';
+                document.getElementById('btnCerrarSuccess').addEventListener('click', function() {
+                    confirmarAsignacion({ number: gdNum, type: 'manual' });
+                    bootstrap.Modal.getInstance(modalGuiaDespachoEl).hide();
+                });
+            });
+        });
+
+        // Upload area interactions
+        uploadAreaGD.addEventListener('click', function() { inputFileGD.click(); });
+        inputFileGD.addEventListener('change', function() {
+            if (this.files && this.files[0]) {
+                const file = this.files[0];
+                if (file.type === 'application/pdf' || file.name.toLowerCase().endsWith('.pdf')) {
+                    uploadAreaGD.classList.add('has-file');
+                    uploadAreaGD.querySelector('.upload-text').textContent = 'Archivo cargado — clic para cambiar';
+                    uploadAreaGD.querySelector('.upload-hint').textContent = file.name;
+                    document.getElementById('errorFileGD').style.display = 'none';
+                } else {
+                    alert('Solo se permiten archivos PDF.');
+                    this.value = '';
+                }
+            }
+        });
+        uploadAreaGD.addEventListener('dragover', function(e) {
+            e.preventDefault(); this.style.borderColor = 'var(--azul-primario)'; this.style.background = 'rgba(0, 102, 204, 0.06)';
+        });
+        uploadAreaGD.addEventListener('dragleave', function(e) {
+            e.preventDefault(); this.style.borderColor = ''; this.style.background = '';
+        });
+        uploadAreaGD.addEventListener('drop', function(e) {
+            e.preventDefault(); this.style.borderColor = ''; this.style.background = '';
+            if (e.dataTransfer.files && e.dataTransfer.files[0]) {
+                inputFileGD.files = e.dataTransfer.files;
+                inputFileGD.dispatchEvent(new Event('change'));
+            }
+        });
+
+        // Option 3: Hacer más tarde
+        btnHacerMasTarde.addEventListener('click', function() {
+            confirmarAsignacion(null);
+            bootstrap.Modal.getInstance(modalGuiaDespachoEl).hide();
+        });
+
+        // ===== Planillas de inspección disponibles =====
+        const planillasInspeccion = [
+            { nombre: 'Inspección de Recepción Estándar', categoria: 'tipo', valor: 'Todos', items: 8 },
+            { nombre: 'Inspección Vitrinas Refrigeradas', categoria: 'tipo', valor: 'Vitrina, Exhibidor', items: 12 },
+            { nombre: 'Inspección Congeladores', categoria: 'tipo', valor: 'Congelados, Vertical', items: 10 },
+            { nombre: 'Inspección Barquilleras', categoria: 'tipo', valor: 'Barquillera', items: 6 }
+        ];
+        const categoriaLabels = { marca: 'Marca', modelo: 'Modelo', tipo: 'Tipo de Máquina', familia: 'Familia' };
+
+        function actualizarPlanillas() {
+            const seleccionados = document.querySelectorAll('.check-equipo:checked');
+            const section = document.getElementById('planillasSection');
+            const list = document.getElementById('planillasList');
+
+            if (seleccionados.length === 0) {
+                section.style.display = 'none';
+                return;
+            }
+
+            // Asignar una planilla por equipo (la más específica según su tipo)
+            const equiposSeleccionados = Array.from(seleccionados).map(cb => cb.closest('tr').dataset);
+            const planillaPorEquipo = {};
+
+            equiposSeleccionados.forEach(function(eq) {
+                const tipo = eq.tipo;
+                // Buscar plantilla específica primero
+                let planilla = planillasInspeccion.find(function(p) {
+                    const valores = p.valor.split(',').map(v => v.trim());
+                    return valores.includes(tipo);
+                });
+                // Fallback a "Todos"
+                if (!planilla) {
+                    planilla = planillasInspeccion.find(p => p.valor === 'Todos');
+                }
+                if (planilla) {
+                    if (!planillaPorEquipo[planilla.nombre]) {
+                        planillaPorEquipo[planilla.nombre] = { planilla: planilla, equipos: [] };
+                    }
+                    planillaPorEquipo[planilla.nombre].equipos.push(eq.serie);
+                }
+            });
+
+            const entradas = Object.values(planillaPorEquipo);
+
+            if (entradas.length === 0) {
+                section.style.display = 'block';
+                list.innerHTML = '<span class="dist-value placeholder">Sin planillas para los equipos seleccionados</span>';
+                return;
+            }
+
+            section.style.display = 'block';
+            list.innerHTML = entradas.map(function(entry) {
+                const p = entry.planilla;
+                const numEquipos = entry.equipos.length;
+                return '<div style="padding: 6px 0; border-bottom: 1px solid #EEF0F2;">' +
+                    '<div class="dist-value" style="font-size: 13px; font-weight: 600;">' + p.nombre + '</div>' +
+                    '<div style="font-size: 11px; color: var(--gris-medio);">Aplica a ' + numEquipos + ' equipo' + (numEquipos !== 1 ? 's' : '') + ' · <span class="badge bg-primary">' + p.items + ' ítems</span></div>' +
+                    '</div>';
+            }).join('');
+        }
+
         // Inicializar
+        actualizarPlanillas();
         actualizarEstado();
     </script>
+    <script src="../js/sidebar-scroll.js"></script>
 </body>
 </html>
