@@ -325,15 +325,23 @@ Layout: MainLayout
 Pantalla de asignación de equipos aceptados a clientes finales (puntos de venta). Se accede desde el botón "Nueva asignación" del navbar o desde el botón homónimo en la vista de listado (3.3a).
 
 Contenido:
-- Columna izquierda: "Equipos para asignar" — lista de equipos aceptados sin cliente (N° Serie | Marca | Modelo), con buscador
-- Columna derecha: "Puntos de venta disponibles" — lista de clientes (Nombre | Dirección | Comuna), con buscador
-- Interacción: seleccionar equipo + seleccionar cliente + botón "Asignar"
-- Confirmación: modal simple con resumen de la asignación (equipos, punto de venta, dirección) y nota informativa indicando que la Guía de Despacho se gestiona desde la tabla de Asignaciones Realizadas (3.3a). No se genera ni carga la GD en este paso.
+- Layout vertical con tres secciones:
+  1. Sección colapsable "Puntos de venta disponibles" (ancho completo): tabla de clientes (Nombre | Dirección | Comuna) con buscador y radio buttons. Header colapsable con icono de toggle y resumen del cliente seleccionado. Se auto-colapsa al seleccionar un cliente.
+  2. Sub-tabla "Solicitudes pendientes de este cliente" (aparece al seleccionar un cliente): mini-tabla con N° Solicitud, Equipo solicitado, Cant., Motivo, Fecha y botón "Analizar stock" por fila.
+  3. Layout de dos columnas (two-col-equip-panel, grid 1fr 320px):
+     - Columna izquierda: "Equipos para asignar" — tabla de equipos aceptados sin cliente (checkbox | N° Serie | Marca | Modelo), con buscador
+     - Columna derecha: panel resumen sticky con count de equipos seleccionados, cliente destino, dirección, solicitud origen, y botones: Confirmar asignación, Guardar borrador, Limpiar selección
+- Interacción: seleccionar cliente (radio) → seleccionar equipos (checkbox) → confirmar asignación
+- Confirmación: modal con resumen de la asignación (equipos, punto de venta, dirección) y gestión de Guía de Despacho (generar vía API, subir PDF, o más tarde)
+- Soporte URL params: ?solicitud=SOL-XXX (pre-carga cliente y equipo), ?mode=edit&id=ASG-XXX (editar borrador), ?mode=view&id=ASG-XXX (solo lectura)
+- CSS y JS en archivos externos: css/asignacion-clientes.css y js/asignacion-clientes.js
 
 Nota de negocio (06/07/2026): la generación/carga de la Guía de Despacho fue desacoplada del paso de asignación. Ahora se gestiona exclusivamente desde la tabla de Asignaciones Realizadas (3.3a), donde el usuario puede generarla automáticamente (ERP Isstec) o adjuntar el PDF (ERP externo / Mandante), según RN-16.
 
-Componentes: Card, Table, Input, Button, Modal (ver DESIGN.md)
-Layout: TwoColumnLayout
+Nota de UI (20/07/2026): el layout fue rediseñado de dos columnas paralelas (equipos izquierda, clientes derecha) a un layout vertical con sección colapsable de clientes arriba y two-col-equip-panel (equipos + panel resumen) abajo. CSS y JS extraídos a archivos externos.
+
+Componentes: Card, Table, Input, Button, Checkbox, Radio, Modal (ver DESIGN.md)
+Layout: Vertical (collapsible clients + TwoColumnLayout 1fr 320px para equipos + panel)
 ```
 
 ### 3.4a Solicitud de Movimiento (vista de listado) ✅

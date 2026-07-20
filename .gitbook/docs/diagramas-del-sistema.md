@@ -133,7 +133,7 @@ flowchart TD
     E -->|Sí| F[Asignación a Cliente Final]
     E -->|No| G[Reporte de problema / reparo]
     F --> H[Despacho y Entrega Física]
-    H --> I[Auditorías periódicas de terreno - fuera de alcance esta fase]
+    H --> I[Auditorías periódicas de terreno - aplicación móvil complementaria]
     I --> J{¿Solicitud de Baja / Siniestro / Servicio Técnico?}
     J -->|Sí| K[Aprobación del Mandante]
     K --> L[Retiro / Disposición del equipo]
@@ -392,7 +392,7 @@ erDiagram
 
 > Actualizado 04/07/2026: los sidebars de ambos roles se reorganizaron en secciones **Principal**, **Operación**, **Análisis**, **Maestros** y **Configuración** (ver `maestros.md`). Las opciones de maestros no llevan el prefijo "Maestro de".
 >
-> Actualizado 04/07/2026 (proceso de Inventario): se agregó "Consulta de Inventario" (solo lectura, MAN-7) al panel del Mandante — pantalla implementada en el prototipo. La toma física en terreno (GPS/fotos) queda fuera de este diagrama por depender de la app móvil futura (GEN-5). Ver `maestros.md` §3.3.
+> Actualizado 17/07/2026 (proceso de Inventario): se agregó "Consulta de Inventario" (solo lectura, MAN-7) al panel del Mandante. La toma física en terreno se documenta en el proyecto Prototipo Móvil Máquinas; sus resultados deben alimentar la consulta y seguimiento web (GEN-5).
 >
 > Actualizado 10/07/2026: alineado con la minuta de revisión de maqueta. "Gestor" se usa como nombre técnico heredado en rutas, pero la terminología funcional visible es **Gestor**. Se eliminan del sidebar Mandante los submenús Grupo de Máquinas, Familia de Máquinas, Marcas y Modelos; esas clasificaciones provienen de la carga masiva de equipos. Clientes y Vendedores del Gestor quedan como vistas de solo lectura sincronizadas por ERP.
 >

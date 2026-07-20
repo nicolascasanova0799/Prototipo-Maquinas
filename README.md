@@ -42,21 +42,23 @@ La iniciativa surge a partir de las necesidades detectadas en la operación de m
 
 ### 3.3. Módulo del Gestor
 
-* **Resumen:** Herramienta para que el Gestor administre los equipos asignados por el Mandante y controle su entrega al cliente final en los puntos de venta.
+* **Resumen:** Herramienta para que el Gestor administre los equipos asignados por el Mandante, controle su entrega al cliente final en los puntos de venta y gestione las solicitudes de nuevo equipo enviadas por los vendedores desde la aplicación móvil.
 * **Funcionalidades clave:**
   * **Recepción de Equipos:** Proceso de aceptación o rechazo (con registro de daños o discrepancias) de las máquinas enviadas por el Mandante.
   * **Asignación a Clientes:** Vinculación de un equipo a un cliente final; la Guía de Despacho se gestiona desde el listado de asignaciones realizadas.
   * **Solicitudes de Movimiento:** Creación de peticiones de retiro, cambio de equipo o baja (por robo/incendio) dirigidas al Mandante.
+  * **Solicitudes de Nuevo Equipo (bandeja de entrada):** Gestión directa por parte del Gestor de las solicitudes de nuevo equipo enviadas por los vendedores desde la aplicación móvil. El Gestor revisa, analiza stock, pospone o descarta sin intervención del Mandante. Al convertir una solicitud en asignación, el sistema pre-selecciona automáticamente el equipo y cliente (RN-26 a RN-29).
   * **Control de Inventario y Mapa:** Visualización geográfica de los activos y programación de auditorías físicas en terreno.
   * **Reportes de Rendimiento:** Comparación de las ventas de helados del cliente frente a la cantidad de máquinas asignadas para evaluar la rentabilidad del activo.
 
 ### 3.4. Aplicación móvil (operación en terreno)
 
-* **Resumen:** Herramienta móvil para uso del personal de terreno (vendedores o transportistas) enfocada en la verificación y auditoría física de los activos.
+* **Resumen:** Herramienta móvil para uso del personal de terreno (vendedores o transportistas) enfocada en la verificación y auditoría física de los activos, y en la creación de solicitudes de nuevo equipo.
 * **Funcionalidades clave:**
   * **Lectura de Código de Barras / QR:** Identificación rápida del activo en el punto de venta.
   * **Toma de Inventario:** Confirmación de la presencia física de la máquina.
   * **Registro de Evidencia:** Captura fotográfica de la máquina y su estado, permitiendo reportar si contiene productos no autorizados o si presenta daños.
+  * **Solicitud de Nuevo Equipo:** El vendedor selecciona un equipo específico disponible (por serie, marca, modelo) del catálogo de equipos sin cliente asignado y en buen estado, y lo solicita para un cliente final. La solicitud llega directamente al Gestor, sin intervención del Mandante (RN-27).
 
 ### 3.5. Alcance de la maqueta (fase inicial)
 
@@ -86,6 +88,8 @@ La iniciativa surge a partir de las necesidades detectadas en la operación de m
 * Un equipo solo puede ser asignado a un cliente final si previamente ha sido recibido y aceptado formalmente por el Gestor en el sistema.
 * El estado visible del equipo debe cambiar automáticamente a "Asignado al Gestor" al ser asignado al Gestor, y se mantiene en ese estado tras la confirmación de recepción (la distinción "en camino" vs. "ya recibido" se modela en el estado del lote de recepción, no en el estado del equipo).
 * Las auditorías de inventario de los activos deben registrar de manera obligatoria la ubicación por coordenadas GPS y evidencia fotográfica del estado del freezer.
+* El Mandante no participa en la aprobación de solicitudes de nuevo equipo; el Gestor gestiona directamente las solicitudes enviadas por los vendedores desde la aplicación móvil (RN-26).
+* El vendedor solicita un equipo específico disponible (por serie, marca, modelo), no un tipo de equipo y cantidad (RN-27).
 
 ### Requisitos técnicos
 

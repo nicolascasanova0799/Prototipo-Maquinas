@@ -1615,6 +1615,16 @@ v1.4 — 06/07/2026
   - New GD badge state: "Pendiente" (gray) for assignments where GD has not yet been managed
   - Updated RN-16, DIS-3, GEN-2, stitch_prompts.md (3.3a/3.3b), diagramas-del-sistema.md flowchart, and reglas-de-negocio.md §4.3
 
+v1.5 — 20/07/2026
+  - Redesigned asignacion-clientes.html layout from two parallel columns (equipment left, clients right) to vertical layout:
+    * Collapsible clients section (full width) with toggle header, auto-collapse on client select, and selected-client summary
+    * Solicitudes pendientes sub-table (appears when client selected)
+    * Two-col-equip-panel (grid 1fr 320px): equipment table left + sticky panel resumen sidebar right
+  - Extracted inline CSS to css/asignacion-clientes.css and inline JS to js/asignacion-clientes.js
+  - Added panel resumen with: equipment count, client destino, direccion, solicitud origen, and action buttons (Confirmar, Guardar borrador, Limpiar)
+  - Added URL param support: ?solicitud=SOL-XXX, ?mode=edit&id=ASG-XXX, ?mode=view&id=ASG-XXX
+  - Updated stitch_prompts.md (3.3b), verification_report.md (S-12, DIS-3, TwoColumnLayout), README.md (§8.5), changelog-obs.md (#20)
+
 v1.3 — 05/07/2026
   - Expanded "Tipos de Solicitud" master (MAN-18): now includes 5 types — Baja definitiva, Envío a SSTT, Cambio de equipo, Retorno al Mandante (all require approval) + Solicitud de Inventario (no approval, no tipo_movimiento)
   - Principle: Mandante standardizes ALL request types for all managers — managers select from the catalog, they don't create their own

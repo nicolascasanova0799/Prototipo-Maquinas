@@ -376,6 +376,26 @@ body {
     color: #856404;
 }
 
+.badge-en-proceso {
+    background: #E3F2FD;
+    color: var(--azul-marino);
+}
+
+.badge-convertida {
+    background: var(--verde-exito);
+    color: #FFFFFF;
+}
+
+.badge-pospuesta {
+    background: #FFF3CD;
+    color: #856404;
+}
+
+.badge-descartada {
+    background: var(--rojo-error);
+    color: #FFFFFF;
+}
+
 /* ===== Tablas ===== */
 .table {
     margin-bottom: 0;

@@ -111,3 +111,39 @@ Se aplicaron **14 cambios** sobre el prototipo interactivo, derivados de las obs
 - Todos los cambios fueron aplicados sobre el prototipo navegable (HTML/CSS/JS estático).
 - Las integraciones de API (guías de despacho, ERP) están **simuladas** en el prototipo; la implementación real corresponde a la fase de desarrollo.
 - Los datos mostrados en tablas y dashboards son **datos de ejemplo** fijos en la maqueta.
+
+---
+
+## Cambios posteriores — Rediseño del flujo de Solicitudes de Nuevo Equipo (20/07/2026)
+
+### 15. Nueva vista: Solicitudes de Nuevo Equipo (Gestor) ✅
+- **Fecha:** 20/07/2026
+- **Origen:** Rediseño del flujo de solicitudes de nuevo equipo (SDD `redesign-distributor-equipment-request-workflow`)
+- **Qué se hizo:** Se creó `distribuidor/solicitudes-nuevo-equipo.html` como bandeja de entrada donde el Gestor gestiona las solicitudes de nuevo equipo enviadas por los vendedores desde la aplicación móvil. Incluye KPIs (Pendientes, En proceso, Convertidas, Total), filtros (búsqueda, estado, fechas), tabla con detalle de solicitud y acciones por fila: Ver detalle (modal con cliente, equipo, motivo, evidencia y stock disponible), Analizar stock y asignar (redirige a `asignacion-clientes.html?solicitud=SOL-XXX`), Posponer (reversible) y Descartar (modal con motivo obligatorio, terminal).
+- **Prioridad:** Alta
+
+### 16. Eliminación del Mandante del flujo de aprobación de solicitudes de nuevo equipo ✅
+- **Fecha:** 20/07/2026
+- **Qué se hizo:** Se eliminó al Mandante del flujo de aprobación de solicitudes de nuevo equipo. El Gestor gestiona directamente: revisión, análisis de stock, conversión en asignación, posposición o descarte. El Mandante no tiene vista ni rol aprobador en este flujo (RN-26).
+- **Prioridad:** Alta
+
+### 17. Cambio en la app móvil: selección de equipo específico ✅
+- **Fecha:** 20/07/2026
+- **Qué se hizo:** El vendedor ahora selecciona un equipo específico disponible (por serie, marca, modelo) del catálogo de equipos sin cliente asignado y en buen estado, en lugar de solicitar por tipo de equipo y cantidad (RN-27). Se actualizaron los datos mock en `app-data.js` (`solicitudesNuevoEquipo`) y la vista `solicitud-nuevo-equipo.html` del Prototipo Móvil.
+- **Prioridad:** Alta
+
+### 18. Sidebar navigation: nuevo enlace "Solicitudes de Nuevo Equipo" ✅
+- **Fecha:** 20/07/2026
+- **Qué se hizo:** Se agregó el enlace "Solicitudes de Nuevo Equipo" en la sección Operación del sidebar del Gestor, en los 18 archivos HTML del directorio `distribuidor/`. El enlace resuelve a `solicitudes-nuevo-equipo.html`.
+- **Prioridad:** Media
+
+### 19. Datos mock: `solicitudesNuevoEquipo` y `equiposDisponibles` ✅
+- **Fecha:** 20/07/2026
+- **Qué se hizo:** Se agregaron los arrays `solicitudesNuevoEquipo` (6 solicitudes de ejemplo con estados Pendiente, En proceso, Convertida, Pospuesta, Descartada) y `equiposDisponibles` (equipos sin cliente asignado y en buen estado) en `app-data.js` del Prototipo Móvil. Los datos se replican inline en la vista web del Gestor.
+- **Prioridad:** Media
+
+### 20. Rediseño de layout: Asignación a Clientes (vertical con collapse) ✅
+- **Fecha:** 20/07/2026
+- **Origen:** Rediseño del flujo de solicitudes de nuevo equipo (SDD `redesign-distributor-equipment-request-workflow`)
+- **Qué se hizo:** Se rediseñó el layout de `distribuidor/asignacion-clientes.html` de dos columnas paralelas (equipos izquierda, clientes derecha) a un layout vertical con tres secciones: (1) sección colapsable de "Puntos de venta disponibles" a ancho completo con header colapsable, icono de toggle y resumen del cliente seleccionado — se auto-colapsa al seleccionar un cliente; (2) sub-tabla de solicitudes pendientes del cliente; (3) layout de dos columnas `two-col-equip-panel` (grid `1fr 320px`) con la tabla de equipos a la izquierda y el panel resumen como sidebar sticky a la derecha. Adicionalmente, se extrajo el CSS inline a `css/asignacion-clientes.css` y el JS inline a `js/asignacion-clientes.js` para mejorar la mantenibilidad.
+- **Prioridad:** Alta

@@ -8,384 +8,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <link href="../css/styles.css" rel="stylesheet">
-    <style>
-        .two-col-assign {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 24px;
-            width: 100%;
-        }
-
-        @media (max-width: 992px) {
-            .two-col-assign {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        .assign-col-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 12px;
-        }
-
-        .assign-col-header h5 {
-            font-size: 16px;
-            font-weight: 600;
-            color: var(--azul-marino);
-            margin: 0;
-        }
-
-        .assign-col-header .count-badge {
-            font-size: 12px;
-            color: var(--gris-medio);
-            font-weight: 600;
-        }
-
-        .search-box {
-            position: relative;
-            margin-bottom: 12px;
-        }
-
-        .search-box i {
-            position: absolute;
-            left: 12px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: var(--gris-medio);
-            font-size: 16px;
-        }
-
-        .search-box input {
-            padding-left: 38px;
-        }
-
-        .table-assign input[type="checkbox"] {
-            width: 18px;
-            height: 18px;
-            cursor: pointer;
-            accent-color: var(--azul-primario);
-        }
-
-        .table-assign input[type="radio"] {
-            width: 18px;
-            height: 18px;
-            cursor: pointer;
-            accent-color: var(--azul-primario);
-        }
-
-        .table-assign tbody tr.row-selected {
-            background: #E3F2FD;
-            box-shadow: inset 3px 0 0 var(--azul-primario);
-        }
-
-        .table-assign tbody tr:hover {
-            background: #F8F9FA;
-            cursor: pointer;
-        }
-
-        .table-assign tbody tr.row-selected:hover {
-            background: #D6EAF8;
-        }
-
-        .table-assign tbody tr.row-client-selected {
-            background: #E8F5E9;
-            box-shadow: inset 3px 0 0 var(--verde-exito);
-        }
-
-        .table-assign tbody tr.row-client-selected:hover {
-            background: #D4ECD8;
-        }
-
-        .assign-action-bar {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 16px;
-            margin-top: 24px;
-            padding: 20px;
-            background: #FFFFFF;
-            border-radius: 8px;
-            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
-        }
-
-        .assign-action-bar .selection-info {
-            font-size: 14px;
-            color: var(--gris-medio);
-            font-weight: 500;
-        }
-
-        .assign-action-bar .selection-info strong {
-            color: var(--azul-marino);
-        }
-
-        .file-upload-area {
-            border: 2px dashed #DEE2E6;
-            border-radius: 8px;
-            padding: 28px 20px;
-            text-align: center;
-            cursor: pointer;
-            transition: border-color 0.15s, background 0.15s;
-        }
-
-        .file-upload-area:hover {
-            border-color: var(--azul-primario);
-            background: rgba(0, 102, 204, 0.03);
-        }
-
-        .file-upload-area i {
-            font-size: 36px;
-            color: var(--gris-medio);
-            margin-bottom: 8px;
-        }
-
-        .file-upload-area .upload-text {
-            font-size: 14px;
-            color: var(--gris-oscuro);
-            font-weight: 600;
-        }
-
-        .file-upload-area .upload-hint {
-            font-size: 12px;
-            color: var(--gris-medio);
-            margin-top: 4px;
-        }
-
-        .file-upload-area.has-file {
-            border-color: var(--verde-exito);
-            background: rgba(40, 167, 69, 0.04);
-        }
-
-        .file-upload-area.has-file i {
-            color: var(--verde-exito);
-        }
-        .gd-gen-progress {
-            text-align: center;
-            padding: 24px;
-        }
-        .gd-gen-progress .spinner-border {
-            color: var(--azul-primario);
-            margin-bottom: 12px;
-        }
-        .gd-gen-success {
-            text-align: center;
-            padding: 20px;
-        }
-        .gd-gen-success i {
-            font-size: 48px;
-            color: var(--verde-exito);
-            margin-bottom: 12px;
-        }
-        .gd-option-btn {
-            text-align: left;
-            padding: 14px 16px;
-            border: 1px solid #DEE2E6;
-            border-radius: 8px;
-            background: #FFFFFF;
-            color: var(--gris-oscuro);
-            font-weight: 600;
-            transition: all 0.15s;
-            display: flex;
-            align-items: flex-start;
-            gap: 12px;
-            width: 100%;
-        }
-        .gd-option-btn:hover {
-            border-color: var(--azul-primario);
-            background: rgba(0, 102, 204, 0.04);
-        }
-        .gd-option-btn i {
-            font-size: 20px;
-            margin-top: 2px;
-        }
-        .gd-option-btn .gd-option-desc {
-            font-size: 12px;
-            font-weight: 400;
-            color: var(--gris-medio);
-            display: block;
-            margin-top: 2px;
-        }
-
-        .file-name {
-            font-size: 13px;
-            color: var(--gris-oscuro);
-            font-weight: 600;
-            margin-top: 8px;
-            word-break: break-all;
-        }
-
-        .rn-note {
-            background: rgba(0, 102, 204, 0.06);
-            border-left: 3px solid var(--azul-primario);
-            border-radius: 0 6px 6px 0;
-            padding: 12px 16px;
-            font-size: 13px;
-            color: var(--gris-oscuro);
-            line-height: 1.5;
-        }
-
-        .rn-note strong {
-            color: var(--azul-marino);
-        }
-
-        .btn-back {
-            color: var(--gris-medio);
-            font-size: 14px;
-            font-weight: 500;
-            text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            transition: color 0.15s;
-        }
-
-        .btn-back:hover {
-            color: var(--azul-primario);
-        }
-
-        .pagination .page-link {
-            color: var(--azul-primario);
-            border: 1px solid #DEE2E6;
-            font-weight: 500;
-            padding: 8px 14px;
-        }
-
-        .pagination .page-item.active .page-link {
-            background-color: var(--azul-primario);
-            border-color: var(--azul-primario);
-            color: #FFFFFF;
-        }
-
-        .pagination .page-item.disabled .page-link {
-            color: var(--gris-medio);
-        }
-
-        .alert-success-custom {
-            background: rgba(40, 167, 69, 0.1);
-            border: 1px solid rgba(40, 167, 69, 0.3);
-            border-radius: 8px;
-            color: #1a6e2c;
-            padding: 14px 18px;
-            font-size: 14px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .erp-toggle-demo {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            font-size: 12px;
-            color: var(--gris-medio);
-            background: var(--gris-claro);
-            padding: 4px 10px;
-            border-radius: 20px;
-            font-weight: 600;
-        }
-
-        .erp-toggle-demo .erp-dot {
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-        }
-
-        .erp-toggle-demo.isstec .erp-dot {
-            background: var(--verde-exito);
-        }
-
-        .erp-toggle-demo.external .erp-dot {
-            background: var(--naranja-coral);
-        }
-
-        .summary-row {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-        }
-
-        .summary-row .summary-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            padding: 10px 0;
-            border-bottom: 1px solid #EEF0F2;
-        }
-
-        .summary-row .summary-item:last-child {
-            border-bottom: none;
-        }
-
-        .summary-row .summary-label {
-            font-size: 12px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            color: var(--gris-medio);
-            font-weight: 600;
-        }
-
-        .summary-row .summary-value {
-            font-size: 14px;
-            font-weight: 600;
-            color: var(--azul-marino);
-            text-align: right;
-        }
-
-        .equipment-list-summary {
-            font-size: 13px;
-            color: var(--gris-oscuro);
-            line-height: 1.6;
-        }
-
-        .equipment-list-summary .eq-item {
-            display: flex;
-            justify-content: space-between;
-            padding: 4px 0;
-        }
-
-        .equipment-list-summary .eq-item .eq-serie {
-            font-weight: 600;
-        }
-
-        .equipment-list-summary .eq-item .eq-detail {
-            color: var(--gris-medio);
-            font-size: 12px;
-        }
-
-        .gd-auto-msg {
-            background: rgba(40, 167, 69, 0.08);
-            border: 1px solid rgba(40, 167, 69, 0.25);
-            border-radius: 8px;
-            padding: 16px;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .gd-auto-msg i {
-            font-size: 28px;
-            color: var(--verde-exito);
-            flex-shrink: 0;
-        }
-
-        .gd-auto-msg .gd-text {
-            font-size: 14px;
-            color: var(--gris-oscuro);
-            line-height: 1.5;
-        }
-
-        .gd-auto-msg .gd-text strong {
-            color: var(--verde-exito);
-            font-size: 16px;
-        }
-
-        .gd-number {
-            font-size: 20px;
-            font-weight: 700;
-            color: var(--verde-exito);
-            letter-spacing: 0.5px;
-        }
-    </style>
+    <link href="../css/asignacion-clientes.css" rel="stylesheet">
 </head>
 <body>
     <div class="app-layout">
@@ -408,6 +31,9 @@
                 <div class="nav-section">Operación</div>
                 <a href="solicitudes-movimiento.html" class="nav-link">
                     <i class="bi bi-arrow-left-right"></i> Solicitudes de Movimiento
+                </a>
+                <a href="solicitudes-nuevo-equipo.html" class="nav-link">
+                    <i class="bi bi-inbox"></i> Solicitudes de Nuevo Equipo
                 </a>
                 <a href="inventario.html" class="nav-link">
                     <i class="bi bi-clipboard-check"></i> Inventario
@@ -446,7 +72,10 @@
                     <a href="dashboard.html" class="btn-back">
                         <i class="bi bi-arrow-left"></i> Volver al dashboard
                     </a>
-                    <h2 class="page-title">Asignación a Clientes</h2>
+                    <h2 class="page-title" id="pageTitle">Asignación a Clientes</h2>
+                    <span class="badge-borrador-header ms-2" id="headerEstado" style="display: none;">
+                        <i class="bi bi-pencil"></i> Borrador
+                    </span>
                 </div>
                 <div class="navbar-right">
                     <div class="notification-icon">
@@ -471,14 +100,184 @@
                     <span id="alertaExitoTexto">Asignación confirmada correctamente.</span>
                 </div>
 
+                <!-- ===== Alerta de borrador guardado (oculta por defecto) ===== -->
+                <div id="alertaBorrador" class="alert-borrador-custom mb-4" style="display: none;">
+                    <i class="bi bi-save-fill"></i>
+                    <span id="alertaBorradorTexto">Borrador guardado.</span>
+                </div>
+
                 <!-- ===== Header de página ===== -->
                 <div class="page-header">
                     <h1>Asignar Equipos a Puntos de Venta</h1>
                     <p class="subtitle">Selecciona equipos aceptados y asígnalos a clientes finales (puntos de venta)</p>
                 </div>
 
-                <!-- ===== Two Column Layout ===== -->
-                <div class="two-col-assign">
+                <!-- ===== Sección colapsable: Puntos de venta disponibles ===== -->
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <div class="client-collapse-header" id="clientCollapseHeader">
+                            <div class="d-flex align-items-center">
+                                <h5 class="mb-0">
+                                    <i class="bi bi-shop me-2"></i>Puntos de venta disponibles
+                                </h5>
+                                <span class="count-badge ms-3" id="contadorClientes">13 clientes</span>
+                                <span class="client-selected-summary" id="clientSelectedSummary"></span>
+                            </div>
+                            <i class="bi bi-chevron-down toggle-icon"></i>
+                        </div>
+
+                        <div class="client-collapse-body" id="clientCollapseBody">
+                            <div class="search-box mt-3">
+                                <i class="bi bi-search"></i>
+                                <input type="text" class="form-control" id="buscarCliente" placeholder="Buscar por nombre, dirección o comuna…">
+                            </div>
+                            <div class="table-responsive" style="max-height: 400px; overflow-y: auto;">
+                                <table class="table table-hover align-middle table-assign" id="tablaClientes">
+                                    <thead style="position: sticky; top: 0; z-index: 1;">
+                                        <tr>
+                                            <th style="width: 40px;"></th>
+                                            <th>Nombre</th>
+                                            <th>Dirección</th>
+                                            <th>Comuna</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr data-cliente="Almacén Don Luis" data-direccion="Av. San Miguel 1234" data-comuna="San Miguel" data-rut="77.777.777-7">
+                                            <td><input type="radio" name="selectCliente" class="radio-cliente" value="Almacén Don Luis" aria-label="Seleccionar Almacén Don Luis"></td>
+                                            <td class="fw-semibold">Almacén Don Luis</td>
+                                            <td>Av. San Miguel 1234</td>
+                                            <td>San Miguel</td>
+                                        </tr>
+                                        <tr data-cliente="Minimarket Don Eduardo" data-direccion="Av. Providencia 1234" data-comuna="Providencia" data-rut="76.543.210-1">
+                                            <td><input type="radio" name="selectCliente" class="radio-cliente" value="Minimarket Don Eduardo" aria-label="Seleccionar Minimarket Don Eduardo"></td>
+                                            <td class="fw-semibold">Minimarket Don Eduardo</td>
+                                            <td>Av. Providencia 1234</td>
+                                            <td>Providencia</td>
+                                        </tr>
+                                        <tr data-cliente="Almacén Estrella" data-direccion="Calle Huérfanos 876" data-comuna="Santiago Centro" data-rut="77.123.456-7">
+                                            <td><input type="radio" name="selectCliente" class="radio-cliente" value="Almacén Estrella" aria-label="Seleccionar Almacén Estrella"></td>
+                                            <td class="fw-semibold">Almacén Estrella</td>
+                                            <td>Calle Huérfanos 876</td>
+                                            <td>Santiago Centro</td>
+                                        </tr>
+                                        <tr data-cliente="Supermercado El Ahorro" data-direccion="Av. Independencia 5421" data-comuna="Independencia" data-rut="78.987.654-3">
+                                            <td><input type="radio" name="selectCliente" class="radio-cliente" value="Supermercado El Ahorro" aria-label="Seleccionar Supermercado El Ahorro"></td>
+                                            <td class="fw-semibold">Supermercado El Ahorro</td>
+                                            <td>Av. Independencia 5421</td>
+                                            <td>Independencia</td>
+                                        </tr>
+                                        <tr data-cliente="Botillería La Esquina" data-direccion="Calle Portugal 234" data-comuna="Ñuñoa" data-rut="79.456.123-0">
+                                            <td><input type="radio" name="selectCliente" class="radio-cliente" value="Botillería La Esquina" aria-label="Seleccionar Botillería La Esquina"></td>
+                                            <td class="fw-semibold">Botillería La Esquina</td>
+                                            <td>Calle Portugal 234</td>
+                                            <td>Ñuñoa</td>
+                                        </tr>
+                                        <tr data-cliente="Minimarket Las Acacias" data-direccion="Av. Macul 3456" data-comuna="Macul" data-rut="80.234.567-8">
+                                            <td><input type="radio" name="selectCliente" class="radio-cliente" value="Minimarket Las Acacias" aria-label="Seleccionar Minimarket Las Acacias"></td>
+                                            <td class="fw-semibold">Minimarket Las Acacias</td>
+                                            <td>Av. Macul 3456</td>
+                                            <td>Macul</td>
+                                        </tr>
+                                        <tr data-cliente="Almacén San Jorge" data-direccion="Calle San Jorge 789" data-comuna="La Florida" data-rut="81.345.678-9">
+                                            <td><input type="radio" name="selectCliente" class="radio-cliente" value="Almacén San Jorge" aria-label="Seleccionar Almacén San Jorge"></td>
+                                            <td class="fw-semibold">Almacén San Jorge</td>
+                                            <td>Calle San Jorge 789</td>
+                                            <td>La Florida</td>
+                                        </tr>
+                                        <tr data-cliente="Comercial El Sol" data-direccion="Av. Vicuña Mackenna 4321" data-comuna="San Joaquín" data-rut="82.567.890-1">
+                                            <td><input type="radio" name="selectCliente" class="radio-cliente" value="Comercial El Sol" aria-label="Seleccionar Comercial El Sol"></td>
+                                            <td class="fw-semibold">Comercial El Sol</td>
+                                            <td>Av. Vicuña Mackenna 4321</td>
+                                            <td>San Joaquín</td>
+                                        </tr>
+                                        <tr data-cliente="Minimarket La Amistad" data-direccion="Calle Santa Rosa 1876" data-comuna="La Cisterna" data-rut="83.678.901-2">
+                                            <td><input type="radio" name="selectCliente" class="radio-cliente" value="Minimarket La Amistad" aria-label="Seleccionar Minimarket La Amistad"></td>
+                                            <td class="fw-semibold">Minimarket La Amistad</td>
+                                            <td>Calle Santa Rosa 1876</td>
+                                            <td>La Cisterna</td>
+                                        </tr>
+                                        <tr data-cliente="Almacén El Puente" data-direccion="Av. Pedro Aguirre Cerda 654" data-comuna="Lo Espejo" data-rut="84.789.012-3">
+                                            <td><input type="radio" name="selectCliente" class="radio-cliente" value="Almacén El Puente" aria-label="Seleccionar Almacén El Puente"></td>
+                                            <td class="fw-semibold">Almacén El Puente</td>
+                                            <td>Av. Pedro Aguirre Cerda 654</td>
+                                            <td>Lo Espejo</td>
+                                        </tr>
+                                        <tr data-cliente="Supermercado Mi Tierra" data-direccion="Calle Recoleta 2345" data-comuna="Recoleta" data-rut="85.890.123-4">
+                                            <td><input type="radio" name="selectCliente" class="radio-cliente" value="Supermercado Mi Tierra" aria-label="Seleccionar Supermercado Mi Tierra"></td>
+                                            <td class="fw-semibold">Supermercado Mi Tierra</td>
+                                            <td>Calle Recoleta 2345</td>
+                                            <td>Recoleta</td>
+                                        </tr>
+                                        <tr data-cliente="Minimarket Buenos Aires" data-direccion="Av. Pajaritos 1234" data-comuna="Maipú" data-rut="86.901.234-5">
+                                            <td><input type="radio" name="selectCliente" class="radio-cliente" value="Minimarket Buenos Aires" aria-label="Seleccionar Minimarket Buenos Aires"></td>
+                                            <td class="fw-semibold">Minimarket Buenos Aires</td>
+                                            <td>Av. Pajaritos 1234</td>
+                                            <td>Maipú</td>
+                                        </tr>
+                                        <tr data-cliente="Almacén La Esperanza" data-direccion="Calle Gran Avenida 4567" data-comuna="San Miguel" data-rut="87.012.345-6">
+                                            <td><input type="radio" name="selectCliente" class="radio-cliente" value="Almacén La Esperanza" aria-label="Seleccionar Almacén La Esperanza"></td>
+                                            <td class="fw-semibold">Almacén La Esperanza</td>
+                                            <td>Calle Gran Avenida 4567</td>
+                                            <td>San Miguel</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="d-flex justify-content-between align-items-center mt-3">
+                                <div class="text-muted" style="font-size: 13px;">
+                                    Mostrando 1–13 de 124 clientes
+                                </div>
+                                <nav aria-label="Paginación de clientes">
+                                    <ul class="pagination mb-0">
+                                        <li class="page-item disabled">
+                                            <a class="page-link" href="#" tabindex="-1" aria-disabled="true">
+                                                <i class="bi bi-chevron-left"></i>
+                                            </a>
+                                        </li>
+                                        <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                                        <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                        <li class="page-item"><a class="page-link" href="#">…</a></li>
+                                        <li class="page-item"><a class="page-link" href="#">11</a></li>
+                                        <li class="page-item">
+                                            <a class="page-link" href="#">
+                                                <i class="bi bi-chevron-right"></i>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </nav>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ===== Solicitudes pendientes del cliente (hidden by default) ===== -->
+                <div id="solicitudesPendientesSection" style="display: none;">
+                    <div class="card mb-4 solicitudes-subtable">
+                        <div class="card-header">
+                            <h5 class="mb-0" style="font-size: 15px; font-weight: 600; color: var(--azul-marino);">
+                                <i class="bi bi-inbox me-2"></i>Solicitudes pendientes de este cliente
+                            </h5>
+                        </div>
+                        <div class="card-body p-0">
+                            <table class="table table-sm align-middle mb-0">
+                                <thead>
+                                    <tr>
+                                        <th>N° Solicitud</th>
+                                        <th>Equipo solicitado</th>
+                                        <th>Cant.</th>
+                                        <th>Motivo</th>
+                                        <th>Fecha</th>
+                                        <th style="width: 140px;">Acciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tbodySolicitudesPendientes">
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <!-- ===== Two-col: Equipos + Panel Resumen ===== -->
+                <div class="two-col-equip-panel">
                     <!-- ===== Columna izquierda: Equipos para asignar ===== -->
                     <div>
                         <div class="card">
@@ -489,14 +288,10 @@
                                     </h5>
                                     <span class="count-badge" id="contadorEquipos">8 equipos</span>
                                 </div>
-
-                                <!-- Buscador de equipos -->
                                 <div class="search-box">
                                     <i class="bi bi-search"></i>
                                     <input type="text" class="form-control" id="buscarEquipo" placeholder="Buscar por N° serie, marca o modelo…">
                                 </div>
-
-                                <!-- Tabla de equipos aceptados sin cliente -->
                                 <div class="table-responsive" style="max-height: 480px; overflow-y: auto;">
                                     <table class="table table-hover align-middle table-assign" id="tablaEquipos">
                                         <thead style="position: sticky; top: 0; z-index: 1;">
@@ -561,8 +356,6 @@
                                         </tbody>
                                     </table>
                                 </div>
-
-                                <!-- Paginación equipos -->
                                 <div class="d-flex justify-content-between align-items-center mt-3">
                                     <div class="text-muted" style="font-size: 13px;">
                                         Mostrando 1–8 de 23 equipos disponibles
@@ -588,152 +381,40 @@
                             </div>
                         </div>
                     </div>
-
-                    <!-- ===== Columna derecha: Puntos de venta disponibles ===== -->
-                    <div>
-                        <div class="card">
-                            <div class="card-body">
-                                <div class="assign-col-header">
-                                    <h5>
-                                        <i class="bi bi-shop me-2"></i>Puntos de venta disponibles
-                                    </h5>
-                                    <span class="count-badge" id="contadorClientes">12 clientes</span>
+                    <!-- ===== Columna derecha: Panel Resumen (sticky sidebar) ===== -->
+                    <div class="panel-resumen-sidebar">
+                        <div class="panel-resumen">
+                            <div class="resumen-info">
+                                <div class="resumen-item">
+                                    <div class="resumen-label">Equipos seleccionados</div>
+                                    <div class="resumen-value placeholder" id="resumenEquiposCount">0</div>
                                 </div>
-
-                                <!-- Buscador de clientes -->
-                                <div class="search-box">
-                                    <i class="bi bi-search"></i>
-                                    <input type="text" class="form-control" id="buscarCliente" placeholder="Buscar por nombre, dirección o comuna…">
+                                <div class="resumen-item">
+                                    <div class="resumen-label">Cliente destino</div>
+                                    <div class="resumen-value placeholder" id="resumenClienteDestino">Sin seleccionar</div>
                                 </div>
-
-                                <!-- Tabla de clientes (puntos de venta) -->
-                                <div class="table-responsive" style="max-height: 480px; overflow-y: auto;">
-                                    <table class="table table-hover align-middle table-assign" id="tablaClientes">
-                                        <thead style="position: sticky; top: 0; z-index: 1;">
-                                            <tr>
-                                                <th style="width: 40px;"></th>
-                                                <th>Nombre</th>
-                                                <th>Dirección</th>
-                                                <th>Comuna</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr data-cliente="Minimarket Don Eduardo" data-direccion="Av. Providencia 1234" data-comuna="Providencia" data-rut="76.543.210-1">
-                                                <td><input type="radio" name="selectCliente" class="radio-cliente" value="Minimarket Don Eduardo" aria-label="Seleccionar Minimarket Don Eduardo"></td>
-                                                <td class="fw-semibold">Minimarket Don Eduardo</td>
-                                                <td>Av. Providencia 1234</td>
-                                                <td>Providencia</td>
-                                            </tr>
-                                            <tr data-cliente="Almacén Estrella" data-direccion="Calle Huérfanos 876" data-comuna="Santiago Centro" data-rut="77.123.456-7">
-                                                <td><input type="radio" name="selectCliente" class="radio-cliente" value="Almacén Estrella" aria-label="Seleccionar Almacén Estrella"></td>
-                                                <td class="fw-semibold">Almacén Estrella</td>
-                                                <td>Calle Huérfanos 876</td>
-                                                <td>Santiago Centro</td>
-                                            </tr>
-                                            <tr data-cliente="Supermercado El Ahorro" data-direccion="Av. Independencia 5421" data-comuna="Independencia" data-rut="78.987.654-3">
-                                                <td><input type="radio" name="selectCliente" class="radio-cliente" value="Supermercado El Ahorro" aria-label="Seleccionar Supermercado El Ahorro"></td>
-                                                <td class="fw-semibold">Supermercado El Ahorro</td>
-                                                <td>Av. Independencia 5421</td>
-                                                <td>Independencia</td>
-                                            </tr>
-                                            <tr data-cliente="Botillería La Esquina" data-direccion="Calle Portugal 234" data-comuna="Ñuñoa" data-rut="79.456.123-0">
-                                                <td><input type="radio" name="selectCliente" class="radio-cliente" value="Botillería La Esquina" aria-label="Seleccionar Botillería La Esquina"></td>
-                                                <td class="fw-semibold">Botillería La Esquina</td>
-                                                <td>Calle Portugal 234</td>
-                                                <td>Ñuñoa</td>
-                                            </tr>
-                                            <tr data-cliente="Minimarket Las Acacias" data-direccion="Av. Macul 3456" data-comuna="Macul" data-rut="80.234.567-8">
-                                                <td><input type="radio" name="selectCliente" class="radio-cliente" value="Minimarket Las Acacias" aria-label="Seleccionar Minimarket Las Acacias"></td>
-                                                <td class="fw-semibold">Minimarket Las Acacias</td>
-                                                <td>Av. Macul 3456</td>
-                                                <td>Macul</td>
-                                            </tr>
-                                            <tr data-cliente="Almacén San Jorge" data-direccion="Calle San Jorge 789" data-comuna="La Florida" data-rut="81.345.678-9">
-                                                <td><input type="radio" name="selectCliente" class="radio-cliente" value="Almacén San Jorge" aria-label="Seleccionar Almacén San Jorge"></td>
-                                                <td class="fw-semibold">Almacén San Jorge</td>
-                                                <td>Calle San Jorge 789</td>
-                                                <td>La Florida</td>
-                                            </tr>
-                                            <tr data-cliente="Comercial El Sol" data-direccion="Av. Vicuña Mackenna 4321" data-comuna="San Joaquín" data-rut="82.567.890-1">
-                                                <td><input type="radio" name="selectCliente" class="radio-cliente" value="Comercial El Sol" aria-label="Seleccionar Comercial El Sol"></td>
-                                                <td class="fw-semibold">Comercial El Sol</td>
-                                                <td>Av. Vicuña Mackenna 4321</td>
-                                                <td>San Joaquín</td>
-                                            </tr>
-                                            <tr data-cliente="Minimarket La Amistad" data-direccion="Calle Santa Rosa 1876" data-comuna="La Cisterna" data-rut="83.678.901-2">
-                                                <td><input type="radio" name="selectCliente" class="radio-cliente" value="Minimarket La Amistad" aria-label="Seleccionar Minimarket La Amistad"></td>
-                                                <td class="fw-semibold">Minimarket La Amistad</td>
-                                                <td>Calle Santa Rosa 1876</td>
-                                                <td>La Cisterna</td>
-                                            </tr>
-                                            <tr data-cliente="Almacén El Puente" data-direccion="Av. Pedro Aguirre Cerda 654" data-comuna="Lo Espejo" data-rut="84.789.012-3">
-                                                <td><input type="radio" name="selectCliente" class="radio-cliente" value="Almacén El Puente" aria-label="Seleccionar Almacén El Puente"></td>
-                                                <td class="fw-semibold">Almacén El Puente</td>
-                                                <td>Av. Pedro Aguirre Cerda 654</td>
-                                                <td>Lo Espejo</td>
-                                            </tr>
-                                            <tr data-cliente="Supermercado Mi Tierra" data-direccion="Calle Recoleta 2345" data-comuna="Recoleta" data-rut="85.890.123-4">
-                                                <td><input type="radio" name="selectCliente" class="radio-cliente" value="Supermercado Mi Tierra" aria-label="Seleccionar Supermercado Mi Tierra"></td>
-                                                <td class="fw-semibold">Supermercado Mi Tierra</td>
-                                                <td>Calle Recoleta 2345</td>
-                                                <td>Recoleta</td>
-                                            </tr>
-                                            <tr data-cliente="Minimarket Buenos Aires" data-direccion="Av. Pajaritos 1234" data-comuna="Maipú" data-rut="86.901.234-5">
-                                                <td><input type="radio" name="selectCliente" class="radio-cliente" value="Minimarket Buenos Aires" aria-label="Seleccionar Minimarket Buenos Aires"></td>
-                                                <td class="fw-semibold">Minimarket Buenos Aires</td>
-                                                <td>Av. Pajaritos 1234</td>
-                                                <td>Maipú</td>
-                                            </tr>
-                                            <tr data-cliente="Almacén La Esperanza" data-direccion="Calle Gran Avenida 4567" data-comuna="San Miguel" data-rut="87.012.345-6">
-                                                <td><input type="radio" name="selectCliente" class="radio-cliente" value="Almacén La Esperanza" aria-label="Seleccionar Almacén La Esperanza"></td>
-                                                <td class="fw-semibold">Almacén La Esperanza</td>
-                                                <td>Calle Gran Avenida 4567</td>
-                                                <td>San Miguel</td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
+                                <div class="resumen-item">
+                                    <div class="resumen-label">Dirección</div>
+                                    <div class="resumen-value placeholder" id="resumenClienteDireccion">—</div>
                                 </div>
-
-                                <!-- Paginación clientes -->
-                                <div class="d-flex justify-content-between align-items-center mt-3">
-                                    <div class="text-muted" style="font-size: 13px;">
-                                        Mostrando 1–12 de 124 clientes
-                                    </div>
-                                    <nav aria-label="Paginación de clientes">
-                                        <ul class="pagination mb-0">
-                                            <li class="page-item disabled">
-                                                <a class="page-link" href="#" tabindex="-1" aria-disabled="true">
-                                                    <i class="bi bi-chevron-left"></i>
-                                                </a>
-                                            </li>
-                                            <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                                            <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                            <li class="page-item"><a class="page-link" href="#">…</a></li>
-                                            <li class="page-item"><a class="page-link" href="#">11</a></li>
-                                            <li class="page-item">
-                                                <a class="page-link" href="#">
-                                                    <i class="bi bi-chevron-right"></i>
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </nav>
+                                <div class="resumen-item">
+                                    <div class="resumen-label">Solicitud origen</div>
+                                    <div class="resumen-value placeholder" id="resumenSolicitudOrigen">—</div>
                                 </div>
+                            </div>
+                            <div class="resumen-actions">
+                                <button type="button" class="btn btn-primary btn-lg" id="btnAsignar" disabled>
+                                    <i class="bi bi-check2-circle me-2"></i>Confirmar asignación
+                                </button>
+                                <button type="button" class="btn btn-outline-warning" id="btnGuardarBorrador" disabled>
+                                    <i class="bi bi-save me-2"></i>Guardar borrador
+                                </button>
+                                <button type="button" class="btn btn-outline-secondary" id="btnLimpiar" disabled>
+                                    <i class="bi bi-eraser me-2"></i>Limpiar selección
+                                </button>
                             </div>
                         </div>
                     </div>
-                </div>
-
-                <!-- ===== Barra de acción: Asignar ===== -->
-                <div class="assign-action-bar">
-                    <div class="selection-info" id="selectionInfo">
-                        Selecciona al menos un equipo y un punto de venta para continuar.
-                    </div>
-                    <button type="button" class="btn btn-primary btn-lg" id="btnAsignar" disabled>
-                        <i class="bi bi-arrow-right-square me-2"></i>Asignar
-                    </button>
-                    <button type="button" class="btn btn-outline-secondary" id="btnLimpiar" disabled>
-                        <i class="bi bi-eraser me-2"></i>Limpiar
-                    </button>
                 </div>
             </main>
         </div>
@@ -840,337 +521,7 @@
 
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script>
-        // ===== Referencias del DOM =====
-        const btnAsignar = document.getElementById('btnAsignar');
-        const btnLimpiar = document.getElementById('btnLimpiar');
-        const modalConfirmarEl = document.getElementById('modalConfirmarAsignacion');
-        const gdChoiceSection = document.getElementById('gdChoiceSection');
-        const gdGenSection = document.getElementById('gdGenSection');
-        const gdUploadSection = document.getElementById('gdUploadSection');
-        const gdSuccessSection = document.getElementById('gdSuccessSection');
-        const gdFooter = document.getElementById('gdFooter');
-        const gdModalClose = document.getElementById('gdModalClose');
-        const btnGenerarGDApi = document.getElementById('btnGenerarGDApi');
-        const btnSubirPDFChoice = document.getElementById('btnSubirPDFChoice');
-        const btnHacerMasTarde = document.getElementById('btnHacerMasTarde');
-        const uploadAreaGD = document.getElementById('uploadAreaGD');
-        const inputFileGD = document.getElementById('inputFileGD');
-        let gdAssignmentConfirmed = false;
-        const checkAllEquipos = document.getElementById('checkAllEquipos');
-        const checkboxesEquipos = document.querySelectorAll('.check-equipo');
-        const radiosClientes = document.querySelectorAll('.radio-cliente');
-        const tablaEquipos = document.getElementById('tablaEquipos');
-        const tablaClientes = document.getElementById('tablaClientes');
-        const selectionInfo = document.getElementById('selectionInfo');
-        const alertaExito = document.getElementById('alertaExito');
-        const alertaExitoTexto = document.getElementById('alertaExitoTexto');
-
-        // Búsqueda
-        const buscarEquipo = document.getElementById('buscarEquipo');
-        const buscarCliente = document.getElementById('buscarCliente');
-
-        // ===== Actualizar estado de botones =====
-        function actualizarEstado() {
-            const equiposSeleccionados = document.querySelectorAll('.check-equipo:checked');
-            const clienteSeleccionado = document.querySelector('.radio-cliente:checked');
-            const countEquipos = equiposSeleccionados.length;
-            const hasCliente = !!clienteSeleccionado;
-
-            // Info de selección
-            if (countEquipos === 0 && !hasCliente) {
-                selectionInfo.innerHTML = 'Selecciona al menos un equipo y un punto de venta para continuar.';
-            } else if (countEquipos === 0) {
-                selectionInfo.innerHTML = 'Selecciona al menos un equipo para asignar.';
-            } else if (!hasCliente) {
-                selectionInfo.innerHTML = `<strong>${countEquipos}</strong> equipo${countEquipos !== 1 ? 's' : ''} seleccionado${countEquipos !== 1 ? 's' : ''}. Selecciona un punto de venta.`;
-            } else {
-                const clienteName = clienteSeleccionado.value;
-                selectionInfo.innerHTML = `<strong>${countEquipos}</strong> equipo${countEquipos !== 1 ? 's' : ''} → <strong>${clienteName}</strong>`;
-            }
-
-            // Habilitar/deshabilitar botones
-            btnAsignar.disabled = !(countEquipos >= 1 && hasCliente);
-            btnLimpiar.disabled = countEquipos === 0 && !hasCliente;
-
-            // Actualizar checkAll
-            const allEquiposVisible = document.querySelectorAll('.check-equipo');
-            checkAllEquipos.checked = allEquiposVisible.length > 0 && countEquipos === allEquiposVisible.length;
-            checkAllEquipos.indeterminate = countEquipos > 0 && countEquipos < allEquiposVisible.length;
-        }
-
-        // ===== Marcar/desmarcar fila de equipo seleccionada =====
-        function toggleEquipoRowStyle(checkbox) {
-            const row = checkbox.closest('tr');
-            if (checkbox.checked) {
-                row.classList.add('row-selected');
-            } else {
-                row.classList.remove('row-selected');
-            }
-        }
-
-        // ===== Marcar/desmarcar fila de cliente seleccionada =====
-        function toggleClienteRowStyle(radio) {
-            // Limpiar todas las filas de clientes
-            tablaClientes.querySelectorAll('tbody tr').forEach(tr => {
-                tr.classList.remove('row-client-selected');
-            });
-            if (radio.checked) {
-                radio.closest('tr').classList.add('row-client-selected');
-            }
-        }
-
-        // ===== Checkbox individual de equipo =====
-        checkboxesEquipos.forEach(cb => {
-            cb.addEventListener('change', function() {
-                toggleEquipoRowStyle(this);
-                actualizarEstado();
-            });
-        });
-
-        // ===== Checkbox seleccionar todos los equipos =====
-        checkAllEquipos.addEventListener('change', function() {
-            checkboxesEquipos.forEach(cb => {
-                if (cb.closest('tr').style.display !== 'none') {
-                    cb.checked = this.checked;
-                    toggleEquipoRowStyle(cb);
-                }
-            });
-            actualizarEstado();
-        });
-
-        // ===== Radio individual de cliente =====
-        radiosClientes.forEach(rd => {
-            rd.addEventListener('change', function() {
-                toggleClienteRowStyle(this);
-                actualizarEstado();
-            });
-        });
-
-        // ===== Click en fila de cliente para seleccionar radio =====
-        tablaClientes.querySelectorAll('tbody tr').forEach(tr => {
-            tr.addEventListener('click', function(e) {
-                if (e.target.tagName === 'INPUT') return;
-                const radio = this.querySelector('.radio-cliente');
-                if (radio && !radio.disabled) {
-                    radio.checked = true;
-                    toggleClienteRowStyle(radio);
-                    actualizarEstado();
-                }
-            });
-        });
-
-        // ===== Limpiar selección =====
-        btnLimpiar.addEventListener('click', function() {
-            checkboxesEquipos.forEach(cb => {
-                cb.checked = false;
-                toggleEquipoRowStyle(cb);
-            });
-            radiosClientes.forEach(rd => {
-                rd.checked = false;
-            });
-            tablaClientes.querySelectorAll('tbody tr').forEach(tr => {
-                tr.classList.remove('row-client-selected');
-            });
-            checkAllEquipos.checked = false;
-            actualizarEstado();
-        });
-
-        // ===== Búsqueda de equipos =====
-        buscarEquipo.addEventListener('input', function() {
-            const term = this.value.toLowerCase().trim();
-            let visibleCount = 0;
-            tablaEquipos.querySelectorAll('tbody tr').forEach(tr => {
-                const serie = (tr.dataset.serie || '').toLowerCase();
-                const marca = (tr.dataset.marca || '').toLowerCase();
-                const modelo = (tr.dataset.modelo || '').toLowerCase();
-                const match = !term || serie.includes(term) || marca.includes(term) || modelo.includes(term);
-                tr.style.display = match ? '' : 'none';
-                if (match) visibleCount++;
-            });
-            document.getElementById('contadorEquipos').textContent = visibleCount + (visibleCount === 1 ? ' equipo' : ' equipos');
-        });
-
-        // ===== Búsqueda de clientes =====
-        buscarCliente.addEventListener('input', function() {
-            const term = this.value.toLowerCase().trim();
-            let visibleCount = 0;
-            tablaClientes.querySelectorAll('tbody tr').forEach(tr => {
-                const nombre = (tr.dataset.cliente || '').toLowerCase();
-                const direccion = (tr.dataset.direccion || '').toLowerCase();
-                const comuna = (tr.dataset.comuna || '').toLowerCase();
-                const match = !term || nombre.includes(term) || direccion.includes(term) || comuna.includes(term);
-                tr.style.display = match ? '' : 'none';
-                if (match) visibleCount++;
-            });
-            document.getElementById('contadorClientes').textContent = visibleCount + (visibleCount === 1 ? ' cliente' : ' clientes');
-        });
-
-        // ===== Abrir modal al asignar =====
-        btnAsignar.addEventListener('click', function() {
-            const equiposSeleccionados = document.querySelectorAll('.check-equipo:checked');
-            const clienteRadio = document.querySelector('.radio-cliente:checked');
-            const count = equiposSeleccionados.length;
-            const clienteName = clienteRadio.value;
-            const clienteRow = clienteRadio.closest('tr');
-            const clienteDireccion = clienteRow.dataset.direccion;
-            const clienteComuna = clienteRow.dataset.comuna;
-
-            // Construir listado de equipos para el resumen
-            let equiposHTML = '';
-            equiposSeleccionados.forEach(cb => {
-                const row = cb.closest('tr');
-                equiposHTML += `<div class="eq-item">
-                    <span class="eq-serie">${row.dataset.serie}</span>
-                    <span class="eq-detail">${row.dataset.marca} · ${row.dataset.modelo} · ${row.dataset.familia}</span>
-                </div>`;
-            });
-
-            document.getElementById('resumenCount').textContent = count + (count !== 1 ? ' equipos' : ' equipo');
-            document.getElementById('resumenCliente').textContent = clienteName;
-            document.getElementById('resumenDireccion').textContent = clienteDireccion + ', ' + clienteComuna;
-            document.getElementById('resumenEquipos').innerHTML = equiposHTML;
-
-            const modal = new bootstrap.Modal(document.getElementById('modalConfirmarAsignacion'));
-            modal.show();
-        });
-
-        // ===== GD Multi-step modal logic =====
-        function resetGDModal() {
-            gdChoiceSection.style.display = '';
-            gdGenSection.style.display = 'none';
-            gdUploadSection.style.display = 'none';
-            gdSuccessSection.style.display = 'none';
-            gdFooter.innerHTML = '<button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancelar</button>';
-            gdModalClose.style.display = '';
-            inputFileGD.value = '';
-            document.getElementById('numDocumentoGD').value = '';
-            uploadAreaGD.classList.remove('has-file');
-            uploadAreaGD.querySelector('.upload-text').textContent = 'Haz clic o arrastra el archivo aquí';
-            uploadAreaGD.querySelector('.upload-hint').textContent = 'Formato PDF · Máx. 10 MB';
-            document.getElementById('errorFileGD').style.display = 'none';
-            gdAssignmentConfirmed = false;
-        }
-
-        function confirmarAsignacion(gdInfo) {
-            if (gdAssignmentConfirmed) return;
-            gdAssignmentConfirmed = true;
-            const seleccionados = document.querySelectorAll('.check-equipo:checked');
-            const clienteRadio = document.querySelector('.radio-cliente:checked');
-            const count = seleccionados.length;
-            const clienteName = clienteRadio ? clienteRadio.value : '';
-            seleccionados.forEach(cb => { const row = cb.closest('tr'); row.remove(); });
-            radiosClientes.forEach(rd => { rd.checked = false; });
-            tablaClientes.querySelectorAll('tbody tr').forEach(tr => { tr.classList.remove('row-client-selected'); });
-            checkAllEquipos.checked = false;
-            let msg = `Asignación confirmada. ${count} equipo${count !== 1 ? 's' : ''} asignado${count !== 1 ? 's' : ''} a <strong>${clienteName}</strong>.`;
-            if (gdInfo) {
-                msg += ` Guía de Despacho ${gdInfo.number} ${gdInfo.type === 'auto' ? 'generada vía API' : 'adjuntada'}.`;
-            } else {
-                msg += ' Recuerda gestionar la Guía de Despacho desde <strong>Asignaciones Realizadas</strong>.';
-            }
-            alertaExitoTexto.innerHTML = msg;
-            alertaExito.style.display = 'flex';
-            actualizarEstado();
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-            setTimeout(() => { alertaExito.style.display = 'none'; }, 6000);
-        }
-
-        modalConfirmarEl.addEventListener('show.bs.modal', resetGDModal);
-
-        // Option 1: Generar vía API
-        btnGenerarGDApi.addEventListener('click', function() {
-            gdChoiceSection.style.display = 'none';
-            gdGenSection.style.display = '';
-            gdFooter.innerHTML = '';
-            gdModalClose.style.display = 'none';
-            const progressText = document.getElementById('gdProgressText');
-            setTimeout(() => { progressText.textContent = 'Obteniendo respuesta del ERP…'; }, 1200);
-            setTimeout(() => {
-                const gdNum = 'GD-' + String(Math.floor(Math.random() * 9000) + 1000);
-                gdGenSection.style.display = 'none';
-                gdSuccessSection.style.display = '';
-                document.getElementById('gdSuccessText').textContent = 'Asignación confirmada y Guía de Despacho generada';
-                document.getElementById('gdSuccessNumber').textContent = gdNum;
-                document.getElementById('gdSuccessHint').textContent = 'El PDF se ha adjuntado automáticamente a la asignación.';
-                gdFooter.innerHTML = '<button type="button" class="btn btn-primary" id="btnCerrarSuccess">Cerrar</button>';
-                gdModalClose.style.display = '';
-                document.getElementById('btnCerrarSuccess').addEventListener('click', function() {
-                    confirmarAsignacion({ number: gdNum, type: 'auto' });
-                    bootstrap.Modal.getInstance(modalConfirmarEl).hide();
-                });
-            }, 2800);
-        });
-
-        // Option 2: Subir PDF
-        btnSubirPDFChoice.addEventListener('click', function() {
-            gdChoiceSection.style.display = 'none';
-            gdUploadSection.style.display = '';
-            gdFooter.innerHTML = '<button type="button" class="btn btn-outline-secondary" id="btnBackToChoice">Volver</button><button type="button" class="btn btn-primary" id="btnConfirmarUpload"><i class="bi bi-save me-2"></i>Guardar y confirmar</button>';
-            document.getElementById('btnBackToChoice').addEventListener('click', function() {
-                gdUploadSection.style.display = 'none';
-                gdChoiceSection.style.display = '';
-                gdFooter.innerHTML = '<button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancelar</button>';
-            });
-            document.getElementById('btnConfirmarUpload').addEventListener('click', function() {
-                if (!inputFileGD.files || !inputFileGD.files[0]) {
-                    document.getElementById('errorFileGD').style.display = 'block';
-                    return;
-                }
-                const numDoc = document.getElementById('numDocumentoGD').value.trim();
-                const gdNum = numDoc || ('GD-' + String(Math.floor(Math.random() * 9000) + 1000));
-                gdUploadSection.style.display = 'none';
-                gdSuccessSection.style.display = '';
-                document.getElementById('gdSuccessText').textContent = 'Asignación confirmada y PDF adjuntado';
-                document.getElementById('gdSuccessNumber').textContent = gdNum;
-                document.getElementById('gdSuccessHint').textContent = 'El PDF se ha adjuntado a la asignación.';
-                gdFooter.innerHTML = '<button type="button" class="btn btn-primary" id="btnCerrarSuccess">Cerrar</button>';
-                document.getElementById('btnCerrarSuccess').addEventListener('click', function() {
-                    confirmarAsignacion({ number: gdNum, type: 'manual' });
-                    bootstrap.Modal.getInstance(modalConfirmarEl).hide();
-                });
-            });
-        });
-
-        // Upload area interactions
-        uploadAreaGD.addEventListener('click', function() { inputFileGD.click(); });
-        inputFileGD.addEventListener('change', function() {
-            if (this.files && this.files[0]) {
-                const file = this.files[0];
-                if (file.type === 'application/pdf' || file.name.toLowerCase().endsWith('.pdf')) {
-                    uploadAreaGD.classList.add('has-file');
-                    uploadAreaGD.querySelector('.upload-text').textContent = 'Archivo cargado — clic para cambiar';
-                    uploadAreaGD.querySelector('.upload-hint').textContent = file.name;
-                    document.getElementById('errorFileGD').style.display = 'none';
-                } else {
-                    alert('Solo se permiten archivos PDF.');
-                    this.value = '';
-                }
-            }
-        });
-        uploadAreaGD.addEventListener('dragover', function(e) {
-            e.preventDefault(); this.style.borderColor = 'var(--azul-primario)'; this.style.background = 'rgba(0, 102, 204, 0.06)';
-        });
-        uploadAreaGD.addEventListener('dragleave', function(e) {
-            e.preventDefault(); this.style.borderColor = ''; this.style.background = '';
-        });
-        uploadAreaGD.addEventListener('drop', function(e) {
-            e.preventDefault(); this.style.borderColor = ''; this.style.background = '';
-            if (e.dataTransfer.files && e.dataTransfer.files[0]) {
-                inputFileGD.files = e.dataTransfer.files;
-                inputFileGD.dispatchEvent(new Event('change'));
-            }
-        });
-
-        // Option 3: Hacer más tarde
-        btnHacerMasTarde.addEventListener('click', function() {
-            confirmarAsignacion(null);
-            bootstrap.Modal.getInstance(modalConfirmarEl).hide();
-        });
-
-        // ===== Inicializar =====
-        actualizarEstado();
-    </script>
+    <script src="../js/asignacion-clientes.js"></script>
     <script src="../js/sidebar-scroll.js"></script>
 </body>
 </html>

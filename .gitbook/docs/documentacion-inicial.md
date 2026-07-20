@@ -29,7 +29,7 @@ La plataforma se integra con los ERP de los gestores mediante API. Algunos gesto
 
 > **Nota sobre Isstec:** Isstec es la empresa proveedora que desarrolla esta plataforma. Algunos gestores ya usan un ERP que Isstec construyó; la nueva plataforma debe integrarse con ese ERP ("ERP Isstec") cuando esté disponible, pero también debe funcionar independientemente para gestores que usan otros ERP (SAP, Odoo) o sin ERP integrado.
 
-> **Nota de alcance:** la aplicación móvil de terreno (lectura QR/código de barras, toma de inventario con evidencia fotográfica y GPS) está identificada como necesidad futura, pero **queda fuera del alcance de esta fase** según lo indicado explícitamente en la propuesta.
+> **Nota de alcance compartido:** la aplicación móvil de terreno se documenta como una iniciativa complementaria en el repositorio **Prototipo Móvil Máquinas**. El prototipo web actual no incorpora pantallas móviles ni captura desde dispositivos, pero debe consumir y mostrar los resultados operativos que esa aplicación envíe.
 
 ## Objetivos
 
@@ -50,7 +50,7 @@ La plataforma se integra con los ERP de los gestores mediante API. Algunos gesto
 
 ### Fuera del alcance (esta fase)
 
-* Aplicación móvil de terreno (pospuesta explícitamente por la propuesta).
+* Pantallas, captura de dispositivo e implementación técnica de la aplicación móvil de terreno; se gestionan en el proyecto complementario **Prototipo Móvil Máquinas**.
 * Backend funcional real / procesamiento de datos productivos (el entregable es una maqueta no funcional).
 * Implementación real de los conectores API con SAP/Odoo/ERP Isstec (solo diseño conceptual).
 * **Gestión de máquinas propias del Gestor** — confirmado explícitamente fuera de alcance en reunión de validación del 03/07/2026; todo equipo del sistema pertenece al Mandante.

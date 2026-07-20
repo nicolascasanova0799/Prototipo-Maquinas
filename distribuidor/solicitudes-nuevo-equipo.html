@@ -1,0 +1,928 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Solicitudes de Nuevo Equipo — Plataforma Isstec</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="../css/styles.css" rel="stylesheet">
+    <style>
+        .filter-bar {
+            display: flex;
+            gap: 12px;
+            align-items: flex-end;
+            flex-wrap: wrap;
+        }
+        .filter-bar .form-control,
+        .filter-bar .form-select {
+            max-width: 220px;
+        }
+        .btn-back {
+            color: var(--gris-medio);
+            font-size: 14px;
+            font-weight: 500;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: color 0.15s;
+        }
+        .btn-back:hover { color: var(--azul-primario); }
+        .pagination .page-link {
+            color: var(--azul-primario);
+            border: 1px solid #DEE2E6;
+            font-weight: 500;
+            padding: 8px 14px;
+        }
+        .pagination .page-item.active .page-link {
+            background-color: var(--azul-primario);
+            border-color: var(--azul-primario);
+            color: #FFFFFF;
+        }
+        .pagination .page-item.disabled .page-link {
+            color: var(--gris-medio);
+        }
+        .table-solicitudes tbody tr {
+            transition: background 0.15s;
+        }
+        .table-solicitudes tbody tr:hover { background: #F0F6FF; }
+        .action-btn {
+            font-size: 13px;
+            padding: 5px 12px;
+            border-radius: 6px;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            text-decoration: none;
+            transition: all 0.15s;
+            border: none;
+            cursor: pointer;
+        }
+        .action-btn-view {
+            background: var(--gris-claro);
+            color: var(--gris-oscuro);
+        }
+        .action-btn-view:hover {
+            background: var(--gris-oscuro);
+            color: #FFFFFF;
+        }
+        .action-btn-assign {
+            background: rgba(0, 102, 204, 0.1);
+            color: var(--azul-primario);
+        }
+        .action-btn-assign:hover {
+            background: var(--azul-primario);
+            color: #FFFFFF;
+        }
+        .action-btn-postpone {
+            background: rgba(255, 193, 7, 0.15);
+            color: #856404;
+        }
+        .action-btn-postpone:hover {
+            background: #FFC107;
+            color: #FFFFFF;
+        }
+        .action-btn-discard {
+            background: rgba(220, 53, 69, 0.1);
+            color: var(--rojo-error);
+        }
+        .action-btn-discard:hover {
+            background: var(--rojo-error);
+            color: #FFFFFF;
+        }
+        .action-btns-group {
+            display: flex;
+            gap: 4px;
+            flex-wrap: wrap;
+        }
+        .detail-section-title {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--azul-marino);
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .detail-info-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px 24px;
+            margin-bottom: 20px;
+        }
+        .detail-info-item .label {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+            color: var(--gris-medio);
+            font-weight: 600;
+            margin-bottom: 2px;
+        }
+        .detail-info-item .value {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--gris-oscuro);
+        }
+        .modal-lg-custom {
+            max-width: 720px;
+        }
+        .evidence-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+            gap: 12px;
+        }
+        .evidence-item {
+            border: 1px solid #E0E0E0;
+            border-radius: 8px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: box-shadow 0.15s;
+            background: #FAFBFC;
+        }
+        .evidence-item:hover {
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+        }
+        .evidence-thumb {
+            height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--gris-claro);
+            font-size: 32px;
+            color: var(--gris-medio);
+        }
+        .evidence-meta {
+            padding: 8px 10px;
+            font-size: 12px;
+        }
+        .evidence-name {
+            font-weight: 600;
+            color: var(--gris-oscuro);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .evidence-type {
+            color: var(--gris-medio);
+            font-size: 11px;
+        }
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: var(--gris-medio);
+        }
+        .empty-state i {
+            font-size: 48px;
+            margin-bottom: 16px;
+            display: block;
+        }
+        .empty-state h5 {
+            color: var(--gris-oscuro);
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+        .stock-card {
+            background: var(--gris-claro);
+            border-radius: 8px;
+            padding: 16px;
+            margin-top: 12px;
+        }
+        .stock-card .stock-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 0;
+            border-bottom: 1px solid #E0E0E0;
+        }
+        .stock-card .stock-item:last-child {
+            border-bottom: none;
+        }
+        .stock-card .stock-label {
+            font-size: 13px;
+            color: var(--gris-oscuro);
+            font-weight: 500;
+        }
+        .stock-card .stock-value {
+            font-size: 14px;
+            font-weight: 700;
+        }
+    </style>
+</head>
+<body>
+    <div class="app-layout">
+        <!-- ===== Sidebar ===== -->
+        <nav class="sidebar">
+            <div class="sidebar-logo">
+                <img src="../assets/img/logo.png" alt="Isstec">
+            </div>
+            <div class="sidebar-nav">
+                <div class="nav-section">Principal</div>
+                <a href="dashboard.html" class="nav-link">
+                    <i class="bi bi-speedometer2"></i> Dashboard
+                </a>
+                <a href="recepciones.html" class="nav-link">
+                    <i class="bi bi-box-seam"></i> Recepción de Equipos
+                </a>
+                <a href="asignaciones-realizadas.html" class="nav-link">
+                    <i class="bi bi-diagram-3"></i> Asignación a Clientes
+                </a>
+                <div class="nav-section">Operación</div>
+                <a href="solicitudes-movimiento.html" class="nav-link">
+                    <i class="bi bi-arrow-left-right"></i> Solicitudes de Movimiento
+                </a>
+                <a href="solicitudes-nuevo-equipo.html" class="nav-link active">
+                    <i class="bi bi-inbox"></i> Solicitudes de Nuevo Equipo
+                </a>
+                <a href="inventario.html" class="nav-link">
+                    <i class="bi bi-clipboard-check"></i> Inventario
+                </a>
+                <a href="guias-despacho.html" class="nav-link">
+                    <i class="bi bi-file-earmark-text"></i> Guías de Despacho
+                </a>
+                <div class="nav-section">Análisis</div>
+                <a href="reportes.html" class="nav-link">
+                    <i class="bi bi-bar-chart"></i> Reportes
+                </a>
+                <div class="nav-section">Maestros</div>
+                <a href="ubicaciones-bodegas.html" class="nav-link">
+                    <i class="bi bi-geo"></i> Ubicaciones / Bodegas
+                </a>
+                <div class="nav-section">Configuración</div>
+                <a href="usuarios.html" class="nav-link">
+                    <i class="bi bi-people-fill"></i> Usuarios
+                </a>
+                <a href="roles.html" class="nav-link">
+                    <i class="bi bi-shield-lock"></i> Roles
+                </a>
+            </div>
+            <div class="sidebar-footer">
+                <a href="../index.html" class="nav-link">
+                    <i class="bi bi-box-arrow-right"></i> Cerrar sesión
+                </a>
+            </div>
+        </nav>
+
+        <!-- ===== Contenido principal ===== -->
+        <div class="app-content">
+            <!-- Navbar superior -->
+            <nav class="navbar-top">
+                <div class="navbar-left">
+                    <a href="dashboard.html" class="btn-back">
+                        <i class="bi bi-arrow-left"></i> Volver al dashboard
+                    </a>
+                    <h2 class="page-title">Solicitudes de Nuevo Equipo</h2>
+                </div>
+                <div class="navbar-right">
+                    <div class="notification-icon">
+                        <i class="bi bi-bell"></i>
+                        <span class="notification-badge">3</span>
+                    </div>
+                    <div class="user-info">
+                        <div class="user-avatar">ICL</div>
+                        <div>
+                            <div class="user-name">IceFree Chile</div>
+                            <div class="user-role">Gestor</div>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+
+            <!-- Main -->
+            <main class="app-main">
+                <!-- ===== KPIs ===== -->
+                <div class="row g-3 mb-4">
+                    <div class="col-6 col-lg-3">
+                        <div class="kpi-card">
+                            <div class="kpi-icon bg-primary-light">
+                                <i class="bi bi-hourglass-split"></i>
+                            </div>
+                            <div>
+                                <div class="kpi-label">Pendientes</div>
+                                <div class="kpi-value" id="kpiPendientes">0</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6 col-lg-3">
+                        <div class="kpi-card">
+                            <div class="kpi-icon bg-success-light">
+                                <i class="bi bi-arrow-repeat"></i>
+                            </div>
+                            <div>
+                                <div class="kpi-label">En proceso</div>
+                                <div class="kpi-value" id="kpiEnProceso">0</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6 col-lg-3">
+                        <div class="kpi-card">
+                            <div class="kpi-icon" style="background: rgba(40, 167, 69, 0.1); color: var(--verde-exito);">
+                                <i class="bi bi-check-circle"></i>
+                            </div>
+                            <div>
+                                <div class="kpi-label">Convertidas</div>
+                                <div class="kpi-value" id="kpiConvertidas" style="color: var(--verde-exito);">0</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6 col-lg-3">
+                        <div class="kpi-card">
+                            <div class="kpi-icon" style="background: rgba(108, 117, 125, 0.1); color: var(--gris-medio);">
+                                <i class="bi bi-list-ul"></i>
+                            </div>
+                            <div>
+                                <div class="kpi-label">Total</div>
+                                <div class="kpi-value" id="kpiTotal" style="color: var(--gris-medio);">0</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ===== Filtros ===== -->
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <div class="filter-bar">
+                            <div class="flex-grow-1" style="min-width: 200px;">
+                                <label class="form-label">Buscar</label>
+                                <input type="text" class="form-control" id="buscarSolicitud" placeholder="N° solicitud, cliente o serie de equipo…">
+                            </div>
+                            <div>
+                                <label class="form-label">Estado</label>
+                                <select class="form-select" id="filtroEstado">
+                                    <option value="">Todos</option>
+                                    <option value="pendiente">Pendiente</option>
+                                    <option value="en_proceso">En proceso</option>
+                                    <option value="convertida">Convertida</option>
+                                    <option value="pospuesta">Pospuesta</option>
+                                    <option value="descartada">Descartada</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="form-label">Desde</label>
+                                <input type="date" class="form-control" id="filtroFechaDesde">
+                            </div>
+                            <div>
+                                <label class="form-label">Hasta</label>
+                                <input type="date" class="form-control" id="filtroFechaHasta">
+                            </div>
+                            <div>
+                                <button class="btn btn-outline-secondary btn-sm" id="btnLimpiarFiltros">
+                                    <i class="bi bi-eraser me-1"></i>Limpiar
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ===== Tabla de solicitudes ===== -->
+                <div class="card">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <h5 class="card-title mb-0">
+                                <i class="bi bi-inbox me-2"></i>Solicitudes de Nuevo Equipo
+                            </h5>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table table-hover align-middle table-solicitudes" id="tablaSolicitudes">
+                                <thead>
+                                    <tr>
+                                        <th style="width: 110px;">N° Solicitud</th>
+                                        <th>Cliente</th>
+                                        <th>Equipo solicitado</th>
+                                        <th style="width: 60px;">Cant.</th>
+                                        <th style="width: 120px;">Estado</th>
+                                        <th style="width: 110px;">Fecha</th>
+                                        <th style="width: 280px;">Acciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tbodySolicitudes"></tbody>
+                            </table>
+                        </div>
+
+                        <!-- Empty state -->
+                        <div class="empty-state" id="emptyState" style="display: none;">
+                            <i class="bi bi-inbox"></i>
+                            <h5>No hay solicitudes pendientes</h5>
+                            <p>No se encontraron solicitudes con los filtros seleccionados.</p>
+                        </div>
+
+                        <!-- Paginación -->
+                        <div class="d-flex justify-content-between align-items-center mt-3" id="paginationContainer">
+                            <div class="text-muted" style="font-size: 13px;" id="resultadoInfo">
+                                Mostrando 0 solicitudes
+                            </div>
+                            <nav aria-label="Paginación de solicitudes">
+                                <ul class="pagination mb-0" id="paginationControls">
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- ===== Modal: Detalles de la solicitud ===== -->
+    <div class="modal fade" id="modalDetalles" tabindex="-1" aria-labelledby="modalDetallesLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg-custom">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalDetallesLabel">
+                        <i class="bi bi-info-circle me-2"></i>Detalle de Solicitud de Nuevo Equipo
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                </div>
+                <div class="modal-body">
+                    <!-- Datos del cliente -->
+                    <div class="detail-section-title">
+                        <i class="bi bi-person"></i>Cliente
+                    </div>
+                    <div class="detail-info-grid">
+                        <div class="detail-info-item">
+                            <div class="label">Nombre</div>
+                            <div class="value" id="detalleClienteNombre">—</div>
+                        </div>
+                        <div class="detail-info-item">
+                            <div class="label">Comuna</div>
+                            <div class="value" id="detalleClienteComuna">—</div>
+                        </div>
+                        <div class="detail-info-item">
+                            <div class="label">Dirección</div>
+                            <div class="value" id="detalleClienteDireccion">—</div>
+                        </div>
+                        <div class="detail-info-item">
+                            <div class="label">Vendedor</div>
+                            <div class="value" id="detalleVendedor">—</div>
+                        </div>
+                    </div>
+
+                    <!-- Datos del equipo solicitado -->
+                    <div class="detail-section-title">
+                        <i class="bi bi-box-seam"></i>Equipo Solicitado
+                    </div>
+                    <div class="detail-info-grid">
+                        <div class="detail-info-item">
+                            <div class="label">Serie</div>
+                            <div class="value" id="detalleEquipoSerie">—</div>
+                        </div>
+                        <div class="detail-info-item">
+                            <div class="label">Marca / Modelo</div>
+                            <div class="value" id="detalleEquipoMarcaModelo">—</div>
+                        </div>
+                        <div class="detail-info-item">
+                            <div class="label">Cantidad</div>
+                            <div class="value" id="detalleCantidad">—</div>
+                        </div>
+                        <div class="detail-info-item">
+                            <div class="label">Estado</div>
+                            <div class="value" id="detalleEstado">—</div>
+                        </div>
+                    </div>
+
+                    <!-- Motivo -->
+                    <div class="detail-section-title">
+                        <i class="bi bi-chat-left-text"></i>Motivo de la Solicitud
+                    </div>
+                    <div class="mb-3 p-3 rounded" style="background: var(--gris-claro); font-size: 14px; color: #333; line-height: 1.6;" id="detalleMotivo">
+                        —
+                    </div>
+
+                    <!-- Observaciones -->
+                    <div id="seccionObservaciones" style="display: none;">
+                        <div class="detail-section-title">
+                            <i class="bi bi-journal-text"></i>Observaciones
+                        </div>
+                        <div class="mb-3 p-3 rounded" style="background: var(--gris-claro); font-size: 14px; color: #333; line-height: 1.6;" id="detalleObservaciones">
+                            —
+                        </div>
+                    </div>
+
+                    <!-- Evidencia -->
+                    <div class="detail-section-title">
+                        <i class="bi bi-paperclip"></i>Evidencia Adjunta
+                    </div>
+                    <div class="evidence-grid" id="detalleEvidencia">
+                    </div>
+
+                    <!-- Stock disponible -->
+                    <div class="detail-section-title mt-4">
+                        <i class="bi bi-boxes"></i>Stock Disponible del Equipo
+                    </div>
+                    <div class="stock-card" id="detalleStock">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    <a href="#" class="btn btn-primary" id="btnModalAsignar">
+                        <i class="bi bi-diagram-3 me-1"></i>Analizar stock y asignar
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== Modal: Descartar solicitud ===== -->
+    <div class="modal fade" id="modalDescartar" tabindex="-1" aria-labelledby="modalDescartarLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalDescartarLabel">
+                        <i class="bi bi-x-circle me-2"></i>Descartar Solicitud
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                </div>
+                <div class="modal-body">
+                    <p class="mb-3">¿Estás seguro de descartar la solicitud <strong id="descartarId">—</strong>?</p>
+                    <div class="mb-3">
+                        <label class="form-label">Motivo de descarte <span class="text-danger">*</span></label>
+                        <textarea class="form-control" id="descartarMotivo" rows="3" placeholder="Indica el motivo por el cual se descarta la solicitud..." required></textarea>
+                        <div class="invalid-feedback">El motivo de descarte es obligatorio.</div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-danger" id="btnConfirmarDescarte">
+                        <i class="bi bi-x-circle me-1"></i>Confirmar descarte
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // ===== Mock data (mirrors app-data.js solicitudesNuevoEquipo) =====
+        var solicitudes = [
+            {
+                id: 'SOL-001', clienteId: 'CLI-001', clienteNombre: 'Almacén Don Luis',
+                clienteComuna: 'San Miguel', clienteDireccion: 'Av. San Miguel 1234',
+                equipoId: 'EQ-101', equipoSerie: 'FR-2001', equipoMarca: 'Foster', equipoModelo: 'F-200',
+                motivo: 'Incremento de ventas estivales', cantidad: 1,
+                observaciones: 'Cliente con alta rotación en verano',
+                evidencia: [{ tipo: 'foto', nombre: 'foto_local.jpg', fecha: '2025-07-18' }],
+                estado: 'pendiente', estadoLabel: 'Pendiente', fecha: '2025-07-18',
+                vendedorNombre: 'Katherine Muñoz'
+            },
+            {
+                id: 'SOL-002', clienteId: 'CLI-002', clienteNombre: 'Minimarket La Esquina',
+                clienteComuna: 'Ñuñoa', clienteDireccion: 'Calle Nueva 567',
+                equipoId: 'EQ-102', equipoSerie: 'CZ-2100', equipoMarca: 'Coldex', equipoModelo: 'CX-300',
+                motivo: 'Reemplazo de equipo antiguo', cantidad: 1,
+                observaciones: '',
+                evidencia: [],
+                estado: 'en_proceso', estadoLabel: 'En proceso', fecha: '2025-07-15',
+                vendedorNombre: 'Katherine Muñoz'
+            },
+            {
+                id: 'SOL-003', clienteId: 'CLI-001', clienteNombre: 'Almacén Don Luis',
+                clienteComuna: 'San Miguel', clienteDireccion: 'Av. San Miguel 1234',
+                equipoId: 'EQ-103', equipoSerie: 'FR-2050', equipoMarca: 'Foster', equipoModelo: 'F-150',
+                motivo: 'Apertura de nueva sección de bebidas', cantidad: 2,
+                observaciones: 'Se requiere instalación antes del 15 de agosto',
+                evidencia: [
+                    { tipo: 'foto', nombre: 'foto_espacio.jpg', fecha: '2025-07-10' },
+                    { tipo: 'foto', nombre: 'foto_medidas.jpg', fecha: '2025-07-10' }
+                ],
+                estado: 'pendiente', estadoLabel: 'Pendiente', fecha: '2025-07-10',
+                vendedorNombre: 'Katherine Muñoz'
+            },
+            {
+                id: 'SOL-004', clienteId: 'CLI-003', clienteNombre: 'Supermercado El Sol',
+                clienteComuna: 'Maipú', clienteDireccion: 'Camino Real 890',
+                equipoId: 'EQ-104', equipoSerie: 'CZ-2230', equipoMarca: 'Coldex', equipoModelo: 'CX-200',
+                motivo: 'Ampliación de línea de congelados', cantidad: 1,
+                observaciones: 'Cliente solicita urgente por temporada',
+                evidencia: [{ tipo: 'audio', nombre: 'nota_audio.m4a', fecha: '2025-07-12', duracion: '0:30' }],
+                estado: 'convertida', estadoLabel: 'Convertida', fecha: '2025-07-05',
+                vendedorNombre: 'Katherine Muñoz'
+            },
+            {
+                id: 'SOL-005', clienteId: 'CLI-002', clienteNombre: 'Minimarket La Esquina',
+                clienteComuna: 'Ñuñoa', clienteDireccion: 'Calle Nueva 567',
+                equipoId: 'EQ-101', equipoSerie: 'FR-2001', equipoMarca: 'Foster', equipoModelo: 'F-200',
+                motivo: 'Demanda estacional', cantidad: 1,
+                observaciones: 'Evaluar en próximo mes',
+                evidencia: [],
+                estado: 'pospuesta', estadoLabel: 'Pospuesta', fecha: '2025-07-08',
+                vendedorNombre: 'Katherine Muñoz'
+            },
+            {
+                id: 'SOL-006', clienteId: 'CLI-004', clienteNombre: 'Botillería Amanecer',
+                clienteComuna: 'La Florida', clienteDireccion: 'Pasaje Los Andes 45',
+                equipoId: 'EQ-102', equipoSerie: 'CZ-2100', equipoMarca: 'Coldex', equipoModelo: 'CX-300',
+                motivo: 'Cliente canceló el requerimiento', cantidad: 1,
+                observaciones: 'Cliente decidió no continuar',
+                evidencia: [],
+                estado: 'descartada', estadoLabel: 'Descartada', fecha: '2025-07-03',
+                vendedorNombre: 'Katherine Muñoz'
+            }
+        ];
+
+        // ===== Stock data for equipment =====
+        var stockDisponible = {
+            'FR-2001': { disponible: 1, ubicacion: 'Bodega Central Santiago' },
+            'CZ-2100': { disponible: 1, ubicacion: 'Bodega Central Santiago' },
+            'FR-2050': { disponible: 1, ubicacion: 'Bodega Central Santiago' },
+            'CZ-2230': { disponible: 1, ubicacion: 'Bodega Central Santiago' }
+        };
+
+        var estadoBadgeMap = {
+            'pendiente': 'badge-pendiente',
+            'en_proceso': 'badge-en-proceso',
+            'convertida': 'badge-convertida',
+            'pospuesta': 'badge-pospuesta',
+            'descartada': 'badge-descartada'
+        };
+
+        // ===== Pagination state =====
+        var currentPage = 1;
+        var itemsPerPage = 10;
+        var filteredSolicitudes = [];
+
+        // ===== Render KPIs =====
+        function renderKPIs() {
+            var pendientes = solicitudes.filter(function(s) { return s.estado === 'pendiente'; }).length;
+            var enProceso = solicitudes.filter(function(s) { return s.estado === 'en_proceso'; }).length;
+            var convertidas = solicitudes.filter(function(s) { return s.estado === 'convertida'; }).length;
+            var total = solicitudes.length;
+
+            document.getElementById('kpiPendientes').textContent = pendientes;
+            document.getElementById('kpiEnProceso').textContent = enProceso;
+            document.getElementById('kpiConvertidas').textContent = convertidas;
+            document.getElementById('kpiTotal').textContent = total;
+        }
+
+        // ===== Apply filters =====
+        function aplicarFiltros() {
+            var estado = document.getElementById('filtroEstado').value;
+            var busqueda = document.getElementById('buscarSolicitud').value.toLowerCase().trim();
+            var fechaDesde = document.getElementById('filtroFechaDesde').value;
+            var fechaHasta = document.getElementById('filtroFechaHasta').value;
+
+            filteredSolicitudes = solicitudes.filter(function(s) {
+                if (estado && s.estado !== estado) return false;
+                if (busqueda) {
+                    var texto = (s.id + ' ' + s.clienteNombre + ' ' + s.equipoSerie + ' ' + s.equipoMarca + ' ' + s.equipoModelo).toLowerCase();
+                    if (!texto.includes(busqueda)) return false;
+                }
+                if (fechaDesde && s.fecha < fechaDesde) return false;
+                if (fechaHasta && s.fecha > fechaHasta) return false;
+                return true;
+            });
+
+            currentPage = 1;
+            renderTable();
+        }
+
+        // ===== Render table =====
+        function renderTable() {
+            var tbody = document.getElementById('tbodySolicitudes');
+            var emptyState = document.getElementById('emptyState');
+            var paginationContainer = document.getElementById('paginationContainer');
+
+            var totalPages = Math.ceil(filteredSolicitudes.length / itemsPerPage);
+            if (currentPage > totalPages && totalPages > 0) currentPage = totalPages;
+            if (totalPages === 0) currentPage = 1;
+
+            var start = (currentPage - 1) * itemsPerPage;
+            var end = Math.min(start + itemsPerPage, filteredSolicitudes.length);
+            var pageItems = filteredSolicitudes.slice(start, end);
+
+            if (pageItems.length === 0) {
+                tbody.innerHTML = '';
+                emptyState.style.display = '';
+                paginationContainer.style.display = 'none';
+                document.getElementById('resultadoInfo').textContent = 'Mostrando 0 solicitudes';
+                return;
+            }
+
+            emptyState.style.display = 'none';
+            paginationContainer.style.display = '';
+
+            tbody.innerHTML = pageItems.map(function(s) {
+                var badgeClass = estadoBadgeMap[s.estado] || 'badge-pendiente';
+                var actions = '';
+
+                actions += '<button class="action-btn action-btn-view" onclick="abrirDetalles(\'' + s.id + '\')">' +
+                    '<i class="bi bi-eye"></i> Ver</button>';
+
+                if (s.estado === 'pendiente' || s.estado === 'en_proceso' || s.estado === 'pospuesta') {
+                    actions += '<a href="asignacion-clientes.html?solicitud=' + s.id + '" class="action-btn action-btn-assign">' +
+                        '<i class="bi bi-diagram-3"></i> Asignar</a>';
+                    actions += '<button class="action-btn action-btn-postpone" onclick="posponerSolicitud(\'' + s.id + '\')">' +
+                        '<i class="bi bi-pause-circle"></i> Posponer</button>';
+                    actions += '<button class="action-btn action-btn-discard" onclick="abrirDescartar(\'' + s.id + '\')">' +
+                        '<i class="bi bi-x-circle"></i> Descartar</button>';
+                }
+
+                if (s.estado === 'convertida') {
+                    actions += '<span class="text-muted" style="font-size: 12px;">Convertida en asignación</span>';
+                }
+
+                if (s.estado === 'descartada') {
+                    actions += '<span class="text-muted" style="font-size: 12px;">Descartada</span>';
+                }
+
+                return '<tr data-id="' + s.id + '">' +
+                    '<td class="fw-semibold">' + s.id + '</td>' +
+                    '<td>' +
+                        '<div class="fw-semibold">' + s.clienteNombre + '</div>' +
+                        '<div class="text-muted" style="font-size: 12px;">' + s.clienteComuna + '</div>' +
+                    '</td>' +
+                    '<td>' +
+                        '<div class="fw-semibold">' + s.equipoSerie + '</div>' +
+                        '<div class="text-muted" style="font-size: 12px;">' + s.equipoMarca + ' ' + s.equipoModelo + '</div>' +
+                    '</td>' +
+                    '<td>' + s.cantidad + '</td>' +
+                    '<td><span class="badge-status ' + badgeClass + '">' + s.estadoLabel + '</span></td>' +
+                    '<td>' + formatDate(s.fecha) + '</td>' +
+                    '<td><div class="action-btns-group">' + actions + '</div></td>' +
+                '</tr>';
+            }).join('');
+
+            // Update info text
+            document.getElementById('resultadoInfo').textContent =
+                'Mostrando ' + (start + 1) + '–' + end + ' de ' + filteredSolicitudes.length + ' solicitudes';
+
+            // Render pagination controls
+            renderPagination(totalPages);
+        }
+
+        // ===== Render pagination =====
+        function renderPagination(totalPages) {
+            var controls = document.getElementById('paginationControls');
+            var html = '';
+
+            html += '<li class="page-item ' + (currentPage === 1 ? 'disabled' : '') + '">' +
+                '<a class="page-link" href="#" onclick="goToPage(' + (currentPage - 1) + '); return false;">' +
+                '<i class="bi bi-chevron-left"></i></a></li>';
+
+            for (var i = 1; i <= totalPages; i++) {
+                html += '<li class="page-item ' + (i === currentPage ? 'active' : '') + '">' +
+                    '<a class="page-link" href="#" onclick="goToPage(' + i + '); return false;">' + i + '</a></li>';
+            }
+
+            html += '<li class="page-item ' + (currentPage === totalPages ? 'disabled' : '') + '">' +
+                '<a class="page-link" href="#" onclick="goToPage(' + (currentPage + 1) + '); return false;">' +
+                '<i class="bi bi-chevron-right"></i></a></li>';
+
+            controls.innerHTML = html;
+        }
+
+        function goToPage(page) {
+            var totalPages = Math.ceil(filteredSolicitudes.length / itemsPerPage);
+            if (page < 1 || page > totalPages) return;
+            currentPage = page;
+            renderTable();
+        }
+
+        // ===== Format date =====
+        function formatDate(isoDate) {
+            var parts = isoDate.split('-');
+            return parts[2] + '/' + parts[1] + '/' + parts[0];
+        }
+
+        // ===== Detail modal =====
+        function abrirDetalles(id) {
+            var s = solicitudes.find(function(x) { return x.id === id; });
+            if (!s) return;
+
+            document.getElementById('detalleClienteNombre').textContent = s.clienteNombre;
+            document.getElementById('detalleClienteComuna').textContent = s.clienteComuna;
+            document.getElementById('detalleClienteDireccion').textContent = s.clienteDireccion;
+            document.getElementById('detalleVendedor').textContent = s.vendedorNombre;
+            document.getElementById('detalleEquipoSerie').textContent = s.equipoSerie;
+            document.getElementById('detalleEquipoMarcaModelo').textContent = s.equipoMarca + ' ' + s.equipoModelo;
+            document.getElementById('detalleCantidad').textContent = s.cantidad;
+            document.getElementById('detalleEstado').innerHTML = '<span class="badge-status ' + estadoBadgeMap[s.estado] + '">' + s.estadoLabel + '</span>';
+            document.getElementById('detalleMotivo').textContent = s.motivo;
+
+            var seccionObs = document.getElementById('seccionObservaciones');
+            if (s.observaciones && s.observaciones !== '') {
+                seccionObs.style.display = '';
+                document.getElementById('detalleObservaciones').textContent = s.observaciones;
+            } else {
+                seccionObs.style.display = 'none';
+            }
+
+            // Render evidencia
+            var evidenciaHtml = '';
+            if (s.evidencia.length === 0) {
+                evidenciaHtml = '<p class="text-muted" style="font-size: 13px;">Sin evidencia adjunta</p>';
+            } else {
+                evidenciaHtml = s.evidencia.map(function(ev) {
+                    var icon = ev.tipo === 'foto' ? 'bi-image' : 'bi-file-earmark-music';
+                    var typeLabel = ev.tipo === 'foto' ? 'Imagen' : 'Audio';
+                    return '<div class="evidence-item" onclick="abrirVisor(\'' + ev.nombre + '\')">' +
+                        '<div class="evidence-thumb"><i class="bi ' + icon + '"></i></div>' +
+                        '<div class="evidence-meta">' +
+                            '<div class="evidence-name">' + ev.nombre + '</div>' +
+                            '<div class="evidence-type">' + typeLabel + ' · ' + ev.fecha + '</div>' +
+                        '</div></div>';
+                }).join('');
+            }
+            document.getElementById('detalleEvidencia').innerHTML = evidenciaHtml;
+
+            // Render stock
+            var stock = stockDisponible[s.equipoSerie];
+            var stockHtml = '';
+            if (stock) {
+                stockHtml = '<div class="stock-item">' +
+                    '<span class="stock-label">Equipos disponibles</span>' +
+                    '<span class="stock-value" style="color: var(--verde-exito);">' + stock.disponible + ' unidad</span>' +
+                '</div>' +
+                '<div class="stock-item">' +
+                    '<span class="stock-label">Ubicación</span>' +
+                    '<span class="stock-value">' + stock.ubicacion + '</span>' +
+                '</div>';
+            } else {
+                stockHtml = '<p class="text-muted mb-0" style="font-size: 13px;">Equipo no disponible en stock. Selecciona un equipo alternativo manualmente.</p>';
+            }
+            document.getElementById('detalleStock').innerHTML = stockHtml;
+
+            // Set asignar button
+            var btnAsignar = document.getElementById('btnModalAsignar');
+            if (s.estado === 'pendiente' || s.estado === 'en_proceso' || s.estado === 'pospuesta') {
+                btnAsignar.href = 'asignacion-clientes.html?solicitud=' + s.id;
+                btnAsignar.style.display = '';
+            } else {
+                btnAsignar.style.display = 'none';
+            }
+
+            var modal = new bootstrap.Modal(document.getElementById('modalDetalles'));
+            modal.show();
+        }
+
+        function abrirVisor(nombreArchivo) {
+            alert('Abriendo archivo: ' + nombreArchivo + ' (simulación de visor de evidencia).');
+        }
+
+        // ===== Posponer =====
+        function posponerSolicitud(id) {
+            var s = solicitudes.find(function(x) { return x.id === id; });
+            if (!s) return;
+            s.estado = 'pospuesta';
+            s.estadoLabel = 'Pospuesta';
+            renderKPIs();
+            aplicarFiltros();
+        }
+
+        // ===== Descartar modal =====
+        var descartarIdActual = null;
+
+        function abrirDescartar(id) {
+            descartarIdActual = id;
+            document.getElementById('descartarId').textContent = id;
+            document.getElementById('descartarMotivo').value = '';
+            document.getElementById('descartarMotivo').classList.remove('is-invalid');
+            var modal = new bootstrap.Modal(document.getElementById('modalDescartar'));
+            modal.show();
+        }
+
+        document.getElementById('btnConfirmarDescarte').addEventListener('click', function() {
+            var motivo = document.getElementById('descartarMotivo').value.trim();
+            if (!motivo) {
+                document.getElementById('descartarMotivo').classList.add('is-invalid');
+                return;
+            }
+
+            var s = solicitudes.find(function(x) { return x.id === descartarIdActual; });
+            if (s) {
+                s.estado = 'descartada';
+                s.estadoLabel = 'Descartada';
+                s.observaciones = 'Descartada: ' + motivo;
+            }
+
+            var modal = bootstrap.Modal.getInstance(document.getElementById('modalDescartar'));
+            modal.hide();
+
+            renderKPIs();
+            aplicarFiltros();
+        });
+
+        // ===== Filter event listeners =====
+        document.getElementById('filtroEstado').addEventListener('change', aplicarFiltros);
+        document.getElementById('buscarSolicitud').addEventListener('input', aplicarFiltros);
+        document.getElementById('filtroFechaDesde').addEventListener('change', aplicarFiltros);
+        document.getElementById('filtroFechaHasta').addEventListener('change', aplicarFiltros);
+
+        document.getElementById('btnLimpiarFiltros').addEventListener('click', function() {
+            document.getElementById('buscarSolicitud').value = '';
+            document.getElementById('filtroEstado').value = '';
+            document.getElementById('filtroFechaDesde').value = '';
+            document.getElementById('filtroFechaHasta').value = '';
+            aplicarFiltros();
+        });
+
+        // ===== Initialize =====
+        renderKPIs();
+        aplicarFiltros();
+    </script>
+    <script src="../js/sidebar-scroll.js"></script>
+</body>
+</html>

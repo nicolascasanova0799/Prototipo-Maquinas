@@ -117,6 +117,27 @@
             color: var(--gris-medio);
             font-weight: 600;
         }
+        .action-btn-edit {
+            background: rgba(255, 193, 7, 0.15);
+            color: #856404;
+        }
+        .action-btn-edit:hover {
+            background: #FFC107;
+            color: #FFFFFF;
+        }
+        .action-btn-delete {
+            background: rgba(220, 53, 69, 0.1);
+            color: var(--rojo-error);
+        }
+        .action-btn-delete:hover {
+            background: var(--rojo-error);
+            color: #FFFFFF;
+        }
+        .solicitud-origen {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--azul-primario);
+        }
         .action-btn-generate {
             background: rgba(0, 102, 204, 0.1);
             color: var(--azul-primario);
@@ -255,6 +276,9 @@
                 <a href="solicitudes-movimiento.html" class="nav-link">
                     <i class="bi bi-arrow-left-right"></i> Solicitudes de Movimiento
                 </a>
+                <a href="solicitudes-nuevo-equipo.html" class="nav-link">
+                    <i class="bi bi-inbox"></i> Solicitudes de Nuevo Equipo
+                </a>
                 <a href="inventario.html" class="nav-link">
                     <i class="bi bi-clipboard-check"></i> Inventario
                 </a>
@@ -374,6 +398,7 @@
                                     <option value="activo">Activo / Operativo</option>
                                     <option value="sstt">En SSTT</option>
                                     <option value="baja">Baja</option>
+                                    <option value="borrador">Borrador</option>
                                 </select>
                             </div>
                             <div>
@@ -427,11 +452,54 @@
                                         <th class="text-center" style="width: 80px;">Equipos</th>
                                         <th style="width: 120px;">Fecha asignación</th>
                                         <th style="width: 120px;">Estado</th>
+                                        <th style="width: 110px;">Solicitud origen</th>
                                         <th style="width: 130px;">Guía de Despacho</th>
                                         <th style="width: 220px;">Acciones</th>
                                     </tr>
                                 </thead>
                                 <tbody id="tbodyAsignaciones">
+                                        <!-- Borrador 1 -->
+                                    <tr data-estado="borrador" data-comuna="providencia" data-fecha="2026-07-18">
+                                        <td class="fw-semibold">ASG-C-0158</td>
+                                        <td>Minimarket Don Eduardo</td>
+                                        <td>Providencia</td>
+                                        <td class="text-center">2</td>
+                                        <td>18/07/2026</td>
+                                        <td><span class="badge-status badge-borrador">Borrador</span></td>
+                                        <td><span class="solicitud-origen">SOL-003</span></td>
+                                        <td><span class="gd-badge-pending"><i class="bi bi-clock"></i> Sin env.</span></td>
+                                        <td>
+                                            <div class="action-btns-group">
+                                                <a href="asignacion-clientes.html?mode=edit&id=ASG-C-0158" class="action-btn action-btn-edit">
+                                                    <i class="bi bi-pencil"></i> Editar
+                                                </a>
+                                                <a href="#" class="action-btn action-btn-delete" data-bs-toggle="modal" data-bs-target="#modalEliminarBorrador" data-id="ASG-C-0158" data-cliente="Minimarket Don Eduardo">
+                                                    <i class="bi bi-trash"></i> Eliminar
+                                                </a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <!-- Borrador 2 -->
+                                    <tr data-estado="borrador" data-comuna="nunoa" data-fecha="2026-07-17">
+                                        <td class="fw-semibold">ASG-C-0157</td>
+                                        <td>Botillería La Esquina</td>
+                                        <td>Ñuñoa</td>
+                                        <td class="text-center">1</td>
+                                        <td>17/07/2026</td>
+                                        <td><span class="badge-status badge-borrador">Borrador</span></td>
+                                        <td><span class="solicitud-origen">SOL-005</span></td>
+                                        <td><span class="gd-badge-pending"><i class="bi bi-clock"></i> Sin env.</span></td>
+                                        <td>
+                                            <div class="action-btns-group">
+                                                <a href="asignacion-clientes.html?mode=edit&id=ASG-C-0157" class="action-btn action-btn-edit">
+                                                    <i class="bi bi-pencil"></i> Editar
+                                                </a>
+                                                <a href="#" class="action-btn action-btn-delete" data-bs-toggle="modal" data-bs-target="#modalEliminarBorrador" data-id="ASG-C-0157" data-cliente="Botillería La Esquina">
+                                                    <i class="bi bi-trash"></i> Eliminar
+                                                </a>
+                                            </div>
+                                        </td>
+                                    </tr>
                                     <!-- Activo 1 -->
                                     <tr data-estado="activo" data-comuna="providencia" data-fecha="2026-07-04">
                                         <td class="fw-semibold">ASG-C-0156</td>
@@ -440,6 +508,7 @@
                                         <td class="text-center">2</td>
                                         <td>04/07/2026</td>
                                         <td><span class="badge-status badge-activo">Activo</span></td>
+                                        <td>—</td>
                                         <td>
                                             <span class="gd-badge-pending"><i class="bi bi-clock"></i> Pendiente</span>
                                         </td>
@@ -465,6 +534,7 @@
                                         <td class="text-center">1</td>
                                         <td>03/07/2026</td>
                                         <td><span class="badge-status badge-activo">Activo</span></td>
+                                        <td>—</td>
                                         <td>
                                             <span class="gd-badge-pending"><i class="bi bi-clock"></i> Pendiente</span>
                                         </td>
@@ -490,6 +560,7 @@
                                         <td class="text-center">3</td>
                                         <td>01/07/2026</td>
                                         <td><span class="badge-status badge-activo">Activo</span></td>
+                                        <td><span class="solicitud-origen">SOL-001</span></td>
                                         <td>
                                             <span class="gd-badge-manual"><i class="bi bi-file-earmark-pdf"></i> PDF adjunto</span><br>
                                             <a href="#" class="gd-link">Ver PDF</a>
@@ -510,6 +581,7 @@
                                         <td class="text-center">1</td>
                                         <td>28/06/2026</td>
                                         <td><span class="badge-status badge-sstt">En SSTT</span></td>
+                                        <td>—</td>
                                         <td>
                                             <span class="gd-badge-auto"><i class="bi bi-file-earmark-check"></i> Automática</span><br>
                                             <a href="#" class="gd-link">GD-2026-0044</a>
@@ -530,6 +602,7 @@
                                         <td class="text-center">2</td>
                                         <td>25/06/2026</td>
                                         <td><span class="badge-status badge-activo">Activo</span></td>
+                                        <td>—</td>
                                         <td>
                                             <span class="gd-badge-auto"><i class="bi bi-file-earmark-check"></i> Automática</span><br>
                                             <a href="#" class="gd-link">GD-2026-0041</a>
@@ -550,6 +623,7 @@
                                         <td class="text-center">1</td>
                                         <td>22/06/2026</td>
                                         <td><span class="badge-status badge-activo">Activo</span></td>
+                                        <td>—</td>
                                         <td>
                                             <span class="gd-badge-manual"><i class="bi bi-file-earmark-pdf"></i> PDF adjunto</span><br>
                                             <a href="#" class="gd-link">Ver PDF</a>
@@ -570,6 +644,7 @@
                                         <td class="text-center">4</td>
                                         <td>18/06/2026</td>
                                         <td><span class="badge-status badge-activo">Activo</span></td>
+                                        <td>—</td>
                                         <td>
                                             <span class="gd-badge-auto"><i class="bi bi-file-earmark-check"></i> Automática</span><br>
                                             <a href="#" class="gd-link">GD-2026-0037</a>
@@ -590,6 +665,7 @@
                                         <td class="text-center">1</td>
                                         <td>10/06/2026</td>
                                         <td><span class="badge-status badge-baja">Baja</span></td>
+                                        <td>—</td>
                                         <td>
                                             <span class="gd-badge-auto"><i class="bi bi-file-earmark-check"></i> Automática</span><br>
                                             <a href="#" class="gd-link">GD-2026-0032</a>
@@ -610,6 +686,7 @@
                                         <td class="text-center">2</td>
                                         <td>05/06/2026</td>
                                         <td><span class="badge-status badge-activo">Activo</span></td>
+                                        <td>—</td>
                                         <td>
                                             <span class="gd-badge-manual"><i class="bi bi-file-earmark-pdf"></i> PDF adjunto</span><br>
                                             <a href="#" class="gd-link">Ver PDF</a>
@@ -630,6 +707,7 @@
                                         <td class="text-center">1</td>
                                         <td>28/05/2026</td>
                                         <td><span class="badge-status badge-sstt">En SSTT</span></td>
+                                        <td>—</td>
                                         <td>
                                             <span class="gd-badge-auto"><i class="bi bi-file-earmark-check"></i> Automática</span><br>
                                             <a href="#" class="gd-link">GD-2026-0025</a>
@@ -650,6 +728,7 @@
                                         <td class="text-center">3</td>
                                         <td>20/05/2026</td>
                                         <td><span class="badge-status badge-activo">Activo</span></td>
+                                        <td>—</td>
                                         <td>
                                             <span class="gd-badge-auto"><i class="bi bi-file-earmark-check"></i> Automática</span><br>
                                             <a href="#" class="gd-link">GD-2026-0021</a>
@@ -670,6 +749,7 @@
                                         <td class="text-center">2</td>
                                         <td>15/05/2026</td>
                                         <td><span class="badge-status badge-activo">Activo</span></td>
+                                        <td>—</td>
                                         <td>
                                             <span class="gd-badge-manual"><i class="bi bi-file-earmark-pdf"></i> PDF adjunto</span><br>
                                             <a href="#" class="gd-link">Ver PDF</a>
@@ -695,7 +775,7 @@
                         <!-- Paginación -->
                         <div class="d-flex justify-content-between align-items-center mt-3">
                             <div class="text-muted" style="font-size: 13px;" id="contadorRegistros">
-                                Mostrando 12 asignaciones
+                                Mostrando 14 asignaciones
                             </div>
                             <nav aria-label="Paginación de asignaciones">
                                 <ul class="pagination mb-0">
@@ -785,6 +865,31 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== Modal: Eliminar Borrador ===== -->
+    <div class="modal fade" id="modalEliminarBorrador" tabindex="-1" aria-labelledby="modalEliminarBorradorLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalEliminarBorradorLabel">
+                        <i class="bi bi-exclamation-triangle me-2"></i>Eliminar Borrador
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                </div>
+                <div class="modal-body">
+                    <p>¿Estás seguro de que deseas eliminar el borrador <strong id="borradorId">—</strong>?</p>
+                    <p class="text-muted mb-0" style="font-size: 13px;">Cliente: <span id="borradorCliente">—</span></p>
+                    <p class="text-muted mt-2 mb-0" style="font-size: 13px;"><i class="bi bi-info-circle me-1"></i>Esta acción no se puede deshacer. Los equipos seleccionados volverán a estar disponibles.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-danger" id="btnConfirmarEliminarBorrador">
+                        <i class="bi bi-trash me-1"></i>Eliminar
+                    </button>
                 </div>
             </div>
         </div>
@@ -1001,8 +1106,12 @@
             document.getElementById('detalleFecha').textContent = tds[4].textContent.trim();
             document.getElementById('detalleEstado').innerHTML = tds[5].innerHTML;
 
-            // Guía de despacho
-            const gdCell = tds[6];
+            // Solicitud origen
+            const solCell = tds[6];
+            const solText = solCell.querySelector('.solicitud-origen')?.textContent.trim() || '';
+
+            // Guía de despacho (now column index 7 after adding solicitud origen)
+            const gdCell = tds[7];
             const isAuto = gdCell.querySelector('.gd-badge-auto') !== null;
             const isManual = gdCell.querySelector('.gd-badge-manual') !== null;
             const isPending = gdCell.querySelector('.gd-badge-pending') !== null;
@@ -1068,23 +1177,48 @@
                 document.getElementById('gdGenPaso3').style.display = '';
                 document.getElementById('gdGenFooter3').style.display = '';
 
-                // Actualizar la fila de la tabla
+                // Actualizar la fila de la tabla (GD is now col 7, actions col 8)
                 const id = document.getElementById('gdGenId').textContent;
                 const fila = Array.from(tbody.querySelectorAll('tr')).find(tr =>
                     tr.querySelector('.fw-semibold')?.textContent === id
                 );
                 if (fila) {
-                    const gdCell = fila.querySelectorAll('td')[6];
+                    const gdCell = fila.querySelectorAll('td')[7];
                     gdCell.innerHTML = '<span class="gd-badge-auto"><i class="bi bi-file-earmark-check"></i> Automática</span><br><a href="#" class="gd-link">' + gdNum + '</a>';
 
                     // Remover botones Generar GD y Subir PDF, dejar solo Ver
-                    const actionsCell = fila.querySelectorAll('td')[7];
+                    const actionsCell = fila.querySelectorAll('td')[8];
                     const generateBtn = actionsCell.querySelector('.action-btn-generate');
                     const uploadBtn = actionsCell.querySelector('.action-btn-upload');
                     if (generateBtn) generateBtn.remove();
                     if (uploadBtn) uploadBtn.remove();
                 }
             }, 2000);
+        });
+
+        // ===== Modal: Eliminar Borrador =====
+        const modalEliminarBorrador = document.getElementById('modalEliminarBorrador');
+        const btnConfirmarEliminarBorrador = document.getElementById('btnConfirmarEliminarBorrador');
+
+        modalEliminarBorrador.addEventListener('show.bs.modal', function(event) {
+            const trigger = event.relatedTarget;
+            const id = trigger.dataset.id;
+            const cliente = trigger.dataset.cliente;
+            document.getElementById('borradorId').textContent = id;
+            document.getElementById('borradorCliente').textContent = cliente;
+        });
+
+        btnConfirmarEliminarBorrador.addEventListener('click', function() {
+            const id = document.getElementById('borradorId').textContent;
+            const fila = Array.from(tbody.querySelectorAll('tr')).find(tr =>
+                tr.querySelector('.fw-semibold')?.textContent === id
+            );
+            if (fila) {
+                fila.remove();
+                filtrar();
+            }
+            const modal = bootstrap.Modal.getInstance(modalEliminarBorrador);
+            modal.hide();
         });
 
         // ===== Modal: Subir PDF de Guía de Despacho =====
@@ -1169,16 +1303,16 @@
             const id = document.getElementById('pdfUploadId').textContent;
             const fileName = inputFilePDF.files[0].name;
 
-            // Actualizar la fila de la tabla
+            // Actualizar la fila de la tabla (GD is now col 7, actions col 8)
             const fila = Array.from(tbody.querySelectorAll('tr')).find(tr =>
                 tr.querySelector('.fw-semibold')?.textContent === id
             );
             if (fila) {
-                const gdCell = fila.querySelectorAll('td')[6];
+                const gdCell = fila.querySelectorAll('td')[7];
                 gdCell.innerHTML = '<span class="gd-badge-manual"><i class="bi bi-file-earmark-pdf"></i> PDF adjunto</span><br><a href="#" class="gd-link">Ver PDF</a>';
 
                 // Remover botones Generar GD y Subir PDF, dejar solo Ver
-                const actionsCell = fila.querySelectorAll('td')[7];
+                const actionsCell = fila.querySelectorAll('td')[8];
                 const generateBtn = actionsCell.querySelector('.action-btn-generate');
                 const uploadBtn = actionsCell.querySelector('.action-btn-upload');
                 if (generateBtn) generateBtn.remove();

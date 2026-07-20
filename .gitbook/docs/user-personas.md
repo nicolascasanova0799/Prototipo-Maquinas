@@ -92,7 +92,7 @@ Es el minimarket o almacén donde finalmente se instala el freezer/conservadora 
 
 ### Frustración que el sistema busca resolver
 
-* Uso indebido del equipo (almacenar productos ajenos al negocio, como carnes o pollos), lo cual el sistema busca detectar mediante auditorías futuras (app móvil, fuera de alcance de esta fase).
+* Uso indebido del equipo (almacenar productos ajenos al negocio, como carnes o pollos), que se busca detectar mediante auditorías desde la aplicación móvil complementaria.
 
 ### Nota
 
@@ -100,11 +100,11 @@ Este actor no requiere pantallas propias en el prototipo, pero es relevante para
 
 ***
 
-## Persona 4 — Operador de Terreno _(fuera de alcance de esta fase — referencia futura)_
+## Persona 4 — Operador de Terreno _(aplicación móvil complementaria)_
 
 **Nombre ficticio:** Katherine Muñoz\
 **Rol:** Vendedora/Auditora de terreno del Gestor\
-**Perfil de sistema:** Futura app móvil **(explícitamente pospuesta en la propuesta, sección 3.4 y 8)**
+**Perfil de sistema:** Aplicación móvil complementaria para revisión e inventario en terreno
 
 ### Contexto
 
@@ -116,7 +116,7 @@ Visita los puntos de venta para verificar físicamente que el equipo esté prese
 * Confirmar presencia física (toma de inventario).
 * Registrar evidencia fotográfica y ubicación GPS, incluyendo si detecta productos no autorizados dentro del equipo.
 
-> Se incluye este perfil solo como **referencia documental**, ya que la propuesta indica explícitamente que la app móvil no debe considerarse en esta etapa. No se generarán pantallas ni prompts de Stitch para este perfil.
+> Este perfil se documenta funcionalmente en el proyecto **Prototipo Móvil Máquinas**. El prototipo web no incorpora pantallas móviles, pero debe mostrar y dar seguimiento a los resultados que el operador registre desde terreno.
 
 ***
 
@@ -127,4 +127,4 @@ Visita los puntos de venta para verificar físicamente que el equipo esté prese
 | Marcela (Mandante)               | Panel del Mandante       | Alta                                | En alcance                         |
 | Rodrigo (Gestor)                 | Panel del Gestor         | Alta                                | En alcance                         |
 | Almacén Don Luis (Cliente Final) | N/A (actor referenciado) | Media (como dato, no como pantalla) | En alcance parcial                 |
-| Katherine (Terreno)              | App móvil                | N/A                                 | **Fuera de alcance** (fase futura) |
+| Katherine (Terreno)              | App móvil complementaria | Alta                                | Documentación inicial en Prototipo Móvil Máquinas |

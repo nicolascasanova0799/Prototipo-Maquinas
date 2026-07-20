@@ -155,7 +155,7 @@ El flujo completo es: **3.5b (solicitud) → 3.5d (registro de conteo) → 3.5c 
 | **En ajuste**  | Naranja (`badge-sstt`)  | Conteo completo con discrepancias, pendiente de ajuste                                                | → Finalizado (al confirmar ajustes)                                |
 | **Finalizado** | Verde (`badge-activo`)  | Inventario completado: sin discrepancias desde el inicio, o tras ajustar las discrepancias detectadas | Estado terminal                                                    |
 
-Cuando se desarrolle la app móvil, la Capa 2 alimentará los resultados que se muestran en la Capa 1 (el resultado de una auditoría física se reflejará como un inventario "finalizado" con sus discrepancias) — no reemplaza el flujo web, lo complementa.
+La Capa 2 de la aplicación móvil complementaria alimentará los resultados mostrados en la Capa 1 (el resultado de una auditoría física se reflejará como un inventario "finalizado" con sus discrepancias) — no reemplaza el flujo web, lo complementa.
 
 ## 4. Decisiones tomadas (03/07/2026)
 

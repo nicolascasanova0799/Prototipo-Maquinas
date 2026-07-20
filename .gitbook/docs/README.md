@@ -15,7 +15,7 @@ La plataforma resuelve la pérdida de visibilidad y control que sufre un **Manda
 | Rol                       | Descripción                                                                                                                             | Paneles disponibles en el prototipo |
 | ------------------------- | --------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------- |
 | **Mandante**              | Dueño de los equipos (ej. Carozzi). Administra maestros, asigna equipos, autoriza movimientos, consulta inventario e informes.           | Completo (22 vistas)                |
-| **Gestor**                | Recibe equipos en comodato, los asigna a clientes finales, solicita movimientos y reporta inventario/ventas.                            | Completo (18 vistas)                |
+| **Gestor**                | Recibe equipos en comodato, los asigna a clientes finales, gestiona solicitudes de nuevo equipo desde la app móvil, solicita movimientos y reporta inventario/ventas.                            | Completo (19 vistas)                |
 | **Cliente final**         | Punto de venta donde se instala el equipo. No es usuario del sistema en esta fase; aparece solo como dato referenciado en otras vistas. | Sin acceso                          |
 
 ## 3. Estructura de navegación
@@ -24,7 +24,7 @@ Ambos paneles usan un sidebar fijo agrupado en secciones **Principal · Operaci�
 
 **Sidebar Mandante** (todos los enlaces resuelven a un archivo real): `Principal`: Dashboard, Asignación de Equipos · `Operación`: Autorización de Movimientos, Consulta de Inventario, Trazabilidad · `Análisis`: Informes · `Maestros`: Equipos, Gestores, Servicio Técnico, Ubicaciones/Bodegas, Motivos de Movimiento, Tipos de Solicitud, Plantillas de Inspección, Tipos de Incidencias · `Configuración`: Usuarios, Roles. Los submenús **Grupo de Máquinas**, **Familia de Máquinas**, **Marcas** y **Modelos** quedan eliminados de la navegación porque esas clasificaciones se informan dentro de la carga masiva de equipos.
 
-**Sidebar Gestor** (todos los enlaces resuelven a un archivo real, verificado directamente en `distribuidor/dashboard.html`): `Principal`: Dashboard, Recepción de Equipos, Asignación a Clientes · `Operación`: Solicitudes de Movimiento, Inventario, Guías de Despacho · `Análisis`: Reportes · `Maestros`: Clientes, Vendedores, Ubicaciones/Bodegas · `Configuración`: Usuarios, Roles. Clientes y Vendedores son vistas de consulta sincronizadas desde ERP; no permiten creación ni edición manual por parte del Gestor.
+**Sidebar Gestor** (todos los enlaces resuelven a un archivo real, verificado directamente en `distribuidor/dashboard.html`): `Principal`: Dashboard, Recepción de Equipos, Asignación a Clientes · `Operación`: Solicitudes de Movimiento, **Solicitudes de Nuevo Equipo**, Inventario, Guías de Despacho · `Análisis`: Reportes · `Maestros`: Clientes, Vendedores, Ubicaciones/Bodegas · `Configuración`: Usuarios, Roles. Clientes y Vendedores son vistas de consulta sincronizadas desde ERP; no permiten creación ni edición manual por parte del Gestor. **Solicitudes de Nuevo Equipo** es la bandeja de entrada donde el Gestor gestiona las solicitudes de equipos enviadas por los vendedores desde la aplicación móvil (ver §8.19).
 
 ***
 
@@ -211,7 +211,7 @@ Ambos paneles usan un sidebar fijo agrupado en secciones **Principal · Operaci�
 
 ## 8. Panel del Gestor
 
-> **Nota de verificación (07/07/2026)**: se confirmó directamente contra el código fuente que las 18 vistas del panel Gestor están implementadas (no solo el Dashboard). Cada enlace del sidebar de `distribuidor/dashboard.html` resuelve a un archivo HTML real y funcional. Los nombres de archivo conservan `gestor` por compatibilidad técnica del prototipo, aunque la terminología funcional visible es **Gestor**.
+> **Nota de verificación (07/07/2026, actualizada 20/07/2026)**: se confirmó directamente contra el código fuente que las 19 vistas del panel Gestor están implementadas (no solo el Dashboard). Cada enlace del sidebar de `distribuidor/dashboard.html` resuelve a un archivo HTML real y funcional. Los nombres de archivo conservan `gestor` por compatibilidad técnica del prototipo, aunque la terminología funcional visible es **Gestor**. La vista **Solicitudes de Nuevo Equipo** (`solicitudes-nuevo-equipo.html`) fue agregada el 20/07/2026 como parte del rediseño del flujo de solicitudes de nuevo equipo.
 
 ### 8.1 Dashboard Gestor
 
@@ -255,10 +255,10 @@ Ambos paneles usan un sidebar fijo agrupado en secciones **Principal · Operaci�
 * **Nombre de la vista**: Asignación de Clientes
 * **Objetivo / problema que resuelve**: vincular un equipo aceptado con un cliente final concreto, materializando la entrega física del equipo al punto de venta.
 * **Motivo por el que fue creada**: es el paso operativo que traspasa un equipo desde la bodega del Gestor al punto de venta.
-* **Funcionalidad principal**: dos columnas con buscador — "Equipos para asignar" (izquierda) y "Puntos de venta disponibles" (derecha); interacción de selección de equipo + cliente + botón "Asignar"; modal de confirmación que aclara que la Guía de Despacho se gestiona después, desde la tabla de Asignaciones Realizadas.
-* **Flujo de usuario**: se llega desde el botón "Nueva asignación" del navbar o desde el listado de asignaciones a clientes→ se elige equipo y cliente → se confirma → se retorna al listado.
-* **Relación con otras vistas**: depende de la vista de clientes (§8.14) sincronizada desde ERP para tener puntos de venta disponibles; su resultado aparece en el listado de asignaciones de equipos a clientes.
-* **Pendiente de validación**: definir si la logística de entrega al cliente final requiere un módulo de transporte/firma de conformidad o si se manejará solo como cambio de estado y respaldo documental.
+* **Funcionalidad principal**: layout vertical con tres secciones — (1) sección colapsable de "Puntos de venta disponibles" (ancho completo, con radio buttons, header colapsable con icono de toggle y resumen del cliente seleccionado; se auto-colapsa al seleccionar un cliente); (2) sub-tabla "Solicitudes pendientes de este cliente" que aparece al seleccionar un cliente, con botón "Analizar stock" por fila; (3) layout de dos columnas (`two-col-equip-panel`, grid `1fr 320px`): tabla de "Equipos para asignar" con checkboxes a la izquierda y panel resumen sticky a la derecha con count de equipos, cliente destino, dirección, solicitud origen y botones (Confirmar asignación, Guardar borrador, Limpiar selección). CSS y JS extraídos a `css/asignacion-clientes.css` y `js/asignacion-clientes.js`. Modal de confirmación con gestión de Guía de Despacho (API, subir PDF, o más tarde).
+* **Flujo de usuario**: se llega desde el botón "Nueva asignación" del navbar, desde el listado de asignaciones a clientes, o desde la bandeja de Solicitudes de Nuevo Equipo (§8.19) al hacer clic en "Analizar stock y asignar" → se elige equipo y cliente → se confirma → se retorna al listado.
+* **Relación con otras vistas**: depende de la vista de clientes (§8.14) sincronizada desde ERP para tener puntos de venta disponibles; su resultado aparece en el listado de asignaciones de equipos a clientes. Recibe redirecciones desde la bandeja de Solicitudes de Nuevo Equipo (§8.19) con el parámetro `?solicitud=SOL-XXX` para pre-cargar cliente y equipo solicitado.
+* **Pendiente de validación**: definir si la logística de entrega al cliente final requiere un módulo de transporte/firma de conformidad o si se manejará solo como cambio de estado y respaldo documental. _Implementado: soporte para parámetro URL `?solicitud=SOL-XXX` que auto-selecciona cliente y equipo, panel resumen lateral con borradores, sub-tabla de solicitudes pendientes por cliente, y layout vertical con sección colapsable de clientes (ver `openspec/changes/redesign-distributor-equipment-request-workflow/tasks.md` Phase 3)._
 
 ### 8.6 Solicitudes de Movimiento (listado)
 
@@ -282,7 +282,7 @@ Ambos paneles usan un sidebar fijo agrupado en secciones **Principal · Operaci�
 
 * **Nombre de la vista**: Inventario
 * **Objetivo / problema que resuelve**: listar las solicitudes de toma de inventario físico gestionadas por el Gestor, siendo el punto de entrada al flujo completo de inventario.
-* **Motivo por el que fue creada**: cubre la gestión web de solicitudes/conteo/ajustes de inventario (DIS-5 a DIS-7), distinta de la futura auditoría física con GPS/fotos de la app móvil (fuera de alcance de esta fase).
+* **Motivo por el que fue creada**: cubre la gestión web de solicitudes/conteo/ajustes de inventario (DIS-5 a DIS-7), complementaria a la auditoría física de la aplicación móvil. El panel web consulta y da seguimiento a los resultados enviados desde terreno; la ejecución móvil se documenta en el proyecto Prototipo Móvil Máquinas.
 * **Funcionalidad principal**: KPIs (En curso, En ajuste, Finalizados, Total); filtros (ID, vendedor, comuna, estado, fechas); tabla con ID, Fecha, Vendedor(es)/Comuna, Estado, N° equipos inventariados, Discrepancias y Acciones ("Registrar conteo" en curso, "Ajustar" en ajuste); botón "Nueva solicitud".
 * **Flujo de usuario**: se accede desde el sidebar (Operación) → se revisa el listado o se crea una nueva solicitud.
 * **Relación con otras vistas**: alimenta al formulario de solicitud de movimientos (§8.9), a la toma de inventario (§8.10) y el ajuste de inventario (§8.11); es la fuente de datos de la consulta de inventario por parte del mandante(solo lectura).
@@ -366,6 +366,21 @@ Ver [§7.1 Usuarios](#71-usuarios) — misma vista/patrón, con alcance limitado
 ### 8.18 Roles (Gestor)
 
 Ver [§7.2 Roles](#72-roles) — misma vista/patrón, con alcance limitado a los roles de la organización Gestor. Incluye el mismo acordeón de permisos por sección del sidebar, funcional.
+
+### 8.19 Solicitudes de Nuevo Equipo (bandeja de entrada)
+
+* **Nombre de la vista**: Solicitudes de Nuevo Equipo
+* **Objetivo / problema que resuelve**: centralizar la gestión de las solicitudes de nuevo equipo que los vendedores envían desde la aplicación móvil, permitiendo al Gestor revisar, analizar stock, posponer o descartar sin intervención del Mandante.
+* **Motivo por el que fue creada**: elimina el cuello de botella del Mandante en el flujo de solicitudes de nuevo equipo. El Gestor gestiona directamente las solicitudes, convirtiéndolas en asignaciones a clientes cuando el stock lo permite. _(Agregada 20/07/2026 — rediseño del flujo de solicitudes de nuevo equipo.)_
+* **Funcionalidad principal**: 4 KPIs (Pendientes, En proceso, Convertidas, Total); filtros (búsqueda por N° solicitud/cliente/serie, estado, rango de fechas); tabla con N° Solicitud, Cliente (nombre + comuna), Equipo solicitado (serie + marca/modelo), Cantidad, Estado (badge), Fecha y Acciones. Las acciones por fila varían según estado:
+  * **Ver detalle** (modal): muestra datos del cliente (nombre, comuna, dirección, vendedor), datos del equipo solicitado (serie, marca/modelo, cantidad, estado), motivo de la solicitud, observaciones, evidencia adjunta (fotos/audio) y sección de stock disponible del equipo con ubicación en bodega.
+  * **Analizar stock y asignar** (redirect a `asignacion-clientes.html?solicitud=SOL-XXX`): disponible para estados Pendiente, En proceso y Pospuesta.
+  * **Posponer**: cambia el estado a "Pospuesta" sin requerir motivo; la solicitud desaparece de la vista por defecto pero puede reactivarse.
+  * **Descartar**: abre modal con campo de motivo obligatorio; al confirmar, cambia el estado a "Descartada" (terminal).
+* **Estados de solicitud**: Pendiente → En proceso → Convertida | Pospuesta (reversible) | Descartada (terminal con motivo). Ver [reglas-de-negocio.md](reglas-de-negocio.md "mention") §0 Eje 6.
+* **Flujo de usuario**: se accede desde el sidebar (Operación) → el Gestor revisa KPIs y lista de solicitudes → abre el detalle de una solicitud para revisar cliente, equipo, motivo y evidencia → hace clic en "Analizar stock y asignar" para convertir la solicitud en una asignación, o pospone/descarta según corresponda.
+* **Relación con otras vistas**: recibe solicitudes originadas en la aplicación móvil (`solicitud-nuevo-equipo.html` del Prototipo Móvil Máquinas); el botón "Analizar stock y asignar" redirige a la vista de asignación a clientes (§8.5) con el parámetro `?solicitud=SOL-XXX` para pre-cargar cliente y equipo. Las solicitudes convertidas se reflejan en el listado de asignaciones realizadas (§8.4).
+* **Origen de datos**: las solicitudes se generan desde la aplicación móvil cuando un vendedor selecciona un equipo específico disponible (por serie, marca, modelo) y lo solicita para un cliente. Los datos mock se definen en `app-data.js` (`solicitudesNuevoEquipo`) y se replican inline en la vista web.
 
 ***
 

@@ -44,7 +44,7 @@
 | S-10 | Dashboard Gestor | `Prototipo Maquinas/distribuidor/dashboard.html` | ❌ | Ver nota abajo |
 | S-10b | Recepción de Equipos (Listado de Lotes) | `Prototipo Maquinas/distribuidor/recepciones.html` | ✅ | KPIs (En Tránsito, Pendientes, Recibidos, Con Problema, Rechazados), filtros, tabla de lotes con acciones por estado, modal detalle con resumen de inspección, paginación. Botón "Registrar llegada" en lotes "En Tránsito" que transiciona a "Pendiente de Inspección" vía JS. *(Añadido 06/07/2026)* |
 | S-11 | Recepción de Equipos (Inspección) | `Prototipo Maquinas/distribuidor/recepcion-equipos.html` | ✅ | Tabla de inspección, aceptar/reportar, formulario inline, resumen con progreso, confirmación. Dropdown de Motivo alineado con maestro Tipos de Incidencias. |
-| S-12 | Asignación a Clientes | `Prototipo Maquinas/distribuidor/asignaciones-realizadas.html` + `asignacion-clientes.html` | ✅ | Vista de listado (§3.3a) con KPIs, filtros, tabla, modal detalle, paginación. Pantalla de creación (§3.3b) con two-column layout, selección equipo/cliente, modal confirmación con variantes ERP RN-16. Botón "Nueva asignación" en navbar. |
+| S-12 | Asignación a Clientes | `Prototipo Maquinas/distribuidor/asignaciones-realizadas.html` + `asignacion-clientes.html` | ✅ | Vista de listado (§3.3a) con KPIs, filtros, tabla, modal detalle, paginación. Pantalla de creación (§3.3b) con layout vertical: sección colapsable de clientes, sub-tabla de solicitudes pendientes, y two-col-equip-panel (equipos + panel resumen sticky). Selección equipo/cliente, modal confirmación con gestión de GD (API, PDF, más tarde). Soporte URL params (?solicitud, ?mode=edit, ?mode=view). CSS/JS extraídos a archivos externos. Botón "Nueva asignación" en navbar. *(Actualizado 20/07/2026)* |
 | S-13 | Solicitud de Movimiento | — | 🔲 | No existe `distribuidor/solicitud-movimiento.html` |
 | S-14 | Gestión de Inventario | — | 🔲 | No existe `distribuidor/inventario.html` |
 | S-15 | Reportes de Ventas y Rendimiento | — | 🔲 | No existe `distribuidor/reportes.html` |
@@ -132,7 +132,7 @@
 |---|---|---|---|---|
 | DIS-1 | Recepción de Equipos | Must | ✅ | `distribuidor/recepciones.html` (listado de lotes §3.2a) + `distribuidor/recepcion-equipos.html` (inspección §3.2b). Listado incluye botón "Registrar llegada" para transición En Tránsito → Pendiente de Inspección. *(Actualizado 06/07/2026)* |
 | DIS-2 | Inspección visual / Aceptar-Rechazar | Must | ✅ | Aceptar individual, reportar problema, acciones en lote, resumen con progreso, confirmación |
-| DIS-3 | Asignación de Equipos a Clientes | Must | ✅ | `distribuidor/asignaciones-realizadas.html` (listado §3.3a) + `asignacion-clientes.html` (creación §3.3b). Two-column layout, modal confirmación con variantes ERP RN-16, botón "Nueva asignación" en navbar. |
+| DIS-3 | Asignación de Equipos a Clientes | Must | ✅ | `distribuidor/asignaciones-realizadas.html` (listado §3.3a) + `asignacion-clientes.html` (creación §3.3b). Layout vertical con clientes colapsables + two-col-equip-panel (equipos + panel resumen sticky), sub-tabla de solicitudes pendientes, modal confirmación con gestión de GD (API, PDF, más tarde), soporte URL params (?solicitud, ?mode=edit, ?mode=view), botón "Nueva asignación" en navbar. CSS/JS en archivos externos. *(Actualizado 20/07/2026)* |
 | DIS-4 | Solicitud de Movimiento | Must | 🔲 | Pantalla faltante |
 
 ### 2.7 Panel Gestor — Inventario
@@ -300,7 +300,7 @@
 | Modal / Dialog | ✅ | Usado en asignación, gestores, tipos de solicitud, motivos, plantillas, marcas, modelos, incidencias, SSTT, ubicaciones |
 | KPICard (4 tarjetas en dashboards) | ✅ | `.kpi-card` con icono 48px, label uppercase, value 28px bold |
 | MainLayout | ✅ | `.app-layout` flex con sidebar fixed + `.app-content` |
-| TwoColumnLayout | ✅ | `.two-col-layout` grid 1fr 320px en `asignacion-equipos.html` |
+| TwoColumnLayout | ✅ | `.two-col-layout` grid 1fr 320px en `asignacion-equipos.html` (Mandante) y `.two-col-equip-panel` grid 1fr 320px en `asignacion-clientes.html` (Gestor, dentro de layout vertical con clientes colapsables arriba). *(Actualizado 20/07/2026)* |
 | FormLayout | 🔲 | No verificable: Solicitud de Movimiento faltante |
 | Paginación | ✅ | Presente en `maestro-equipos.html`, `asignaciones.html`, `motivos-movimiento.html`, `tipos-solicitud.html`, `marcas.html`, `modelos.html`, `plantillas-inspeccion.html` |
 
